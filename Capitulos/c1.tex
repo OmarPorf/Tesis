@@ -1,0 +1,431 @@
+\chapter{Teoría de la computabilidad}
+\section{Computabilidad básica}
+\subsection{Primitivo-recursividad}
+\nomenclature{$\omath$}{El conjunto de los números naturales.}
+
+\begin{definition}
+    Se define al conjunto de funciones sobre $\omega$ como sigue:
+    \[
+        \mfunc\coloneqq\set{f:\omath[n]\to\omath|n\in\omath[+]}
+    \]
+    Sea $n\in\omath$, entonces denotaremos por $\mfunc[n]$ al conjunto de funciones sobre $\omath$ de aridad $n$:
+    \[
+        \mfunc[n]\coloneqq\set{f\in\mfunc:\maridad{f} = n}
+    \]
+\end{definition}
+
+\begin{definition}[Funciones básicas]
+    Se definen las \emph{funciones básicas} como las siguientes funciones de $\mfunc$:
+    \begin{itemize}
+        \item La función \emph{cero} $\mcero\in\mfunc[1]$ tal que para cada $n\in\omath$, $\mcero\pa{n} = 0$.
+        \item La función \emph{sucesor} $\msuc\in\mfunc[1]$ tal que para cada $n\in\omath$, $\msuc\pa{n} = n + 1$.
+        \item Para cada $n, k\in\omath[+]$\nomenclature{$\omath[+]$}{El conjunto de números naturales positivos.} con $k\leq n$, la función \emph{proyección} $\mproj{n}{k}\in\mfunc[n]$ tal que para cada $\pa{x_{1},\dotsc,x_{n}}\in\omath[n]$, $\mproj{n}{k}\pa{x_{1},\dotsc,x_{n}} = x_{k}$.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Composición generalizada]
+    Sean $n, k\in\omath$, $f\in\mfunc[n]$ y $g_{1},\dotsc, g_{n}\in\mfunc[k]$\nomenclature{$\maridad{f}$}{Aridad de la función $f$, es decir, el número de argumentos admitidos por la función $f$.}. La \emph{composición generalizada} de las funciones $f, g_{1},\dotsc, g_{n}$ es la única función $h\in\mfunc[k]$ tal que para cada $x\in\omath[k]$:
+        \[
+            h\pa{x} = f\pa{g_{1}\pa{x},\dotsc,g_{n}\pa{x}}
+        \]
+\end{definition}
+
+\begin{definition}[Recursión generalizada]
+    Sean $n\in\omath$, $f\in\mfunc[n]$ y $g\in\mfunc[n + 2]$. La \emph{recursión generalizada} de las funciones $f$ y $g$ es la única función $h:\mfunc[n + 1]$ tal que para cada $x\in\omath[n]$ y $y\in\omath$:
+        \[
+            \begin{array}{c}
+                h\pa{x, 0} = f\pa{x}\\
+                h\pa{x, \msuc\pa{y}} = g\pa{x, y, h\pa{x, y}}
+            \end{array}
+        \]
+\end{definition}
+
+\begin{definition}[Funciones primitivas recursivas]
+    Se define el conjunto de \emph{funciones primitivas recursivas} como el mínimo conjunto $\mprim\subseteq\mfunc$ que contiene a las funciones básicas y que es cerrado bajo composición y recursión generalizada.
+
+    Sea $n\in\omath$, entonces denotaremos por $\mprim[n]$ al conjunto de funciones primitivas recursivas de aridad $n$:
+    \[
+        \mprim[n]\coloneqq\set{f\in\mprim:\maridad{f} = n}
+    \]
+\end{definition}
+
+\begin{theorem}
+    Se satisface que las siguientes funciones son primitivas recursivas.
+    \begin{enumerate}
+        \item La función suma $f\in\mfunc[2]$ tal que $f\pa{x, y} = x + y$.
+        \item La función producto $f\in\mfunc[2]$ tal que $f\pa{x, y} = x\cdot y$.
+        \item La función exponenciación $f\in\mfunc[2]$ tal que $f\pa{x, y} = x^{y}$.
+        \item Para cada $n\in\omath[+]$, la función cero generalizada $f\in\mfunc[n]$ tal que $f\pa{x} = 0$.
+        \item La función predecesor $f:\in\mfunc[1]$ tal que:
+        \[
+            f\pa{x} =\begin{cases}
+               x - 1, & x > 0\\
+               0 & \text{en caso contrario}
+            \end{cases}
+        \]
+        \item La función resta $f\in\mfunc[2]$ tal que:
+        \[
+            f\pa{x} =\begin{cases}
+                x - y, & x > y\\
+                0, & \text{en caso contrario}
+            \end{cases}
+        \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{definition}[Conjuntos primitivos recursivos]
+    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n]}$. $R$ se dice \emph{primitivo recursivo} si $\mchi{R}\in\mprim$.
+\end{definition}
+
+\begin{theorem}
+    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n]}$. $R$ es primitivo recursivo si y solo si $\omath[n]\setminus R$ es primitivo recursivo.
+\end{theorem}
+
+\begin{theorem}
+    Las relaciones $\set{0}$, $<$, $>$ y $=$ son primitivos recursivos.
+\end{theorem}
+
+\begin{coll}
+    Las relaciones $\geq$, $\leq$ y $\neq$ son primitivos recursivos.
+\end{coll}
+
+\begin{definition}[Fórmulas primitivas recursivas]
+    Sean $n\in\omath[+]$ y $\varphi\pa{x_{1},\dotsc,x_{n}}$ una fórmula con variables libres en $\set{x_{1},\dotsc,x_{n}}$. $\varphi$ se denomina primitiva recursiva si el conjunto $\set{\pa{x_{1},\dotsc,x_{n}}\in\omath[n]:\varphi\pa{x_{1},\dotsc,x_{n}}}$ es primitivo recursivo.
+\end{definition}
+
+\begin{theorem}
+    Sean $\varphi$ y $\psi$ fórmulas primitivas recursivas. Entonces $\neg\varphi$, $\varphi\vee\psi$ y $\varphi\land\psi$ son primitivas recursivas.
+\end{theorem}
+
+\begin{coll}
+    Sean $n\in\omath[+]$ y $X, Y\in\mpow{\omath[n]}$ primitivos recursivos. Entonces $X\cup Y$, $X\cap Y$ y $X\setminus Y$ son primitivos recursivos.
+\end{coll}
+
+\begin{theorem}
+    Sean $n\in\omath[+]$, $y\in\omath$ y $f\in\mprim[n + 1]$. Entonces las siguientes funciones son primitivas recursivas:
+    \begin{enumerate}
+        \item $g\in\mfunc[n]$ tal que para cada $x\in\omath[n]$, $g\pa{x} =\sum\limits_{z < y}f\pa{x, z}$.
+        \item $g\in\mfunc[n]$ tal que para cada $x\in\omath[n]$, $g\pa{x} =\prod\limits_{z < y}f\pa{x, z}$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{notation}
+    Sean $\varphi$ una fórmula, $x$ una variable y $t$ un término que no contiene a $x$. Se denotará a las fórmulas $\exists x\pa{\pa{x < t}\land\varphi}$ y $\forall x\pa{\pa{x < t}\to\varphi}$ por $\pa{\exists x < t}\varphi$ y $\pa{\forall x < t}\varphi$ respectivamente. 
+\end{notation}
+
+\begin{theorem}
+    Sean $n\in\omath[+]$, $f\in\mprim[n]$ y $R\in\mpow{\omath[n + 1]}$ una relación primitiva recursiva. Entonces las siguientes relaciones son primitivas recursivas:
+    \begin{enumerate}
+        \item $\set{x\in\omath[n]:\pa{\exists y < f\pa{x}}R\pa{x, y}}$
+        \item $\set{x\in\omath[n]:\pa{\forall y < f\pa{x}}R\pa{x, y}}$
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Sean $n, k\in\omath[+]$, $g_{1},\dotsc, g_{n}, h\in\mprim[k]$ y $R_{1},\dotsc, R_{n}\in\mpow{\omath[k]}$ primitivas recursivas disjuntas a pares. Entonces la función $f\in\mfunc[k]$ dada como sigue para cada $x\in\omath[k]$ es primitiva recursiva:
+    \[
+        f\pa{x} =\begin{cases}
+            g_{1}\pa{x}, & R_{1}\pa{x}\\
+            \vdots &\\
+            g_{n}\pa{x}, & R_{n}\pa{x}\\
+            h\pa{x}, &\text{en otro caso}
+        \end{cases}
+    \]
+\end{theorem}
+
+\begin{definition}[Operador $\mu$ acotado]
+    Sean $n\in\omath[+]$, $R\in\mpow{\omath[n + 1]}$ y $z\in\omath$. El \emph{operador $\mu$ (acotado)} de $R$ con cota $z$ es la función $f\in\mfunc[n]$ tal que para cada $x\in\omath[n]$:
+    \[
+        f\pa{x} =\begin{cases}
+            \min\set{y\in\omath:\pa{y < z}\land R\pa{x, y}}, &\text{si existe}\\
+            0, & \text{en otro caso}
+        \end{cases}
+    \]
+    A tal función se le denota por $\pa{\mu y < z}R\pa{x, y}$.
+\end{definition}
+
+\begin{theorem}
+    Sean $n\in\omath$, $g\in\mprim[n]$ y $R\in\mpow{\omath[n + 1]}$ primitiva recursiva. Entonces la función $f\in\mfunc[n]$ tal que para cada $x\in\omath[n]$, $f(x) =\pa{\mu y < g(x)}R(x, y)$ es primitiva recursiva.
+\end{theorem}
+
+\subsection{Parcial-recursividad}
+
+\begin{definition}[Funciones parciales]
+    Sea $\partial$ un elemento que no pertenece a $\omath$. Definimos al conjunto $\omath[\partial]\coloneqq\omath\cup\set{\partial}$.
+    
+    Se define el conjunto de \emph{funciones parciales} como sigue:
+    \[
+        \mfunc[][\partial]\coloneqq\set{f:\omath[n]\to\omath[\partial]| n\in\omath[+]}
+    \]
+    
+    Para cada $n\in\omath[+]$, se define al conjunto de funciones parciales de aridad $n$ como:
+    \[
+        \mfunc[n][\partial]\coloneqq\set{f\in\mfunc[][\partial]:\maridad{f} = n}
+    \]
+
+    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. Para cada $x\in\omath[n]$, si $f\pa{x} =\partial$, entonces se denotará por $f\pa{x}\partial$; y si existe $y\in\omath$ tal que $f\pa{x} = y$, entonces se denotará por $f\pa{x}\halt$.
+
+    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. Se define el \emph{dominio} de $f$ como el conjunto:
+    \[
+        \mdom{f}\coloneqq\set{x\in\omath[n]: f(x)\halt}
+    \]
+
+    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. Se define el \emph{rango} de $f$ como el conjunto:
+    \[
+        \mran{f}\coloneqq\set{y\in\omath:\exists x\pa{x\in\omath[n]\land\pa{f(x) = y}}}
+    \]
+
+    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. $f$ se denomina \emph{total} si $\mdom{f} =\omath[n]$.
+\end{definition}
+
+\begin{definition}[Composición generalizada para funciones parciales]
+    Sean $n, k\in\omath[+]$, $f\in\mfunc[n][\partial]$ y $g_{1},\dotsc,g_{n}\in\mfunc[k][\partial]$. La \emph{composición generalizada} de $f$ con $g_{1},\dotsc, g_{n}$ es la única función $h\in\mfunc[k][\partial]$ tal que para cada $x\in\omath[k]$:
+    \[
+        h(x) =\begin{cases}
+            f\pa{g_{1}\pa{x},\dotsc,g_{n}\pa{x}}, &\pa{\forall k\leq n}g_{k}(x)\halt\\
+            \partial, &\text{en otro caso}
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}[Recursividad generalizada para funciones parciales]
+    Sean $n\in\omath[+]$, $f\in\mfunc[n][\partial]$ y $g\in\mfunc[n + 2][\partial]$. La \emph{recursión generalizada} de $f$ con $g$ es la única función $h\in\mfunc[n + 1][\partial]$ tal que para cada $x\in\omath[n]$ y cada $y\in\omath$.
+    \[
+        \begin{array}{c}
+            h\pa{x, 0} = f(x)\\
+            h\pa{x,\msuc\pa{y}} =\begin{cases}
+                g\pa{x, y, h\pa{x, y}}, & h\pa{x, y}\halt\\
+                \partial, &\text{en otro caso}
+            \end{cases}
+        \end{array}
+    \]
+\end{definition}
+
+\begin{definition}[Operador $\mu$ no acotado]
+    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n + 1]}$. El \emph{operador $\mu$ (no acotado)} de $R$ es la función $f\in\mfunc[n][\partial]$ tal que para cada $x\in\omath[n]$:
+    \[
+        f\pa{x} =\begin{cases}
+            \min\set{y\in\omath:R\pa{x, y}}, &\text{si existe}\\
+            \partial, & \text{en otro caso}
+        \end{cases}
+    \]
+    A tal función se le denota por $\mu y R\pa{x, y}$.
+\end{definition}
+
+\begin{definition}[Funciones parcial recursivas]
+    El conjunto de \emph{funciones parcial recursivas} es el mínimo conjunto $\mpartial\subseteq\mfunc[][\partial]$ que contiene las funciones básicas, es cerrado bajo composición y recursividad general de funciones parciales, y además satisface que para cada $n\in\omath[+]$ y cada $g\in\mpartial$ con $\maridad{g} = n + 1$, definiéndose la relación $R =\set{\pa{x, y}\in\omath[n + 1]: \pa{g(x, y) = 0}\land\pa{\forall z < y}g(x, y)\halt}$, se cumple que la función $f\in\mfunc[n][\partial]$ tal que $f(x) =\mu yR(x, y)$ para cada $x\in\omath[n]$ está en $\mpartial$.
+
+    Definimos al conjunto $\mpartial[n]\coloneqq\set{f\in\mpartial:\maridad{f} = n}$.
+
+    Sean $n\in\omath[+]$ y $f\in\mpartial[n]$. $f$ se dice \emph{total recursiva} si es total.
+
+    Se define el conjunto de funciones total recursivas como $\mtotal\coloneqq\set{f\in\mpartial: f\text{ es total}}$, y para cada $n\in\omath[+]$, se define $\mtotal[n]\coloneqq\set{f\in\mtotal:\maridad{f} = n}$.
+\end{definition}
+
+\begin{theorem}
+    $\mprim\subsetneq\mpartial$
+\end{theorem}
+
+\begin{definition}[Conjunto recursivo]
+    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n]}$. $R$ se denomina \emph{recursivo} si $\mchi{R}\in\mtotal$.
+\end{definition}
+
+\begin{theorem}
+    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n]}$. $R$ es recursivo si y solo si $\omath[n]\setminus R$ es recursivo.
+\end{theorem}
+
+\begin{definition}
+    Sean $n\in\omath[+]$ y $\varphi\pa{x_{1},\dotsc,x_{n}}$ una fórmula con variables libres en $\set{x_{1},\dotsc,x_{n}}$. $\varphi$ se denomina recursiva si el conjunto $\set{\pa{x_{1},\dotsc,x_{n}}\in\omath[n]:\varphi\pa{x_{1},\dotsc,x_{n}}}$ es recursivo.
+\end{definition}
+
+\begin{theorem}
+    Sean $\varphi$ y $\psi$ fórmulas recursivas. Entonces $\neg\varphi$, $\varphi\vee\psi$ y $\varphi\land\psi$ son recursivas.
+\end{theorem}
+
+\begin{coll}
+    Sean $n\in\omath[+]$ y $X, Y\in\mpow{\omath[n]}$ recursivos. Entonces $X\cup Y$, $X\cap Y$ y $X\setminus Y$ son recursivos.
+\end{coll}
+
+\begin{theorem}
+    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n + 1]}$ recursiva. Entonces la función $f\in\mfunc[n][\partial]$ tal que para cada $x\in\omath[n]$, $f(x) =\mu yR(x, y)$ es parcial recursiva.
+\end{theorem}
+
+\begin{theorem}
+    Sean $n\in\omath[+]$ y $X\in\mpow{\omath}$ recursivo infinito. Entonces existe $f\in\mpartial[1]$ creciente tal que $\mran{f} = A$.
+\end{theorem}
+
+\subsection{Codificación de listas}
+
+\begin{definition}[Codificación de listas]
+    Para cada $n\in\omath[+]$, la \emph{codificación de listas} (de longitud $n$) es la función $f\in\mfunc[n]$ tal que para cada $x =\pa{x_{1},\dotsc, x_{n}}\in\omath[n]$:
+    \[
+        f(x) = \prod_{k = 1}^{n}p_{k}^{x_{k} + 1}
+    \]
+    donde $p_{k}$ es el $k$-ésimo número primo.
+    
+    Para cada $n\in\omath[+]$ y cada $x\in\omath[+]$, la codificación de $x$ se denotará por $\mlist{x}$.
+
+    Para cada $n\in\omath[+]$, define el conjunto de códigos de longitud $n$ como el conjunto:
+    \[
+        \mcod[n]\coloneqq\set{\mlist{x}\in\omath: x\in\omath[n]}
+    \]
+
+    Se define el conjunto de códigos como:
+    \[
+        \mcod\coloneqq\set{1}\cup\bigcup_{n\in\omath[+]}\mcod[n]
+    \]
+ \end{definition}
+
+\begin{theorem}
+     $\mcod$ es primitivo recursivo.
+\end{theorem}
+
+\begin{definition}[Longitud de lista]
+    Se define la función longitud $\mlen\in\mfunc[1]$ para cada $x\in\omath$ como:
+    \[
+        \mlen\pa{x} =\begin{dcases}
+            \mu n\exists y\pa{\pa{y\in\omath[n]}\land\pa{x = \mlist{y}}}, & x\in\mcod\\
+            0, & \text{en otro caso}
+        \end{dcases}
+    \]
+\end{definition}
+
+\begin{theorem}
+    $\mlen$ es primitiva recursiva.
+\end{theorem}
+
+\subsection{Máquinas URM}
+
+\begin{definition}[Instrucciones básicas]
+    Se define al conjunto de \emph{instrucciones básicas} como el siguiente conjunto de símbolos:
+    \begin{align*}
+        \minstr\coloneqq&\set{Z\pa{n}: n\in\omath[+]}\cup\set{S\pa{n}: n\in\omath[+]}\cup\set{T\pa{n, m}: n, m\in\omath[+]}\\
+        &\cup\set{J\pa{n, m, k}: n, m, k\in\omath[+]}
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Máquinas URM]
+    Se define al conjunto de \emph{máquinas URM} (máquina sin límite de registros) como el conjunto de sucesiones finitas de $\minstr$:
+    \[
+        \murm\coloneqq\bigcup_{n\in\omath[+]}\minstr^{n}
+    \]
+\end{definition}
+
+\begin{definition}[Ejecución de máquinas URM]
+    Sean $p, m\in\omath[+]$, $M =\pa{I_{1},\dotsc, I_{p}}\in\murm$ y $x =\pa{x_{1},\dotsc, x_{m}}\in\omath[m]$. La \emph{ejecución} de la máquina $M$ con entrada $x$ es la sucesión de funciones $\set{f_{n}}_{n\in\omath}\subseteq\mfunc[1]$ tal que para cada $n, k\in\omath$:
+    \begin{itemize}
+        \item si $n = 0$, entonces:
+        \[
+            f_{0}\pa{k} =\begin{cases}
+                1, & k = 0\\
+                x_{k}, & 1\leq k\leq m\\
+                0, &\text{en otro caso}
+            \end{cases}
+        \]
+        \item si $f_{n}\pa{0}\leq p$ e $I_{f_{n}\pa{0}} = Z\pa{i}$ para algún $i\in\omath[+]$, entonces:
+        \[
+            f_{n + 1}\pa{k} =\begin{cases}
+                f_{n}\pa{0} + 1, & k = 0\\
+                0, & k = i\\
+                f_{n}\pa{k}, & \text{en otro caso}
+            \end{cases}
+        \]
+        \item si $f_{n}\pa{0}\leq p$ e $I_{f_{n}\pa{0}} = S\pa{i}$ para algún $i\in\omath[+]$, entonces:
+        \[
+            f_{n + 1}\pa{k} =\begin{cases}
+                f_{n}\pa{k} + 1, & k\in\set{0, i}\\
+                f_{n}\pa{k}, & \text{en otro caso}
+            \end{cases}
+        \]
+        \item si $f_{n}\pa{0}\leq p$ e $I_{f_{n}\pa{0}} = T\pa{i, j}$ para algunos $i, j\in\omath[+]$, entonces:
+        \[
+            f_{n + 1}\pa{k} =\begin{cases}
+                f_{n}\pa{0} + 1, & k = 0\\
+                f_{n}\pa{i}, & k = j\\
+                f_{n}\pa{k}, & \text{en otro caso}
+            \end{cases}
+        \]
+        \item si $f_{n}\pa{0}\leq p$ e $I_{f_{n}\pa{0}} = J\pa{i, j, q}$ para algunos $i, j, q\in\omath[+]$, entonces:
+        \[
+            f_{n + 1}\pa{k} =\begin{cases}
+                q, & k = 0, f_{n}\pa{i} = f_{n}\pa{j}\\
+                f_{n}\pa{k}, & \text{en otro caso}
+            \end{cases}
+        \]
+        \item si $f_{n}\pa{0} > p$, entonces $f_{n + 1}\pa{k} = f_{n}\pa{k}$.
+    \end{itemize}
+    Decimos que la ejecución \emph{se detiene} si existe $n\in\omath[+]$ tal que $f_{n}\pa{0} > p$.
+\end{definition}
+
+\begin{definition}[Funciones URM-computables]
+    Sean $n\in\omath[+]$ y $M\in\murm$. La función $\varphi_{M}^{(n)}\in\mfunc[n][\partial]$ asociada a $M$ de aridad $n$ está definida para cada $x\in\omath[n]$ como:
+    \[
+        \varphi_{M}^{(n)}\pa{x} =\begin{dcases}
+            f_{k}\pa{1}, & \parbox{0.7\linewidth}{la ejecución $\set{f_{n}}_{n\in\omath}\subseteq\mfunc[1]$ de $M$ con entrada $x$ se detiene, con $k$ el mínimo índice donde la ejecución se detiene}\\
+            \partial, & \text{en otro caso}
+        \end{dcases}
+    \]
+
+    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. $f$ se denomina \emph{URM-computable} si existe $M\in\murm$ tal que $f =\varphi_{M}^{(n)}$.
+
+    Se denota al conjunto de funciones URM-computables como $\murmcomp$.
+
+    Para cada $n\in\omath[+]$ se define el conjunto:
+    \[
+        \murmcomp[n]\coloneqq\set{f\in\murmcomp: \maridad{f} = n}
+    \]
+\end{definition}
+
+\begin{theorem}
+    $\mpartial\subseteq\murmcomp$
+\end{theorem}
+
+\begin{definition}[Codificación de máquinas URM]
+    Sea $f:\minstr\to\omath$ definida como sigue:
+    \begin{itemize}
+        \item para cada $n\in\omath[+]$, $f\pa{Z\pa{n}} =\mlist{0, n}$.
+        \item para cada $n\in\omath[+]$, $f\pa{S\pa{n}} =\mlist{1, n}$.
+        \item para cada $n, m\in\omath[+]$, $f\pa{T\pa{n, m}} =\mlist{2, n, m}$.
+        \item para cada $n, m, k\in\omath[+]$, $f\pa{J\pa{n, m, k}} =\mlist{3, n, m, k}$.
+    \end{itemize}
+    Se define la codificación de $\murm$ como la función $f^{*}:\murm\to\omath$ tal que para cada $n\in\omath[+]$ y $M =\pa{I_{1},\dotsc, I_{n}}\in\murm$, $f^{*}\pa{M} =\mlist{0, f\pa{I_{1}},\dotsc, f\pa{I_{n}}}$.
+
+    Definimos al conjunto de códigos de $\murm$ como $\murmcod\coloneqq\mran{f^{*}}$.
+\end{definition}
+
+\begin{theorem}
+    $\murmcod$ es primitivo recursivo.
+\end{theorem}
+
+\begin{definition}[Máximo de registros]
+    Defínase la función $f\in\mfunc[1]$ tal que para cada $e\in\omath$:
+    \[
+        f\pa{e} = \begin{cases}
+            e[1], & e\in\mcod,\mlen\pa{e} = 2\\
+            \max\set{e[1], e[2]}, & e\in\mcod,\mlen\pa{e}\in\set{3, 4}\\
+            0, &\text{en otro caso}
+        \end{cases}
+    \]
+    Definimos a la función $\mmaxreg\in\mfunc[1]$ que devuelve el registro máximo ocupado por una máquina $\murm$ tal que para cada $e\in\omath$:
+    \[
+        \mmaxreg\pa{n} =\begin{cases}
+            \max\set{f\pa{e[1]},\dotsc, f\pa{e[\mlen\pa{e} - 1]}}, & e\in\murmcod\\
+            0, &\text{en otro caso}
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{theorem}
+    $\mmaxreg$ es primitiva recursiva.
+\end{theorem}
+
+\begin{definition}[Configuraciones]
+    Se define al conjunto de \emph{configuraciones} de máquinas $\murm$ como el siguiente conjunto de códigos:
+    \[
+        \mconfig\coloneqq\set{e\in\mcod:\mlen\pa{e} > 0, e[0] > 0}
+    \]
+\end{definition}
+
+\begin{definition}[Codificación de la ejecución]
+    Sean 
+\end{definition}

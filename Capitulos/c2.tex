@@ -1,0 +1,335 @@
+\chapter{Aritmética de segundo orden}
+
+\begin{definition}[Lenguaje de la aritmética de segundo orden]
+    El lenguaje de la aritmética de segundo orden es el lenguaje de dos tipos $\LA =\left(0, 1, +, \cdot, =, <, \in,\mvar[N],\mvar[C], \mathrm{Log}\right)$ donde:
+    \begin{enumerate}
+        \item los símbolos $0$ y $1$ son de constante (de tipo número).
+        \item los símbolos $+$ y $\cdot$ son de función binaria (de tipo número).
+        \item los símbolos $=$ y $<$ son de relación binaria (de tipo número).
+        \item el símbolo $\in$ es de relación binaria (relaciona tipo número con tipo conjunto).
+        \item los conjuntos $\mvar[N]$ y $\mvar[C]$ son infinitos no vacíos y disjuntos denominados \emph{conjuntos de variables de tipo número} y \emph{de tipo conjunto} respectivamente.
+        \item el conjunto $\mathrm{Log}=\left\{\neg,\land,\forall,\exists, ), (\right\}$ se denomina \emph{conjunto de símbolos lógicos}. 
+    \end{enumerate}
+    Definimos al conjunto total de variables como $\mvar\coloneqq\mvar[N]\cup\mvar[C]$. 
+\end{definition}
+
+\begin{notation}
+    Denotaremos a las variables de tipo número (elementos de $\mvar[N]$) mediante letras minúsculas ($n$, $m$, $p$, $\dotsc$), y a las variables de tipo conjunto (elementos de $\mvar[C]$) mediante letras mayúsculas ($X$, $Y$, $Z$, $\dotsc$). En ambos casos, pueden utilizarse subíndices si es necesario (por ejemplo, $n_{1}$, $n_{2}$, $X_{1}$, $X_{2}$).
+\end{notation}
+
+\begin{definition}[Términos]
+    Se define el conjunto de \emph{términos} de $\LA$ como el mínimo conjunto $\mterm\subseteq\LA^{*}$ que satisface los siguientes puntos:
+    \begin{enumerate}
+        \item Las palabras $0$ y $1$ pertenecen a $\mterm$.
+        \item $\mvar[N]\subseteq\mterm$
+        \item para cada $t_{1}$ y $t_{2}$ en $\mterm$, se satisface que las palabras $\left(t_{1} + t_{2}\right)$ y $\left(t_{1}\cdot t_{2}\right)$ pertenecen a $\mterm$.
+    \end{enumerate}
+\end{definition}
+
+Ejemplos de términos de $\LA$ son los siguientes:
+\[
+\begin{array}{cccc}
+    1 & 0 & n & m_{2} \\
+    \left(1 + 0\right) & \left(n\cdot m\right) & \left(1\cdot\left(n_{1} + m_{2}\right)\right) &\left(\left(1 + n\right)\cdot\left(0\cdot m_{1}\right)\right)
+\end{array}
+\]
+
+
+\begin{definition}[Fórmulas atómicas]
+    Se define el conjunto de fórmulas atómicas de $\LA$ como el conjunto $\matom\subseteq\LA^{*}$ que satisface los siguientes puntos:
+    \begin{enumerate}
+        \item para cada $t_{1}$ y $t_{2}$ en $\mterm$ se cumple que las palabras $\left(t_{1} = t_{2}\right)$ y $\left(t_{1} < t_{2}\right)$ pertenecen a $\matom$
+        \item para cada $t$ en $\mterm$ y cada $X$ en $\mvar[C]$, la palabra $\left(t\in X\right)$ pertenece a $\matom$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Fórmulas]
+     Se define el conjunto de fórmulas de $\LA$ como el mínimo conjunto $\mform\subseteq\LA^{*}$ que satisface los siguientes puntos:
+     \begin{enumerate}
+         \item $\matom\subseteq\mform$
+         \item para cada $\varphi\in\mform$ se satisface que $\neg\varphi\in\mform$.
+         \item para cada $\varphi_{1}$ y $\varphi_{2}$ en $\mform$ se satisface que la palabra $\left(\varphi_{1}\land\varphi_{2}\right)$ pertenece a $\mform$.
+         \item para cada $x\in\mvar$ y cada $\varphi\in\mform$ se satisface que las palabras $\forall x\varphi$ y $\exists x\varphi$ pertenecen a $\mform$.
+     \end{enumerate}
+\end{definition}
+
+\begin{notation}
+    Para cada $\varphi_{1}$ y $\varphi_{2}$ en $\mform$ se realizan las siguientes abreviaciones:
+    \begin{enumerate}
+        \item se escribe $\left(\varphi_{1}\vee\varphi_{2}\right)$ en lugar de $\neg\left(\neg\varphi_{1}\land\neg\varphi_{2}\right)$.
+        \item se escribe $\left(\varphi_{1}\to\varphi_{2}\right)$ en lugar de $\left(\neg\varphi_{1}\vee\varphi_{2}\right)$.
+        \item se escribe $\left(\varphi_{1}\leftrightarrow\varphi_{2}\right)$ en lugar de $\left(\left(\varphi_{1}\to\varphi_{2}\right)\land\left(\varphi_{2}\to\varphi_{1}\right)\right)$.
+    \end{enumerate}
+\end{notation}
+
+\begin{definition}[Estructuras]
+	Una \emph{estructura} de $\LA$, o \emph{$\LA$-estructura}, es una tupla $\mathcal{M} =\left(M_{N}, M_{C}, 0^{\mathcal{M}}, 1^{\mathcal{M}}, +^{\mathcal{M}},\cdot^{\mathcal{M}}, =^{\mathcal{M}}, <^{\mathcal{M}},\in^{\mathcal{M}}\right)$ donde:
+	\begin{enumerate}
+		\item $M_{N}$ y $M_{C}$ son conjuntos no vacíos, denominados \emph{conjuntos de tipo número} y \emph{de tipo conjunto} respectivamente.
+		\item $0^{\mathcal{M}}, 1^{\mathcal{M}}\in M_{N}$
+		\item $+^{\mathcal{M}}, \cdot^{\mathcal{M}}: M_{N}^{2}\to M_{N}$
+		\item $<^{\mathcal{M}}, =^{\mathcal{M}}\subseteq M_{N}^{2}$ donde $=^{\mathcal{M}}$ es la relación identidad.
+		\item $\in^{\mathcal{M}}\subseteq M_{N}\times M_{C}$
+	\end{enumerate}
+\end{definition}
+
+\begin{notation}
+	Para simplificar la notación, una $\LA$-estructura se denota por una letra mayúscula en estilo caligráfico, su conjunto de tipo número se denota por esa letra en estilo plano con subíndice $N$, y similarmente su conjunto de tipo conjunto se denota con subíndice $C$.
+	
+	Por ejemplo, si $\mathcal{A}$ es una $\LA$-estructura, entonces $A_{N}$ es su conjunto de tipo número y $A_{C}$ es su conjunto de tipo conjunto.
+\end{notation}
+
+\begin{definition}[$\omega$-estructura]
+	Sea $\mathcal{M}$ una $\LA$-estructura. $\mathcal{M}$ se denomina \emph{$\omega$-estructura} si $M_{N} =\omega$, $M_{C}\subseteq\mpow{\omega}$, y $+^{\mathcal{M}}$, $\cdot^{\mathcal{M}}$ y $<^{\mathcal{M}}$ se interpretan de la forma estándar en $\omega$, y $\in^{\mathcal{M}}$ se interpreta de la forma estándar de la teoría de conjuntos. 
+	
+	Identificaremos una $\omega$-estructura por su conjunto de tipo conjunto, por lo que para cada $S\subseteq\mpow{\omega}$, al decir que $S$ es una $\omega$-estructura nos referiremos en realidad a la única $\omega$-estructura $\mathcal{M}$ tal que $M_{C} = S$.
+\end{definition}
+
+%===================
+% Salto a los esquemas y axiomas
+%===================
+
+\begin{definition}[Cuantificadores acotados]
+	Una \emph{fórmula acotadamente cuantificada} es toda aquella de la forma $\exists n\left(\left(n < t\right)\land\varphi\right)$ o $\forall n\left(\left(n < t\right)\to\varphi\right)$ donde $\varphi\in\mform$, $n\in\mvar[N]$, $t\in\mterm$ y $n\notin\mathrm{Var}\left[t\right]$.
+\end{definition}
+
+\begin{notation}
+	Sean $\varphi\in\mform$, $n\in\mvar[N]$ y $t\in\mterm$ tales que $n\notin\mathrm{Var}\left[t\right]$. Entonces:
+	\begin{enumerate}
+		\item escribiremos $\left(\exists n < t\right)\varphi$ en lugar de $\exists n\left(\left(n < t\right)\land\varphi\right)$.
+		\item escribiremos $\left(\forall n < t\right)\varphi$ en lugar de $\forall n\left(\left(n < t\right)\to\varphi\right)$.
+	\end{enumerate}
+\end{notation}
+
+\begin{definition}[Jerarquía aritmética]
+	Se define al conjunto de fórmulas $\Delta_{0}^{0}\subseteq\mform$ como el mínimo conjunto que satisface lo siguiente:
+	\begin{enumerate}
+		\item $\matom\subseteq\Delta_{0}^{0}$
+		\item para cada $\varphi\in\Delta_{0}^{0}$ se satisface que $\neg\varphi\in\Delta_{0}^{0}$.
+		\item para cada $\varphi_{1},\varphi_{2}\in\Delta_{0}^{0}$ se satisface que $\left(\varphi_{1}\land\varphi_{2}\right)\in\Delta_{0}^{0}$.
+		\item para cada $\varphi\in\Delta_{0}^{0}$, $n\in\mvar[N]$ y $t\in\mterm$ tales que $n\notin\mathrm{Var}\left[t\right]$ se satisface que $\left(\exists n < t\right)\varphi,\left(\forall n < t\right)\varphi\in\Delta_{0}^{0}$.
+	\end{enumerate}
+	Para cada $k\in\omega^{+}$ se definen los siguientes conjuntos:
+	\begin{enumerate}
+		\item $\Sigma_{1}^{0}\subseteq\mform$ es el conjunto de todas las fórmulas $\varphi\in\mform$ tales que $\varphi\equiv\exists n\psi$ para algunos $n\in\mvar[N]$ y $\psi\in\Delta_{0}^{0}$. 
+		\item $\Pi_{1}^{0}\subseteq\mform$ es el conjunto de todas las fórmulas $\varphi\in\mform$ tales que $\varphi\equiv\forall n\psi$ para algunos $n\in\mvar[N]$ y $\psi\in\Delta_{0}^{0}$.
+		\item $\Sigma_{k + 1}^{0}\subseteq\mform$ es el conjunto de todas las fórmulas $\varphi\in\mform$ tales que $\varphi\equiv\exists n\psi$ para algunos $n\in\mvar[N]$ y $\psi\in\Pi_{k}^{0}$.
+		\item $\Pi_{k + 1}^{0}\subseteq\mform$ es el conjunto de todas las fórmulas $\varphi\in\mform$ tales que $\varphi\equiv\forall n\psi$ para algunos $n\in\mvar[N]$ y $\psi\in\Sigma_{k}^{0}$.
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+	Se satisface que $\Delta_{0}^{0}\subseteq\Sigma_{1}^{0}$ y $\Delta_{0}^{0}\subseteq\Pi_{1}^{0}$.
+\end{theorem}
+
+\begin{proof}
+	Consideremos una fórmula $\varphi\in\Delta_{0}^{0}$ y $n\in\mvar[N]$ con $n\notin\mathrm{Var}\left[\varphi\right]$. Mostremos que $\varphi\in\Sigma_{1}^{0}$ y $\varphi\in\Pi_{1}^{0}$.
+	
+	Consideremos a la fórmula $\psi$ dada por $\exists n\left(\left(n = n\right)\land\varphi\right)$. Notemos que $\left(\left(n = n\right)\land\varphi\right)\in\Delta_{0}^{0}$ ya que $\left(n = n\right)\in\matom\subseteq\Delta_{0}^{0}$ y, por hipótesis, $\varphi\in\Delta_{0}^{0}$. 
+	
+	Obtenemos lo siguiente:
+	\[
+		\psi\equiv\exists n\left(\left(n = n\right)\land\varphi\right)\equiv\exists n\left(\top\land\varphi\right)\equiv\exists n\varphi\equiv\varphi
+	\]
+	Por lo que $\varphi\equiv\psi$, y entonces $\varphi\in\Sigma_{1}^{0}$.
+	
+	Ahora, para el caso de $\Pi_{1}^{0}$, si $\theta$ está dada por $\forall n\left(\left(n = n\right)\to\varphi\right)$, similarmente se tiene que $\left(\left(n = n\right)\to\varphi\right)\in\Delta_{0}^{0}$. Luego:
+	\[
+		\theta\equiv\forall n\left(\left(n = n\right)\to\varphi\right)\equiv\forall n\left(\top\to\varphi\right)\equiv\forall n\varphi\equiv\varphi
+	\]
+	Por lo que $\varphi\equiv\theta$, y en conclusión $\varphi\in\Pi_{1}^{0}$.
+\end{proof}
+
+\begin{lemma}
+	\label{lemma: delta0_implica_computable}
+	Sean $S\subseteq\mpow{\omega}$ una $\omega$-estructura, $Y\in S$ y $X\in\omega^{m}$ para algún $m\in\omega$. Si $X$ es definible por una fórmula $\Delta_{0}^{0}$ con parámetro $Y$, entonces $X\leq_{T} Y$.
+\end{lemma}
+
+\begin{proof}
+	Sea $\varphi\left(n_{1},\dotsc, n_{m}\right)\in\Delta_{0}^{0}$ la fórmula con parámetro $Y$ y $n_{1},\dotsc, n_{m}\in\mvar[N]$ tal que $X =\left\{\left(n_{1},\dotsc, n_{m}\right): \varphi\left(n_{1},\dotsc, n_{m}\right)\right\}$. Probemos por inducción sobre el conjunto $\Delta_{0}^{0}$.
+	\begin{itemize}
+		\item (Base) Si $\varphi\in\matom$, entonces tenemos dos casos:
+		\begin{itemize}
+			\item Si $\varphi$ está dada por $\left(t_{1} = t_{2}\right)$ o $\left(t_{1} < t_{2}\right)$ para algunos $t_{1}, t_{2}\in\mterm$, ya que la suma, producto, la relación ``menor que'' y la relación identidad son computables en $\omega$, se sigue que $X$ es computable. Ya que $X\leq_{T}\varnothing$ y $\varnothing\leq_{T} Y$, entonces $X\leq_{T} Y$.
+			\item Si $\varphi$ está dada por $\left(t\in Y\right)$ para algún $t\in\mterm$, ya que la suma y producto son computables en $\omega$, entonces se tiene claramente que $X\leq_{T} Y$.
+		\end{itemize}
+		\item (Paso inductivo) Supongamos que $\psi\left(n_{1},\dotsc, n_{m}\right),\theta\left(n_{1},\dotsc, n_{m}\right)\in\Delta_{0}^{0}$ fórmulas con parámetro $Y$ y $n_{1},\dotsc, n_{m}\in\mvar[N]$ definen conjuntos $U, W\in\mpow{\omega}$ respectivamente tales que $U, W\leq_{T} Y$. Entonces tenemos tres casos:
+		\begin{itemize}
+			\item Supongamos que $\varphi$ está dada por $\neg\psi$. Ya que $U\leq_{T} Y$, entonces por propiedades de la computabilidad relativa, se tiene que $\omega\setminus U\leq_{T} Y$. Puesto que: 
+			\[
+				X =\left\{\left(n_{1},\dotsc, n_{m}\right):\varphi\left(n_{1},\dotsc, n_{m}\right)\right\} =\left\{\left(n_{1},\dotsc, n_{m}\right):\neg\psi\left(n_{1},\dotsc, n_{m}\right)\right\} =\omega\setminus U
+			\]
+			se sigue que $X\leq_{T} Y$.
+			\item Supongamos que $\varphi$ está dada por $\left(\psi\land\theta\right)$. Ya que $U, W\leq_{T} Y$, entonces $U\cap W\leq_{T} Y$. Puesto que: 
+			\begin{align*}
+				X &=\left\{\left(n_{1},\dotsc, n_{m}\right):\varphi\left(n_{1},\dotsc, n_{m}\right)\right\} \\
+				&=\left\{\left(n_{1},\dotsc, n_{m}\right):\left(\psi\left(n_{1},\dotsc, n_{m}\right)\land\theta\left(n_{1},\dotsc, n_{m}\right)\right)\right\} = U\cap W
+			\end{align*}
+			se sigue entonces que $X\leq_{T} Y$.
+			\item Supongamos que $\varphi$ está dada por $\left(\exists n < t\right)\psi$ o $\left(\forall n < t\right)\psi$ para algunos $n\in\mvar[N]$ y $t\in\mterm$ con $n\notin\mathrm{Var}\left[t\right]$. Sabemos para cualquier caso que como la suma y producto son computables, las búsquedas acotadas también son computables en $Y$, por lo que $X\leq_{T} Y$.
+		\end{itemize} 
+	\end{itemize}
+	Por lo tanto, podemos afirmar que $X\leq_{T} Y$.
+\end{proof}
+
+\begin{theorem}[Post]
+	\label{theo: teorema_de_post}
+	Sean $S$ una $\omega$-estructura y $X, Y\in S$.
+	\begin{enumerate}
+		\item $X$ es c.e. en $Y$ si y solo si $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetro $Y$.
+		\item $X$ es co-c.e. en $Y$ si y solo si $X$ es definible por una fórmula $\Pi_{1}^{0}$ con parámetro $Y$.
+		\item $X$ es computable en $Y$ si y solo si $X$ es definible por una fórmula $\Sigma_{1}^{0}$ y por una fórmula $\Pi_{1}^{0}$, ambos con parámetro $Y$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Demostremos la suficiencia. Sea $\varphi\left(n\right)\in\Sigma_{1}^{0}$ con parámetro $Y$ tal que $X =\left\{n:\varphi\left(n\right)\right\}$, y mostremos que $X$ es c.e. en $Y$. 
+		
+		Como $\varphi\in\Sigma_{1}^{0}$, existen $m\in\mvar[N]$ y $\psi\left(n, m\right)\in\Delta_{0}^{0}$ tales que $\varphi\left(n\right)\equiv\exists m\psi\left(n, m\right)$. Sea $Z =\left\{\left(n, m\right): \psi\left(n, m\right)\right\}$. Como $\psi\in\Delta_{0}^{0}$, por el lema \ref{lemma: delta0_implica_computable} se tiene que $Z$ es $Y$-computable. Definamos entonces la función $Y$-computable $f\left(k\right)\coloneqq\mu m Z\left(k, m\right)$, de lo cual se tiene que para cada $k\in\omega$:
+		\begin{align*}
+			k\in X&\iff\varphi\left(k\right)\iff\exists m\psi\left(k, m\right)\iff\exists m Z\left(k, m\right)\\
+			&\iff\mu m Z\left(k, m\right)\halt\iff f\left(k\right)\halt\iff k\in\mdom{f}
+		\end{align*}
+		
+		Por lo que $X$ es el dominio de una función $Y$-computable, de lo cual se tiene que $X$ es c.e. en $Y$.
+		
+		Ahora, para la necesidad supongamos que $X$ es c.e. en $Y$, entonces existe $e\in\omega$ tal que $X = W_{e}^{Y}$. Sabemos por otra parte que el T-predicado de Kleene está definido como una fórmula $\mathrm{T}\in\Delta_{0}^{0}$ con parámetro $Y$ de modo que para cada $k\in\omega$:
+		\[
+			k\in X\iff k\in W_{e}^{Y}\iff\mu p\mathrm{T}\left(e, k, Y, p\right)\halt\iff\exists p\mathrm{T}\left(e, k, Y, p\right)
+		\]
+		Luego, si $\varphi$ está dada por $\exists p\mathrm{T}\left(e, k, Y, p\right)$, se sigue que $\varphi\in\Sigma_{1}^{0}$ y define a $X$. 
+		\item Para la suficiencia, sea $X$ definible por una fórmula $\varphi\in\Pi_{1}^{0}$ con parámetro $Y$. Como $\varphi\in\Pi_{1}^{0}$, entonces existen $\psi\in\Delta_{0}^{0}$ con parámetro $Y$ y $n\in\mvar[N]$ tales que $\varphi\equiv\forall n\psi$. Notemos que:
+		\[
+			\omega\setminus X =\left\{n:\neg\varphi\left(n\right)\right\} = \left\{n: \neg\forall m\psi\left(n, m\right)\right\} =\left\{n: \exists m\neg\psi\left(n, m\right)\right\}
+		\]
+		Puesto que $\psi\in\Delta_{0}^{0}$, entonces $\neg\psi\in\Delta_{0}^{0}$ y luego $\exists m\neg\psi\in\Sigma_{1}^{0}$. Por tanto $\omega\setminus X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetro $Y$, lo cual implica que $\omega\setminus X$ es c.e. en $Y$ debido al punto anterior. Ya que $\omega\setminus X$ es c.e. en $Y$, se concluye que $X$ es co-c.e. en $Y$.
+		
+		Ahora, supongamos que $X$ es co-c.e. en $Y$ para la necesidad. Como $X$ es co-c.e. en $Y$, entonces $\omega\setminus X$ es c.e. en $Y$. Debido al punto anterior sabemos que existe una fórmula $\varphi\in\Sigma_{1}^{0}$ con parámetro $Y$ que define a $\omega\setminus X$. Como $\varphi\in\Sigma_{1}^{0}$, entonces existen $\psi\in\Delta_{0}^{0}$ con parámetro $Y$ y $m\in\mvar[N]$ tales que $\varphi\equiv\exists m\psi$. Se tiene entonces que:
+		\[
+			X =\omega\setminus\left(\omega\setminus X\right) =\left\{n:\neg\varphi\right\} =\left\{n:\neg\exists m\psi\right\} =\left\{n: \forall m\neg\psi\right\}
+		\]
+		Ya que $\psi\in\Delta_{0}^{0}$, entonces $\neg\psi\in\Delta_{0}^{0}$, de lo cual se tiene que $\forall m\neg\psi\in\Pi_{1}^{0}$. Por lo tanto, se obtiene que $X$ es definible por una fórmula $\Pi_{1}^{0}$ con parámetro $Y$.
+		\item Sabemos que $X$ es computable en $Y$ si y solo si $X$ es c.e. y co-c.e. en $Y$, de lo cual por los dos puntos anteriores, se cumple si y solo si $X$ es definible por una fórmula $\Sigma_{1}^{0}$ y por una fórmula $\Pi_{1}^{0}$.
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}[Jerarquía $\Delta$]
+	Para cada $k\in\omega^{+}$, se define el conjunto $\Delta_{k}^{0}\coloneqq\Sigma_{k}^{0}\cap\Pi_{k}^{0}$.
+\end{definition}
+
+\begin{lemma}
+	\label{lemma: delta0_implica_computable_yunta}
+	Sean $S\subseteq\mpow{\omega}$ una $\omega$-estructura, $k, m\in\omega^{+}$, $Y_{1},\dotsc, Y_{k}\in S$ y $X\in\omega^{m}$. Si $X$ es definible por una fórmula $\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$, entonces $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
+\end{lemma}
+
+\begin{proof}
+	Sea $\varphi\left(n_{1},\dotsc, n_{m}\right)\in\Delta_{0}^{0}$ la fórmula con parámetros $Y_{1},\dotsc, Y_{m}$ y $n_{1},\dotsc, n_{m}\in\mvar[N]$ tal que $X =\left\{\left(n_{1},\dotsc, n_{m}\right): \varphi\left(n_{1},\dotsc, n_{m}\right)\right\}$. Probemos por inducción sobre el conjunto $\Delta_{0}^{0}$.
+	\begin{itemize}
+		\item (Base) Si $\varphi\in\matom$, entonces tenemos dos casos:
+		\begin{itemize}
+			\item Si $\varphi$ está dada por $\left(t_{1} = t_{2}\right)$ o $\left(t_{1} < t_{2}\right)$ para algunos $t_{1}, t_{2}\in\mterm$, ya que la suma, producto, la relación ``menor que'' y la relación identidad son computables en $\omega$, se sigue que $X$ es computable. Ya que $X\leq_{T}\varnothing$ y $\varnothing\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
+			\item Si $\varphi$ está dada por $\left(t\in Y_{p}\right)$ para algún $t\in\mterm$ y $p\in\left\{1,\dotsc, k\right\}$, ya que la suma y producto son computables en $\omega$, entonces se tiene claramente que $X\leq_{T} Y_{p}$. Ahora, puesto que $Y_{p}\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces se sigue que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$
+		\end{itemize}
+		\item (Paso inductivo) Supongamos que $\psi\left(n_{1},\dotsc, n_{m}\right),\theta\left(n_{1},\dotsc, n_{m}\right)\in\Delta_{0}^{0}$ fórmulas con parámetros $Y_{1}\dotsc, Y_{k}$ y $n_{1},\dotsc, n_{m}\in\mvar[N]$ definen conjuntos $U, W\subseteq\omega^{k}$ respectivamente tales que $U, W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Entonces tenemos tres casos:
+		\begin{itemize}
+			\item Supongamos que $\varphi$ está dada por $\neg\psi$. Ya que $U\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces por propiedades de la computabilidad relativa, se tiene que $\omega\setminus U\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Puesto que: 
+			\[
+			X =\left\{\left(n_{1},\dotsc, n_{m}\right):\varphi\left(n_{1},\dotsc, n_{m}\right)\right\} =\left\{\left(n_{1},\dotsc, n_{m}\right):\neg\psi\left(n_{1},\dotsc, n_{m}\right)\right\} =\omega\setminus U
+			\]
+			se sigue que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
+			\item Supongamos que $\varphi$ está dada por $\left(\psi\land\theta\right)$. Ya que $U, W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $U\cap W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Puesto que: 
+			\begin{align*}
+				X &=\left\{\left(n_{1},\dotsc, n_{m}\right):\varphi\left(n_{1},\dotsc, n_{m}\right)\right\} \\
+				&=\left\{\left(n_{1},\dotsc, n_{m}\right):\left(\psi\left(n_{1},\dotsc, n_{m}\right)\land\theta\left(n_{1},\dotsc, n_{m}\right)\right)\right\} = U\cap W
+			\end{align*}
+			se sigue entonces que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
+			\item Supongamos que $\varphi$ está dada por $\left(\exists n < t\right)\psi$ o $\left(\forall n < t\right)\psi$ para algunos $n\in\mvar[N]$ y $t\in\mterm$ con $n\notin\mathrm{Var}\left[t\right]$. Sabemos para cualquier caso que como la suma y producto son computables, las búsquedas acotadas también son computables en $Y_{1}\oplus\dotsb\oplus Y_{k}$, por lo que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
+		\end{itemize} 
+	\end{itemize}
+	Por lo tanto, podemos afirmar que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
+\end{proof}
+
+\begin{theorem}
+	\label{theo: yunta_como_parametro}
+	Sean $S\in\mpow{\omega}$ una $\omega$-estructura, $k\in\omega^{+}$ y $Y_{1},\dotsc, Y_{k}\in S$. Entonces toda fórmula $\Delta_{0}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{k}$ es equivalente a una fórmula igualmente $\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{n}$.
+\end{theorem}
+
+\begin{proof}
+	Probemos por inducción sobre el número de parámetros.
+	\begin{itemize}
+		\item (Base) Trivialmente se cumple para el caso $k = 1$.
+		\item (Paso inductivo) Sea $m\in\omega^{+}$ tal que toda fórmula $\Delta_{0}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{m}$ es equivalente a una fórmula igualmente $\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{m}$. 
+		
+		Sea $\varphi\in\Delta_{0}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{m + 1}$. Notemos que cada aparición de $Y_{1}\oplus\dotsb\oplus Y_{m}$ es de la forma $\left(t\in Y_{1}\oplus\dotsb\oplus Y_{m + 1}\right)$ para algún $t\in\mterm$. Por la definición de la yunta se tiene que esta fórmula es equivalente a:
+		\begin{align*}
+			\left(\exists n < t + 1\right)&\left(\left(\left(n\in Y_{1}\oplus\dotsb\oplus Y_{m}\right)\land\left(t =\left(n + n\right)\right)\right)\right. \\
+			&\left. \vee\left(\left(n\in Y_{m + 1}\right)\land\left(t =\left(\left(n + n\right) + 1\right)\right)\right)\right)
+		\end{align*}
+		la cual es $\Delta_{0}^{0}$. Puesto que la fórmula $\left(\left(n\in Y_{1}\oplus\dotsb\oplus Y_{m}\right)\land\left(t =\left(n + n\right)\right)\right)$ es $\Delta_{0}^{0}$, entonces por hipótesis existe una fórmula $\theta\left(Y_{1},\dotsc,Y_{m}\right)\in\Delta_{0}^{0}$ equivalente. Se tiene entonces que:
+		\[
+			\varphi\equiv\left(\exists n < t + 1\right)\left(\theta\left(Y_{1},\dotsc,Y_{m}\right)\vee\left(\left(n\in Y_{m + 1}\right)\land\left(t =\left(\left(n + n\right) + 1\right)\right)\right)\right)
+		\]
+		
+		la cual sigue siendo $\Delta_{0}^{0}$. Por lo tanto, $\varphi$ es equivalente a una fórmula $\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{m + 1}$.
+	\end{itemize}
+\end{proof}
+
+
+\begin{theorem}[Post generalizado]
+	\label{theo: teorema_de_post_generalizado}
+	Sean $S$ una $\omega$-estructura, $k\in\omega^{+}$ y $X, Y_{1},\dotsc, Y_{k}\in S$.
+	\begin{enumerate}
+		\item $X$ es c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$ si y solo si $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$.
+		\item $X$ es co-c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$ si y solo si $X$ es definible por una fórmula $\Pi_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$.
+		\item $X$ es computable en $Y_{1}\oplus\dotsb\oplus Y_{k}$ si y solo si $X$ es definible por una fórmula $\Delta_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Es únicamente necesario probar el primer punto, pues las demostraciones de los dos restantes son análogas a las de sus correspondientes del teorema \ref{theo: teorema_de_post}.
+	
+	Para la necesidad, por el teorema de Post (\ref{theo: teorema_de_post}), se tiene que si $X$ es c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{k}$, es decir, existen una fórmula $\varphi\left(Y_{1}\oplus\dotsb\oplus Y_{k}\right)\in\Delta_{0}^{0}$ y $n\in\mvar[N]$ tales que $X$ es definida por $\exists n\varphi\left(Y_{1}\oplus\dotsb\oplus Y_{k}\right)$. Por el teorema \ref{theo: yunta_como_parametro} sabemos que existe $\theta\left(Y_{1},\dotsc, Y_{k}\right)\in\Delta_{0}^{0}$ tal que $\varphi\equiv\theta$, y luego $\exists n\varphi\equiv\exists n\theta$. Por lo tanto, $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetros $Y_{1},\dotsc,Y_{k}$.
+	
+	Ahora, para la suficiencia, sea $X$ definible por una por una fórmula $\Sigma_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$, es decir, existen $m\in\mvar[N]$ y $\varphi\left(n, m\right)\in\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$ tales que $X =\left\{n:\exists m\varphi\left(n, m\right)\right\}$. Por el lema \ref{lemma: delta0_implica_computable_yunta} sabemos que el conjunto $Z\subseteq\omega^{2}$ dado por $Z =\left\{\left(n, m\right): \varphi\left(n, m\right)\right\}$ es $Y_{1}\oplus\dotsb\oplus Y_{k}$-computable. Sea $f\left(n\right) =\mu m Z\left(n, m\right)$ una función $Y_{1}\oplus\dotsb\oplus Y_{k}$-computable, entonces se sigue que para cada $p\in\omega$:
+	\begin{align*}
+		p\in X&\iff\exists m\varphi\left(p, m\right)\iff\exists m Z\left(p, m\right)\\
+		&\iff\mu m Z\left(p, m\right)\halt\iff f\left(p\right)\halt\iff p\in\mdom{f}
+	\end{align*}
+	De lo cual se implica que $X =\mdom{f}$. Puesto que $X$ es dominio de una función $Y_{1}\oplus\dotsb\oplus Y_{k}$-computable, entonces se concluye que $X$ es c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$.
+\end{proof}
+
+\begin{definition}[Axiomas base de la aritmética de segundo orden]
+	Definimos a los \emph{axiomas básicos} de $\LA$, denotados por $\mpa$, como las cerraduras universales de las siguientes fórmulas:
+	\begin{enumerate}
+		\item $\neg\left(n + 1 = 0\right)$
+		\item $\left(\left(\left(n + 1\right) = \left(m + 1\right)\right)\to\left(n = m\right)\right)$
+		\item $\left(\left(n +\left(m + 1\right)\right) =\left(\left(n + m\right) + 1\right)\right)$
+		\item $\left(\left(n\cdot 0\right) = 0\right)$
+		\item $\left(\left(n\cdot\left(m + 1\right)\right) =\left(\left(n\cdot m\right) + n\right)\right)$
+		\item $\neg\left(n < 0\right)$
+		\item $\left(\left(n <\left(m + 1\right)\right)\to\left(\left(n < m\right)\vee\left(n = m\right)\right)\right)$
+		\item $\left(\left(n + 0\right) = n\right)$
+	\end{enumerate}
+\end{definition}
+
+
+\begin{definition}[Esquema de inducción]
+	Sea $\Gamma\subseteq\mform$ no vacío. Se define el \emph{esquema de $\Gamma$-inducción}, denotado por $\mind{\Gamma}$, como el esquema de cerraduras universales:
+	\[
+		\left(\left(\varphi\left(0\right)\land\forall n\left(\varphi\left(n\right)\to\varphi\left(n + 1\right)\right)\right)\to\forall n\varphi\left(n\right)\right)
+	\]
+	donde $\varphi\in\Gamma$.
+\end{definition}
+
+\begin{definition}[Esquema de $\Delta_{1}^{0}$-comprensión]
+	Se define el \emph{esquema de $\Delta_{1}^{0}$-comprensión}, denotado por $\mcomp{\Delta_{1}^{0}}$, como el esquema de cerraduras universales:
+	\[
+		\left(\forall n\left(\varphi\left(n\right)\leftrightarrow\psi\left(n\right)\right)\to\exists X\forall n\left(\left(n\in X\right)\leftrightarrow\varphi\left(n\right)\right)\right)
+	\]
+	donde $\varphi\left(n\right)\in\Sigma_{1}^{0}$, $\psi\left(n\right)\in\Pi_{1}^{0}$ y $\mathrm{Free}\left[\varphi\right] =\mathrm{Free}\left[\psi\right] =\left\{n\right\}$.
+\end{definition}
+
+\begin{definition}[$\omega$-modelo]
+	Sean $\Gamma\subseteq\msent$ no vacío y $S\subseteq\mpow{\omega}$ una $\omega$-estructura. $S$ se denomina \emph{$\omega$-modelo} de $\Gamma$ si $S\models\varphi$ para cada $\varphi\in\Gamma$.
+\end{definition}
+

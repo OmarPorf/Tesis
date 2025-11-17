@@ -1,0 +1,3 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Aritmética de segundo orden}{5}{chapter.1}%
+\contentsline {chapter}{\numberline {2}El subsistema $\mathrm {RCA}_{0}$}{15}{chapter.2}%

@@ -1,0 +1,55 @@
+\chapter{El subsistema $\rca$}
+\begin{definition}[$\rca$]
+	Se define al subsistema de $\LA$ de \emph{axiomas de comprensión recursiva}, o $\rca$, como el conjunto de axiomas:
+	\[
+	\rca\coloneqq\mpa\cup\mind{\Sigma_{1}^{0}}\cup\mcomp{\Delta_{1}^{0}}
+	\]
+\end{definition}
+
+\begin{theorem}
+	Sea $S\subseteq\mpow{\omega}$ una $\omega$-estructura. $S$ es un $\omega$-modelo de $\rca$ si y solo si es un ideal de Turing.
+\end{theorem}
+
+\begin{proof}
+	Para la necesidad debemos demostrar lo siguiente:
+	\begin{enumerate}
+		\item $S\neq\varnothing$
+		
+		Consideremos la fórmula $\varphi$ dada por $\neg\left(n = n\right)$. Notemos que $\varphi\in\Delta_{0}^{0}$ y luego $\varphi$ es $\Sigma_{1}^{0}$ y $\Pi_{1}^{0}$. Por lo tanto, por $\mcomp{\Delta_{1}^{0}}$ sabemos que existe el conjunto $X\in S$ definido por $\varphi$. Se tiene entonces lo siguiente:
+		\[
+			X =\left\{n: \varphi\left(n\right)\right\} =\left\{n:\neg\left(n = n\right)\right\} =\varnothing
+		\]
+		
+		Por lo tanto, $\varnothing\in S$, y luego $S\neq\varnothing$.
+		
+		\item Para cada $X, Y\in S$ se satisface que $X\oplus Y\in S$.
+		
+		Consideremos a la fórmula $\varphi$ dada por:
+		\[
+			\left(\exists m < n + 1\right)\left(\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\vee\left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right)
+		\]
+		Notemos que $\varphi\in\Delta_{0}^{0}$, y entonces por $\mcomp{\Delta_{1}^{0}}$ existe $Z\in S$ definido por $\varphi$. Se obtiene entonces lo siguiente:
+		
+		\begin{align*}
+			Z =&\left\{n: \varphi\left(n\right)\right\}\\
+			=&\left\{n: \left(\exists m < n + 1\right)\left(\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right. \right. \\
+			&\left.\left. \vee\left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right)\right\}\\
+			=&\left\{n: \left(\left(\exists m < n + 1\right)\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right.\right. \\
+			&\left.\left.\vee\left(\exists m < n + 1\right) \left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right) \right\}\\
+			=&\left\{n: \left(\exists m < n + 1\right)\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right\} \\
+			&\cup\left\{n: \left(\exists m < n + 1\right) \left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right\}\\
+			=&\left\{2m: m\in X\right\}\cup\left\{2m + 1: m\in Y\right\}\\
+			=& X\oplus Y
+		\end{align*}
+		
+		Por lo tanto, $X\oplus Y\in S$.
+		
+		\item para cada $X, Y\in\mpow{\omega}$, si $X\leq_{T} Y$ y $Y\in S$, entonces $X\in S$.
+		
+		Ya que $X\leq_{T} Y$, entonces por el teorema de Post (\ref{theo: teorema_de_post}) sabemos que existe una fórmula $\varphi$ con parámetro $Y$ la cual es $\Sigma_{1}^{0}$ y $\Pi_{1}^{0}$ y que define a $X$. Puesto que $Y\in S$, entonces por $\mcomp{\Delta_{1}^{0}}$ se tiene que existe $Z\in S$ definida por $\varphi$. Por lo tanto, $X = Z\in S$.
+	\end{enumerate}
+	
+	Probemos ahora la suficiencia. Observemos que puesto que $S$ es una $\omega$-estructura, entonces se satisfacen directamente $\mpa$ y $\mind{\Sigma_{1}^{0}}$. Luego, es únicamente necesario demostrar que se satisface el esquema $\mcomp{\Delta_{1}^{0}}$.
+	
+	Sea $\varphi\left(n\right)\in\Delta_{1}^{0}$ con $\mathrm{Free}\left[\varphi\right] =\left\{n\right\}$, entonces demostremos que existe $X\in S$ definido por $\varphi$. Debido a que $S\neq\varnothing$, podemos suponer que $\varphi\left(n, Y_{1},\dotsc, Y_{k}\right)$ para algunos parámetros $Y_{1},\dotsc, Y_{k}\in S$ y $k\in\omega^{+}$. Consideremos al conjunto $X\in\mpow{\omega}$ definido por $\varphi$, entonces por el teorema de Post generalizado (\ref{theo: teorema_de_post_generalizado}) sabemos que $X\leq_{T}Y_{1}\oplus\dotsb\oplus Y_{k}$. Ya que $Y_{1},\dotsc, Y_{k}\in S$, entonces $Y_{1}\oplus\dotsb\oplus Y_{k}\in S$, y por lo tanto, $X\in S$.
+\end{proof}
