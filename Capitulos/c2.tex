@@ -8,7 +8,7 @@
         \item los símbolos $=$ y $<$ son de relación binaria (de tipo número).
         \item el símbolo $\in$ es de relación binaria (relaciona tipo número con tipo conjunto).
         \item los conjuntos $\mvar[N]$ y $\mvar[C]$ son infinitos no vacíos y disjuntos denominados \emph{conjuntos de variables de tipo número} y \emph{de tipo conjunto} respectivamente.
-        \item el conjunto $\mathrm{Log}=\left\{\neg,\land,\forall,\exists, ), (\right\}$ se denomina \emph{conjunto de símbolos lógicos}. 
+        \item el conjunto $\mathrm{Log} = \left\{\neg,\land,\forall,\exists, ), (\right\}$ se denomina \emph{conjunto de símbolos lógicos}. 
     \end{enumerate}
     Definimos al conjunto total de variables como $\mvar\coloneqq\mvar[N]\cup\mvar[C]$. 
 \end{definition}
@@ -84,11 +84,12 @@ Ejemplos de términos de $\LA$ son los siguientes:
 	
 	Identificaremos una $\omega$-estructura por su conjunto de tipo conjunto, por lo que para cada $S\subseteq\mpow{\omega}$, al decir que $S$ es una $\omega$-estructura nos referiremos en realidad a la única $\omega$-estructura $\mathcal{M}$ tal que $M_{C} = S$.
 \end{definition}
+\comment{cdcdc}{COmentario ---------------------------------------------------------------------------------------------------}\add{\remove{\replace{text}{replacement}}}
+
 
 %===================
 % Salto a los esquemas y axiomas
 %===================
-
 \begin{definition}[Cuantificadores acotados]
 	Una \emph{fórmula acotadamente cuantificada} es toda aquella de la forma $\exists n\left(\left(n < t\right)\land\varphi\right)$ o $\forall n\left(\left(n < t\right)\to\varphi\right)$ donde $\varphi\in\mform$, $n\in\mvar[N]$, $t\in\mterm$ y $n\notin\mathrm{Var}\left[t\right]$.
 \end{definition}
