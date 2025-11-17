@@ -1,65 +1,65 @@
 \chapter{Aritmética de segundo orden}
 
 \begin{definition}[Lenguaje de la aritmética de segundo orden]
-    El lenguaje de la aritmética de segundo orden es el lenguaje de dos tipos $\LA =\left(0, 1, +, \cdot, =, <, \in,\mvar[N],\mvar[C], \mathrm{Log}\right)$ donde:
-    \begin{enumerate}
-        \item los símbolos $0$ y $1$ son de constante (de tipo número).
-        \item los símbolos $+$ y $\cdot$ son de función binaria (de tipo número).
-        \item los símbolos $=$ y $<$ son de relación binaria (de tipo número).
-        \item el símbolo $\in$ es de relación binaria (relaciona tipo número con tipo conjunto).
-        \item los conjuntos $\mvar[N]$ y $\mvar[C]$ son infinitos no vacíos y disjuntos denominados \emph{conjuntos de variables de tipo número} y \emph{de tipo conjunto} respectivamente.
-        \item el conjunto $\mathrm{Log} = \left\{\neg,\land,\forall,\exists, ), (\right\}$ se denomina \emph{conjunto de símbolos lógicos}. 
-    \end{enumerate}
-    Definimos al conjunto total de variables como $\mvar\coloneqq\mvar[N]\cup\mvar[C]$. 
+	El lenguaje de la aritmética de segundo orden es el lenguaje de dos tipos $\LA =\left(0, 1, +, \cdot, =, <, \in,\mvar[N],\mvar[C], \mathrm{Log}\right)$ donde:
+	\begin{enumerate}
+		\item los símbolos $0$ y $1$ son de constante (de tipo número).
+		\item los símbolos $+$ y $\cdot$ son de función binaria (de tipo número).
+		\item los símbolos $=$ y $<$ son de relación binaria (de tipo número).
+		\item el símbolo $\in$ es de relación binaria (relaciona tipo número con tipo conjunto).
+		\item los conjuntos $\mvar[N]$ y $\mvar[C]$ son infinitos no vacíos y disjuntos denominados \emph{conjuntos de variables de tipo número} y \emph{de tipo conjunto} respectivamente.
+		\item el conjunto $\mathrm{Log} = \left\{\neg,\land,\forall,\exists, ), (\right\}$ se denomina \emph{conjunto de símbolos lógicos}. 
+	\end{enumerate}
+	Definimos al conjunto total de variables como $\mvar\coloneqq\mvar[N]\cup\mvar[C]$. 
 \end{definition}
 
 \begin{notation}
-    Denotaremos a las variables de tipo número (elementos de $\mvar[N]$) mediante letras minúsculas ($n$, $m$, $p$, $\dotsc$), y a las variables de tipo conjunto (elementos de $\mvar[C]$) mediante letras mayúsculas ($X$, $Y$, $Z$, $\dotsc$). En ambos casos, pueden utilizarse subíndices si es necesario (por ejemplo, $n_{1}$, $n_{2}$, $X_{1}$, $X_{2}$).
+	Denotaremos a las variables de tipo número (elementos de $\mvar[N]$) mediante letras minúsculas ($n$, $m$, $p$, $\dotsc$), y a las variables de tipo conjunto (elementos de $\mvar[C]$) mediante letras mayúsculas ($X$, $Y$, $Z$, $\dotsc$). En ambos casos, pueden utilizarse subíndices si es necesario (por ejemplo, $n_{1}$, $n_{2}$, $X_{1}$, $X_{2}$).
 \end{notation}
 
 \begin{definition}[Términos]
-    Se define el conjunto de \emph{términos} de $\LA$ como el mínimo conjunto $\mterm\subseteq\LA^{*}$ que satisface los siguientes puntos:
-    \begin{enumerate}
-        \item Las palabras $0$ y $1$ pertenecen a $\mterm$.
-        \item $\mvar[N]\subseteq\mterm$
-        \item para cada $t_{1}$ y $t_{2}$ en $\mterm$, se satisface que las palabras $\left(t_{1} + t_{2}\right)$ y $\left(t_{1}\cdot t_{2}\right)$ pertenecen a $\mterm$.
-    \end{enumerate}
+	Se define el conjunto de \emph{términos} de $\LA$ como el mínimo conjunto $\mterm\subseteq\LA^{*}$ que satisface los siguientes puntos:
+	\begin{enumerate}
+		\item Las palabras $0$ y $1$ pertenecen a $\mterm$.
+		\item $\mvar[N]\subseteq\mterm$
+		\item para cada $t_{1}$ y $t_{2}$ en $\mterm$, se satisface que las palabras $\left(t_{1} + t_{2}\right)$ y $\left(t_{1}\cdot t_{2}\right)$ pertenecen a $\mterm$.
+	\end{enumerate}
 \end{definition}
 
 Ejemplos de términos de $\LA$ son los siguientes:
 \[
-\begin{array}{cccc}
-    1 & 0 & n & m_{2} \\
-    \left(1 + 0\right) & \left(n\cdot m\right) & \left(1\cdot\left(n_{1} + m_{2}\right)\right) &\left(\left(1 + n\right)\cdot\left(0\cdot m_{1}\right)\right)
-\end{array}
+	\begin{array}{cccc}
+	1 & 0 & n & m_{2} \\
+	\left(1 + 0\right) & \left(n\cdot m\right) & \left(1\cdot\left(n_{1} + m_{2}\right)\right) &\left(\left(1 + n\right)\cdot\left(0\cdot m_{1}\right)\right)
+	\end{array}
 \]
 
 
 \begin{definition}[Fórmulas atómicas]
-    Se define el conjunto de fórmulas atómicas de $\LA$ como el conjunto $\matom\subseteq\LA^{*}$ que satisface los siguientes puntos:
-    \begin{enumerate}
-        \item para cada $t_{1}$ y $t_{2}$ en $\mterm$ se cumple que las palabras $\left(t_{1} = t_{2}\right)$ y $\left(t_{1} < t_{2}\right)$ pertenecen a $\matom$
-        \item para cada $t$ en $\mterm$ y cada $X$ en $\mvar[C]$, la palabra $\left(t\in X\right)$ pertenece a $\matom$.
-    \end{enumerate}
+	Se define el conjunto de fórmulas atómicas de $\LA$ como el conjunto $\matom\subseteq\LA^{*}$ que satisface los siguientes puntos:
+	\begin{enumerate}
+		\item para cada $t_{1}$ y $t_{2}$ en $\mterm$ se cumple que las palabras $\left(t_{1} = t_{2}\right)$ y $\left(t_{1} < t_{2}\right)$ pertenecen a $\matom$
+		\item para cada $t$ en $\mterm$ y cada $X$ en $\mvar[C]$, la palabra $\left(t\in X\right)$ pertenece a $\matom$.
+	\end{enumerate}
 \end{definition}
 
 \begin{definition}[Fórmulas]
-     Se define el conjunto de fórmulas de $\LA$ como el mínimo conjunto $\mform\subseteq\LA^{*}$ que satisface los siguientes puntos:
-     \begin{enumerate}
-         \item $\matom\subseteq\mform$
-         \item para cada $\varphi\in\mform$ se satisface que $\neg\varphi\in\mform$.
-         \item para cada $\varphi_{1}$ y $\varphi_{2}$ en $\mform$ se satisface que la palabra $\left(\varphi_{1}\land\varphi_{2}\right)$ pertenece a $\mform$.
-         \item para cada $x\in\mvar$ y cada $\varphi\in\mform$ se satisface que las palabras $\forall x\varphi$ y $\exists x\varphi$ pertenecen a $\mform$.
-     \end{enumerate}
+	Se define el conjunto de fórmulas de $\LA$ como el mínimo conjunto $\mform\subseteq\LA^{*}$ que satisface los siguientes puntos:
+	\begin{enumerate}
+		\item $\matom\subseteq\mform$
+		\item para cada $\varphi\in\mform$ se satisface que $\neg\varphi\in\mform$.
+		\item para cada $\varphi_{1}$ y $\varphi_{2}$ en $\mform$ se satisface que la palabra $\left(\varphi_{1}\land\varphi_{2}\right)$ pertenece a $\mform$.
+		\item para cada $x\in\mvar$ y cada $\varphi\in\mform$ se satisface que las palabras $\forall x\varphi$ y $\exists x\varphi$ pertenecen a $\mform$.
+	\end{enumerate}
 \end{definition}
 
 \begin{notation}
-    Para cada $\varphi_{1}$ y $\varphi_{2}$ en $\mform$ se realizan las siguientes abreviaciones:
-    \begin{enumerate}
-        \item se escribe $\left(\varphi_{1}\vee\varphi_{2}\right)$ en lugar de $\neg\left(\neg\varphi_{1}\land\neg\varphi_{2}\right)$.
-        \item se escribe $\left(\varphi_{1}\to\varphi_{2}\right)$ en lugar de $\left(\neg\varphi_{1}\vee\varphi_{2}\right)$.
-        \item se escribe $\left(\varphi_{1}\leftrightarrow\varphi_{2}\right)$ en lugar de $\left(\left(\varphi_{1}\to\varphi_{2}\right)\land\left(\varphi_{2}\to\varphi_{1}\right)\right)$.
-    \end{enumerate}
+	Para cada $\varphi_{1}$ y $\varphi_{2}$ en $\mform$ se realizan las siguientes abreviaciones:
+	\begin{enumerate}
+		\item se escribe $\left(\varphi_{1}\vee\varphi_{2}\right)$ en lugar de $\neg\left(\neg\varphi_{1}\land\neg\varphi_{2}\right)$.
+		\item se escribe $\left(\varphi_{1}\to\varphi_{2}\right)$ en lugar de $\left(\neg\varphi_{1}\vee\varphi_{2}\right)$.
+		\item se escribe $\left(\varphi_{1}\leftrightarrow\varphi_{2}\right)$ en lugar de $\left(\left(\varphi_{1}\to\varphi_{2}\right)\land\left(\varphi_{2}\to\varphi_{1}\right)\right)$.
+	\end{enumerate}
 \end{notation}
 
 \begin{definition}[Estructuras]
@@ -84,15 +84,14 @@ Ejemplos de términos de $\LA$ son los siguientes:
 	
 	Identificaremos una $\omega$-estructura por su conjunto de tipo conjunto, por lo que para cada $S\subseteq\mpow{\omega}$, al decir que $S$ es una $\omega$-estructura nos referiremos en realidad a la única $\omega$-estructura $\mathcal{M}$ tal que $M_{C} = S$.
 \end{definition}
-\comment{cdcdc}{COmentario ---------------------------------------------------------------------------------------------------}\add{\remove{\replace{text}{replacement}}}
 
+\comment{Falta de contenido}{Falta agregar conceptos de sintaxis y semántica, como valuaciones, interpretación, implicación lógica, equivalencia lógica y deducción lógica}
 
-%===================
-% Salto a los esquemas y axiomas
-%===================
 \begin{definition}[Cuantificadores acotados]
 	Una \emph{fórmula acotadamente cuantificada} es toda aquella de la forma $\exists n\left(\left(n < t\right)\land\varphi\right)$ o $\forall n\left(\left(n < t\right)\to\varphi\right)$ donde $\varphi\in\mform$, $n\in\mvar[N]$, $t\in\mterm$ y $n\notin\mathrm{Var}\left[t\right]$.
 \end{definition}
+
+\comment{Conjunto de variables}{Definir lo que significa Var}
 
 \begin{notation}
 	Sean $\varphi\in\mform$, $n\in\mvar[N]$ y $t\in\mterm$ tales que $n\notin\mathrm{Var}\left[t\right]$. Entonces:
@@ -330,7 +329,11 @@ Ejemplos de términos de $\LA$ son los siguientes:
 	donde $\varphi\left(n\right)\in\Sigma_{1}^{0}$, $\psi\left(n\right)\in\Pi_{1}^{0}$ y $\mathrm{Free}\left[\varphi\right] =\mathrm{Free}\left[\psi\right] =\left\{n\right\}$.
 \end{definition}
 
+\comment{Variables libres}{Definir lo que significa Free}
+
 \begin{definition}[$\omega$-modelo]
 	Sean $\Gamma\subseteq\msent$ no vacío y $S\subseteq\mpow{\omega}$ una $\omega$-estructura. $S$ se denomina \emph{$\omega$-modelo} de $\Gamma$ si $S\models\varphi$ para cada $\varphi\in\Gamma$.
 \end{definition}
+
+\comment{Sentencias}{Definir lo que significa el conjunto Sent}
 
