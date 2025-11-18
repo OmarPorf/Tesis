@@ -1,5 +1,5 @@
 \chapter{Aritmética de segundo orden}
-
+\section{Sintaxis}
 \begin{definition}[Lenguaje de la aritmética de segundo orden]
 	El lenguaje de la aritmética de segundo orden es el lenguaje de dos tipos $\LA =\left(0, 1, +, \cdot, =, <, \in,\mvar[N],\mvar[C], \mathrm{Log}\right)$ donde:
 	\begin{enumerate}
@@ -62,6 +62,10 @@ Ejemplos de términos de $\LA$ son los siguientes:
 	\end{enumerate}
 \end{notation}
 
+\comment{Sintaxis}{Agregar la parte de sintaxis en este lugar}
+
+\section{Semántica}
+
 \begin{definition}[Estructuras]
 	Una \emph{estructura} de $\LA$, o \emph{$\LA$-estructura}, es una tupla $\mathcal{M} =\left(M_{N}, M_{C}, 0^{\mathcal{M}}, 1^{\mathcal{M}}, +^{\mathcal{M}},\cdot^{\mathcal{M}}, =^{\mathcal{M}}, <^{\mathcal{M}},\in^{\mathcal{M}}\right)$ donde:
 	\begin{enumerate}
@@ -74,9 +78,9 @@ Ejemplos de términos de $\LA$ son los siguientes:
 \end{definition}
 
 \begin{notation}
-	Para simplificar la notación, una $\LA$-estructura se denota por una letra mayúscula en estilo caligráfico, su conjunto de tipo número se denota por esa letra en estilo plano con subíndice $N$, y similarmente su conjunto de tipo conjunto se denota con subíndice $C$.
+	Para simplificar la notación, una $\LA$-estructura se denota por una letra mayúscula en estilo caligráfico, su conjunto de tipo número se denota por esa letra en estilo plano con subíndice $N$, similarmente su conjunto de tipo conjunto se denota con subíndice $C$, y la misma letra sin subíndices es la unión de ambos.
 	
-	Por ejemplo, si $\mathcal{A}$ es una $\LA$-estructura, entonces $A_{N}$ es su conjunto de tipo número y $A_{C}$ es su conjunto de tipo conjunto.
+	Por ejemplo, si $\mathcal{A}$ es una $\LA$-estructura, entonces $A_{N}$ es su conjunto de tipo número, $A_{C}$ es su conjunto de tipo conjunto y $A = A_{N}\cup A_{C}$.
 \end{notation}
 
 \begin{definition}[$\omega$-estructura]
@@ -86,6 +90,55 @@ Ejemplos de términos de $\LA$ son los siguientes:
 \end{definition}
 
 \comment{Falta de contenido}{Falta agregar conceptos de sintaxis y semántica, como valuaciones, interpretación, implicación lógica, equivalencia lógica y deducción lógica}
+
+\begin{definition}[Valuación de variables]
+	Sea $\mathcal{M}$ una $\LA$-estructura. Una \emph{valuación de variables} de $\LA$ es una función $s:\mvar\to M$ tal que para cada $n\in\mvar[N]$ se tiene que $s\left[n\right]\in M_{N}$ y para cada $X\in\mvar[C]$ se tiene que $s\left[X\right]\in M_{C}$.
+\end{definition}
+
+\begin{definition}[Interpretación de términos]
+	Sean $\mathcal{M}$ una $\LA$-estructura y $s:\mvar\to M$ una valuación de variables. La \emph{interpretación} de $\mterm$ en $\mathcal{M}$ dada $s$ es la función $s^{*}:\mterm\to M$ definida como sigue:
+	\begin{enumerate}
+		\item Para cada $c\in\left\{0, 1\right\}$, $s^{*}\left[c\right] = c^{\mathcal{M}}$.
+		\item Para cada $n\in\mvar[N]$, $s^{*}\left[n\right] = s\left[n\right]$.
+		\item Para cada $t_{1}, t_{2}\in\mterm$ se tiene que $s^{*}\left[\left(t_{1} + t_{2}\right)\right] = +^{\mathcal{M}}\left(s^{*}\left[t_{1}\right], s^{*}\left[t_{2}\right]\right)$ y $s^{*}\left[\left(t_{1}\cdot t_{2}\right)\right] = \cdot^{\mathcal{M}}\left(s^{*}\left[t_{1}\right], s^{*}\left[t_{2}\right]\right)$
+	\end{enumerate}
+\end{definition}
+
+\begin{notation}
+	Sean $A_{1},\dotsc, A_{n}$ conjuntos no vacíos con $n\in\omega$ y $R\subseteq\prod\limits_{k = 1}^{n}A_{k}$ una relación. Para cada $\left(x_{1},\dotsc, x_{n}\right)\in \prod\limits_{k = 1}^{n}A_{k}$, escribiremos $R\left(x_{1},\dotsc, x_{n}\right)$ en lugar de $\left(x_{1},\dotsc, x_{n}\right)\in R$.
+\end{notation}
+
+\begin{notation}
+	Sean $A, B$ conjuntos no vacíos, $f: A\to B$, $a\in A$ y $b\in B$. denotamos por $f\left[a\rightsquigarrow b\right]$ a la función $g: A\to B$ dada como sigue:
+	\[
+		g\left(x\right) =\begin{cases}
+			f(x), & x\neq a\\
+			b, & x = a
+		\end{cases}
+	\]
+\end{notation}
+
+\begin{definition}[Interpretación de fórmulas]
+	Sean $\mathcal{M}$ una $\LA$-estructura y $s:\mvar\to M$ una valuación de variables. Para cada $\varphi\in\mform$, decimos que $\varphi$ es \emph{verdadera} en $\mathcal{M}$ (o que $\mathcal{M}$ \emph{modela} a $\varphi$) con la valuación $s$, denotado por $\left(\mathcal{M}, s\right)\models\varphi$, si se satisface una de las siguientes condiciones:
+	\begin{enumerate}
+		\item Si $\varphi$ está dada por $\left(t_{1} R t_{2}\right)$ con $t_{1}, t_{2}\in\mterm$ y $R\in\left\{<, =\right\}$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si $R^{\mathcal{M}}\left(s^{*}\left[t_{1}\right], s^{*}\left[t_{2}\right]\right)$.
+		\item Si $\varphi$ está dada por $\left(t\in X\right)$ con $t\in\mterm$ y $X\in\mvar[C]$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si $\in^{\mathcal{M}}\left(s^{*}\left[t\right], s\left[X\right]\right)$.
+		\item Si $\varphi$ está dada por $\neg\psi$ con $\psi\in\mform$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si no es cierto que $\left(\mathcal{M}, s\right)\models\psi$.
+		\item Si $\varphi$ está dada por $\left(\psi_{1}\land \psi_{2}\right)$ con $\psi_{1}, \psi_{2}\in\mform$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si $\left(\mathcal{M}, s\right)\models\psi_{1}$ y $\left(\mathcal{M}, s\right)\models\psi_{2}$.
+		\item Si $\varphi$ está dada por $\exists x\psi$ con $x\in\mvar$ y $\psi\in\mform$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si para algún elemento $a\in M$ ($a\in M_{N}$ si $x\in\mvar[N]$, y $a\in M_{C}$ si $x\in\mvar[C]$), se satisface que $\left(\mathcal{M}, s\left[x\rightsquigarrow a\right]\right)\models\psi$.
+		\item Si $\varphi$ está dada por $\forall x\psi$ con $x\in\mvar$ y $\psi\in\mform$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si para cualquier elemento $a\in M_{N}$ si $x\in\mvar[N]$ y $a\in M_{C}$ si $x\in\mvar[C]$, se satisface que $\left(\mathcal{M}, s\left[x\rightsquigarrow a\right]\right)\models\psi$.
+	\end{enumerate}
+\end{definition}
+
+\begin{notation}
+	Sea $\varphi\in\mform$.
+	\begin{enumerate}
+		\item Si $\mathcal{M}$ es una $\LA$-estructura, se denotará $\mathcal{M}\models\varphi$ si $\left(\mathcal{M}, s\right)\models\varphi$ para cualquier valuación de variables $s$.
+		\item Se denotará $\models\varphi$ si $\left(\mathcal{M}, s\right)\models\varphi$ para cualquier $\LA$-estructura $\mathcal{M}$ y cualquier valuación de variables $s$.
+	\end{enumerate}
+\end{notation}
+
+\section{Resultados y definiciones esenciales}
 
 \begin{definition}[Cuantificadores acotados]
 	Una \emph{fórmula acotadamente cuantificada} es toda aquella de la forma $\exists n\left(\left(n < t\right)\land\varphi\right)$ o $\forall n\left(\left(n < t\right)\to\varphi\right)$ donde $\varphi\in\mform$, $n\in\mvar[N]$, $t\in\mterm$ y $n\notin\mathrm{Var}\left[t\right]$.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.14)  16 NOV 2025 17:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.14)  17 NOV 2025 21:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -902,23 +902,45 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \l__nicematrix_multiplicity_int=\count403
 \l__nicematrix_brace_yshift_dim=\dimen369
 )
-(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mathtools.sty
-Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
-(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mhsetup.sty
-Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/changes\changes.sty
+Package: changes 2021/07/15 v4.2.1 changes package
+
+*** changes package 2021/07/15 v4.2.1 ***
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks45
+\XKV@tempa@toks=\toks46
 )
-\g_MT_multlinerow_int=\count404
-\l_MT_multwidth_dim=\dimen370
-\origjot=\skip79
-\l_MT_shortvdotswithinadjustabove_dim=\dimen371
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen372
-\l_MT_above_intertext_sep=\dimen373
-\l_MT_below_intertext_sep=\dimen374
-\l_MT_above_shortintertext_sep=\dimen375
-\l_MT_below_shortintertext_sep=\dimen376
-\xmathstrut@box=\box93
-\xmathstrut@dim=\dimen377
+\XKV@depth=\count404
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)) (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/xstring\xstring.sty
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/xstring\xstring.tex
+\xs_counta=\count405
+\xs_countb=\count406
 )
+Package: xstring 2023/08/22 v1.86 String manipulations (CT)
+)
+ulem-option 'normalem,normalbf', passed to package ulem
+truncate-option 'breakall,fit', passed to package truncate
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/ulem\ulem.sty
+\UL@box=\box93
+\UL@hyphenbox=\box94
+\UL@skip=\skip79
+\UL@hook=\toks47
+\UL@height=\dimen370
+\UL@pe=\count407
+\UL@pixel=\dimen371
+\ULC@box=\box95
+Package: ulem 2019/11/18
+\ULdepth=\dimen372
+)
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/todonotes\todonotes.sty
+Package: todonotes 2024/01/05 v1.1.7 Todonotes source and documentation.
+Package: todonotes 2024/01/05
+
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
 sty
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
@@ -931,8 +953,8 @@ File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
 mp-version-0-65.sty
 Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@nodesepstart=\dimen378
-\pgf@nodesepend=\dimen379
+\pgf@nodesepstart=\dimen373
+\pgf@nodesepend=\dimen374
 )
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
 mp-version-1-18.sty
@@ -950,10 +972,10 @@ ty
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
 code.tex
 Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
-\pgffor@iter=\dimen380
-\pgffor@skip=\dimen381
-\pgffor@stack=\toks45
-\pgffor@toks=\toks46
+\pgffor@iter=\dimen375
+\pgffor@skip=\dimen376
+\pgffor@stack=\toks48
+\pgffor@toks=\toks49
 ))
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z\tikz.code.tex
@@ -962,39 +984,78 @@ Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@plot@mark@count=\count405
-\pgfplotmarksize=\dimen382
+\pgf@plot@mark@count=\count408
+\pgfplotmarksize=\dimen377
 )
-\tikz@lastx=\dimen383
-\tikz@lasty=\dimen384
-\tikz@lastxsaved=\dimen385
-\tikz@lastysaved=\dimen386
-\tikz@lastmovetox=\dimen387
-\tikz@lastmovetoy=\dimen388
-\tikzleveldistance=\dimen389
-\tikzsiblingdistance=\dimen390
-\tikz@figbox=\box94
-\tikz@figbox@bg=\box95
-\tikz@tempbox=\box96
-\tikz@tempbox@bg=\box97
-\tikztreelevel=\count406
-\tikznumberofchildren=\count407
-\tikznumberofcurrentchild=\count408
-\tikz@fig@count=\count409
+\tikz@lastx=\dimen378
+\tikz@lasty=\dimen379
+\tikz@lastxsaved=\dimen380
+\tikz@lastysaved=\dimen381
+\tikz@lastmovetox=\dimen382
+\tikz@lastmovetoy=\dimen383
+\tikzleveldistance=\dimen384
+\tikzsiblingdistance=\dimen385
+\tikz@figbox=\box96
+\tikz@figbox@bg=\box97
+\tikz@tempbox=\box98
+\tikz@tempbox@bg=\box99
+\tikztreelevel=\count409
+\tikznumberofchildren=\count410
+\tikznumberofcurrentchild=\count411
+\tikz@fig@count=\count412
 
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
 matrix.code.tex
 File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfmatrixcurrentrow=\count410
-\pgfmatrixcurrentcolumn=\count411
-\pgf@matrix@numberofcolumns=\count412
+\pgfmatrixcurrentrow=\count413
+\pgfmatrixcurrentcolumn=\count414
+\pgf@matrix@numberofcolumns=\count415
 )
-\tikz@expandcount=\count413
+\tikz@expandcount=\count416
 
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )))
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+\c@@todonotes@numberoftodonotes=\count417
+)
+\c@Changes@AuthorCount=\count418
+\c@Changes@Author=\count419
+\c@Changes@addedCount=\count420
+\c@Changes@deletedCount=\count421
+\c@Changes@replacedCount=\count422
+\c@Changes@highlightCount=\count423
+\c@Changes@commentCount=\count424
+\c@authorcommentcount=\count425
+
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/truncate\truncate.sty
+Package: truncate 2001/08/20  ver 3.6
+\@Trunc@RestHyph=\toks50
+)
+\Changestruncatewidth=\skip80
+\Changes@summary@width=\skip81
+)
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mathtools.sty
+Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
+(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mhsetup.sty
+Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
+)
+\g_MT_multlinerow_int=\count426
+\l_MT_multwidth_dim=\dimen386
+\origjot=\skip82
+\l_MT_shortvdotswithinadjustabove_dim=\dimen387
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen388
+\l_MT_above_intertext_sep=\dimen389
+\l_MT_below_intertext_sep=\dimen390
+\l_MT_above_shortintertext_sep=\dimen391
+\l_MT_below_shortintertext_sep=\dimen392
+\xmathstrut@box=\box100
+\xmathstrut@dim=\dimen393
+)
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryshapes.geometric.code.tex
 File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
@@ -1006,17 +1067,6 @@ File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/nomencl\nomencl.sty
 Package: nomencl 2021/11/10 v5.6 Nomenclature package
 
-(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
-Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
-
-(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex
-(C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
-\XKV@toks=\toks47
-\XKV@tempa@toks=\toks48
-)
-\XKV@depth=\count414
-File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-))
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/koma-script\tocbasic.st
 y
 Package: tocbasic 2025/09/09 v3.48 KOMA-Script package (handling toc-files)
@@ -1041,26 +1091,26 @@ Applying: [2021/05/01] Usage of raw or classic option list on input line 254.
 Already applied: [0000/00/00] Usage of raw or classic option list on input line
  370.
 )
-\scr@dte@tocline@numberwidth=\skip80
-\scr@dte@tocline@numbox=\box98
+\scr@dte@tocline@numberwidth=\skip83
+\scr@dte@tocline@numbox=\box101
 )
 Package tocbasic Info: setting babel extension for `nlo' on input line 187.
 Package tocbasic Info: setting babel extension for `nls' on input line 188.
-\nomlabelwidth=\dimen391
-\nom@tempdim=\dimen392
-\nomitemsep=\skip81
+\nomlabelwidth=\dimen394
+\nom@tempdim=\dimen395
+\nomitemsep=\skip84
 )
 \@nomenclaturefile=\write4
 \openout4 = `main.nlo'.
 
-Package nomencl Info: Writing nomenclature file main.nlo on input line 25.
+Package nomencl Info: Writing nomenclature file main.nlo on input line 26.
  (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/cases\cases.sty
 Package: cases 2020/03/29 ver 3.2
-\numc@numwid=\dimen393
+\numc@numwid=\dimen396
 )
-\c@definition=\count415
-\c@theorem=\count416
-\c@notation=\count417
+\c@definition=\count427
+\c@theorem=\count428
+\c@notation=\count429
 ) (main.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
@@ -1133,17 +1183,17 @@ Package hyperref Info: Link coloring OFF on input line 2.
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count418
-\scratchdimen=\dimen394
-\scratchbox=\box99
-\nofMPsegments=\count419
-\nofMParguments=\count420
-\everyMPshowfont=\toks49
-\MPscratchCnt=\count421
-\MPscratchDim=\dimen395
-\MPnumerator=\count422
-\makeMPintoPDFobject=\count423
-\everyMPtoPDFconversion=\toks50
+\scratchcounter=\count430
+\scratchdimen=\dimen397
+\scratchbox=\box102
+\nofMPsegments=\count431
+\nofMParguments=\count432
+\everyMPshowfont=\toks51
+\MPscratchCnt=\count433
+\MPscratchDim=\dimen398
+\MPnumerator=\count434
+\makeMPintoPDFobject=\count435
+\everyMPtoPDFconversion=\toks52
 )
 (C:\Users\omari\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -1155,9 +1205,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c__nicematrix_shift_Ldots_last_row_dim=\dimen396
-\c__nicematrix_innersep_middle_dim=\dimen397
-<imagenes/Logo_Instituto_Politécnico_Nacional.png, id=14, 261.22594pt x 451.68
+\c__nicematrix_shift_Ldots_last_row_dim=\dimen399
+\c__nicematrix_innersep_middle_dim=\dimen400
+<imagenes/Logo_Instituto_Politécnico_Nacional.png, id=26, 261.22594pt x 451.68
 75pt>
 File: imagenes/Logo_Instituto_Politécnico_Nacional.png Graphic file (type png)
 
@@ -1180,7 +1230,7 @@ Overfull \hbox (20.2359pt too wide) in paragraph at lines 6--23
 []$[]$ $[]$ 
  []
 
-<imagenes/ESCUDO_ESFM.png, id=16, 129.1224pt x 166.9437pt>
+<imagenes/ESCUDO_ESFM.png, id=28, 129.1224pt x 166.9437pt>
 File: imagenes/ESCUDO_ESFM.png Graphic file (type png)
 <use imagenes/ESCUDO_ESFM.png>
 Package pdftex.def Info: imagenes/ESCUDO_ESFM.png  used on input line 35.
@@ -1220,58 +1270,114 @@ LaTeX Info: Redefining \% on input line 1.
 
 ]
 Cap\'{\i }tulo 1.
-[5] [6]
-LaTeX Info: Redefining \. on input line 117.
-LaTeX Info: Redefining \% on input line 117.
-LaTeX Info: Redefining \. on input line 117.
-LaTeX Info: Redefining \% on input line 117.
-LaTeX Info: Redefining \. on input line 117.
-LaTeX Info: Redefining \% on input line 117.
- [7] [8]
-Overfull \hbox (1.71628pt too wide) detected at line 161
+[5]
+Package hyperref Info: bookmark level for unknown comment defaults to 0 on inpu
+t line 65.
+LaTeX Info: Redefining \. on input line 74.
+LaTeX Info: Redefining \% on input line 74.
+LaTeX Info: Redefining \. on input line 74.
+LaTeX Info: Redefining \% on input line 74.
+LaTeX Info: Redefining \. on input line 74.
+LaTeX Info: Redefining \% on input line 74.
+ [6]
+Overfull \hbox (5.20872pt too wide) in paragraph at lines 103--104
+[]\OT1/cmr/m/it/12 Para ca-da $\OML/cmm/m/it/12 t[]; t[] \OMS/cmsy/m/n/12 2 []$
+ \OT1/cmr/m/it/12 se tie-ne que $\OML/cmm/m/it/12 s[] [] \OT1/cmr/m/n/12 = +[] 
+[]$ \OT1/cmr/m/it/12 y $\OML/cmm/m/it/12 s[] [] \OT1/cmr/m/n/12 =
+ []
+
+LaTeX Info: Redefining \. on input line 104.
+LaTeX Info: Redefining \% on input line 104.
+LaTeX Info: Redefining \. on input line 104.
+LaTeX Info: Redefining \% on input line 104.
+LaTeX Info: Redefining \. on input line 104.
+LaTeX Info: Redefining \% on input line 104.
+[7]
+LaTeX Info: Redefining \. on input line 138.
+LaTeX Info: Redefining \% on input line 138.
+LaTeX Info: Redefining \. on input line 138.
+LaTeX Info: Redefining \% on input line 138.
+LaTeX Info: Redefining \. on input line 138.
+LaTeX Info: Redefining \% on input line 138.
+ [8]
+LaTeX Info: Redefining \. on input line 180.
+LaTeX Info: Redefining \% on input line 180.
+LaTeX Info: Redefining \. on input line 180.
+LaTeX Info: Redefining \% on input line 180.
+LaTeX Info: Redefining \. on input line 180.
+LaTeX Info: Redefining \% on input line 180.
+ [9]
+Overfull \hbox (1.71628pt too wide) detected at line 214
 \OML/cmm/m/it/12 X \OT1/cmr/m/n/12 = [] = [] = \OML/cmm/m/it/12 ! \OMS/cmsy/m/n
 /12 n \OML/cmm/m/it/12 U
  []
 
-LaTeX Info: Redefining \. on input line 197.
-LaTeX Info: Redefining \% on input line 197.
-LaTeX Info: Redefining \. on input line 197.
-LaTeX Info: Redefining \% on input line 197.
-LaTeX Info: Redefining \. on input line 197.
-LaTeX Info: Redefining \% on input line 197.
-[9]
-Overfull \hbox (11.2271pt too wide) in paragraph at lines 227--228
+LaTeX Info: Redefining \. on input line 216.
+LaTeX Info: Redefining \% on input line 216.
+LaTeX Info: Redefining \. on input line 216.
+LaTeX Info: Redefining \% on input line 216.
+LaTeX Info: Redefining \. on input line 216.
+LaTeX Info: Redefining \% on input line 216.
+[10]
+LaTeX Info: Redefining \. on input line 253.
+LaTeX Info: Redefining \% on input line 253.
+LaTeX Info: Redefining \. on input line 253.
+LaTeX Info: Redefining \% on input line 253.
+LaTeX Info: Redefining \. on input line 253.
+LaTeX Info: Redefining \% on input line 253.
+ [11]
+Overfull \hbox (11.2271pt too wide) in paragraph at lines 280--281
 []\OT1/cmr/m/n/12 Sea $\OML/cmm/m/it/12 ' [] \OMS/cmsy/m/n/12 2 \OT1/cmr/m/n/12
  ^^A[]$ la f^^Sormu-la con par^^Same-tros $\OML/cmm/m/it/12 Y[]; [] ; Y[]$ \OT1
 /cmr/m/n/12 y $\OML/cmm/m/it/12 n[]; [] ; n[] \OMS/cmsy/m/n/12 2
  []
 
-[10]
-Overfull \hbox (1.71628pt too wide) detected at line 239
+LaTeX Info: Redefining \. on input line 285.
+LaTeX Info: Redefining \% on input line 285.
+LaTeX Info: Redefining \. on input line 285.
+LaTeX Info: Redefining \% on input line 285.
+LaTeX Info: Redefining \. on input line 285.
+LaTeX Info: Redefining \% on input line 285.
+[12]
+Overfull \hbox (1.71628pt too wide) detected at line 292
 \OML/cmm/m/it/12 X \OT1/cmr/m/n/12 = [] = [] = \OML/cmm/m/it/12 ! \OMS/cmsy/m/n
 /12 n \OML/cmm/m/it/12 U
  []
 
-LaTeX Info: Redefining \. on input line 261.
-LaTeX Info: Redefining \% on input line 261.
-LaTeX Info: Redefining \. on input line 261.
-LaTeX Info: Redefining \% on input line 261.
-LaTeX Info: Redefining \. on input line 261.
-LaTeX Info: Redefining \% on input line 261.
-[11] [12]
-Overfull \hbox (3.80225pt too wide) in paragraph at lines 325--326
-[][]\OT1/cmr/bx/n/12 Definici^^Son 1.12 \OT1/cmr/m/n/12 (Es-que-ma de $^^A[]$-c
+LaTeX Info: Redefining \. on input line 317.
+LaTeX Info: Redefining \% on input line 317.
+LaTeX Info: Redefining \. on input line 317.
+LaTeX Info: Redefining \% on input line 317.
+LaTeX Info: Redefining \. on input line 317.
+LaTeX Info: Redefining \% on input line 317.
+[13]
+LaTeX Info: Redefining \. on input line 350.
+LaTeX Info: Redefining \% on input line 350.
+LaTeX Info: Redefining \. on input line 350.
+LaTeX Info: Redefining \% on input line 350.
+LaTeX Info: Redefining \. on input line 350.
+LaTeX Info: Redefining \% on input line 350.
+ [14]
+Overfull \hbox (3.80225pt too wide) in paragraph at lines 378--379
+[][]\OT1/cmr/bx/n/12 Definici^^Son 1.15 \OT1/cmr/m/n/12 (Es-que-ma de $^^A[]$-c
 omprensi^^Son)\OT1/cmr/bx/n/12 . []\OT1/cmr/m/it/12 Se de-fi-ne el \OT1/cmr/m/n
 /12 es-que-ma de $^^A[]$-comprensi^^Son\OT1/cmr/m/it/12 ,
  []
 
-LaTeX Info: Redefining \. on input line 328.
-LaTeX Info: Redefining \% on input line 328.
-LaTeX Info: Redefining \. on input line 328.
-LaTeX Info: Redefining \% on input line 328.
-LaTeX Info: Redefining \. on input line 328.
-LaTeX Info: Redefining \% on input line 328.
-[13]) (Capitulos/c3.tex [14]
+LaTeX Info: Redefining \. on input line 389.
+LaTeX Info: Redefining \% on input line 389.
+LaTeX Info: Redefining \. on input line 389.
+LaTeX Info: Redefining \% on input line 389.
+LaTeX Info: Redefining \. on input line 389.
+LaTeX Info: Redefining \% on input line 389.
+[15]) (Capitulos/c3.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [16]
 Cap\'{\i }tulo 2.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -1285,9 +1391,16 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1.
 
-[15
+[17
 
-]) [16] (main.aux
+])
+\Changes@OutFile=\write7
+\openout7 = `main.soc'.
+
+\tf@loc=\write8
+\openout8 = `main.loc'.
+
+ [18] (main.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -1296,16 +1409,16 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 173451F98D4E47EE57AC66D2D70D4ABE;329.
+(rerunfilecheck)             Checksum: 41D59B9F63073D4C49B9EC3042477406;768.
  ) 
 Here is how much of TeX's memory you used:
- 30587 strings out of 467871
- 625245 string characters out of 5418375
- 1141306 words of memory out of 5000000
- 58902 multiletter control sequences out of 15000+600000
- 642505 words of font info for 96 fonts, out of 8000000 for 9000
+ 31747 strings out of 467871
+ 649180 string characters out of 5418375
+ 1168398 words of memory out of 5000000
+ 60008 multiletter control sequences out of 15000+600000
+ 642918 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 118i,13n,121p,825b,826s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 118i,13n,121p,825b,974s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\omari\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1200.pk><C:/Users/omari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx12.pfb><C:/Users/omari/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1321,10 +1434,11 @@ omari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C
 cm/cmsy10.pfb><C:/Users/omari/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmsy8.pfb><C:/Users/omari/AppData/Local/Programs/MiKTeX/fonts/type1
 /public/amsfonts/cm/cmti12.pfb><C:/Users/omari/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (16 pages, 442752 bytes).
+nts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/omari/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (18 pages, 468302 bytes).
 PDF statistics:
- 269 PDF objects out of 1000 (max. 8388607)
- 98 named destinations out of 1000 (max. 500000)
- 39 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 324 PDF objects out of 1000 (max. 8388607)
+ 125 named destinations out of 1000 (max. 500000)
+ 63 words of extra memory for PDF output out of 10000 (max. 10000000)
 
