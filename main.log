@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.14)  17 NOV 2025 21:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.14)  20 NOV 2025 21:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1207,7 +1207,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 \c__nicematrix_shift_Ldots_last_row_dim=\dimen399
 \c__nicematrix_innersep_middle_dim=\dimen400
-<imagenes/Logo_Instituto_Politécnico_Nacional.png, id=26, 261.22594pt x 451.68
+<imagenes/Logo_Instituto_Politécnico_Nacional.png, id=30, 261.22594pt x 451.68
 75pt>
 File: imagenes/Logo_Instituto_Politécnico_Nacional.png Graphic file (type png)
 
@@ -1230,7 +1230,7 @@ Overfull \hbox (20.2359pt too wide) in paragraph at lines 6--23
 []$[]$ $[]$ 
  []
 
-<imagenes/ESCUDO_ESFM.png, id=28, 129.1224pt x 166.9437pt>
+<imagenes/ESCUDO_ESFM.png, id=32, 129.1224pt x 166.9437pt>
 File: imagenes/ESCUDO_ESFM.png Graphic file (type png)
 <use imagenes/ESCUDO_ESFM.png>
 Package pdftex.def Info: imagenes/ESCUDO_ESFM.png  used on input line 35.
@@ -1271,106 +1271,108 @@ LaTeX Info: Redefining \% on input line 1.
 ]
 Cap\'{\i }tulo 1.
 [5]
-Package hyperref Info: bookmark level for unknown comment defaults to 0 on inpu
-t line 65.
-LaTeX Info: Redefining \. on input line 74.
-LaTeX Info: Redefining \% on input line 74.
-LaTeX Info: Redefining \. on input line 74.
-LaTeX Info: Redefining \% on input line 74.
-LaTeX Info: Redefining \. on input line 74.
-LaTeX Info: Redefining \% on input line 74.
+LaTeX Info: Redefining \. on input line 73.
+LaTeX Info: Redefining \% on input line 73.
+LaTeX Info: Redefining \. on input line 73.
+LaTeX Info: Redefining \% on input line 73.
+LaTeX Info: Redefining \. on input line 73.
+LaTeX Info: Redefining \% on input line 73.
  [6]
-Overfull \hbox (5.20872pt too wide) in paragraph at lines 103--104
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
+ [7]
+Package hyperref Info: bookmark level for unknown comment defaults to 0 on inpu
+t line 121.
+
+Overfull \hbox (5.20872pt too wide) in paragraph at lines 132--133
 []\OT1/cmr/m/it/12 Para ca-da $\OML/cmm/m/it/12 t[]; t[] \OMS/cmsy/m/n/12 2 []$
  \OT1/cmr/m/it/12 se tie-ne que $\OML/cmm/m/it/12 s[] [] \OT1/cmr/m/n/12 = +[] 
 []$ \OT1/cmr/m/it/12 y $\OML/cmm/m/it/12 s[] [] \OT1/cmr/m/n/12 =
  []
 
-LaTeX Info: Redefining \. on input line 104.
-LaTeX Info: Redefining \% on input line 104.
-LaTeX Info: Redefining \. on input line 104.
-LaTeX Info: Redefining \% on input line 104.
-LaTeX Info: Redefining \. on input line 104.
-LaTeX Info: Redefining \% on input line 104.
-[7]
-LaTeX Info: Redefining \. on input line 138.
-LaTeX Info: Redefining \% on input line 138.
-LaTeX Info: Redefining \. on input line 138.
-LaTeX Info: Redefining \% on input line 138.
-LaTeX Info: Redefining \. on input line 138.
-LaTeX Info: Redefining \% on input line 138.
- [8]
-LaTeX Info: Redefining \. on input line 180.
-LaTeX Info: Redefining \% on input line 180.
-LaTeX Info: Redefining \. on input line 180.
-LaTeX Info: Redefining \% on input line 180.
-LaTeX Info: Redefining \. on input line 180.
-LaTeX Info: Redefining \% on input line 180.
+LaTeX Info: Redefining \. on input line 152.
+LaTeX Info: Redefining \% on input line 152.
+LaTeX Info: Redefining \. on input line 152.
+LaTeX Info: Redefining \% on input line 152.
+LaTeX Info: Redefining \. on input line 152.
+LaTeX Info: Redefining \% on input line 152.
+[8]
+LaTeX Info: Redefining \. on input line 188.
+LaTeX Info: Redefining \% on input line 188.
+LaTeX Info: Redefining \. on input line 188.
+LaTeX Info: Redefining \% on input line 188.
+LaTeX Info: Redefining \. on input line 188.
+LaTeX Info: Redefining \% on input line 188.
  [9]
-Overfull \hbox (1.71628pt too wide) detected at line 214
+LaTeX Info: Redefining \. on input line 230.
+LaTeX Info: Redefining \% on input line 230.
+LaTeX Info: Redefining \. on input line 230.
+LaTeX Info: Redefining \% on input line 230.
+LaTeX Info: Redefining \. on input line 230.
+LaTeX Info: Redefining \% on input line 230.
+ [10]
+Overfull \hbox (1.71628pt too wide) detected at line 255
 \OML/cmm/m/it/12 X \OT1/cmr/m/n/12 = [] = [] = \OML/cmm/m/it/12 ! \OMS/cmsy/m/n
 /12 n \OML/cmm/m/it/12 U
  []
 
-LaTeX Info: Redefining \. on input line 216.
-LaTeX Info: Redefining \% on input line 216.
-LaTeX Info: Redefining \. on input line 216.
-LaTeX Info: Redefining \% on input line 216.
-LaTeX Info: Redefining \. on input line 216.
-LaTeX Info: Redefining \% on input line 216.
-[10]
-LaTeX Info: Redefining \. on input line 253.
-LaTeX Info: Redefining \% on input line 253.
-LaTeX Info: Redefining \. on input line 253.
-LaTeX Info: Redefining \% on input line 253.
-LaTeX Info: Redefining \. on input line 253.
-LaTeX Info: Redefining \% on input line 253.
- [11]
-Overfull \hbox (11.2271pt too wide) in paragraph at lines 280--281
+LaTeX Info: Redefining \. on input line 264.
+LaTeX Info: Redefining \% on input line 264.
+LaTeX Info: Redefining \. on input line 264.
+LaTeX Info: Redefining \% on input line 264.
+LaTeX Info: Redefining \. on input line 264.
+LaTeX Info: Redefining \% on input line 264.
+[11]
+LaTeX Info: Redefining \. on input line 302.
+LaTeX Info: Redefining \% on input line 302.
+LaTeX Info: Redefining \. on input line 302.
+LaTeX Info: Redefining \% on input line 302.
+LaTeX Info: Redefining \. on input line 302.
+LaTeX Info: Redefining \% on input line 302.
+ [12]
+Overfull \hbox (11.2271pt too wide) in paragraph at lines 321--322
 []\OT1/cmr/m/n/12 Sea $\OML/cmm/m/it/12 ' [] \OMS/cmsy/m/n/12 2 \OT1/cmr/m/n/12
  ^^A[]$ la f^^Sormu-la con par^^Same-tros $\OML/cmm/m/it/12 Y[]; [] ; Y[]$ \OT1
 /cmr/m/n/12 y $\OML/cmm/m/it/12 n[]; [] ; n[] \OMS/cmsy/m/n/12 2
  []
 
-LaTeX Info: Redefining \. on input line 285.
-LaTeX Info: Redefining \% on input line 285.
-LaTeX Info: Redefining \. on input line 285.
-LaTeX Info: Redefining \% on input line 285.
-LaTeX Info: Redefining \. on input line 285.
-LaTeX Info: Redefining \% on input line 285.
-[12]
-Overfull \hbox (1.71628pt too wide) detected at line 292
+LaTeX Info: Redefining \. on input line 331.
+LaTeX Info: Redefining \% on input line 331.
+LaTeX Info: Redefining \. on input line 331.
+LaTeX Info: Redefining \% on input line 331.
+LaTeX Info: Redefining \. on input line 331.
+LaTeX Info: Redefining \% on input line 331.
+[13]
+Overfull \hbox (1.71628pt too wide) detected at line 333
 \OML/cmm/m/it/12 X \OT1/cmr/m/n/12 = [] = [] = \OML/cmm/m/it/12 ! \OMS/cmsy/m/n
 /12 n \OML/cmm/m/it/12 U
  []
 
-LaTeX Info: Redefining \. on input line 317.
-LaTeX Info: Redefining \% on input line 317.
-LaTeX Info: Redefining \. on input line 317.
-LaTeX Info: Redefining \% on input line 317.
-LaTeX Info: Redefining \. on input line 317.
-LaTeX Info: Redefining \% on input line 317.
-[13]
-LaTeX Info: Redefining \. on input line 350.
-LaTeX Info: Redefining \% on input line 350.
-LaTeX Info: Redefining \. on input line 350.
-LaTeX Info: Redefining \% on input line 350.
-LaTeX Info: Redefining \. on input line 350.
-LaTeX Info: Redefining \% on input line 350.
- [14]
-Overfull \hbox (3.80225pt too wide) in paragraph at lines 378--379
-[][]\OT1/cmr/bx/n/12 Definici^^Son 1.15 \OT1/cmr/m/n/12 (Es-que-ma de $^^A[]$-c
+LaTeX Info: Redefining \. on input line 369.
+LaTeX Info: Redefining \% on input line 369.
+LaTeX Info: Redefining \. on input line 369.
+LaTeX Info: Redefining \% on input line 369.
+LaTeX Info: Redefining \. on input line 369.
+LaTeX Info: Redefining \% on input line 369.
+[14]
+LaTeX Info: Redefining \. on input line 403.
+LaTeX Info: Redefining \% on input line 403.
+LaTeX Info: Redefining \. on input line 403.
+LaTeX Info: Redefining \% on input line 403.
+LaTeX Info: Redefining \. on input line 403.
+LaTeX Info: Redefining \% on input line 403.
+ [15]
+Overfull \hbox (3.80225pt too wide) in paragraph at lines 420--421
+[][]\OT1/cmr/bx/n/12 Definici^^Son 1.20 \OT1/cmr/m/n/12 (Es-que-ma de $^^A[]$-c
 omprensi^^Son)\OT1/cmr/bx/n/12 . []\OT1/cmr/m/it/12 Se de-fi-ne el \OT1/cmr/m/n
 /12 es-que-ma de $^^A[]$-comprensi^^Son\OT1/cmr/m/it/12 ,
  []
 
-LaTeX Info: Redefining \. on input line 389.
-LaTeX Info: Redefining \% on input line 389.
-LaTeX Info: Redefining \. on input line 389.
-LaTeX Info: Redefining \% on input line 389.
-LaTeX Info: Redefining \. on input line 389.
-LaTeX Info: Redefining \% on input line 389.
-[15]) (Capitulos/c3.tex
+) (Capitulos/c3.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 LaTeX Info: Redefining \. on input line 1.
@@ -1393,14 +1395,48 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 [17
 
-])
+]
+LaTeX Info: Redefining \. on input line 65.
+LaTeX Info: Redefining \% on input line 65.
+LaTeX Info: Redefining \. on input line 65.
+LaTeX Info: Redefining \% on input line 65.
+LaTeX Info: Redefining \. on input line 65.
+LaTeX Info: Redefining \% on input line 65.
+ [18]
+LaTeX Info: Redefining \. on input line 94.
+LaTeX Info: Redefining \% on input line 94.
+LaTeX Info: Redefining \. on input line 94.
+LaTeX Info: Redefining \% on input line 94.
+LaTeX Info: Redefining \. on input line 94.
+LaTeX Info: Redefining \% on input line 94.
+ [19]
+LaTeX Info: Redefining \. on input line 143.
+LaTeX Info: Redefining \% on input line 143.
+LaTeX Info: Redefining \. on input line 143.
+LaTeX Info: Redefining \% on input line 143.
+LaTeX Info: Redefining \. on input line 143.
+LaTeX Info: Redefining \% on input line 143.
+ [20]
+LaTeX Info: Redefining \. on input line 178.
+LaTeX Info: Redefining \% on input line 178.
+LaTeX Info: Redefining \. on input line 178.
+LaTeX Info: Redefining \% on input line 178.
+LaTeX Info: Redefining \. on input line 178.
+LaTeX Info: Redefining \% on input line 178.
+ [21]) (Capitulos/c4.tex)
 \Changes@OutFile=\write7
 \openout7 = `main.soc'.
 
 \tf@loc=\write8
 \openout8 = `main.loc'.
 
- [18] (main.aux
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+ [22] (main.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -1409,16 +1445,16 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 41D59B9F63073D4C49B9EC3042477406;768.
+(rerunfilecheck)             Checksum: 79662F20CCF5F260BD490B9957AD79E3;972.
  ) 
 Here is how much of TeX's memory you used:
- 31747 strings out of 467871
- 649180 string characters out of 5418375
- 1168398 words of memory out of 5000000
- 60008 multiletter control sequences out of 15000+600000
+ 31795 strings out of 467871
+ 649435 string characters out of 5418375
+ 1167398 words of memory out of 5000000
+ 59998 multiletter control sequences out of 15000+600000
  642918 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 118i,13n,121p,825b,974s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 118i,13n,121p,825b,976s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\omari\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1200.pk><C:/Users/omari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx12.pfb><C:/Users/omari/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1436,9 +1472,9 @@ amsfonts/cm/cmsy8.pfb><C:/Users/omari/AppData/Local/Programs/MiKTeX/fonts/type1
 /public/amsfonts/cm/cmti12.pfb><C:/Users/omari/AppData/Local/Programs/MiKTeX/fo
 nts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/omari/AppData/Local/Prog
 rams/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (18 pages, 468302 bytes).
+Output written on main.pdf (22 pages, 486690 bytes).
 PDF statistics:
- 324 PDF objects out of 1000 (max. 8388607)
- 125 named destinations out of 1000 (max. 500000)
- 63 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 410 PDF objects out of 1000 (max. 8388607)
+ 180 named destinations out of 1000 (max. 500000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

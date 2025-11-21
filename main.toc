@@ -2,5 +2,6 @@
 \contentsline {chapter}{\numberline {1}Aritmética de segundo orden}{5}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Sintaxis}{5}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Semántica}{7}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Resultados y definiciones esenciales}{9}{section.1.3}%
+\contentsline {section}{\numberline {1.3}Resultados y definiciones esenciales}{10}{section.1.3}%
 \contentsline {chapter}{\numberline {2}El subsistema $\mathrm {RCA}_{0}$}{17}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Teoría de números elemental}{18}{section.2.1}%

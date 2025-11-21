@@ -62,7 +62,36 @@ Ejemplos de términos de $\LA$ son los siguientes:
 	\end{enumerate}
 \end{notation}
 
-\comment{Sintaxis}{Agregar la parte de sintaxis en este lugar}
+\begin{definition}[Conjunto de variables]
+	Sea $\varphi\in\mterm\cup\mform$. Se define el \emph{conjunto de variables} de $\varphi$ de la siguiente forma inductiva:
+	\begin{enumerate}
+		\item Si $\varphi\in\left\{0, 1\right\}$, entonces $\kvar{\varphi} =\varnothing$.
+		\item Si $\varphi\in\mvar[N]$, entonces $\kvar{\varphi} =\left\{\varphi\right\}$.
+		\item Si $\varphi$ está dada por $\left(t_{1}\alpha t_{2}\right)$ con $\alpha\in\left\{+,\cdot, <, =\right\}$ y $t_{1}, t_{2}\in\mterm$, entonces $\kvar{\varphi} =\kvar{t_{1}}\cup\kvar{t_{2}}$.
+		\item Si $\varphi$ está dada por $\left(t\in X\right)$ con $X\in\mvar[C]$ y $t\in\mterm$, entonces $\kvar{\varphi} =\kvar{t}\cup\left\{X\right\}$.
+		\item Si $\varphi$ está dada por $\neg\psi$ con $\psi\in\mform$, entonces $\kvar{\varphi} =\kvar{\psi}$.
+		\item Si $\varphi$ está dada por $\left(\psi_{1}\land\psi_{2}\right)$ con $\psi_{1},\psi_{2}\in\mform$, entonces $\kvar{\varphi} =\kvar{\psi_{1}}\cup\kvar{\psi_{2}}$.
+		\item Si $\varphi$ está dada por $Qx\psi$ con $Q\in\left\{\exists, \forall\right\}$, $x\in\mvar$ y $\psi\in\mform$, entonces $\kvar{\varphi} =\kvar{\psi}\cup\left\{x\right\}$.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Conjunto de variables libres]
+	Sea $\varphi\in\mform$. Se define el \emph{conjunto de variables libres} de $\varphi$ de la siguiente forma inductiva:
+	\begin{enumerate}
+		\item Si $\varphi\in\matom$, entonces $\kfree{\varphi} =\kvar{\varphi}$.
+		\item Si $\varphi$ está dada por $\neg\psi$ con $\psi\in\mform$, entonces $\kfree{\varphi} =\kfree{\psi}$.
+		\item Si $\varphi$ está dada por $\left(\psi_{1}\land\psi_{2}\right)$ con $\psi_{1},\psi_{2}\in\mform$, entonces $\kfree{\varphi} =\kfree{\psi_{1}}\cup\kfree{\psi_{2}}$.
+		\item Si $\varphi$ está dada por $Qx\psi$ con $Q\in\left\{\exists, \forall\right\}$, $x\in\mvar$ y $\psi\in\mform$, entonces $\kfree{\varphi} =\kfree{\psi}\setminus\left\{x\right\}$.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Fórmulas cerradas]
+	Se define el conjunto de \emph{fórmulas cerradas} de $\LA$ como sigue:
+	\[
+		\msent\coloneqq\left\{\varphi\in\mform: \kfree{\varphi} =\varnothing\right\}
+	\]
+\end{definition}
+
 
 \section{Semántica}
 
@@ -138,13 +167,25 @@ Ejemplos de términos de $\LA$ son los siguientes:
 	\end{enumerate}
 \end{notation}
 
+\begin{definition}[Equivalencia lógica]
+	Sean $\varphi,\psi\in\mform$, entonces $\varphi$ y $\psi$ se denominan \emph{lógicamente equivalentes} si $\models\left(\varphi\leftrightarrow\psi\right)$.
+	
+	En tal caso se denota por $\varphi\equiv\psi$.
+\end{definition}
+
+\begin{definition}[Implicación semántica]
+	Sean $\Gamma\subseteq\mform$ y $\varphi\in\mform$. Decimos que $\varphi$ se \emph{implica semánticamente} de $\Gamma$ si para cada $\LA$-estructura $\mathcal{M}$ y valuación de variables $s$ tales que $\left(\mathcal{M}, s\right)\models\psi$ para cada $\psi\in\Gamma$ se sigue que $\left(\mathcal{M}, s\right)\models\varphi$.
+	
+	En tal caso se denotará por $\Gamma\models\varphi$.
+\end{definition}
+
+
+
 \section{Resultados y definiciones esenciales}
 
 \begin{definition}[Cuantificadores acotados]
 	Una \emph{fórmula acotadamente cuantificada} es toda aquella de la forma $\exists n\left(\left(n < t\right)\land\varphi\right)$ o $\forall n\left(\left(n < t\right)\to\varphi\right)$ donde $\varphi\in\mform$, $n\in\mvar[N]$, $t\in\mterm$ y $n\notin\mathrm{Var}\left[t\right]$.
 \end{definition}
-
-\comment{Conjunto de variables}{Definir lo que significa Var}
 
 \begin{notation}
 	Sean $\varphi\in\mform$, $n\in\mvar[N]$ y $t\in\mterm$ tales que $n\notin\mathrm{Var}\left[t\right]$. Entonces:
@@ -352,6 +393,7 @@ Ejemplos de términos de $\LA$ son los siguientes:
 \end{proof}
 
 \begin{definition}[Axiomas base de la aritmética de segundo orden]
+	\label{def: axiomas_base}
 	Definimos a los \emph{axiomas básicos} de $\LA$, denotados por $\mpa$, como las cerraduras universales de las siguientes fórmulas:
 	\begin{enumerate}
 		\item $\neg\left(n + 1 = 0\right)$
@@ -382,11 +424,8 @@ Ejemplos de términos de $\LA$ son los siguientes:
 	donde $\varphi\left(n\right)\in\Sigma_{1}^{0}$, $\psi\left(n\right)\in\Pi_{1}^{0}$ y $\mathrm{Free}\left[\varphi\right] =\mathrm{Free}\left[\psi\right] =\left\{n\right\}$.
 \end{definition}
 
-\comment{Variables libres}{Definir lo que significa Free}
-
 \begin{definition}[$\omega$-modelo]
 	Sean $\Gamma\subseteq\msent$ no vacío y $S\subseteq\mpow{\omega}$ una $\omega$-estructura. $S$ se denomina \emph{$\omega$-modelo} de $\Gamma$ si $S\models\varphi$ para cada $\varphi\in\Gamma$.
 \end{definition}
 
-\comment{Sentencias}{Definir lo que significa el conjunto Sent}
 

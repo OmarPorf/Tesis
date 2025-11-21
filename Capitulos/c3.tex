@@ -53,3 +53,127 @@
 	
 	Sea $\varphi\left(n\right)\in\Delta_{1}^{0}$ con $\mathrm{Free}\left[\varphi\right] =\left\{n\right\}$, entonces demostremos que existe $X\in S$ definido por $\varphi$. Debido a que $S\neq\varnothing$, podemos suponer que $\varphi\left(n, Y_{1},\dotsc, Y_{k}\right)$ para algunos parámetros $Y_{1},\dotsc, Y_{k}\in S$ y $k\in\omega^{+}$. Consideremos al conjunto $X\in\mpow{\omega}$ definido por $\varphi$, entonces por el teorema de Post generalizado (\ref{theo: teorema_de_post_generalizado}) sabemos que $X\leq_{T}Y_{1}\oplus\dotsb\oplus Y_{k}$. Ya que $Y_{1},\dotsc, Y_{k}\in S$, entonces $Y_{1}\oplus\dotsb\oplus Y_{k}\in S$, y por lo tanto, $X\in S$.
 \end{proof}
+\section{Teoría de números elemental}
+
+De ahora en adelante, todos los siguientes teoremas serán demostrados dentro del subsistema $\rca$, a menos que se diga lo contrario.
+
+\begin{theorem}[Propiedades básicas de la aritmética]
+	Se satisfacen las siguientes cerraduras universales.
+	\begin{enumerate}
+		\item $\left(\left(\left(n + m\right) + p\right) =\left(n + \left(m + p\right)\right)\right)$
+		\item $\left(\left(0 + n\right) = n\right)$
+		\item $\left(\left(1 + n\right) = n\right)$
+		\item $\left(\left(n + m\right) =\left(m + n\right)\right)$
+		\item $\left(\left(n\cdot\left(m + p\right)\right) =\left(\left(n\cdot m\right) +\left(n\cdot p\right)\right)\right)$
+		\item $\left(\left(\left(n\cdot m\right)\cdot p\right) =\left(n\cdot\left(m\cdot p\right)\right)\right)$
+		\item $\left(\left(\left(n + m\right)\cdot p\right) =\left(\left(n\cdot p\right) +\left(m\cdot p\right)\right)\right)$
+		\item $\left(\left(0\cdot n\right) = 0\right)$
+		\item $\left(\left(1\cdot n\right) = n\right)$
+		\item $\left(\left(n\cdot m\right) =\left(m\cdot n\right)\right)$
+		\item $\left(\left(\left(n < m\right)\land\left(m < p\right)\right)\to\left(n < p\right)\right)$
+		\item $\left(\left(n < m\right)\leftrightarrow\left(\left(n + 1\right) <\left(m + 1\right)\right)\right)$
+		\item $\left(\neg\left(n = 0\right)\to\left(0 < n\right)\right)$
+		\item $\left(\left(n < m\right)\vee\left(n = m\right)\vee\left(m < n\right)\right)$
+		\item $\neg\left(n < n\right)$
+		\item $\left(\left(n < m\right)\leftrightarrow\left(\left(n + p\right) <\left(m + p\right)\right)\right)$
+		\item $\left(n <\left(\left(n + m\right) + 1\right)\right)$
+		\item $\left(\left(\left(n + p\right) =\left(m + p\right)\right)\to\left(n = m\right)\right)$
+		\item $\left(\left(\neg\left(p = 0\right)\land\left(n < m\right)\right)\to\left(\left(n\cdot p\right) < \left(m\cdot p\right)\right)\right)$
+		\item $\left(\left(\neg\left(p = 0\right)\land\left(\left(n\cdot p\right) <\left(m\cdot p\right)\right)\right)\to\left(n < m\right)\right)$
+		\item $\left(\left(\neg\left(p = 0\right)\land\left(\left(n\cdot p\right) =\left(m\cdot p\right)\right)\right)\to\left(n = m\right)\right)$
+		\item $\left(\left(n < m\right)\to\left(\exists p < m\right)\left(\left(\left(n + p\right) + 1\right) = n\right)\right)$
+		\item $\left(\neg\left(n = 0\right)\to\left(\exists m < n\right)\left(\left(m + 1\right) = n\right)\right)$
+	\end{enumerate}
+\end{theorem}
+\comment{Demostraciones}{Demostrar las propiedades del teorema anterior.}
+\begin{notation}
+	Realizaremos la siguiente notación:
+	\begin{enumerate}
+		\item Escribiremos $\left(t_{1}\leq t_{2}\right)$ en lugar de la fórmula $\left(t_{1} < t_{2} + 1\right)$ donde $t_{1}, t_{2}\in\mterm$.
+		\item Escribiremos $\left(t\notin X\right)$ en lugar de la fórmula $\neg\left(t\in X\right)$ donde $t\in\mterm$.
+		\item Escribiremos $\left(t_{1}\neq t_{2}\right)$ en lugar de la fórmula $\neg\left(t_{1} = t_{2}\right)$ donde $t_{1}, t_{2}\in\mterm$.
+	\end{enumerate}
+\end{notation}
+
+\begin{definition}[Mínimo]
+	Sea $X$ un conjunto. Se dice que $X$ tiene un \emph{elemento mínimo} si se satisface la siguiente fórmula:
+	\[
+		\exists k\forall m\left(\left(k\in X\right)\land\left(\left(m\in X\right)\to\left(k\leq m\right)\right)\right)
+	\]
+\end{definition}
+
+
+\begin{theorem}[Principio del buen orden]
+	Todo conjunto $X$ no vacío, es decir tal que se satisface $\exists n\left(n\in X\right)$, tiene un elemento mínimo.
+\end{theorem}
+\begin{proof}
+	Demostremos por contradicción. Consideremos a $X$ un conjunto no vacío, es decir tal que se satisface $\exists n\left(n\in X\right)$, para el cual se cumple lo siguiente:
+	\begin{equation}
+		\label{eq: buen_orden}
+		\forall k\exists m\left(\left(k\notin X\right)\vee\left(\left(m\in X\right)\land\left(m < k\right)\right)\right)
+	\end{equation}
+	Sea $\varphi\left(p\right)$ la fórmula dada por $\left(\forall k\leq p\right)\left(k\notin X\right)$, la cual es $\Delta_{0}^{0}$. Mostremos por $\mind{\Sigma_{1}^{0}}$ que se satisface la fórmula $\forall p\varphi\left(p\right)$.
+	
+	\begin{itemize}
+		\item (Base) Si $p = 0$, entonces debemos mostrar que $\left(0\notin X\right)$. Supongamos por el contrario que $\left(0\in X\right)$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $\left(m < 0\right)$ y $\left(m\in X\right)$. Puesto que por los axiomas $\mpa$ se tiene que para cada $n$ se satisface que $\neg\left(n < 0\right)$, entonces llegamos a una contradicción. Por lo tanto, necesariamente $0\notin X$.
+		
+		\item (Paso inductivo) Sea $n$ tal que se satisface $\varphi\left(n\right)$, entonces demostremos que se satisface $\varphi\left(n + 1\right)$. 
+		
+		Supongamos que $\left(\left(n + 1\right)\in X\right)$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $\left(m\in X\right)$ y $m <\left(n + 1\right)$, es decir, $\left(m\leq n\right)$. Ya que se satisface $\varphi\left(n\right)$ por hipótesis, se tiene entonces que $\left(m\notin X\right)$, lo cual contradice el hecho que $\left(m\in X\right)$ como se dedujo anteriormente. Por lo tanto, necesariamente $\left(\left(n + 1\right)\in X\right)$.
+	\end{itemize}
+	
+	Se sigue entonces por $\mind{\Sigma_{1}^{0}}$ que:
+	\[
+		\forall p\varphi\left(p\right)\equiv\forall p\left(\forall k\leq p\right)\left(k\notin X\right)\equiv\forall p\left(p\notin X\right)
+	\]
+	lo cual contradice el hecho que $X$ era no vacío.
+	
+	En conclusión, por contradicción, se prueba el teorema.
+\end{proof}
+
+\begin{definition}[Cota superior]
+	Sea $X$ un conjunto. $X$ se dice estar \emph{acotado superiormente} si se satisface la siguiente fórmula:
+	\[
+		\exists n\forall m\left(\left(m\in X\right)\to\left(m\leq n\right)\right)
+	\]
+\end{definition}
+
+\begin{definition}[Máximo]
+	Sea $X$ un conjunto. Se dice que $X$ tiene un \emph{elemento máximo} si se satisface la siguiente fórmula:
+	\[
+		\exists k\forall m\left(\left(k\in X\right)\land\left(\left(m\in X\right)\to\left(m\leq k\right)\right)\right)
+	\]
+\end{definition}
+
+\begin{theorem}[Principio del máximo]
+	Todo conjunto $X$ no vacío y acotado superiormente tiene un elemento máximo.
+\end{theorem}
+
+\begin{proof}
+	Defínase la fórmula $\varphi\left(n\right)$ dada por:
+	\begin{equation}
+		\label{eq: principio_maximo}
+		\left(\left(\forall k\leq n\right)\left(k\notin X\right)\vee\left(\exists p\leq n\right)\left(\forall k\leq n\right)\left(\left(k\in X\right)\to\left(k\leq p\right)\right)\right)
+	\end{equation}
+	la cual es $\Delta_{0}^{0}$. Observemos que esta fórmula se interpreta como que dado $n$ se satisface que todos los elementos menores a $n$ no pertenecen a $X$ o el conjunto $X\cap\set{0,\dotsc, n}$ tiene máximo. Probemos entonces por $\mind{\Sigma_{1}^{0}}$ que se satisface la fórmula $\forall n\varphi\left(n\right)$.
+	
+	\begin{enumerate}
+		\item (Base) Para $n = 0$ se tienen dos casos: $\left(0\in X\right)$ o $\left(0\notin X\right)$. Si se cumple $\left(0\notin X\right)$, entonces directamente se satisface la primera parte de la fórmula \eqref{eq: principio_maximo}. Si se satisface $\left(0\in X\right)$, entonces tomando $p = 0$ se satisface la segunda parte de la fórmula \eqref{eq: principio_maximo}. En cualquier caso obtenemos que se satisface $\varphi\left(0\right)$.
+		
+		\item (Paso inductivo) Sea $n$ tal que $\varphi\left(n\right)$. Entonces demostremos que se satisface que $\varphi\left(n + 1\right)$.
+		
+		Ya que se satisface $\varphi\left(n\right)$, entonces tenemos tres casos: 
+		\begin{itemize}
+			\item Si se satisface $\left(\left(n + 1\right)\in X\right)$, entonces se satisface la segunda parte de la fórmula $\varphi\left(n + 1\right)$ tomando $p = \left(n + 1\right)$.
+			
+			\item Si se satisface $\left(\left(n + 1\right)\notin X\right)$ y para cada $k$ con $\left(k\leq n\right)$ se cumple que $\left(k\notin X\right)$, entonces claramente se cumple la primer parte de la fórmula $\varphi\left(n + 1\right)$.
+			
+			\item Si se satisface $\left(\left(n + 1\right)\notin X\right)$ y existe un elemento máximo de los elementos de $X$ acotados por $n$, entonces directamente se satisface la segunda parte de la fórmula $\varphi\left(n + 1\right)$.
+		\end{itemize}
+		Se sigue entonces que en cualquier caso se satisface $\varphi\left(n + 1\right)$. Luego, por $\mind{\Sigma_{1}^{0}}$ se cumple la fórmula $\forall n\varphi\left(n\right)$.
+		
+		Ya que $X$ es acotado superiormente, se deduce que existe $m$ tal que para cada $k$, si $k\in X$, entonces $k\leq m$. Por lo tanto, se satisface particularmente $\varphi\left(m\right)$. 
+		
+		Ahora, puesto que $X$ es no vacío, entonces no se satisface la primera parte de $\varphi\left(m\right)$, de lo cual se sigue que existe $p$ con $\left(p\leq m\right)$ tal que es máximo de los elementos de $X$ acotados por $m$. Como $m$ ya es cota superior de $X$, entonces tal $p$ es un máximo de $X$. 
+	\end{enumerate}
+\end{proof}
