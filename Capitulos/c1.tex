@@ -1,431 +1,1067 @@
 \chapter{Teoría de la computabilidad}
-\section{Computabilidad básica}
-\subsection{Primitivo-recursividad}
-\nomenclature{$\omath$}{El conjunto de los números naturales.}
+\section{Computabilidad: Enfoque inductivo}
 
-\begin{definition}
-    Se define al conjunto de funciones sobre $\omega$ como sigue:
-    \[
-        \mfunc\coloneqq\set{f:\omath[n]\to\omath|n\in\omath[+]}
-    \]
-    Sea $n\in\omath$, entonces denotaremos por $\mfunc[n]$ al conjunto de funciones sobre $\omath$ de aridad $n$:
-    \[
-        \mfunc[n]\coloneqq\set{f\in\mfunc:\maridad{f} = n}
-    \]
-\end{definition}
+En esta sección abordaremos el enfoque inductivo de la computabilidad. Este se enfoque en la construcción de lo computable por medio de ciertas funciones básicas y sus composiciones. A diferencia de lo que sería un algoritmo convencional enfocado en la ejecución de pasos en secuencia, este enfoque se desprende de ese paso en el tiempo y nos describe lo computable con algo más estructural. Un algoritmo ya no sería una lista de pasos explícitos, sino una combinación de otros algoritmos más simples y sus relaciones. Este enfoque nos es de mucha ayuda puesto que justificar que algo es computable es más sencillo debido a ciertas propiedades de cerradura que serían más complicadas de realizar desde un punto de vista más mecánico. 
 
-\begin{definition}[Funciones básicas]
-    Se definen las \emph{funciones básicas} como las siguientes funciones de $\mfunc$:
-    \begin{itemize}
-        \item La función \emph{cero} $\mcero\in\mfunc[1]$ tal que para cada $n\in\omath$, $\mcero\pa{n} = 0$.
-        \item La función \emph{sucesor} $\msuc\in\mfunc[1]$ tal que para cada $n\in\omath$, $\msuc\pa{n} = n + 1$.
-        \item Para cada $n, k\in\omath[+]$\nomenclature{$\omath[+]$}{El conjunto de números naturales positivos.} con $k\leq n$, la función \emph{proyección} $\mproj{n}{k}\in\mfunc[n]$ tal que para cada $\pa{x_{1},\dotsc,x_{n}}\in\omath[n]$, $\mproj{n}{k}\pa{x_{1},\dotsc,x_{n}} = x_{k}$.
-    \end{itemize}
-\end{definition}
+Este enfoque se basa en que todo algoritmo puede verse como una combinación de funciones básicas (cero, sucesor, proyección) por medio de ciertas operaciones entre ellas (composición, recursión y minimización). 
 
-\begin{definition}[Composición generalizada]
-    Sean $n, k\in\omath$, $f\in\mfunc[n]$ y $g_{1},\dotsc, g_{n}\in\mfunc[k]$\nomenclature{$\maridad{f}$}{Aridad de la función $f$, es decir, el número de argumentos admitidos por la función $f$.}. La \emph{composición generalizada} de las funciones $f, g_{1},\dotsc, g_{n}$ es la única función $h\in\mfunc[k]$ tal que para cada $x\in\omath[k]$:
-        \[
-            h\pa{x} = f\pa{g_{1}\pa{x},\dotsc,g_{n}\pa{x}}
-        \]
-\end{definition}
+\subsection{Funciones primitivas recursivas}
 
-\begin{definition}[Recursión generalizada]
-    Sean $n\in\omath$, $f\in\mfunc[n]$ y $g\in\mfunc[n + 2]$. La \emph{recursión generalizada} de las funciones $f$ y $g$ es la única función $h:\mfunc[n + 1]$ tal que para cada $x\in\omath[n]$ y $y\in\omath$:
-        \[
-            \begin{array}{c}
-                h\pa{x, 0} = f\pa{x}\\
-                h\pa{x, \msuc\pa{y}} = g\pa{x, y, h\pa{x, y}}
-            \end{array}
-        \]
-\end{definition}
+Primero abordaremos a las \emph{funciones primitivas recursivas}, puesto que son el tipo de funciones que abarcan la mayoría de funciones computables en la práctica, y que además son la clasificación sobre la cual la mayoría de objetos que construiremos para estudiar la computabilidad caen.
+
+Las funciones primitivas recursivas se enfocan en el uso de las operaciones de composición y recursión particularmente. La composición puede entenderse como el hecho de que dados varios algoritmos, estos pueden ser utilizados como subprocesos auxiliares para ejecutar un algoritmo más complejo. La recursión puede entenderse de cierta forma como un ciclo \emph{for}, pues puede entenderse como la ejecución de varios pasos acotados, donde tal cota está bien definida, es decir, sabemos cuántos pasos realizará el ciclo y no solamente que eventualmente se detendrá. Estos conceptos se definen formalmente de la siguiente manera.
 
 \begin{definition}[Funciones primitivas recursivas]
-    Se define el conjunto de \emph{funciones primitivas recursivas} como el mínimo conjunto $\mprim\subseteq\mfunc$ que contiene a las funciones básicas y que es cerrado bajo composición y recursión generalizada.
-
-    Sea $n\in\omath$, entonces denotaremos por $\mprim[n]$ al conjunto de funciones primitivas recursivas de aridad $n$:
-    \[
-        \mprim[n]\coloneqq\set{f\in\mprim:\maridad{f} = n}
-    \]
+	Sea $n\in\omath[+]$. Una función $f:\omath[n]\to\omega$ se denomina \emph{primitiva recursiva} si satisface alguna de las siguientes condiciones:
+	\begin{enumerate}
+		\item (Funciones básicas) La función $f$ es una de las siguientes funciones:
+		\begin{itemize}
+			\item La función \emph{cero}: $\mcero:\omath[n]\to\omath$ tal que para cada $x\in\omath[n]$, $\mcero(x) = 0$.
+			\item Si $n = 1$, la función \emph{sucesor}: $\msuc:\omath\to\omath$ tal que para cada $x\in\omath$, $\msuc(x) = x + 1$.
+			\item Para algún $k\in\omath[+]$ con $k\leq n$, la función \emph{proyección}: $\mproj{n}{k}:\omath[n]\to\omath$ tal que para cada $x_{1},\dotsc, x_{n}\in\omath$, $\mproj{n}{k}\pa{x_{1},\dotsc, x_{n}} = x_{k}$.
+		\end{itemize}
+		\item (Composición) Para algún $m\in\omath[+]$ existen funciones primitivas recursivas $g_{1},\dotsc, g_{m}:\omath[n]\to\omath$ y $h:\omath[m]\to\omath$ tales que para cada $x\in\omath[n]$, $f(x) = h\pa{g_{1}(x),\dotsc, g_{m}(x)}$.
+		\item (Recursión) Si $n > 1$ y existen funciones primitivas recursivas $g:\omath[n - 1]\to\omath$ y $h:\omath[n + 1]\to\omath$ tales que para cada $x\in\omath[n - 1]$ y cada $y\in\omath$ se satisface que:
+		\[
+			\begin{NiceArray}{c}
+				f(x, 0) = g(x)\\
+				f(x, y + 1) = h(x, y, f(x, y))
+			\end{NiceArray}
+		\]
+	\end{enumerate}
+	
+	Para cada $n\in\omath[+]$, denotamos por $\mprim[n]$ al conjunto de todas las funciones primitvas recursivas de aridad $n$. Definimos al conjunto de funciones primitivas recursivas como $\mprim\coloneqq\bigcup_{n\in\omath[+]}\mprim[n]$.
 \end{definition}
 
+Ejemplo de cómo es que estas funciones modelan una parte de la computabilidad es el siguiente teorema.
+
 \begin{theorem}
-    Se satisface que las siguientes funciones son primitivas recursivas.
-    \begin{enumerate}
-        \item La función suma $f\in\mfunc[2]$ tal que $f\pa{x, y} = x + y$.
-        \item La función producto $f\in\mfunc[2]$ tal que $f\pa{x, y} = x\cdot y$.
-        \item La función exponenciación $f\in\mfunc[2]$ tal que $f\pa{x, y} = x^{y}$.
-        \item Para cada $n\in\omath[+]$, la función cero generalizada $f\in\mfunc[n]$ tal que $f\pa{x} = 0$.
-        \item La función predecesor $f:\in\mfunc[1]$ tal que:
-        \[
-            f\pa{x} =\begin{cases}
-               x - 1, & x > 0\\
-               0 & \text{en caso contrario}
-            \end{cases}
-        \]
-        \item La función resta $f\in\mfunc[2]$ tal que:
-        \[
-            f\pa{x} =\begin{cases}
-                x - y, & x > y\\
-                0, & \text{en caso contrario}
-            \end{cases}
-        \]
-    \end{enumerate}
+	La suma, producto y exponenciación son funciones primitivas recursivas.
 \end{theorem}
+
+\begin{proof}
+	Para el caso de la suma definamos la función $f:\omath[2]\to\omath$ como:
+	\[
+		\begin{NiceArray}{c}
+			f(x, 0) =\mproj{1}{1}(x)\\
+			f(x, y + 1) =\mproj{3}{3}\pa{x, y,\msuc\pa{f(x, y)}}
+		\end{NiceArray}
+	\]
+	
+	Puesto que $\mproj{1}{1}$, $\msuc$ y $\mproj{3}{3}$ son funciones primitivas recursivas, se tiene que $f$ es primitiva recursiva. Mostremos entonces que para cada $x, y\in\omath$ se satisface que $f(x, y) = x + y$. Mostremos por inducción sobre $y$. 
+	\begin{itemize}
+		\item (Base) Se tiene que para $y = 0$ se sigue que $f(x, 0) = \mproj{1}{1}(x) = x = x + y$. 
+		\item (Paso inductivo) Supongamos que para algún $y\in\omath$ se satisface que $f(x, y) = x + y$. Entonces mostremos que $f(x, y + 1) = x + (y + 1)$. Por la definición de $f$ se tiene lo siguiente:
+		\[
+			f(x, y + 1) =\mproj{3}{3}\pa{x, y,\msuc\pa{f(x, y)}} = \msuc\pa{f(x, y)} = f(x, y) + 1 = (x + y) + 1 = x + (y + 1)
+		\]
+		Probando así la proposición.
+	\end{itemize}
+	
+	
+	Ahora, para el caso del producto definamos la función $f:\omath[2]\to\omath$ como:
+	\[
+	\begin{NiceArray}{c}
+		f(x, 0) =\mcero(x)\\
+		f(x, y + 1) =\mproj{3}{3}\pa{x, y, f(x, y) +\mproj{2}{1}(x, y)}
+	\end{NiceArray}
+	\]
+	Puesto que $\mcero$, $\mproj{3}{3}$, $\mproj{2}{1}$ y la suma son funciones primitivas recursivas, se tiene que $f$ es primitiva recursiva. Mostremos entonces que para cada $x, y\in\omath$ se satisface que $f(x, y) = xy$. Mostremos por inducción sobre $y$. 
+	\begin{itemize}
+		\item (Base) Se tiene que para $y = 0$ se sigue que $f(x, 0) = \mcero(x) = 0 = xy$. 
+		\item (Paso inductivo) Supongamos que para algún $y\in\omath$ se satisface que $f(x, y) = xy$. Entonces mostremos que $f(x, y + 1) = x(y + 1)$. Por la definición de $f$ se tiene lo siguiente:
+		\begin{align*}
+			f(x, y + 1) &=\mproj{3}{3}\pa{x, y, f(x, y) +\mproj{2}{1}(x, y)}\\
+			&= f(x, y) +\mproj{2}{1}(x, y) \\
+			&= f(x, y) + x \\
+			&= xy + x\\
+			&= x(y + 1)
+		\end{align*}
+		Probando así la proposición.
+	\end{itemize}
+	
+	Finalmente, para el caso de la exponenciación definamos la función $f:\omath[2]\to\omath$ como:
+	\[
+	\begin{NiceArray}{c}
+		f(x, 0) =\msuc\pa{\mcero(x)}\\
+		f(x, y + 1) =\mproj{3}{3}\pa{x, y, f(x, y)\mproj{2}{1}(x, y)}
+	\end{NiceArray}
+	\]
+	
+	Puesto que $\msuc$, $\mcero$, $\mproj{3}{3}$, $\mproj{2}{1}$ y el producto son funciones primitivas recursivas, se tiene que $f$ es primitiva recursiva. Mostremos entonces que para cada $x, y\in\omath$ se satisface que $f(x, y) = x^{y}$. Mostremos por inducción sobre $y$. 
+	\begin{itemize}
+		\item (Base) Se tiene que para $y = 0$ se sigue que $f(x, 0) = \msuc\pa{\mcero(x)} = 1 = x^{y}$. 
+		\item (Paso inductivo) Supongamos que para algún $y\in\omath$ se satisface que $f(x, y) = x^{y}$. Entonces mostremos que $f(x, y + 1) = x^{y + 1}$. Por la definición de $f$ se tiene lo siguiente:
+		\begin{align*}
+			f(x, y + 1) &=\mproj{3}{3}\pa{x, y, f(x, y)\mproj{2}{1}(x, y)}\\
+			&= f(x, y)\mproj{2}{1}(x, y) \\
+			&= f(x, y)x \\
+			&= x^{y}x\\
+			&= x^{y + 1}
+		\end{align*}
+		Probando así la proposición.
+	\end{itemize}
+\end{proof}
+
+Notemos que en las funciones anteriores de suma, producto y exponenciación, el hecho de usar recursión es equivalente al uso de un \emph{for} algorítmicamente hablando, pues para el caso de la suma se tendría que $x + y$ sería ejecutar un algoritmo que devuelve $x$ si $y = 0$, y en caso contrario suma $1$ a $x$ un número $y$ de veces.
+
+\begin{algorithm}[h!]
+	\caption{Suma}
+	\begin{algorithmic}
+		\Require $x$, $y$
+		\Ensure $x + y$
+		\For{$n = 0,\dotsc, y - 1$}
+		\State $x \gets x + 1$
+		\EndFor
+		\State \Return $x$
+	\end{algorithmic}
+\end{algorithm}
+
+Para el caso del producto $xy$ se trataría de un algoritmo el cual utiliza un ciclo for que va sumando $x$ un número de $y$ veces hasta obtener el producto, y de manera similar para el caso de la exponenciación el cual utilizaría un ciclo for para ir multiplicando el número $x$ un número de $y$ veces.
+
+\begin{algorithm}[h!]
+	\caption{Producto}
+	\begin{algorithmic}
+		\Require $x$, $y$
+		\Ensure $xy$
+		\State $z\gets 0$
+		\For{$n = 0,\dotsc, y - 1$}
+		\State $z \gets \text{Suma}(z, x)$
+		\EndFor
+		\State \Return $z$
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h!]
+	\caption{Exponenciación}
+	\begin{algorithmic}
+		\Require $x$, $y$
+		\Ensure $x^{y}$
+		\State $z\gets 1$
+		\For{$n = 0,\dotsc, y - 1$}
+		\State $z \gets \text{Producto}(z, x)$
+		\EndFor
+		\State \Return $z$
+	\end{algorithmic}
+\end{algorithm}
+
+Se puede probar lo siguiente sobre las otras operaciones básicas.
+
+\begin{theorem}
+	Las siguientes funciones son primitivas recursivas.
+	\begin{enumerate}
+		\item El factorial, es decir, la función $f:\omega\to\omega$ tal que para cada $x\in\omega$:
+		\[
+			f(x) =
+			\begin{cases}
+				1, & x = 0\\
+				1\cdot2\cdot\dotsc\cdot x, & x > 0
+			\end{cases}
+		\]
+		\item La función predecesor, es decir, la función $f:\omega\to\omega$ tal que para cada $x\in\omega$:
+		\[
+			f(x) =
+			\begin{cases}
+				0, & x = 0\\
+				x - 1, & x > 0
+			\end{cases}
+		\]
+		\item La función resta en $\omega$, es decir, la función $f:\omath[2]\to\omega$ tal que para cada $x, y\in\omega$:
+		\[
+			f(x, y) =
+			\begin{cases}
+				0, & x\geq y\\
+				x - y, & x > y
+			\end{cases}
+		\]
+	\end{enumerate}
+\end{theorem}
+
+Con el concepto de función primitiva recursiva, podemos extender el concepto a conjuntos. Esto es fundamental dentro de la teoría, puesto que saber si podemos computar un conjunto es lo que nos permite determinar qué problemas pueden o no ser resueltos por medio de algoritmos. Un conjunto se dice \emph{primitivo recursivo} si este puede ser determinado por medio de una función primitiva recursiva. Esto en esencia nos dice que un conjunto puede ser computado si siempre podemos \emph{decidir} por medio de un algoritmo si un elemento pertenece a él o no, o equivalentemente, si su función característica es computable (o primitiva recursiva en este caso). Esto se puede extender a si una propiedad es decidible o no, pues una propiedad sobre los naturales puede ser traducida al conjunto que define, y si este conjunto es computable, entonces se tiene que siempre podemos determinar si para algún elemento específico tal propiedad se cumple.
 
 \begin{definition}[Conjuntos primitivos recursivos]
-    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n]}$. $R$ se dice \emph{primitivo recursivo} si $\mchi{R}\in\mprim$.
+	Sea $A\subseteq\omath[n]$ para algún $n\in\omath[+]$. El conjunto $A$ se dice ser \emph{primitivo recursivo} si su función característica $\mchi{A}:\omath[n]\to\omath$ es primitiva recursiva.
 \end{definition}
 
-\begin{theorem}
-    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n]}$. $R$ es primitivo recursivo si y solo si $\omath[n]\setminus R$ es primitivo recursivo.
-\end{theorem}
+Ejemplos de conjuntos que son primitivos recursivos están descritos en el siguiente teorema.
 
 \begin{theorem}
-    Las relaciones $\set{0}$, $<$, $>$ y $=$ son primitivos recursivos.
+	Los conjuntos $>, <, =\subseteq\omath[2]$, $\set{0}$ y $\omega\setminus\set{0}$ son primitivos recursivos.
 \end{theorem}
+
+\begin{proof}
+	Notemos que $\mchi{\set{0}}(x) = 1 - x$ para cada $x\in\omega$, puesto que cuando $x = 0$, se tiene que $1 - x = 1$; y cuando $x > 0$, entonces $1 - x = 0$ por definición. Puesto que la resta es primitiva recursiva, se sigue que $\mchi{\set{0}}$ es primitiva recursiva.
+	
+	Puesto que $\mchi{\omega\setminus\set{0}}(x) = 1 -\mchi{\set{0}}(x)$ para cada $x\in\omega$ y $\mchi{\set{0}}$ es primitiva recursiva, se sigue que $\mchi{\omega\setminus\set{0}}$ es primitiva recursiva.
+	
+	Finalmente, puesto que $\chi_{ < }(x, y) =\mchi{\omega\setminus\set{0}}(y - x)$, $\mchi{>}(x, y) =\mchi{\omega\setminus\set{0}}(x - y)$ y $\mchi{=}(x, y) =\mchi{\set{0}}\pa{\mchi{<}(x, y) + \mchi{>}(x, y)}$ para cada $x, y\in\omega$, se concluye que $\mchi{<}$, $\mchi{>}$ y $\mchi{=}$ son primitivas recursivas.
+\end{proof}
+
+\begin{theorem}
+	Sean $n\in\omath[+]$ y $A, B\subseteq\omath[n]$. Si $A$ y $B$ son primitivas recursivas, entonces $\omath[n]\setminus A$, $A\cup B$ y $A\cap B$ son primitivas recursivas.
+\end{theorem}
+
+\begin{proof}
+	Se tiene que $\mchi{\omath[n]\setminus A} = 1 -\mchi{A}$, $\mchi{A\cap B} =\mchi{A}\mchi{B}$ y $\mchi{A\cup B} =\mchi{A} +\mchi{B} -\mchi{A\cap B}$, y puesto que $A$ y $B$ son primitivas recursivas, se sigue que $\omath[n]\setminus A$, $A\cup B$ y $A\cap B$ son primitivas recursivas.
+\end{proof}
 
 \begin{coll}
-    Las relaciones $\geq$, $\leq$ y $\neq$ son primitivos recursivos.
+	\label{coll: prim_rec_formulas}
+	Sean $n\in\omath$ y $\varphi,\psi$ fórmulas con $n$ variables libres. Si $\varphi$ y $\psi$ definen conjuntos primitivos recursivos, entonces $\neg\varphi$, $\varphi\land\psi$ y $\varphi\vee\psi$ definen conjuntos primitivos recursivos en $\omath[n]$.
 \end{coll}
 
-\begin{definition}[Fórmulas primitivas recursivas]
-    Sean $n\in\omath[+]$ y $\varphi\pa{x_{1},\dotsc,x_{n}}$ una fórmula con variables libres en $\set{x_{1},\dotsc,x_{n}}$. $\varphi$ se denomina primitiva recursiva si el conjunto $\set{\pa{x_{1},\dotsc,x_{n}}\in\omath[n]:\varphi\pa{x_{1},\dotsc,x_{n}}}$ es primitivo recursivo.
-\end{definition}
+
+Ahora mostraremos ciertas propiedades de cerradura de las funciones primitivas recursivas que serán de mucha utilidad a lo largo del capítulo.
 
 \begin{theorem}
-    Sean $\varphi$ y $\psi$ fórmulas primitivas recursivas. Entonces $\neg\varphi$, $\varphi\vee\psi$ y $\varphi\land\psi$ son primitivas recursivas.
+	Sean $n\in\omath[+]$, y $f:\omath[n + 1]\to\omega$ y $g:\omath[n]\to\omega$ funciones primitivas recursivas. Entonces:
+	\begin{enumerate}
+		\item la función $h:\omath[n]\to\omega$ dada por $h(x) =\sum_{z < g(x)}f(x, z)$ para cada $x\in\omath[n]$ es primitiva recursiva.
+		\item la función $h:\omath[n]\to\omega$ dada por $h(x) =\prod_{z < g(x)}f(x, z)$ para cada $x\in\omath[n]$ es primitiva recursiva.
+	\end{enumerate}
 \end{theorem}
+
+\begin{proof}
+	Mostremos únicamente para el primer punto puesto que el segundo es análogo. Definamos entonces la función $p:\omath[n + 1]\to\omega$ tal que para cada $x\in\omath[n]$:
+	\[
+		\begin{NiceArray}{c}
+			p(x, 0) = 0\\
+			p(x, y + 1) = p(x, y) + f(x, y)
+		\end{NiceArray}
+	\]
+	Mostremos que $p(x, y) =\sum_{z < y}f(x, z)$ para cada $x\in\omath[n]$ y $y\in\omath[+]$ por inducción sobre $y$. 
+	\begin{itemize}
+		\item (Base) Se tiene que si $y = 1$, entonces: 
+		\[
+			p(x, 1) = p(x, 0) + f(x, 0) = 0 + f(x, 0) = f(x, 0) =\sum_{z < y}f(x, z)
+		\]
+		\item (Paso inductivo) Sea $y > 0$ tal que $p(x, y) =\sum_{z < y}f(x, z)$, entonces mostremos que se cumple para $y + 1$.
+		\[
+			p(x, y + 1) = p(x, y) + f(x, y) =\sum_{z < y}f(x, z) + f(x, y) =\sum_{z < y + 1}f(x, z)
+		\]
+		Probando así lo que se requería. Puesto que $f$ es primitiva recursiva, se sigue que $p$ es primitiva recursiva.
+		
+		De lo anterior se sigue entonces que $h(x) = p(x, g(x))$, y luego $h$ es primitiva recursiva ya que $p$ y $g$ lo son.
+	\end{itemize}
+\end{proof}
 
 \begin{coll}
-    Sean $n\in\omath[+]$ y $X, Y\in\mpow{\omath[n]}$ primitivos recursivos. Entonces $X\cup Y$, $X\cap Y$ y $X\setminus Y$ son primitivos recursivos.
+	\label{coll: prim_rec_acotado}
+	Sean $n\in\omath[+]$, $R\subseteq\omath[n + 1]$ primitivo recursivo y $f:\omath[n]\to\omega$ primitiva recursiva, entonces:
+	\begin{itemize}
+		\item el conjunto $\set{x\in\omath[n]:\exists m\pa{m < f(x)\land (x, m)\in R}}$ es primitivo recursivo.
+		\item el conjunto $\set{x\in\omath[n]:\forall m\pa{m < f(x)\to (x, m)\in R}}$ es primitivo recursivo.
+	\end{itemize}
 \end{coll}
 
+\begin{proof}
+	Denotemos a los conjuntos como $S =\set{x\in\omath[n]:\exists z\pa{z < f(x)\land (x, z)\in R}}$ y $T =\set{x\in\omath[n]:\forall z\pa{z < f(x)\to (x, z)\in R}}$, entonces se tiene que:
+	\[
+		\begin{NiceArray}{c}
+			\mchi{S}(x) =\mchi{\omath\setminus\set{0}}\pa{\sum\limits_{z < f(x)}\mchi{R}(x, z)}\\
+			\mchi{T}(x) =\mchi{\omath\setminus\set{0}}\pa{\prod\limits_{z < f(x)}\mchi{R}(x, z)}
+		\end{NiceArray}
+	\]
+	
+	Puesto que $f$ y $R$ son primitivos recursivos, se sigue que $S$ y $T$ son primitivos recursivos.
+\end{proof}
+
 \begin{theorem}
-    Sean $n\in\omath[+]$, $y\in\omath$ y $f\in\mprim[n + 1]$. Entonces las siguientes funciones son primitivas recursivas:
-    \begin{enumerate}
-        \item $g\in\mfunc[n]$ tal que para cada $x\in\omath[n]$, $g\pa{x} =\sum\limits_{z < y}f\pa{x, z}$.
-        \item $g\in\mfunc[n]$ tal que para cada $x\in\omath[n]$, $g\pa{x} =\prod\limits_{z < y}f\pa{x, z}$.
-    \end{enumerate}
+	Sean $n, m\in\omath[+]$, funciones primitivas recursivas $g_{1},\dotsc, g_{m}, g_{m + 1}:\omath[n]\to\omega$ y relaciones primitivas recursivas $R_{1},\dotsc, R_{m}\subseteq\omath[n]$ disjuntas a pares, entonces la función $f:\omath[n]\to\omega$ tal que para cada $x\in\omath[n]$:
+	\[
+		f(x) =
+		\begin{cases}
+			g_{1}(x), & R_{1}(x)\\
+			\vdots\\
+			g_{m}(x), & R_{m}(x)\\
+			g_{m + 1}(x), & \text{en otro caso}
+		\end{cases}
+	\]
+	es primitiva recursiva.
 \end{theorem}
+
+\begin{proof}
+	Se sigue que:
+	\[
+		f = \sum_{k = 1}^{m}g_{k}\mchi{R_{k}} + g_{m + 1}\mchi{\omath[n]\setminus\bigsqcup_{k = 1}^{m}R_{k}}
+	\]
+	Por lo tanto, $f$ es primitiva recursiva.
+\end{proof}
+
+\begin{theorem}[Minimización acotada]
+	Sean $n\in\omath[+]$, $R\subseteq\omath[n + 1]$ una relación primitiva recursiva y $g:\omath[n]\to\omega$ primitiva recursiva. Entonces la función $f:\omath[n]\to\omega$ tal que para cada $x\in\omath[n]$:
+	\[
+		f(x) =
+		\begin{cases}
+			\min\set{y\in\omega: y < g(x)\land (x, y)\in R}, &\exists z(z < g(x)\land (x, z)\in R)\\
+			0, &\text{en otro caso}
+		\end{cases}
+	\]
+	es primitiva recursiva.
+\end{theorem}
+
+\begin{proof}
+	Consideremos a la relación:
+	\[
+		S =\set{(x, z)\in\omath[n + 1]: (x, z)\in R\land\forall y\pa{y < g(x)\to (x, y)\notin R}}
+	\]
+	
+	Esta relación es primitiva recursiva puesto que:
+	\[
+		\mchi{S}(x, z) =\mchi{R}(x, z)\pa{\prod_{y < g(x)}\mchi{\omath[n]\setminus R}(y, x)}
+	\]
+	Se tiene que $(x, z)\in S$ si y solo si $z =\min\set{y\in\omega: y < g(x)\land (x, y)\in R}$. Luego, se sigue que:
+	\[
+		f(x) =\sum_{z < g(x)} z\mchi{S}(x, z)
+	\]
+	Por lo tanto, $f$ es primitiva recursiva.
+\end{proof}
 
 \begin{notation}
-    Sean $\varphi$ una fórmula, $x$ una variable y $t$ un término que no contiene a $x$. Se denotará a las fórmulas $\exists x\pa{\pa{x < t}\land\varphi}$ y $\forall x\pa{\pa{x < t}\to\varphi}$ por $\pa{\exists x < t}\varphi$ y $\pa{\forall x < t}\varphi$ respectivamente. 
+	A la función definida por el teorema anterior dados $n\in\omath[+]$, $R\subseteq\omath[n + 1]$ una relación primitiva recursiva y $g:\omath[n]\to\omega$ primitiva recursiva se le denota por $f(x) = \pa{\mu z < g(x)}R(x, z)$ para cada $x\in\omath[n]$ y se lee como ``el mínimo $z < g(x)$ tal que $(x, z)\in R$''.
 \end{notation}
 
-\begin{theorem}
-    Sean $n\in\omath[+]$, $f\in\mprim[n]$ y $R\in\mpow{\omath[n + 1]}$ una relación primitiva recursiva. Entonces las siguientes relaciones son primitivas recursivas:
-    \begin{enumerate}
-        \item $\set{x\in\omath[n]:\pa{\exists y < f\pa{x}}R\pa{x, y}}$
-        \item $\set{x\in\omath[n]:\pa{\forall y < f\pa{x}}R\pa{x, y}}$
-    \end{enumerate}
-\end{theorem}
+Estas propiedades de las funciones primitivas recursivas nos permiten mostrar que el conjunto de números primos es primitivo recursivo, así como también la función que regresa el $(n + 1)$-ésimo primo. Esto es fundamental pues nos permitirá demostrar la enumeración de los algoritmos más adelante.
 
 \begin{theorem}
-    Sean $n, k\in\omath[+]$, $g_{1},\dotsc, g_{n}, h\in\mprim[k]$ y $R_{1},\dotsc, R_{n}\in\mpow{\omath[k]}$ primitivas recursivas disjuntas a pares. Entonces la función $f\in\mfunc[k]$ dada como sigue para cada $x\in\omath[k]$ es primitiva recursiva:
-    \[
-        f\pa{x} =\begin{cases}
-            g_{1}\pa{x}, & R_{1}\pa{x}\\
-            \vdots &\\
-            g_{n}\pa{x}, & R_{n}\pa{x}\\
-            h\pa{x}, &\text{en otro caso}
-        \end{cases}
-    \]
+	La relación ``divide a'', el conjunto de números primos y la función que devuelve el $(n + 1)$-ésimo número primo para cada $n\in\omega$ son primitivas recursivas.
 \end{theorem}
 
-\begin{definition}[Operador $\mu$ acotado]
-    Sean $n\in\omath[+]$, $R\in\mpow{\omath[n + 1]}$ y $z\in\omath$. El \emph{operador $\mu$ (acotado)} de $R$ con cota $z$ es la función $f\in\mfunc[n]$ tal que para cada $x\in\omath[n]$:
-    \[
-        f\pa{x} =\begin{cases}
-            \min\set{y\in\omath:\pa{y < z}\land R\pa{x, y}}, &\text{si existe}\\
-            0, & \text{en otro caso}
-        \end{cases}
-    \]
-    A tal función se le denota por $\pa{\mu y < z}R\pa{x, y}$.
-\end{definition}
+\begin{proof}
+	La relación ``divide a'' puede verse como la relación:
+	\[
+		S =\set{(x, y)\in\omath[2]:\exists k(k < y + 1\land y = kx)}
+	\]
+	Puesto que la igualdad es primitiva recursiva se tiene que $S$ es primitiva recursiva. 
+	
+	Ahora, sea $P\subseteq\omega$ el conjunto de los números primos. Notemos que:
+	\[
+		P =\set{x\in\omega: x > 1\land\neg\exists k(k < x\land (k, x)\in S)}
+	\]
+	Puesto que el ``mayor que'' y $S$ son primitivas recursivas, se sigue que $P$ es primitiva recursiva.
+	
+	Finalmente, sea $f:\omega\to\omega$ tal que $f(n)$ es el $(n + 1)$-ésimo primo para cada $n\in\omega$. Por la prueba de Euclides de la infinitud de los números primos sabemos que $f(n)\leq f(n)! + 1$, por lo que $f$ está dada como sigue:
+	\[
+		\begin{NiceArray}{c}
+			f(0) = 2\\
+			f(n + 1) = (\mu p < f(n)! + 1)\pa{p > f(n)\land p\in P}
+		\end{NiceArray}
+	\]
+	Puesto que el factorial y $P$ son primitivas recursivas, se tiene que $f$ es primitiva recursiva.
+\end{proof}
 
-\begin{theorem}
-    Sean $n\in\omath$, $g\in\mprim[n]$ y $R\in\mpow{\omath[n + 1]}$ primitiva recursiva. Entonces la función $f\in\mfunc[n]$ tal que para cada $x\in\omath[n]$, $f(x) =\pa{\mu y < g(x)}R(x, y)$ es primitiva recursiva.
-\end{theorem}
+\subsection{Funciones parcial recursivas}
 
-\subsection{Parcial-recursividad}
+Una extensión de las funciones primitivas recursivas son las funciones parcial recursivas. Esta clase de funciones es fundamental, puesto que resuelven un problema el cual las funciones primitivas recursivas no tienen el poder para resolver, el cual es realizar iteraciones indefinidas. Notemos que las funciones primitivas recursivas se pueden caracterizar por utilizar ciclos for, formalizados por el uso de la recursión. Aunque estos son suficientes para la mayoría de funciones básicas, tienen un problema y es que el número de iteraciones que realizan está determinado por un límite específico. Notemos en todos los resultados anteriores que las sumas y productos, así como la minimización, tienen cotas específicas para poder ser calculadas. Esto nos restringe para poder calcular otro tipo de funciones por medio de algoritmos. 
+
+Un ejemplo simple es el algoritmo de bisección (o en general casi cualquier algoritmo de búsqueda de raíces), pues aunque podemos realizar el método un número fijo de veces, esto no nos asegura que el resultado sea realmente aproximado al valor de la raíz real de la función. En cambio, lo que se realiza habitualmente es ejecutar el método un número indefinido de veces hasta llegar a una precisión deseada del resultado. Notemos que en efecto el número de iteraciones es indefinido ya que debido a la naturaleza de la función que estemos analizando y de los límites del intervalo que estemos utilizando para encontrar la raíz, no sabemos exactamente cuántas iteraciones necesitaremos específicamente para que el algoritmo acabe, o siquiera si el algoritmo realmente acabará; pues bien puede ser el caso que no exista raíz y el método se ejecute para siempre como puede pasar con el algoritmo del punto fijo.
+
+Entonces, aunque poder realizar un ciclo un número indefinido de veces puede llevarnos a tener algoritmos que se ejecuten para siempre en el sentido de que nunca devuelven un valor, nos dan la flexibilidad de poder computar un mayor número de funciones que las primitivas recursivas no pueden.
+
+Intuitivamente lo que permite realizar iteraciones indefinidas es un ciclo \emph{while}, pues este nos permite ejecutar instrucciones hasta que cierta condición deje de satisfacerse. Si tal condición nunca deja de satisfacerse, entonces el algoritmo se ejecutará para siempre. Formalmente lo que nos permitirá formalizar la idea de un ciclo while es la minimización. Como vimos anteriormente en los teoremas, ya tenemos una forma de encontrar el mínimo elemento que satisface cierta condición, pero esta está restringida por el hecho de que tal valor mínimo debe ser menor a cierta cota. Si ahora relajamos la condición a ya no estar acotada, tenemos la flexibilidad que requeríamos, pues ahora ya no es en general sabido cuándo es que encontraremos el mínimo elemento que satisface cierta condición; o si siquiera lo encontraremos.
+
+Las funciones que permiten este tipo de comportamiento se denominan \emph{funciones parcial recursivas}, puesto que pueden existir entradas de la función que nunca devuelvan un valor debido a que su algoritmo se ejecuta por siempre. Si una función siempre devuelve un resultado para cualquier entrada, entonces se denomina \emph{total}.
 
 \begin{definition}[Funciones parciales]
-    Sea $\partial$ un elemento que no pertenece a $\omath$. Definimos al conjunto $\omath[\partial]\coloneqq\omath\cup\set{\partial}$.
-    
-    Se define el conjunto de \emph{funciones parciales} como sigue:
-    \[
-        \mfunc[][\partial]\coloneqq\set{f:\omath[n]\to\omath[\partial]| n\in\omath[+]}
-    \]
-    
-    Para cada $n\in\omath[+]$, se define al conjunto de funciones parciales de aridad $n$ como:
-    \[
-        \mfunc[n][\partial]\coloneqq\set{f\in\mfunc[][\partial]:\maridad{f} = n}
-    \]
-
-    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. Para cada $x\in\omath[n]$, si $f\pa{x} =\partial$, entonces se denotará por $f\pa{x}\partial$; y si existe $y\in\omath$ tal que $f\pa{x} = y$, entonces se denotará por $f\pa{x}\halt$.
-
-    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. Se define el \emph{dominio} de $f$ como el conjunto:
-    \[
-        \mdom{f}\coloneqq\set{x\in\omath[n]: f(x)\halt}
-    \]
-
-    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. Se define el \emph{rango} de $f$ como el conjunto:
-    \[
-        \mran{f}\coloneqq\set{y\in\omath:\exists x\pa{x\in\omath[n]\land\pa{f(x) = y}}}
-    \]
-
-    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. $f$ se denomina \emph{total} si $\mdom{f} =\omath[n]$.
-\end{definition}
-
-\begin{definition}[Composición generalizada para funciones parciales]
-    Sean $n, k\in\omath[+]$, $f\in\mfunc[n][\partial]$ y $g_{1},\dotsc,g_{n}\in\mfunc[k][\partial]$. La \emph{composición generalizada} de $f$ con $g_{1},\dotsc, g_{n}$ es la única función $h\in\mfunc[k][\partial]$ tal que para cada $x\in\omath[k]$:
-    \[
-        h(x) =\begin{cases}
-            f\pa{g_{1}\pa{x},\dotsc,g_{n}\pa{x}}, &\pa{\forall k\leq n}g_{k}(x)\halt\\
-            \partial, &\text{en otro caso}
-        \end{cases}
-    \]
-\end{definition}
-
-\begin{definition}[Recursividad generalizada para funciones parciales]
-    Sean $n\in\omath[+]$, $f\in\mfunc[n][\partial]$ y $g\in\mfunc[n + 2][\partial]$. La \emph{recursión generalizada} de $f$ con $g$ es la única función $h\in\mfunc[n + 1][\partial]$ tal que para cada $x\in\omath[n]$ y cada $y\in\omath$.
-    \[
-        \begin{array}{c}
-            h\pa{x, 0} = f(x)\\
-            h\pa{x,\msuc\pa{y}} =\begin{cases}
-                g\pa{x, y, h\pa{x, y}}, & h\pa{x, y}\halt\\
-                \partial, &\text{en otro caso}
-            \end{cases}
-        \end{array}
-    \]
-\end{definition}
-
-\begin{definition}[Operador $\mu$ no acotado]
-    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n + 1]}$. El \emph{operador $\mu$ (no acotado)} de $R$ es la función $f\in\mfunc[n][\partial]$ tal que para cada $x\in\omath[n]$:
-    \[
-        f\pa{x} =\begin{cases}
-            \min\set{y\in\omath:R\pa{x, y}}, &\text{si existe}\\
-            \partial, & \text{en otro caso}
-        \end{cases}
-    \]
-    A tal función se le denota por $\mu y R\pa{x, y}$.
+	\begin{enumerate}
+		\item Sea $\partial$ un conjunto tal que $\partial\notin\omega$. Definimos entonces al conjunto $\omath[\partial]\coloneqq\omega\cup\set{\partial}$. 
+		
+		\item Una \emph{función parcial} es una función $f:\omath[n]\to\omath[\partial]$ para algún $n\in\omega$. 
+		
+		\item Sean $n\in\omega$, $f:\omath[n]\to\omath[\partial]$ parcial y $x\in\omath[n]$. Si $f(x) =\partial$, entonces lo denotaremos por $f(x)\partial$; y si existe $y\in\omega$ tal que $f(x) = y$, entonces lo denotaremos por $f(x)\halt$.
+		
+		\item Sean $n\in\omega$ y $f:\omath[n]\to\omath[\partial]$ parcial, entonces se define el \emph{dominio} de $f$ como el conjunto $\mdom{f}\coloneqq\set{x\in\omath[n]: f(x)\halt}$
+		
+		\item Sean $n\in\omega$ y $f:\omath[n]\to\omath[\partial]$ parcial, entonces $f$ se denomina \emph{total} si $\mdom{f} =\omath[n]$.
+	\end{enumerate}
 \end{definition}
 
 \begin{definition}[Funciones parcial recursivas]
-    El conjunto de \emph{funciones parcial recursivas} es el mínimo conjunto $\mpartial\subseteq\mfunc[][\partial]$ que contiene las funciones básicas, es cerrado bajo composición y recursividad general de funciones parciales, y además satisface que para cada $n\in\omath[+]$ y cada $g\in\mpartial$ con $\maridad{g} = n + 1$, definiéndose la relación $R =\set{\pa{x, y}\in\omath[n + 1]: \pa{g(x, y) = 0}\land\pa{\forall z < y}g(x, y)\halt}$, se cumple que la función $f\in\mfunc[n][\partial]$ tal que $f(x) =\mu yR(x, y)$ para cada $x\in\omath[n]$ está en $\mpartial$.
+	Sea $n\in\omath[+]$. Una función parcial $f:\omath[n]\to\omath[\partial]$ se denomina \emph{parcial recursiva} si satisface alguna de las siguientes condiciones:
+	\begin{enumerate}
+		\item (Funciones básicas) La función $f$ es una de las siguientes funciones:
+		\begin{itemize}
+			\item La función \emph{cero}: $\mcero:\omath[n]\to\omath[\partial]$ tal que para cada $x\in\omath[n]$, $\mcero(x) = 0$.
+			\item Si $n = 1$, la función \emph{sucesor}: $\msuc:\omath\to\omath[\partial]$ tal que para cada $x\in\omath$, $\msuc(x) = x + 1$.
+			\item Para algún $k\in\omath[+]$ con $k\leq n$, la función \emph{proyección}: $\mproj{n}{k}:\omath[n]\to\omath[\partial]$ tal que para cada $x_{1},\dotsc, x_{n}\in\omath$, $\mproj{n}{k}\pa{x_{1},\dotsc, x_{n}} = x_{k}$.
+		\end{itemize}
+		\item (Composición) Para algún $m\in\omath[+]$ existen funciones parcial recursivas $g_{1},\dotsc, g_{m}:\omath[n]\to\omath[\partial]$ y $h:\omath[m]\to\omath[\partial]$ tales que para cada $x\in\omath[n]$: 
+		\[
+			f(x) = 
+			\begin{cases}
+				h\pa{g_{1}(x),\dotsc, g_{m}(x)}, & g_{1}(x)\halt,\dotsc, g_{m}(x)\halt\\
+				\partial, & \text{en otro caso}
+			\end{cases}
+		\]
+		\item (Recursión) Si $n > 1$ y existen funciones parcial recursivas $g:\omath[n - 1]\to\omath[\partial]$ y $h:\omath[n + 1]\to\omath[\partial]$ tales que para cada $x\in\omath[n - 1]$ y cada $y\in\omath$ se satisface que:
+		\[
+		\begin{NiceArray}{c}
+			f(x, 0) = g(x)\\
+			f(x, y + 1) = 
+			\begin{cases}
+				h(x, y, f(x, y)), & f(x, y)\halt\\
+				\partial, & f(x, y)\partial
+			\end{cases}
+		\end{NiceArray}
+		\]
+		\item (Minimización) Existe una función parcial recursiva $g:\omath[n + 1]\to\omath[\partial]$ tal que:
+		\[
+			f(x) =
+			\begin{cases}
+				\min\set{y\in\omega: g(x, y) = 0\land\forall z\pa{z < y\to g(x, z)\halt}}, &\text{si existe}\\
+				\partial, &\text{en otro caso}
+			\end{cases}
+		\]
+		
+		A esta función se le denota por $\mu z\pa{g(x, z) = 0}$ leída como ``el mínimo $z$ tal que $g(x, z) = 0$''.
+	\end{enumerate}
+	
+	Para cada $n\in\omath[+]$, denotamos por $\mpartial[n]$ al conjunto de todas las funciones parcial recursivas de aridad $n$. Definimos al conjunto de funciones parcial recursivas como $\mpartial\coloneqq\bigcup_{n\in\omath[+]}\mpartial[n]$.
+	
+	Una función se denomina \emph{total recursiva} si es parcial recursiva y total.
+\end{definition}
 
-    Definimos al conjunto $\mpartial[n]\coloneqq\set{f\in\mpartial:\maridad{f} = n}$.
+Se tiene directamente lo siguiente.
 
-    Sean $n\in\omath[+]$ y $f\in\mpartial[n]$. $f$ se dice \emph{total recursiva} si es total.
+\begin{theorem}
+	Toda función primitiva recursiva es total recursiva. Se tiene entonces que $\mprim\subsetneq\mpartial$.
+\end{theorem}
 
-    Se define el conjunto de funciones total recursivas como $\mtotal\coloneqq\set{f\in\mpartial: f\text{ es total}}$, y para cada $n\in\omath[+]$, se define $\mtotal[n]\coloneqq\set{f\in\mtotal:\maridad{f} = n}$.
+El hecho de que existen funciones parciales que no son primitivas recursivas es un ejercicio muy sencillo de demostrar, puesto que la función constante $f(x, y) = 1$ es primitiva recursiva y luego $\mu z\pa{f(x, z) = 0}\partial$ para cada $x\in\omath$. Aunque existen ejemplos de funciones parcial recursivas más interesantes, el punto central aquí es que el conjunto de funciones parcial recursivas es una extensión de las funciones primitivas recursivas justamente por la adición de los ciclos while. 
+
+Los teoremas y definiciones de las funciones primitivas recursivas pueden extenderse sin demasiada complicación para las funciones parcial recursivas.
+
+\begin{definition}[Conjuntos parcial recursivos]
+	Sean $n\in\omath[+]$ y $A\subseteq\omath[n]$, entonces $A$ se denomina \emph{recursivo} si $\mchi{A}$ es una función total recursiva.
 \end{definition}
 
 \begin{theorem}
-    $\mprim\subsetneq\mpartial$
+	Se satisfacen cada una de las siguientes afirmaciones:
+	\begin{enumerate}
+		\item Sean $n\in\omath[+]$ y $A, B\subseteq\omath[n]$. Si $A$ y $B$ son recursivas, entonces $\omath[n]\setminus A$, $A\cup B$ y $A\cap B$ son recursivas.
+		\item Sean $n\in\omath$ y $\varphi,\psi$ fórmulas con $n$ variables libres. Si $\varphi$ y $\psi$ definen conjuntos recursivos, entonces $\neg\varphi$, $\varphi\land\psi$ y $\varphi\vee\psi$ definen conjuntos  recursivos en $\omath[n]$.
+		\item Sean $n\in\omath[+]$, y $f:\omath[n + 1]\to\omath[\partial]$ y $g:\omath[n]\to\omath[\partial]$ funciones parcial recursivas. Entonces:
+		\begin{enumerate}
+			\item la función $h:\omath[n]\to\omath[\partial]$ dada por $h(x) =\sum_{z < g(x)}f(x, z)$ para cada $x\in\omath[n]$ es parcial recursiva.
+			\item la función $h:\omath[n]\to\omath[\partial]$ dada por $h(x) =\prod_{z < g(x)}f(x, z)$ para cada $x\in\omath[n]$ es parcial recursiva.
+		\end{enumerate}
+		
+		\item Sean $n\in\omath[+]$, $R\subseteq\omath[n + 1]$ recursivo y $f:\omath[n]\to\omath[\partial]$ parcial recursiva, entonces:
+		\begin{itemize}
+			\item el conjunto $\set{x\in\omath[n]:\exists m\pa{m < f(x)\land (x, m)\in R}}$ es recursivo.
+			\item el conjunto $\set{x\in\omath[n]:\forall m\pa{m < f(x)\to (x, m)\in R}}$ es recursivo.
+		\end{itemize}
+		
+		\item Sean $n, m\in\omath[+]$, funciones parcial recursivas $g_{1},\dotsc, g_{m}, g_{m + 1}:\omath[n]\to\omath[\partial]$ y relaciones recursivas $R_{1},\dotsc, R_{m}\subseteq\omath[n]$ disjuntas a pares, entonces la función $f:\omath[n]\to\omath[\partial]$ tal que para cada $x\in\omath[n]$:
+		\[
+		f(x) =
+		\begin{cases}
+			g_{1}(x), & R_{1}(x)\\
+			\vdots\\
+			g_{m}(x), & R_{m}(x)\\
+			g_{m + 1}(x), & \text{en otro caso}
+			\end{cases}
+		\]
+		es parcial recursiva.
+		
+		\item Sean $n\in\omath[+]$, $R\subseteq\omath[n + 1]$ una relación recursiva y $g:\omath[n]\to\omath[\partial]$ parcial recursiva. Entonces la función $f:\omath[n]\to\omath[\partial]$ tal que para cada $x\in\omath[n]$, $f(x) =\pa{\mu z < g(x)}R(x, z)$ es parcial recursiva.
+		
+		\item Sean $n\in\omath[+]$ y $R\subseteq\omath[n + 1]$ una relación recursiva. Entonces la función $f:\omath[n]\to\omath[\partial]$ tal que para cada $x\in\omath[n]$, $f(x) =\mu zR(x, z)$ es parcial recursiva.
+	\end{enumerate}
 \end{theorem}
 
-\begin{definition}[Conjunto recursivo]
-    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n]}$. $R$ se denomina \emph{recursivo} si $\mchi{R}\in\mtotal$.
+\section{Computabilidad: Enfoque mecánico}
+
+El otro enfoque que tenemos de la computabilidad es uno con visión más relacionada a lo que es una máquina. Este enfoque trata a los algoritmos como lo que normalmente consideraríamos: una lista de instrucciones finitas a realizar para obtener un resultado. Aunque el enfoque inductivo es mucho mejor al hablar de propiedades de cerradura, este enfoque es mejor para poder entender intuitivamente cómo es que funcionan las funciones computables, además de que nos dan una mejor ventaja en lo que es la enumeración de los algoritmos. Uno de los resultados más importantes será demostrar que estos dos enfoques presentados son equivalentes mediante el teorema de la forma normal de Kleene.
+
+Aunque el modelo más conocido para hablar de este enfoque es el de las máquinas de Turing, en este texto usaremos en cambio un modelo diferente, pero equivalente a las máquinas de Turing, el cual es el modelo de las \emph{máquinas sin límite de registros} o \emph{URM's} (\emph{Unlimited Register Machine}). La utilización de este modelo nos es de mucha conveniencia puesto que aquí los datos que entran y salen de la máquina son números naturales directamente, a diferencia de las máquinas de Turing que tratan con caracteres de un alfabeto para formar palabras (generalmente en binario) que después se interpretan como número naturales. Además, esta se trata de una cinta infinita hacia una dirección, lo cual nos será más conveniente que en el caso de las máquinas de Turing que tratan con cintas infinitas en dos direcciones.
+
+De manera simple podemos pensar en una URM como una lista de instrucciones que se ejecutan en una cinta sobre la cual podemos escribir números naturales. La cinta sobre la cual podemos escribir tiene un número infinito de celdas denominadas \emph{registros}, y cada registro puede contener solamente un número natural. Por el momento denotaremos por $R$ a la cinta, por $R_{n}$ al $n$-ésimo registro de $R$ y por $r_{n}\in\omega$ al contenido de $R_{n}$ para cada $n\in\omath[+]$. (Figura \ref{fig: cinta_y_registros})
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\foreach \i in {1, 2, 3}{
+			\node at (\i - 0.5, 1.5) {$R_{\i}$};
+			\node at (\i - 0.5, 0.5) {$r_{\i}$};
+		}
+		\node at (5, 1.5) {$\cdots$};
+		\node at (7.5, 1.5) {$R_{n}$};
+		\node at (7.5, 0.5) {$r_{n}$};
+		\node at (9, 1.5) {$\cdots$};
+	\end{tikzpicture}
+	\caption{Cinta y registros}
+	\label{fig: cinta_y_registros}
+\end{figure}
+
+Ahora, las instrucciones que podemos utilizar se dividen en cuatro tipos:
+\begin{enumerate}
+	\item Cero: Para cada $n\in\omath[+]$ la instrucción $Z\pa*{n}$ indica que se escribe $0$ en el $n$-ésimo registro, es decir, en $R_{n}$ se instancia $r_{n}\gets 0$.
+	\item Sucesor: Para cada $n\in\omath[+]$ la instrucción $S\pa*{n}$ indica que se le suma $1$ al contenido del $n$-ésimo registro, es decir, en $R_{n}$ se instancia $r_{n}\gets r_{n} + 1$.
+	\item Transferir: Para cada $n, m\in\omath[+]$ la instrucción $T\pa*{n, m}$ indica que se transfiere el contenido del $n$-ésimo registro al $m$-ésimo registro sin modificar el contenido del $n$-ésimo registro, es decir, en $R_{m}$ se instancia $r_{m}\gets r_{n}$.
+	\item Saltar: Para cada $n, m, k\in\omath[+]$ la instrucción $J\pa*{n, m, k}$ indica que se compara el contenido de los $n$-ésimo y $m$-ésimo registros; si sus contenidos son iguales, entonces ejecutar la intrucción $k$; y si no, entonces seguir con la siguiente instrucción.
+\end{enumerate}
+
+Una máquina URM sería entonces una tupla de estas instrucciones. Esto debido a que es importante saber el orden en el cual se ejecutan las instrucciones.
+
+Para entender mejor cómo es que se utilizan este tipo de máquinas, veamos por ejemplo qué realiza la máquina $M =\pa*{S\pa*{1}, S\pa*{3}, J\pa*{2, 3, 5}, J\pa*{1, 1, 1}}$ junto con la cinta que inicialmente tiene $r_{1} = 3$, $r_{2} = 2$ y $r_{n} = 0$ para cada $n > 2$.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\node at (0.5, 0.5) {3};
+		\node at (1.5, 0.5) {2};
+		\foreach \i in {2, 3,..., 8}{
+			\node at (\i + 0.5, 0.5) {0};
+		}
+	\end{tikzpicture}
+\end{figure}
+
+La forma de ejecutar $M$ es ir en secuencia por cada uno de los elementos de la tupla. En ese sentido se ejecuta primero la instrucción $S\pa*{1}$, la cual indica que sumemos $1$ al contenido del primer registro, dando que $r_{1} = 3 + 1 = 4$.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\node at (0.5, 0.5) {4};
+		\node at (1.5, 0.5) {2};
+		\foreach \i in {2, 3,..., 8}{
+			\node at (\i + 0.5, 0.5) {0};
+		}
+	\end{tikzpicture}
+\end{figure}
+
+Seguimos con la siguiente instrucción de la tupla que es $S\pa*{3}$, la cual indica que se debe sumar $1$ al tercer registro, dando $r_{3} = 0 + 1 = 1$.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\node at (0.5, 0.5) {4};
+		\node at (1.5, 0.5) {2};
+		\node at (2.5, 0.5) {1};
+		\foreach \i in {3, 4,..., 8}{
+			\node at (\i + 0.5, 0.5) {0};
+		}
+	\end{tikzpicture}
+\end{figure}
+
+La siguiente instrucción es $J\pa*{2, 3, 5}$ la cual nos pide comparar los contenidos de los registros $2$ y $3$. Puesto que $r_{2} = 2\neq 1 = r_{3}$, entonces debemos seguir con la siguiente instrucción. Por lo tanto, en esta iteración del algoritmo no realizamos nada y luego la cinta se queda intacta.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\node at (0.5, 0.5) {4};
+		\node at (1.5, 0.5) {2};
+		\node at (2.5, 0.5) {1};
+		\foreach \i in {3, 4,..., 8}{
+			\node at (\i + 0.5, 0.5) {0};
+		}
+	\end{tikzpicture}
+\end{figure}
+
+La siguiente instrucción es $J\pa*{1, 1, 1}$ la cual nos pide comparar los contenidos en el registro $1$. Puesto que trivialmente $r_{1} = r_{1}$, entonces debemos ejecutar después la instrucción $1$, es decir, debemos volver al inicio de la tupla $M$. De la misma manera en esta iteración no se modificó la cinta.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\node at (0.5, 0.5) {4};
+		\node at (1.5, 0.5) {2};
+		\node at (2.5, 0.5) {1};
+		\foreach \i in {3, 4,..., 8}{
+			\node at (\i + 0.5, 0.5) {0};
+		}
+	\end{tikzpicture}
+\end{figure}
+
+Ahora, debemos ejecutar $S\pa*{1}$ de nuevo, por lo que sumamos $1$ al primer registro dando que $r_{1} = 4 + 1 = 5$.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\node at (0.5, 0.5) {5};
+		\node at (1.5, 0.5) {2};
+		\node at (2.5, 0.5) {1};
+		\foreach \i in {3, 4,..., 8}{
+			\node at (\i + 0.5, 0.5) {0};
+		}
+	\end{tikzpicture}
+\end{figure}
+
+Seguimos con la siguiente instrucción $S\pa*{3}$ dando que $r_{3} = 1 + 1 = 2$.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\node at (0.5, 0.5) {5};
+		\node at (1.5, 0.5) {2};
+		\node at (2.5, 0.5) {2};
+		\foreach \i in {3, 4,..., 8}{
+			\node at (\i + 0.5, 0.5) {0};
+		}
+	\end{tikzpicture}
+\end{figure}
+
+La siguiente instrucción es $J\pa*{2, 3, 5}$. Puesto que $r_{2} = 2 = r_{3}$, entonces debemos ejecutar la instrucción $5$ de la tupla. En esta iteración la cinta se quedó sin modificaciones.
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick] (0, 1) -- (10, 1);
+		\draw[thick] (0, 0) -- (10, 0);
+		\foreach \i in {0, 1, ..., 9}{
+			\draw[thick] (\i, 0) -- (\i, 1);
+		}
+		\node at (0.5, 0.5) {5};
+		\node at (1.5, 0.5) {2};
+		\node at (2.5, 0.5) {2};
+		\foreach \i in {3, 4,..., 8}{
+			\node at (\i + 0.5, 0.5) {0};
+		}
+	\end{tikzpicture}
+\end{figure}
+
+Notemos que la tupla de instrucciones $M$ solamente tiene $4$ elementos, por lo que no tiene sentido realizar la instrucción $5$ que pidió $J\pa*{2, 3, 5}$. Cuando esto pasa, lo que se interpreta es que el algoritmo ha terminado al no haber instrucciones a ejecutar. Por lo tanto, la salida de este algoritmo es la cinta $r_{1} = 5$, $r_{2} = r_{3} = 2$ y $r_{n} = 0$ para cada $n > 3$.
+
+Por lo tanto, la ejecución completa de este algoritmo con la cinta de entrada $r_{1} = 3$, $r_{2} = 2$ y $r_{n} = 0$ para cada $n > 2$ es la siguiente:
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\foreach \i in {1, 2,..., 8}{
+			\draw[thick] (3, 17 - 2 *\i) -- (8, 17 - 2 * \i);
+			\draw[thick] (3, 16 - 2 *\i) -- (8, 16 - 2 * \i);
+			\foreach \j in {0, 1,..., 4}{
+				\draw[thick] (3 +\j, 16 - 2 *\i) -- (3 +\j, 17 - 2 *\i);
+			}
+			\node at (6.5, 16.5 - 2 * \i) {0};
+		}
+		
+		\foreach \i in {1, 2,..., 7}{
+			\node at (5.5, 15.5 - 2 *\i) {$\downarrow$};
+		}
+		% primera
+		\node at (3.5, 14.5) {3};
+		\node at (4.5, 14.5) {2};
+		\node at (5.5, 14.5) {0};
+		% segunda
+		\node at (1.5, 13.5) {$S\pa*{1}$};
+		\node at (3.5, 12.5) {4};
+		\node at (4.5, 12.5) {2};
+		\node at (5.5, 12.5) {0};
+		% tercera
+		\node at (1.5, 11.5) {$S\pa*{3}$};
+		\node at (3.5, 10.5) {4};
+		\node at (4.5, 10.5) {2};
+		\node at (5.5, 10.5) {1};
+		% cuarta
+		\node at (1.5, 9.5) {$J\pa*{2, 3, 5}$};
+		\node at (3.5, 8.5) {4};
+		\node at (4.5, 8.5) {2};
+		\node at (5.5, 8.5) {1};
+		% quinta
+		\node at (1.5, 7.5) {$J\pa*{1, 1, 1}$};
+		\node at (3.5, 6.5) {4};
+		\node at (4.5, 6.5) {2};
+		\node at (5.5, 6.5) {1};
+		% sexta
+		\node at (1.5, 5.5) {$S\pa*{1}$};
+		\node at (3.5, 4.5) {5};
+		\node at (4.5, 4.5) {2};
+		\node at (5.5, 4.5) {1};
+		% séptima
+		\node at (1.5, 3.5) {$S\pa*{3}$};
+		\node at (3.5, 2.5) {5};
+		\node at (4.5, 2.5) {2};
+		\node at (5.5, 2.5) {2};
+		% octava
+		\node at (1.5, 1.5) {$J\pa*{2, 3, 5}$};
+		\node at (3.5, 0.5) {5};
+		\node at (4.5, 0.5) {2};
+		\node at (5.5, 0.5) {2};
+	\end{tikzpicture}
+	
+\end{figure}
+
+Este ejemplo nos permite entender cómo es la lógica de este tipo de máquinas, con lo que podremos entonces formalizar este tipo de objetos. Cada una de las cintas a lo largo de la iteración del algoritmo puede verse como una sucesión de números naturales. Por ejemplo, la cinta de entrada del ejemplo anterior puede verse como la sucesión $\pa*{3, 2, 0, 0, 0,\dotsc}$. Luego, para cada iteración $k$ del algoritmo podemos definir la función $f_{k}:\omega\to\omega$ como la sucesión de números naturales que representa la cinta en esa iteración de modo tal que para la cinta $R$ se tiene que para cada $n\in\omath[+]$, $f_{k}(n) = r_{n}$. De esta manera se tiene entonces que toda la ejecución del algoritmo dado por una máquina URM es una sucesión de funciones de números naturales $\pa*{f_{k}}_{k\in\omega}$ donde cada $f_{k}$ es la representación de los números de la cinta en la $k$-ésima iteración. Por convención la cinta de entrada del algoritmo se corresponde con la $0$-ésima iteración. Por lo tanto, como sucesiones, el ejemplo anterior puede verse de la siguiente manera:
+\[
+	\begin{NiceArray}{ccccc}
+		f_{0}(1) = 3 & f_{0}(2) = 2 & f_{0}(3) = 0 & f_{0}(4) = 0 &\cdots\\
+		f_{1}(1) = 4 & f_{1}(2) = 2 & f_{1}(3) = 0 & f_{1}(4) = 0 &\cdots\\
+		f_{2}(1) = 4 & f_{2}(2) = 2 & f_{2}(3) = 1 & f_{2}(4) = 0 &\cdots\\
+		f_{3}(1) = 4 & f_{3}(2) = 2 & f_{3}(3) = 1 & f_{3}(4) = 0 &\cdots\\
+		f_{4}(1) = 4 & f_{4}(2) = 2 & f_{4}(3) = 1 & f_{4}(4) = 0 &\cdots\\
+		f_{5}(1) = 5 & f_{5}(2) = 2 & f_{5}(3) = 1 & f_{5}(4) = 0 &\cdots\\
+		f_{6}(1) = 5 & f_{6}(2) = 2 & f_{6}(3) = 2 & f_{6}(4) = 0 &\cdots\\
+		f_{7}(1) = 5 & f_{7}(2) = 2 & f_{7}(3) = 2 & f_{7}(4) = 0 &\cdots\\
+	\end{NiceArray}
+\]
+
+Recordemos que el paso de un estado de la cinta a otro está completamente determinada por las instrucciones que tenga nuestra máquina URM. Entonces, para poder manipular de manera adecuada tales instrucciones y para poder describir de manera más explícita la sucesión de sucesiones $\set*{f_{k}}_{k\in\omega}$, podemos interpretar a las instrucciones como tuplas de la siguiente forma:
+\[
+	\begin{NiceArray}{cccc}
+		Z\pa*{n}\to (0, n) & S\pa*{n}\to (1, n) & T\pa*{n, m}\to (2, n, m) & J\pa*{n, m, k}\to (3, n, m, k)
+	\end{NiceArray}
+\]
+En este sentido se define al conjunto de \emph{instrucciones} de las máquinas URM de la siguiente manera.
+
+\begin{definition}[Instrucciones]
+	Se define al \emph{conjunto de instrucciones} de máquinas URM como el siguiente conjunto de tuplas:
+	\begin{align*}
+		\minstr\coloneqq&\set*{(0, n)\in\omath[2]: n\in\omath[+]}\cup\set*{(1, n)\in\omath[2]: n\in\omath[+]}\\
+		&\cup\set*{(2, n, m)\in\omath[3]: n, m\in\omath[+]}\cup\set*{(3, n, m, k)\in\omath[4]: n, m, k\in\omath[+]}
+	\end{align*}
 \end{definition}
 
-\begin{theorem}
-    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n]}$. $R$ es recursivo si y solo si $\omath[n]\setminus R$ es recursivo.
-\end{theorem}
+Luego, podemos definir ahora de manera formal lo que es una máquina URM, entendida como una sucesión finita de instrucciones.
 
-\begin{definition}
-    Sean $n\in\omath[+]$ y $\varphi\pa{x_{1},\dotsc,x_{n}}$ una fórmula con variables libres en $\set{x_{1},\dotsc,x_{n}}$. $\varphi$ se denomina recursiva si el conjunto $\set{\pa{x_{1},\dotsc,x_{n}}\in\omath[n]:\varphi\pa{x_{1},\dotsc,x_{n}}}$ es recursivo.
+\begin{definition}[Máquinas URM]
+	Una \emph{máquina URM} es una tupla $M\in\minstr^{<\omega}$, es decir, es tal que existe $n\in\omath[+]$ para el cual $M\in\minstr^{n}$.
 \end{definition}
 
+Recordando el ejemplo, al principio teníamos una cinta de entrada. Siempre debe entenderse esta cinta de entrada como una sucesión la cual tiene un número finito de elementos diferentes de cero. Lo anterior es debido a que a un algoritmo siempre se le debe dar como entrada un número finito de datos, lo cual podemos codificar como tal cinta con esos datos ordenados a lo largo de ella. Si entonces queremos darle al algoritmo una tupla de datos $\pa*{x_{1},\dotsc, x_{k}}\in\omath[n]$ para algún $k\in\omath[+]$, definimos a la \emph{cinta de entrada} como la función $f_{0}:\omega\to\omega$ tal que para cada $n\in\omath[+]$:
+\[
+	f_{0}(n)\coloneqq\begin{cases}
+		x_{n}, & n\leq k\\
+		0, &\text{en otro caso}
+	\end{cases}
+\]
+
+Este concepto de datos de entrada es lo que justifica el hecho de que la cinta sea infinita, pues esa propiedad nos permite darle como entrada a cualquier algoritmo un conjunto de datos arbitrariamente grande, e incluso poder usar los registros sobrantes como unidades de memoria para poder almacenar datos auxiliares que nos permitan computar lo que necesitamos.
+
+Notemos que a lo largo de la descripción de la sucesión $\set*{f_{k}}_{k\in\omega}$ no hemos descrito qué pasa con $f_{k}(0)$. La razón es porque utilizaremos ese dato como auxiliar para poder determinar qué pasa entre cada iteración almacenando el número de instrucción que se debe ejecutar de la máquina URM.
+
+Con todo esto podemos finalmente describir cómo es que se determina la sucesión de las cintas dadas por la ejecución del algoritmo.
+
+\begin{definition}[Ejecución de una máquina URM]
+	Sean $M =\pa*{I_{1},\dotsc, I_{u}}$ una máquina URM y $x =\pa*{x_{1},\dotsc, x_{n}}\in\omath[n]$ una tupla de entrada para algunos $n, u\in\omath[+]$. Se define la \emph{ejecución} de la máquina $M$ con entrada $x$ como la sucesión de funciones $\set*{f_{k}}_{k\in\omega}$ definidas de la siguiente manera:
+	\begin{enumerate}
+		\item Si $k = 0$, entonces para cada $m\in\omega$:
+		\[
+			f_{0}(m) =\begin{cases}
+				1, & m = 0\\
+				x_{m}, & 1\leq m\leq n\\
+				0, &\text{en otro caso}
+			\end{cases}
+		\]
+		\item Si $k > 0$, $f_{k - 1}(0)\leq u$ y además:
+		\begin{enumerate}
+			\item $I_{f_{k - 1}(0)} = (0, i)$ para algún $i\in\omath[+]$, se tiene entonces que para cada $m\in\omega$:
+			\[
+				f_{k}(m) =\begin{cases}
+					f_{k - 1}(0) + 1, & m = 0\\
+					0, & m = i\\
+					f_{k - 1}(m), &\text{en otro caso}
+				\end{cases}
+			\]
+			\item $I_{f_{k - 1}(0)} = (1, i)$ para algún $i\in\omath[+]$, se tiene entonces que para cada $m\in\omega$:
+			\[
+				f_{k}(m) =\begin{cases}
+					f_{k - 1}(m) + 1, & m\in\set*{0, i}\\
+					f_{k - 1}(m), &\text{en otro caso}
+				\end{cases}
+			\]
+			\item $I_{f_{k - 1}(0)} = (2, i, j)$ para algunos $i, j\in\omath[+]$, se tiene entonces que para cada $m\in\omega$:
+			\[
+			f_{k}(m) =\begin{cases}
+				f_{k - 1}(0) + 1, & m = 0\\
+				f_{k - 1}(i), & m = j\\
+				f_{k - 1}(m), &\text{en otro caso}
+			\end{cases}
+			\]
+			\item $I_{f_{k - 1}(0)} = (3, i, j, p)$ para algunos $i, j, p\in\omath[+]$, se tiene entonces que para cada $m\in\omega$:
+			\[
+			f_{k}(m) =\begin{cases}
+				p, & m = 0\text{ y } f_{k - 1}(i) = f_{k - 1}(j)\\
+				f_{k - 1}(m), &\text{en otro caso}
+			\end{cases}
+			\]
+		\end{enumerate}
+		\item Si $k > 0$ y $f_{k - 1}(0) > u$, entonces $f_{k} = f_{k - 1}$.
+	\end{enumerate}
+	
+	Decimos que la máquina $M$ \emph{termina su ejecución} dada la entrada $x$ si existe $k\in\omega$ tal que $f_{k}(0) > u$.
+\end{definition}
+
+Así formalmente hemos descrito el procedimiento que habíamos realizado con el algoritmo dado por el conjunto de instrucciones. Con esto dicho podemos entonces definir qué significa que una función sea computable desde este enfoque. De manera simple podemos definir una función por medio de una máquina URM de manera que para cada entrada $x$ la imagen de la función sea el valor del primer registro si es que el algoritmo acaba.
+
+Por ejemplo, dado el ejemplo que describimos anteriormente, las instrucciones generan un algoritmo tal que dada la entrada $\pa*{3, 2}$, al acabar su ejecución, nos devuelve el valor $5$ en su primer registro. Resulta de hecho que la máquina que describimos, para cada par de entrada $\pa*{x, y}\in\omath[2]$ el algoritmo termina y el valor del primer registro es su suma $x + y$. Por lo tanto, tal máquina es una implementación algorítmica de la función suma.
+
+Sin embargo, dada la misma máquina podemos darle de entrada ternas $\pa*{x, y, z}\in\omath[3]$ en cambio para poder generar una función $f:\omath[3]\to\omega$; pero resulta que esta función tiene un comportamiento diferente al de la suma. Consideremos por ejemplo la entrada $(1, 1, 1)$, entonces se tiene la siguiente ejecución:
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\foreach \i in {1, 2,..., 8}{
+			\draw[thick] (3, 17 - 2 *\i) -- (8, 17 - 2 * \i);
+			\draw[thick] (3, 16 - 2 *\i) -- (8, 16 - 2 * \i);
+			\foreach \j in {0, 1,..., 4}{
+				\draw[thick] (3 +\j, 16 - 2 *\i) -- (3 +\j, 17 - 2 *\i);
+			}
+			\node at (6.5, 16.5 - 2 * \i) {0};
+		}
+		
+		\foreach \i in {1, 2,..., 7}{
+			\node at (5.5, 15.5 - 2 *\i) {$\downarrow$};
+		}
+		% primera
+		\node at (3.5, 14.5) {1};
+		\node at (4.5, 14.5) {1};
+		\node at (5.5, 14.5) {1};
+		% segunda
+		\node at (1.5, 13.5) {$S\pa*{1}$};
+		\node at (3.5, 12.5) {2};
+		\node at (4.5, 12.5) {1};
+		\node at (5.5, 12.5) {1};
+		% tercera
+		\node at (1.5, 11.5) {$S\pa*{3}$};
+		\node at (3.5, 10.5) {2};
+		\node at (4.5, 10.5) {1};
+		\node at (5.5, 10.5) {2};
+		% cuarta
+		\node at (1.5, 9.5) {$J\pa*{2, 3, 5}$};
+		\node at (3.5, 8.5) {2};
+		\node at (4.5, 8.5) {1};
+		\node at (5.5, 8.5) {2};
+		% quinta
+		\node at (1.5, 7.5) {$J\pa*{1, 1, 1}$};
+		\node at (3.5, 6.5) {2};
+		\node at (4.5, 6.5) {1};
+		\node at (5.5, 6.5) {2};
+		% sexta
+		\node at (1.5, 5.5) {$S\pa*{1}$};
+		\node at (3.5, 4.5) {3};
+		\node at (4.5, 4.5) {1};
+		\node at (5.5, 4.5) {2};
+		% séptima
+		\node at (1.5, 3.5) {$S\pa*{3}$};
+		\node at (3.5, 2.5) {3};
+		\node at (4.5, 2.5) {1};
+		\node at (5.5, 2.5) {3};
+		% octava
+		\node at (1.5, 1.5) {$J\pa*{2, 3, 5}$};
+		\node at (3.5, 0.5) {3};
+		\node at (4.5, 0.5) {1};
+		\node at (5.5, 0.5) {3};
+		\node at (5.5, -0.5) {\vdots};
+	\end{tikzpicture}
+	
+\end{figure}
+
+Notemos que al seguir ejecutando las instrucciones, el tercer registro siempre es mayor al valor del segundo registro, entonces la instrucción $J\pa*{2, 3, 5}$ nunca nos manda a la instrucción $5$, por lo que la ejecución nunca termina. En este caso se tiene que $f\pa*{1, 1, 1}\partial$. Se puede verificar también que si $\pa*{x, y, z}\in\omath[+]$ es tal que $y > z$, entonces $f\pa*{x, y, z} = x + y - z$; y si $y\leq z$, entonces $f\pa*{x, y, z}\partial$.
+
+Con esto podemos ver que la misma máquina URM puede darnos diferentes funciones con comportamientos muy diferentes únicamente variando el número de datos de entrada. Por lo tanto, la aridad de la función es esencial para determinar el comportamiento de ella al ser computada por una máquina URM. 
+
+\begin{definition}[Funciones URM-computables]
+	Para cada máquina URM $M\in\minstr^{k}$ para algún $k\in\omath[+]$ y cada $n\in\omath[+]$ se define la \emph{función URM-computable} de $M$ con aridad $n$ como la función parcial $\cnphi{M}{n}:\omath[n]\to\omath[\partial]$ tal que para cada $x\in\omath[n]$ con ejecución $\set*{f_{m}^{(x)}}_{m\in\omega}$:
+	\[
+		\cnphi{M}{n}(x) =\begin{cases}
+			f_{p}^{(x)}\pa*{1}, & \exists u\pa*{f_{u}^{(x)}(0) > k}\land\pa*{p =\min\set*{u: f_{u}^{(x)}(0) > k}}\\
+			\partial, &\text{en otro caso}
+		\end{cases}
+	\]
+	
+	Una función parcial $f:\omath[n]\to\omath[\partial]$ para algún $n\in\omath[+]$ se denomina \emph{URM-computable} si existe una máquina URM $M$ tal que $f =\cnphi{M}{n}$.
+	
+	Definimos al conjunto $\murmcomp$ como el conjunto de las funciones parciales que son URM-computables.
+\end{definition}
+
+\begin{notation}
+	Dada una máquina URM $M$, denotaremos por $\cphi{M}$ a la función URM-computable $\cnphi{M}{1}$.
+\end{notation}
+
+Como mencionamos antes, el objetivo de esta sección será demostrar que ambos enfoques de la computabilidad son equivalentes, o más formalmente, demostrar que se tiene la igualdad de conjuntos $\mpartial =\murmcomp$. La contención más sencilla de demostrar es que toda función parcial recursiva es URM-computable.
+
 \begin{theorem}
-    Sean $\varphi$ y $\psi$ fórmulas recursivas. Entonces $\neg\varphi$, $\varphi\vee\psi$ y $\varphi\land\psi$ son recursivas.
+	Toda función parcial recursiva es URM-computable.
 \end{theorem}
 
-\begin{coll}
-    Sean $n\in\omath[+]$ y $X, Y\in\mpow{\omath[n]}$ recursivos. Entonces $X\cup Y$, $X\cap Y$ y $X\setminus Y$ son recursivos.
-\end{coll}
-
-\begin{theorem}
-    Sean $n\in\omath[+]$ y $R\in\mpow{\omath[n + 1]}$ recursiva. Entonces la función $f\in\mfunc[n][\partial]$ tal que para cada $x\in\omath[n]$, $f(x) =\mu yR(x, y)$ es parcial recursiva.
-\end{theorem}
-
-\begin{theorem}
-    Sean $n\in\omath[+]$ y $X\in\mpow{\omath}$ recursivo infinito. Entonces existe $f\in\mpartial[1]$ creciente tal que $\mran{f} = A$.
-\end{theorem}
+\begin{proof}
+	Probemos por inducción sobre el conjunto de funciones parcial recursivas. Mostremos primero que las funciones básicas son URM-computables. Sean $n, k\in\omath[+]$ con $k\leq n$ y definamos las máquinas $M_{1} = \pa*{0, 1}$, $M_{2} =\pa*{1, 1}$ y $M_{3} =\pa*{2, k, 1}$, entonces se sigue directamente que $\mcero =\cnphi{M_{1}}{n}$, $\msuc =\cphi{M_{2}}$ y $\mproj{n}{k} =\cnphi{M_{3}}{n}$.
+\end{proof}
 
 \subsection{Codificación de listas}
 
+Para poder demostrar que $\murmcomp\subseteq\partial$ debemos ayudarnos de una herramienta fundamental que es la \emph{enumeración}, lo cual significa que a cada máquina podemos asignarle un único número natural para poder tratar como entradas de funciones parcial recursivas a los algoritmos mismos. Para poder hacer eso debemos representar a su vez las tuplas de números naturales como números naturales por sí mismos. A esto se le denomina \emph{codificación}. Aunque existen varias formas de poder codificar tuplas o listas de naturales, la forma más simple es por medio del teorema fundamental de la aritmética. La idea es poder hacer una inyección entre las listas y los naturales tratando a cada elemento de la lista como potencias de productos de primos. Por ejemplo, si tenemos la tupla $\pa*{1, 2, 3}\in\omath[3]$, entonces podemos mapearlo al número $2^{1}3^{2}5^{3}$. Lo importante de esto es que el teorema fundamental de la aritmética nos asegura que tal producto de primos es único, por lo que podríamos recuperar la lista únicamente factorizando el número que lo representa y viendo sus potencias. Sin embargo, un problema de esta codificación algo burda es cuando tenemos listas con ceros, como por ejemplo las listas $\pa*{1, 2, 0, 0}$ y $\pa*{1, 2}$. Notemos en este caso que ambas listas serían mapeadas al número $2^{1}3^{2}$ justamente porque existen ceros al final. Una forma para poder arreglar esto es sumar $1$ a cada exponente en el mapeo. Por ejemplo, dadas las listas anteriores, podríamos mapear $\pa*{1, 2, 0, 0}$ a $2^{1 + 1}3^{2 + 1}5^{0 + 1}7^{0 + 1}$ y mapear $\pa*{1, 2}$ a $2^{1 + 1}3^{2 + 1}$, donde aquí las listas ahora están mapeadas a diferentes números naturales. Esta forma de mapear listas ya asegura una inyección debido a que ya no tendríamos potencias nulas con listas con ceros como elementos.
+
+\begin{theorem}
+	La función $f:\omega^{<\omega}\to\omega$ tal que para cada $n\in\omega$ y $x =\pa*{x_{1},\dotsc, x_{n}}\in\omath[n]$ y se define por:
+	\[
+		f(x) =\prod_{k = 1}^{n}p_{k}^{x_{k} + 1}
+	\]
+	donde $p_{k}$ es el $k$-ésimo número primo, es una inyección.
+\end{theorem}
+
+\begin{proof}
+	Sean $x, y\in\omega^{<\omega}$ tales que $f(x) = f(y)$, entonces mostremos que $x = y$. Sean $n, m, x_{1},\dotsc, x_{n}, y_{1},\dots, y_{m}\in\omega$ tales que $x =\pa*{x_{1},\dotsc, x_{n}}$ y $y =\pa*{y_{1},\dotsc, y_{m}}$, entonces se tiene que:
+	\[
+		f(x) =\prod_{k = 1}^{n}p_{k}^{x_{k} + 1}\ ;\ f(y) =\prod_{k = 1}^{m}p_{k}^{y_{k} + 1}
+	\]
+	Ya que $f(x) = f(y)$, por el teorema fundamental de la aritmética sabemos que $n = m$ y para cada $k\leq n$ se tiene que $p_{k}^{x_{k} + 1} = p_{k}^{y_{k} + 1}$, de lo cual se sigue que $x_{k} = y_{k}$. Por lo tanto, $x = y$.
+\end{proof}
+
+El objetivo ahora entonces es verificar que ciertas propiedades de esta codificación son primitivas recursivas.
+
 \begin{definition}[Codificación de listas]
-    Para cada $n\in\omath[+]$, la \emph{codificación de listas} (de longitud $n$) es la función $f\in\mfunc[n]$ tal que para cada $x =\pa{x_{1},\dotsc, x_{n}}\in\omath[n]$:
-    \[
-        f(x) = \prod_{k = 1}^{n}p_{k}^{x_{k} + 1}
-    \]
-    donde $p_{k}$ es el $k$-ésimo número primo.
-    
-    Para cada $n\in\omath[+]$ y cada $x\in\omath[+]$, la codificación de $x$ se denotará por $\mlist{x}$.
+	Para cada $n\in\omath[+]$ se define la función de \emph{codificación} $f_{n}:\omath[n]\to\omega$ tal que para cada $x =\pa*{x_{1},\dotsc, x_{n}}\in\omath[n]$:
+	\[
+		f_{n}(x) =\prod_{k = 1}^{n}p_{k}^{x_{k} + 1}
+	\]
+	Para cada $n\in\omath[+]$ y cada $x =\pa*{x_{1},\dotsc, x_{n}}\in\omath[n]$ se denotará por $\mlist{x} =\mlist{x_{1},\dotsc, x_{n}}$ a $f_{n}(x)$.
+\end{definition}
 
-    Para cada $n\in\omath[+]$, define el conjunto de códigos de longitud $n$ como el conjunto:
-    \[
-        \mcod[n]\coloneqq\set{\mlist{x}\in\omath: x\in\omath[n]}
-    \]
-
-    Se define el conjunto de códigos como:
-    \[
-        \mcod\coloneqq\set{1}\cup\bigcup_{n\in\omath[+]}\mcod[n]
-    \]
- \end{definition}
-
-\begin{theorem}
-     $\mcod$ es primitivo recursivo.
+\begin{theorem}{}{}
+	Las funciones de codificación son primitivas recursivas.
 \end{theorem}
 
-\begin{definition}[Longitud de lista]
-    Se define la función longitud $\mlen\in\mfunc[1]$ para cada $x\in\omath$ como:
-    \[
-        \mlen\pa{x} =\begin{dcases}
-            \mu n\exists y\pa{\pa{y\in\omath[n]}\land\pa{x = \mlist{y}}}, & x\in\mcod\\
-            0, & \text{en otro caso}
-        \end{dcases}
-    \]
+\begin{proof}
+	Denotemos por $f:\omega\to\omega$ a la función que devuelve el $(n + 1)$-ésimo número primo, entonces se sigue para cada $n\in\omath[+]$ que para cada $x\in\omath[n]$:
+	\[
+		\mlist{x} =\prod_{k < n}\pa*{f(k + 1)}^{\mproj{n}{k + 1}(x)}
+	\]
+	Ya que $f$, la función proyección, la potencia, suma y producto acotado son primitivas recursivas, se sigue que las funciones codificación son primitivas recursivas.
+\end{proof}
+
+De esta forma podemos definir entonces al conjunto de \emph{códigos} o \emph{secuencias} de listas como el conjunto de números naturales que son código de una tupla. De manera auxiliar definiremos a $1$ como la codificación de la lista vacía.
+
+\begin{definition}[Secuencias]
+	Definimos al conjunto de \emph{secuencias} o \emph{códigos} como el siguiente subconjunto de $\omega$:
+	\[
+		\mseq\coloneqq\set*{1}\cup\set*{\mlist{x}\in\omega: x\in\omath[<\omega]}
+	\]
 \end{definition}
 
 \begin{theorem}
-    $\mlen$ es primitiva recursiva.
+	El conjunto de códigos $\mseq$ es primitivo recursivo.
 \end{theorem}
 
-\subsection{Máquinas URM}
+\begin{proof}
+	Denotemos por $P\subseteq\omega$ al conjunto de números primos y $D\subseteq\omath[2]$ a la relación ``divide a''. Notemos que la forma de caracterizar los códigos es que son productos de potencias de números primos consecutivos, lo cual puede verse como el conjunto de números $n$ tales que si $p$ es primo y divide a $n$, entonces todo primo menor a $p$ también divide a $n$. Definamos entonces la fórmula:
+	\[
+		\varphi\pa*{n} =\pa*{n > 0\land\forall p\pa*{\pa*{p\leq n\land p\in P\land (p, x)\in D}\to\forall q\pa*{\pa*{q\leq p\land q\in P}\to (q, x)\in D}}}
+	\]
+	Se tiene entonces que $\mseq =\set*{n\in\omega:\varphi\pa*{n}}$. Ya que $P$ y $D$ son primitivas recursivas, por los teoremas\ref{coll: prim_rec_formulas} y \ref{coll: prim_rec_acotado} sabemos entonces que $\mseq$ es primitiva recursiva.
+\end{proof}
 
-\begin{definition}[Instrucciones básicas]
-    Se define al conjunto de \emph{instrucciones básicas} como el siguiente conjunto de símbolos:
-    \begin{align*}
-        \minstr\coloneqq&\set{Z\pa{n}: n\in\omath[+]}\cup\set{S\pa{n}: n\in\omath[+]}\cup\set{T\pa{n, m}: n, m\in\omath[+]}\\
-        &\cup\set{J\pa{n, m, k}: n, m, k\in\omath[+]}
-    \end{align*}
-\end{definition}
+Ahora definimos dos operaciones básicas para poder manipular las listas que usaremos demasiado.
 
-\begin{definition}[Máquinas URM]
-    Se define al conjunto de \emph{máquinas URM} (máquina sin límite de registros) como el conjunto de sucesiones finitas de $\minstr$:
-    \[
-        \murm\coloneqq\bigcup_{n\in\omath[+]}\minstr^{n}
-    \]
-\end{definition}
-
-\begin{definition}[Ejecución de máquinas URM]
-    Sean $p, m\in\omath[+]$, $M =\pa{I_{1},\dotsc, I_{p}}\in\murm$ y $x =\pa{x_{1},\dotsc, x_{m}}\in\omath[m]$. La \emph{ejecución} de la máquina $M$ con entrada $x$ es la sucesión de funciones $\set{f_{n}}_{n\in\omath}\subseteq\mfunc[1]$ tal que para cada $n, k\in\omath$:
-    \begin{itemize}
-        \item si $n = 0$, entonces:
-        \[
-            f_{0}\pa{k} =\begin{cases}
-                1, & k = 0\\
-                x_{k}, & 1\leq k\leq m\\
-                0, &\text{en otro caso}
-            \end{cases}
-        \]
-        \item si $f_{n}\pa{0}\leq p$ e $I_{f_{n}\pa{0}} = Z\pa{i}$ para algún $i\in\omath[+]$, entonces:
-        \[
-            f_{n + 1}\pa{k} =\begin{cases}
-                f_{n}\pa{0} + 1, & k = 0\\
-                0, & k = i\\
-                f_{n}\pa{k}, & \text{en otro caso}
-            \end{cases}
-        \]
-        \item si $f_{n}\pa{0}\leq p$ e $I_{f_{n}\pa{0}} = S\pa{i}$ para algún $i\in\omath[+]$, entonces:
-        \[
-            f_{n + 1}\pa{k} =\begin{cases}
-                f_{n}\pa{k} + 1, & k\in\set{0, i}\\
-                f_{n}\pa{k}, & \text{en otro caso}
-            \end{cases}
-        \]
-        \item si $f_{n}\pa{0}\leq p$ e $I_{f_{n}\pa{0}} = T\pa{i, j}$ para algunos $i, j\in\omath[+]$, entonces:
-        \[
-            f_{n + 1}\pa{k} =\begin{cases}
-                f_{n}\pa{0} + 1, & k = 0\\
-                f_{n}\pa{i}, & k = j\\
-                f_{n}\pa{k}, & \text{en otro caso}
-            \end{cases}
-        \]
-        \item si $f_{n}\pa{0}\leq p$ e $I_{f_{n}\pa{0}} = J\pa{i, j, q}$ para algunos $i, j, q\in\omath[+]$, entonces:
-        \[
-            f_{n + 1}\pa{k} =\begin{cases}
-                q, & k = 0, f_{n}\pa{i} = f_{n}\pa{j}\\
-                f_{n}\pa{k}, & \text{en otro caso}
-            \end{cases}
-        \]
-        \item si $f_{n}\pa{0} > p$, entonces $f_{n + 1}\pa{k} = f_{n}\pa{k}$.
-    \end{itemize}
-    Decimos que la ejecución \emph{se detiene} si existe $n\in\omath[+]$ tal que $f_{n}\pa{0} > p$.
-\end{definition}
-
-\begin{definition}[Funciones URM-computables]
-    Sean $n\in\omath[+]$ y $M\in\murm$. La función $\varphi_{M}^{(n)}\in\mfunc[n][\partial]$ asociada a $M$ de aridad $n$ está definida para cada $x\in\omath[n]$ como:
-    \[
-        \varphi_{M}^{(n)}\pa{x} =\begin{dcases}
-            f_{k}\pa{1}, & \parbox{0.7\linewidth}{la ejecución $\set{f_{n}}_{n\in\omath}\subseteq\mfunc[1]$ de $M$ con entrada $x$ se detiene, con $k$ el mínimo índice donde la ejecución se detiene}\\
-            \partial, & \text{en otro caso}
-        \end{dcases}
-    \]
-
-    Sean $n\in\omath[+]$ y $f\in\mfunc[n][\partial]$. $f$ se denomina \emph{URM-computable} si existe $M\in\murm$ tal que $f =\varphi_{M}^{(n)}$.
-
-    Se denota al conjunto de funciones URM-computables como $\murmcomp$.
-
-    Para cada $n\in\omath[+]$ se define el conjunto:
-    \[
-        \murmcomp[n]\coloneqq\set{f\in\murmcomp: \maridad{f} = n}
-    \]
+\begin{definition}[Longitud y acceso]
+	Definimos las siguientes funciones:
+	\begin{enumerate}
+		\item la función \emph{máxima potencia} $\mmax:\omath[2]\to\omega$ definida como sigue para cada $x, y\in\omega$:
+		\[
+			\mmax\pa*{x, y} =\begin{cases}
+				\max\set*{n\in\omega: x^{n}\mid y}, & x > 1, y > 0\\
+				0, &\text{en otro caso}
+			\end{cases}
+		\]
+		\item para cada $k\in\omath$, la función \emph{acceso} al $(k + 1)$-ésimo elemento $f_{k}:\omega\to\omega$ definida como sigue para cada $e\in\omega$:
+		\[
+			f_{k}(e) =\begin{cases}
+				x_{k}, &\exists n\exists x_{0},\dotsc, x_{n - 1}\in\omega\pa*{k < n\land e = \mlist{x_{0},\dotsc, x_{n - 1}}}\\
+				0, &\text{en otro caso}
+			\end{cases}
+		\]
+		Denotaremos por $e\bra*{k}$ a $f_{k}\pa*{e}$.
+		\item la función \emph{longitud} $\mlen:\omega\to\omega$ definida como sigue para cada $e\in\omega$:
+		\[
+			\mlen\pa*{e} =\begin{cases}
+				n, &\exists n\exists x\in\omath[n]\pa*{e =\mlist{x}}\\
+				0, &\text{en otro caso}
+			\end{cases}
+		\]
+	\end{enumerate}
 \end{definition}
 
 \begin{theorem}
-    $\mpartial\subseteq\murmcomp$
+	Las funciones máxima potencia, acceso y longitud son primitivas recursivas.
 \end{theorem}
+\begin{proof}
+	Para la función máxima potencia, si $D\subseteq\omath[2]$ es la relación ``divide a'', se tiene lo siguiente para cada par $x, y\in\omega$:
+	\[
+		\mmax\pa*{x, y} =\mchi{>}(x, 1)\mchi{>}\pa*{y, 0}\pa*{\pa*{\mu n < y + 1}\pa*{\pa*{x^{n}, y}\notin D} - 1}
+	\]
+	donde la resta se entiende como la resta en $\omega$. Ya que $D$ es primitiva recursiva, se sigue que $\mmax$ es primitiva recursiva.
+	
+	Ahora, sea $k\in\omega$, entonces para la función de acceso al $(k + 1)$-ésimo elemento, si denotamo por $f:\omega\to\omega$ a la función que devuelve el $(n + 1)$-ésimo número primo, se tiene lo siguiente para cada $e\in\omega$:
+	\[
+		e\bra*{k} =\mchi{\mseq}(e)\pa*{\mmax\pa*{f(k), e} - 1}
+	\]
+	
+	Finalmente, para la función longitud se tiene para cada $e\in\omega$ que:
+	\[
+		\mlen\pa*{e} =\mchi{\mseq}\pa*{e}\pa*{\mu n < e + 1}\pa*{\pa*{f(n), e}\notin D}
+	\]
+\end{proof}
 
-\begin{definition}[Codificación de máquinas URM]
-    Sea $f:\minstr\to\omath$ definida como sigue:
-    \begin{itemize}
-        \item para cada $n\in\omath[+]$, $f\pa{Z\pa{n}} =\mlist{0, n}$.
-        \item para cada $n\in\omath[+]$, $f\pa{S\pa{n}} =\mlist{1, n}$.
-        \item para cada $n, m\in\omath[+]$, $f\pa{T\pa{n, m}} =\mlist{2, n, m}$.
-        \item para cada $n, m, k\in\omath[+]$, $f\pa{J\pa{n, m, k}} =\mlist{3, n, m, k}$.
-    \end{itemize}
-    Se define la codificación de $\murm$ como la función $f^{*}:\murm\to\omath$ tal que para cada $n\in\omath[+]$ y $M =\pa{I_{1},\dotsc, I_{n}}\in\murm$, $f^{*}\pa{M} =\mlist{0, f\pa{I_{1}},\dotsc, f\pa{I_{n}}}$.
+\subsection{Codificación de máquinas URM}
 
-    Definimos al conjunto de códigos de $\murm$ como $\murmcod\coloneqq\mran{f^{*}}$.
-\end{definition}
 
-\begin{theorem}
-    $\murmcod$ es primitivo recursivo.
-\end{theorem}
+Con todo esto desarrollado ahora podemos codificar a números naturales las máquinas URM. Recordemos que definimos a las máquinas URM como una secuencia de instrucciones, y cada una de estas instrucciones es a su vez representada como una tupla. Con todo esto, a cada máquina URM podemos directamente traducirla como la codificación de tales listas. Por ejemplo, si tomamos la máquina URM que calculaba la suma tendríamos la secuencia de tuplas:
+\[
+	M =\pa*{\pa*{1, 1},\pa*{1, 3},\pa*{3, 2, 3, 5},\pa*{3, 1, 1, 1}}
+\]
 
-\begin{definition}[Máximo de registros]
-    Defínase la función $f\in\mfunc[1]$ tal que para cada $e\in\omath$:
-    \[
-        f\pa{e} = \begin{cases}
-            e[1], & e\in\mcod,\mlen\pa{e} = 2\\
-            \max\set{e[1], e[2]}, & e\in\mcod,\mlen\pa{e}\in\set{3, 4}\\
-            0, &\text{en otro caso}
-        \end{cases}
-    \]
-    Definimos a la función $\mmaxreg\in\mfunc[1]$ que devuelve el registro máximo ocupado por una máquina $\murm$ tal que para cada $e\in\omath$:
-    \[
-        \mmaxreg\pa{n} =\begin{cases}
-            \max\set{f\pa{e[1]},\dotsc, f\pa{e[\mlen\pa{e} - 1]}}, & e\in\murmcod\\
-            0, &\text{en otro caso}
-        \end{cases}
-    \]
-\end{definition}
+La primer tupla $\pa*{1, 1}$ se codificaría como $\mlist{1, 1} = 2^{1 + 1}3^{1 + 1} = 2^{2}3^{2} = 36$ por ejemplo. Las demás tuplas se codificarían de la siguiente forma:
+\[
+	\begin{NiceArray}{c}
+		\pa*{1, 1}\to\mlist{1, 1} = 2^{2}3^{2}\\
+		\pa*{1, 3}\to\mlist{1, 3} = 2^{2}3^{4}\\
+		\pa*{3, 2, 3, 5}\to\mlist{3, 2, 3, 5} = 2^{4}3^{3}5^{4}7^{5}\\
+		\pa*{3, 1, 1, 1}\to\mlist{3, 1, 1, 1} = 2^{4}3^{2}5^{2}7^{2}
+	\end{NiceArray}
+\]
+Entonces podríamos codificar a $M$ de manera similar de la siguiente forma:
+\begin{align*}
+	e =\mlist{\mlist{1, 1},\mlist{1, 3},\mlist{3, 2, 3, 5},\mlist{3, 1, 1, 1}} &= 2^{\mlist{1, 1}}3^{\mlist{1, 3}}5^{\mlist{3, 2, 3, 5}}7^{\mlist{3, 1, 1, 1}}\\
+	&= 2^{2^{2}3^{2}}3^{2^{2}3^{4}}5^{2^{4}3^{3}5^{4}7^{5}}7^{2^{4}3^{2}5^{2}7^{2}}
+\end{align*}
 
-\begin{theorem}
-    $\mmaxreg$ es primitiva recursiva.
-\end{theorem}
+Aunque este número es gigantescamente grande y computacionalmente en la práctica sería muy difícil de calcular, teóricamente es posible, pero el punto principal aquí es que este número es único y con él podemos recuperar cuales son las instrucciones exactas de $M$ usando todas las herramientas que hemos desarrollado. Por ejemplo, con esta máquina se tendría lo siguiente:
+\[
+	\begin{NiceArray}{c}
+		e\bra*{0} =\mlist{1, 1}\\
+		e\bra*{1} =\mlist{1, 3}\\
+		e\bra*{2} =\mlist{3, 2, 3, 5}\\
+		e\bra*{3} =\mlist{3, 1, 1, 1}
+	\end{NiceArray}
+\]
 
-\begin{definition}[Configuraciones]
-    Se define al conjunto de \emph{configuraciones} de máquinas $\murm$ como el siguiente conjunto de códigos:
-    \[
-        \mconfig\coloneqq\set{e\in\mcod:\mlen\pa{e} > 0, e[0] > 0}
-    \]
-\end{definition}
-
-\begin{definition}[Codificación de la ejecución]
-    Sean 
-\end{definition}
