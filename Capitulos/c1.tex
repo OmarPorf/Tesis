@@ -1065,3 +1065,100 @@ Aunque este número es gigantescamente grande y computacionalmente en la prácti
 	\end{NiceArray}
 \]
 
+y de igual forma se tendría entonces:
+\[
+	\begin{NiceArray}{cccc}
+		e\bra*{0}\bra*{0} = 1 & e\bra*{1}\bra*{0} = 1 & e\bra*{2}\bra*{0} = 3 & e\bra*{3}\bra*{0} = 3\\
+		e\bra*{0}\bra*{1} = 1 & e\bra*{1}\bra*{1} = 3 & e\bra*{2}\bra*{1} = 2 & e\bra*{3}\bra*{1} = 1\\
+		& & e\bra*{2}\bra*{2} = 3 & e\bra*{3}\bra*{2} = 1\\
+		& & e\bra*{2}\bra*{3} = 5 & e\bra*{3}\bra*{3} = 1\\
+	\end{NiceArray}
+\]
+
+Luego pudimos recuperar cada instrucción por medio del acceso a la lista. Sin embargo, notemos que $e\bra*{0}$ corresponde a la \emph{primera} instrucción de la máquina URM. Para no andar recorriendo los índices cada vez, la codificación de la máquina $M$ iniciará en $0$ solo para que los accesos a la lista y las instrucciones de $M$ correspondan directamente. En el ejemplo que estábamos analizando se sigue que su código es el siguiente:
+\[
+	\mlist{0, \mlist{1, 1},\mlist{1, 3},\mlist{3, 2, 3, 5},\mlist{3, 1, 1, 1}}
+\]
+Se define entonces lo siguiente.
+\begin{definition}[Codificación de instrucciones y máquinas URM]
+	Se definen los siguientes conjuntos de codificaciones de instrucciones y máquinas URM
+	
+	\begin{align*}
+		\minstrcode &\coloneqq\set*{\mlist{0, n}\in\omega: n\in\omath[+]}\cup\set*{\mlist{1, n}\in\omega: n\in\omath[+]}\\
+		&\cup\set*{\mlist{2, n, m}\in\omega: n, m\in\omath[+]}\cup\set*{\mlist{3, n, m, k}\in\omega: n, m, k\in\omath[+]}
+	\end{align*}
+	
+	\[
+		\murmcod\coloneqq\set*{\mlist{0, x_{1},\dotsc, x_{n}}\in\omega: n\in\omath[+], x_{1},\dotsc, x_{n}\in\minstrcode}
+	\]
+\end{definition}
+
+\begin{theorem}
+	Los conjuntos $\minstrcode$ y $\murmcod$ son primitivos recursivos.
+\end{theorem}
+\begin{proof}
+	Para demostrar que $\minstrcode$ es primitivo recursivo solo es necesario demostrar que cada uno de los conjuntos que lo componen son primitivos recursivos. Definamos los conjuntos $A_{1} =\set*{\mlist{0, n}\in\omega: n\in\omath[+]}$, $A_{2} =\set*{\mlist{1, n}\in\omega: n\in\omath[+]}$, $A_{3} =\set*{\mlist{2, n, m}\in\omega: n, m\in\omath[+]}$ y $A_{4} =\set*{\mlist{3, n, m, k}\in\omega: n, m, k\in\omath[+]}$. Notemos lo siguiente:
+	\[
+		\begin{NiceArray}{c}
+			e\in A_{1}\iff\pa*{e\in\mseq\land\mlen\pa*{e} = 2\land e\bra*{0} = 0}\\
+			e\in A_{2}\iff\pa*{e\in\mseq\land\mlen\pa*{e} = 2\land e\bra*{0} = 1}\\
+			e\in A_{3}\iff\pa*{e\in\mseq\land\mlen\pa*{e} = 3\land e\bra*{0} = 2}\\
+			e\in A_{4}\iff\pa*{e\in\mseq\land\mlen\pa*{e} = 4\land e\bra*{0} = 3}
+		\end{NiceArray}
+	\]
+	Ya que $\mseq$, $\mlen$ y la función de acceso son primitivas recursivas, por el teorema \ref{coll: prim_rec_formulas} se sigue que $A_{1}$, $A_{2}$, $A_{3}$ y $A_{4}$ son primitivas recursivas, y luego $\minstrcode = A_{1}\cup A_{2}\cup A_{3}\cup A_{4}$ es primitiva recursiva.
+	
+	Para $\murmcod$, un elemento está en él si y solo si es un código y cada elemento de la lista es elemento de $\minstrcode$. Ya que $\mlen$ es primitiva recursiva, se tiene lo siguiente:
+	\begin{align*}
+		e\in\murmcod\iff&\left(e\in\mseq\land\mlen\pa*{e} > 1\land e\bra*{0} = 0\right. \\
+		&\left. \land\forall k\pa*{\pa*{k <\mlen\pa*{e}\land k > 0}\to e\bra*{k}\in\minstrcode}\right) 
+	\end{align*}
+	Puesto que ya sabemos que $\minstrcode$ es primitiva recursiva, entonces por los teoremas \ref{coll: prim_rec_formulas} y \ref{coll: prim_rec_acotado} se sigue que $\murmcod$ es primitiva recursiva.
+\end{proof}
+\begin{lemma}
+	\label{lemma: ek_menor_e}
+	Para cada $e\in\mseq$ y cada $k <\mlen\pa*{e}$, se satisface que $e\bra*{k} < e$.
+\end{lemma}
+\begin{proof}
+	Se sabe que para cada número natural $n\in\omega$ se satisface que $n < 2^{n}$, entonces para cada $e\in\mseq$ y cada $k <\mlen\pa*{e}$ se satisface lo siguiente:
+	\[
+		e\bra*{k} < 2^{e\bra*{k}}\leq p_{k}^{e\bra*{k} + 1}\leq e
+	\]
+\end{proof}
+\begin{theorem}[Máximo]
+	Definimos a la función \emph{máximo} $\operatorname{Max}:\omega\to\omega$ de la siguiente manera:
+	\[
+		\operatorname{Max}\pa*{e}\coloneqq\begin{cases}
+			\max\set*{x_{1},\dotsc, x_{n}}, & e\in\mseq, e =\mlist{x_{1},\dotsc, x_{n}}\\
+			0, &\text{en otro caso}
+		\end{cases}
+	\]
+	Entonces $\operatorname{Max}$ es primitiva recursiva.
+\end{theorem}
+\begin{proof}
+	Definimos como ayuda al conjunto $M_{e}\subseteq\omega$ de elementos máximos de la lista codificada por el número $e\in\omega$ de la siguiente forma:
+	\[
+		m\in M_{e}\iff \exists n\pa*{n <\mlen\pa*{e}\land e\bra*{n} = m\land\forall k\pa*{k <\mlen\pa*{e}\to e\bra*{k}\leq e\bra*{n}}}
+	\]
+	Esto en esencia nos dice que un elemento está en $M_{e}$ si y solo si es elemento de la lista codificada por $e$ y es el elemento más grande de la lista. Puesto que la lista codificada es finita, siempre tiene un único elemento máximo, es decir que $M_{e}$ es un singulete, que debido a los teoremas \ref{coll: prim_rec_formulas} y \ref{coll: prim_rec_acotado} es primitivo recursivo. De esta manera podemos recuperar tal elemento iterando sobre todos los números menores a $e$, por el teorema \ref{lemma: ek_menor_e}, verificando cuál de ellos es el único elemento de $M_{e}$, pues con la definición de $M_{e}$ siempre aseguramos que tal valor está en la lista.
+	\[
+		\operatorname{Max}\pa*{e} =\mchi{\mseq}\pa*{e}\pa*{\sum_{k = 0}^{e}k\mchi{M_{e}}\pa*{k}}
+	\]
+	Puesto que $\mseq$ y $M_{e}$ son primitivas recursivas, entonces $\operatorname{Max}$ es primitiva recursiva.
+\end{proof}
+
+Esta función es necesaria para poder demostrar que las funciones siguientes son primitivas recursivas, pues nos serán de ayuda para poder codificar el proceso iterativo del algoritmo de una máquina URM.
+
+\begin{theorem}
+	Las siguientes funciones son primitivas recursivas:
+	\begin{enumerate}
+		\item La función \emph{número de instrucciones} $\operatorname{NumInstr}:\omega\to\omega$ que devuelve el número de instrucciones de una máquina URM codificada.
+		\item La función \emph{número máximo de registros} $\operatorname{MaxReg}:\omega\to\omega$ que devuelve el registro más grande utilizado por la máquina URM.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Para la función número de instrucciones tenemos lo siguiente:
+	\[
+		\operatorname{NumInstr}\pa*{e} =\mchi{\murmcod}\pa*{e}\pa*{\mlen\pa*{e} - 1}
+	\]
+\end{proof}
