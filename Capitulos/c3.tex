@@ -2,7 +2,7 @@
 \begin{definition}[$\rca$]
 	Se define al subsistema de $\LA$ de \emph{axiomas de comprensión recursiva}, o $\rca$, como el conjunto de axiomas:
 	\[
-	\rca\coloneqq\mpa\cup\mind{\Sigma_{1}^{0}}\cup\mcomp{\Delta_{1}^{0}}
+		\rca\coloneqq\mpa\cup\mind{\Sigma_{1}^{0}}\cup\mcomp{\Delta_{1}^{0}}
 	\]
 \end{definition}
 
@@ -119,7 +119,7 @@ De ahora en adelante, todos los siguientes teoremas serán demostrados dentro de
 		
 		\item (Paso inductivo) Sea $n$ tal que se satisface $\varphi\left(n\right)$, entonces demostremos que se satisface $\varphi\left(n + 1\right)$. 
 		
-		Supongamos que $\left(\left(n + 1\right)\in X\right)$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $\left(m\in X\right)$ y $m <\left(n + 1\right)$, es decir, $\left(m\leq n\right)$. Ya que se satisface $\varphi\left(n\right)$ por hipótesis, se tiene entonces que $\left(m\notin X\right)$, lo cual contradice el hecho que $\left(m\in X\right)$ como se dedujo anteriormente. Por lo tanto, necesariamente $\left(\left(n + 1\right)\in X\right)$.
+		Supongamos que $\left(\left(n + 1\right)\in X\right)$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $\left(m\in X\right)$ y $m <\left(n + 1\right)$, es decir, $\left(m\leq n\right)$. Ya que se satisface $\varphi\left(n\right)$ por hipótesis, se tiene entonces que $\left(m\notin X\right)$, lo cual contradice el hecho que $\left(m\in X\right)$ como se dedujo anteriormente. Por lo tanto, necesariamente $\left(\left(n + 1\right)\notin X\right)$.
 	\end{itemize}
 	
 	Se sigue entonces por $\mind{\Sigma_{1}^{0}}$ que:
@@ -177,3 +177,411 @@ De ahora en adelante, todos los siguientes teoremas serán demostrados dentro de
 		Ahora, puesto que $X$ es no vacío, entonces no se satisface la primera parte de $\varphi\left(m\right)$, de lo cual se sigue que existe $p$ con $\left(p\leq m\right)$ tal que es máximo de los elementos de $X$ acotados por $m$. Como $m$ ya es cota superior de $X$, entonces tal $p$ es un máximo de $X$. 
 	\end{enumerate}
 \end{proof}
+
+\section{Sistemas numéricos}
+\subsection{Los números enteros}
+En esta sección desarrollaremos la construcción de los números enteros, racionales y reales que son necesarios para poder abordar el estudio de los teoremas del Análisis Real que analizaremos en cada uno de los subsistemas. 
+
+Fuera de $\rca$, recordemos que la característica más importante de los números enteros es que existe la resta, y que para cada número entero $m$ existen dos números naturales $n, k$ tales que $m = n - k$. Con esta propiedad podemos codificar cada número entero con tal par de números naturales que se interpretan de la forma anterior. Por ejemplo, si tenemos el par $\pa*{1, 2}$, entonces lo interpretamos como el número entero $1 - 2 = -1$. Sin embargo, notemos que existen varios pares que nos darían el mismo número entero en ese sentido. Para el caso del $-1$ se tiene que los pares $\pa*{1, 2}$, $\pa*{2, 3}$, $\pa*{3, 4}$ y $\pa*{4, 5}$ se interpretarían de la misma forma. En ese caso, decimos que todos estos pares son \emph{equivalentes} para representar al número $-1$. En general, para cada par de pares $\pa*{n, m}$ y $\pa*{p, q}$, estos son equivalentes si se interpretan como el mismo número entero, es decir, si $n - m = p - q$, o equivalentemente $n + q = p + m$. Con esta condición podemos luego definir una relación de equivalencia que nos codifique la \emph{igualdad} entre números enteros en $\rca$. 
+
+\begin{definition}[Igualdad en $\zmath$]
+	Se define la relación $=_{\zmath}\subseteq\nmath[2]\times\nmath[2]$ como sigue para cada $n, m, p, q\in\nmath$:
+	\[
+		\mlist{n, m} =_{\zmath}\mlist{p, q}\iff n + q = p + m
+	\]
+\end{definition}
+
+Notemos que esta relación puede definirse por medio de una fórmula $\Delta_{0}^{0}$, por lo que existe debido a $\mcomp{\Delta_{1}^{0}}$.
+
+Ya que vimos que existen elementos diferentes que son \emph{iguales} mediante esta relación, entonces es necesario demostrar que esta relación es de equivalencia para que toda la construcción sea coherente.
+
+\begin{theorem}
+	La relación $=_{\zmath}$ es de equivalencia.
+\end{theorem}
+\begin{proof}
+	Demostremos entonces que $=_{\zmath}$ es reflexiva, simétrica y transitiva. Sean $n, m, p, q, r, s\in\nmath$.
+	\begin{enumerate}
+		\item Reflexividad
+		
+		Puesto que $n + m = m + n$, entonces se sigue directamente $\mlist{n, m} =_{\zmath}\mlist{n, m}$. Por lo tanto, $=_{\zmath}$ es reflexiva.
+		
+		\item Simetría
+		
+		Supongamos que $\mlist{n, m} =_{\zmath}\mlist{p, q}$, entonces por definición se satisface que $n + q = p + m$, o equivalentemente, $p + m = n + q$. De lo anterior se sigue que $\mlist{p, q} =_{\zmath}\mlist{n, m}$. Por lo tanto, $=_{\zmath}$ es simétrica.
+		
+		\item Transitividad
+		
+		Supongamos que $\mlist{n, m} =_{\zmath}\mlist{p, q}$ y $\mlist{p, q} =_{\zmath}\mlist{r, s}$, entonces se satisface que $n + q = p + m$ y $p + s = r + q$. Sumando ambas igualdades obtenemos lo siguiente:
+		\[
+			\begin{NiceArray}{c}
+				\pa*{n + q} +\pa*{p + s} =\pa*{p + m} +\pa*{r + q}\\
+				\pa*{n + s} +\pa*{p + q} =\pa*{r + m} +\pa*{p + q}\\
+				n + s = r + m
+			\end{NiceArray}
+		\]
+		Lo cual implica que $\mlist{n, m} =_{\zmath}\mlist{r, s}$. Por lo tanto, $=_{\zmath}$ es transitiva
+	\end{enumerate}
+	En conclusión, la relación $=_{\zmath}$ es de equivalencia
+\end{proof}
+
+\begin{notation}
+	Sean $A\subseteq\nmath$ y $R\subseteq A^{2}$ de equivalencia, entonces para cada $x\in A$ denotaremos por $\bra*{x}_{R}$ a la clase de equivalencia de $x$, es decir:
+	\[
+		\bra*{x}_{R} =\set*{y\in A: xRy}
+	\]
+\end{notation}
+
+Todo esto nos implica que dado cualquier $x\in\nmath[2]$, su clase de equivalencia $\bra*{x}_{=_{\zmath}}$ es el conjunto de todos los pares de naturales que se interpretan como el mismo número entero. Más aún, puesto que $=_{\zmath}$ es un conjunto que existe en $\rca$, entonces la clase de equivalencia de cualquier par de naturales existe ya que puede definirse fácilmente por una fórmula $\Delta_{0}^{0}$.
+
+Ya que tenemos el concepto de igualdad en los enteros, podemos definir lo que es la suma y producto en ellos. Fuera de $\rca$, consideremos dos números enteros $x = n - m$ y $y = p - q$, entonces su suma y producto satisface lo siguiente:
+\[
+	\begin{NiceArray}{c}
+		x + y =\pa*{n - m} +\pa*{p - q} =\pa*{n + p} -\pa*{m + q}\\
+		xy =\pa*{n - m}\pa*{p - q} = np - nq - mp + mq =\pa*{np + mq} -\pa*{nq + mp}
+	\end{NiceArray}
+\]
+
+De esta forma, podríamos definir la suma y producto de enteros como los pares $\pa*{n + p, m + q}$ y $\pa*{np + mq, nq + mp}$ respectivamente. Con esto definimos sus equivalentes en $\rca$.
+
+\begin{definition}
+	\label{def: suma_producto_z_aux}
+	Definimos las siguientes funciones:
+	\[
+		\begin{NiceArray}{cc}
+			f:\nmath[2]\times\nmath[2]\to\nmath & g:\nmath[2]\times\nmath[2]\to\nmath\\
+			\pa*{\mlist{n, m},\mlist{p, q}}\mapsto\mlist{n + p, m + q} &\pa*{\mlist{n, m},\mlist{p, q}}\mapsto\mlist{np + mq, nq + mp}
+		\end{NiceArray}
+	\]
+\end{definition}
+
+Por el momento no les denominamos suma ni producto debido a que necesitaremos redefinirlas cuando establezcamos propiamente el conjunto de números enteros. 
+
+En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir, que son independientes del representante, son conmutativas, asociativas y distributivas.
+
+\begin{lemma}
+	\label{lemma: independencia_representantes_z}
+	Para cada $x, y, z, w\in\nmath[2]$ se satisface que si $x =_{\zmath} z$ y $y =_{\zmath} w$, entonces $f\pa*{x, y} =_{\zmath} f\pa*{z, w}$ y $g\pa*{x, y} =_{\zmath} g\pa*{z, w}$.
+\end{lemma}
+
+\begin{proof}
+	Sean $n, m, p, q, r, s, t, u\in\nmath$ tales que $x =\mlist{n, m}$, $y =\mlist{p, q}$, $z =\mlist{r, s}$ y $w =\mlist{t, u}$.
+	\begin{enumerate}
+		\item Mostremos que $f\pa*{x, y} =_{\zmath} f\pa*{z, w}$.
+		
+		Puesto que $x =_{\zmath} z$ y $y =_{\zmath} w$, entonces $n + s = r + m$ y $p + u = t + q$. Luego:
+		\begin{align*}
+			\pa*{n + s} +\pa*{p + u} &=\pa*{r + m} +\pa*{t + q}\\
+			\pa*{n + p} +\pa*{s + u} &=\pa*{r + t} +\pa*{m + q}\\
+			\mlist{n + p, m + q} &=_{\zmath}\mlist{r + t, s + u}\\
+			f\pa*{x, y} &=_{\zmath} f\pa*{z, w}
+		\end{align*}
+		
+		\item Mostremos que $g\pa*{x, y} =_{\zmath} g\pa*{z, w}$.
+		
+		Puesto que $x =_{\zmath} z$ y $y =_{\zmath} w$, entonces $n + s = r + m$ y $p + u = t + q$. Luego:
+		\begin{align*}
+			p + u &= t + q\\
+			n\pa*{p + u} &= n\pa*{t + q}\\
+			np + nu &= nt + nq\\
+			np + nu + mq &= nt + nq + mq\\
+			np + mq + nu &= nq + mq + nt\\
+			np + mq + nu + su &= nq + mq + nt + su\\
+			np + mq + \pa*{n + s}u &= nq + mq + nt + su\\
+			np + mq + \pa*{r + m}u &= nq + mq + nt + su\\
+			np + mq + ru + mu &= nq + mq + nt + su\\
+			np + mq + ru + mu + mt &= nq + mq + mt + nt + su\\
+			np + mq + ru + mu + mt &= nq + m\pa*{t + q} + nt + su\\
+			np + mq + ru + mu + mt &= nq + m\pa*{p + u} + nt + su\\
+			np + mq + ru + mu + mt &= nq + mp + mu + nt + su\\
+			np + mq + ru + mt &= nq + mp + nt + su\\
+			np + mq + ru + mt + st &= nq + mp + nt + st + su\\
+			np + mq + ru + mt + st &= nq + mp + \pa*{n + s}t + su\\
+			np + mq + ru + mt + st &= nq + mp + \pa*{r + m}t + su\\
+			np + mq + ru + mt + st &= nq + mp + rt + mt + su\\
+			np + mq + ru + st &= nq + mp + rt + su\\
+			\pa*{np + mq} + \pa*{ru + st} &= \pa*{nq + mp} + \pa*{rt + su}\\
+			\mlist{np + mq, nq + mp} &=_{\zmath}\mlist{rt + su, ru + st}\\
+			g\pa*{x, y} &=_{\zmath} g\pa*{z, w}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+\begin{lemma}
+	\label{lemma: prop_suma_prod_z}
+	Para cada $x, y, z\in\nmath[2]$ se satisface lo siguiente:
+	\begin{enumerate}
+		\item $f\pa*{x, y} = f\pa*{y, x}$
+		\item $g\pa*{x, y} = g\pa*{y, x}$
+		\item $f\pa*{x, f\pa*{y, z}} = f\pa*{f\pa*{x, y}, z}$
+		\item $g\pa*{x, g\pa*{y, z}} = g\pa*{g\pa*{x, y}, z}$
+		\item $g\pa*{x, f\pa*{y, z}} = f\pa*{g\pa*{x, y}, g\pa*{x, z}}$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Sean $n, m, p, q, r, s\in\nmath$ tales que $x =\mlist{n, m}$, $y =\mlist{p, q}$ y $z =\mlist{r, s}$.
+	\begin{enumerate}
+		\item $f\pa*{x, y} = f\pa*{y, x}$
+		
+		Se tiene lo siguiente:
+		\[
+			f\pa*{x, y} =\mlist{n + p, m + q} =\mlist{p + n, q + m} = f\pa*{y, x}
+		\]
+		\item $g\pa*{x, y} = g\pa*{y, x}$
+		
+		Se satisface lo siguiente:
+		\[
+			g\pa*{x, y} =\mlist{np + mq, nq + mp} =\mlist{pn + qm, pm + qn} = g\pa*{y, x}
+		\]
+		\item $f\pa*{x, f\pa*{y, z}} = f\pa*{f\pa*{x, y}, z}$
+		
+		Se satisface lo siguiente:
+		\begin{align*}
+			f\pa*{x, f\pa*{y, z}} &= f\pa*{x,\mlist{p + r, q + s}}\\
+			&=\mlist{n +\pa*{p + r}, m +\pa*{q + s}}\\
+			&=\mlist{\pa*{n + p} + r, \pa*{m + q} + s}\\
+			&= f\pa*{\mlist{n + p, m + q}, z}\\
+			&= f\pa*{f\pa*{x, y}, z}
+		\end{align*}
+		\item $g\pa*{x, g\pa*{y, z}} = g\pa*{g\pa*{x, y}, z}$
+		
+		Se satisface lo siguiente:
+		\begin{align*}
+			g\pa*{x, g\pa*{y, z}} &= g\pa*{x,\mlist{pr + qs, ps + qr}}\\
+			&=\mlist{n\pa*{pr + qs} + m\pa*{ps + qr}, n\pa*{ps + qr} + m\pa*{pr + qs}}\\
+			&=\mlist{npr + nqs + mps + mqr, nps + nqr + mpr + mqs}\\
+			&=\mlist{\pa*{np + mq}r + \pa*{nq + mp}s, \pa*{np + mq}s + \pa*{nq + mp}r}\\
+			&= g\pa*{\mlist{np + mq, nq + mp}, z}\\
+			&= g\pa*{g\pa*{x, y}, z}
+		\end{align*}
+		\item $g\pa*{x, f\pa*{y, z}} = f\pa*{g\pa*{x, y}, g\pa*{x, z}}$
+		
+		Se satisface lo siguiente:
+		\begin{align*}
+			g\pa*{x, f\pa*{y, z}} &= g\pa*{x,\mlist{p + r, q + s}}\\
+			&=\mlist{n\pa*{p + r} + m\pa*{q + s}, n\pa*{q + s} + m\pa*{p + r}}\\
+			&=\mlist{np + nr + mq + ms, nq + ns + mp + mr}\\
+			&=\mlist{\pa*{np + mq} +\pa*{nr + ms}, \pa*{nq + mp} +\pa*{ns + mr}}\\
+			&= f\pa*{\mlist{np + mq, nq + mp}, \mlist{nr + ms, ns + mr}}\\
+			&= f\pa*{g\pa*{x, y}, g\pa*{x, z}}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+	\label{lemma: 0_enteros}
+	Para cada $n\in\nmath$ se satisface que $\mlist{0, 0} =_{\zmath}\mlist{n, n}$.
+\end{lemma}
+\begin{proof}
+	Se tiene directamente puesto que $n + 0 = 0 + n$.
+\end{proof}
+
+Con esto podemos ahora definir propiamente lo que son los números enteros en $\rca$. Aunque lo más usual en teoría de conjuntos es usar cada clase de equivalencia como cada número entero y luego el conjunto de números enteros se defina como el conjunto cociente $\nmath[2] / =_{\zmath}$, en $\rca$ no existen los conjuntos de conjuntos de números naturales, por lo que no podemos irnos directamente por esa definición. En cambio, de cada clase de equivalencia podríamos elegir un único elemento como representante y luego los números enteros serían tal conjunto de representantes, el cual sí puede existir ya que es un conjunto de naturales, lo cual sí está permitido. Puesto que ya sabemos que dado un conjunto no vacío podemos determinar su elemento mínimo, entonces de cada clase utilizaremos su elemento mínimo como representante.
+
+\begin{definition}[Números enteros]
+	Definimos la función $Z:\nmath[2]\to\nmath$ tal que para cada $x\in\nmath[2]$, $Z\pa*{x} =\min\bra*{x}_{=_{\zmath}}$. Se define al conjunto de \emph{números enteros} como el conjunto $\zmath\subseteq\nmath$ tal que:
+	\[
+		\zmath\coloneqq\mran{Z}
+	\]
+	es decir, un \emph{número entero} es cualquier natural $x\in\nmath[2]$ tal que existe $n\in\nmath[2]$ para el cual $x =\min\bra*{n}_{=_{\zmath}}$.
+\end{definition}
+
+Notemos que $\zmath$ existe por $\mcomp{\Delta_{1}^{0}}$. Además, $Z$ está bien definida porque para cada $x\in\nmath[2]$ se satisface que $x\in\bra*{x}_{=_{\zmath}}$ y luego su mínimo existe. Otra observación es que claramente para cada $x, y\in\nmath[2]$ tales que $x =_{\zmath} y$ se satisface que $Z\pa*{x} = Z\pa*{y}$, pues $x$ y $y$ forman parte de la misma clase y luego tienen el mismo mínimo.
+
+Ahora podemos también definir adecuadamente la suma y producto de $\zmath$, con lo que podemos demostrar que $\zmath$ es un anillo con unidad.
+
+\begin{definition}[Suma y producto en $\zmath$]
+	Se define la \emph{suma} y \emph{producto} en $\zmath$ como las siguientes funciones:
+	\[
+		\begin{NiceArray}{cc}
+			+_{\zmath}:\zmath[2]\to\zmath & \cdot_{\zmath}:\zmath[2]\to\zmath\\
+			\pa*{x, y}\mapsto Z\pa*{f\pa*{x, y}} &\pa*{x, y}\mapsto Z\pa*{g\pa*{x, y}}
+		\end{NiceArray}
+	\]
+	donde $f$ y $g$ son las funciones de la definición \ref{def: suma_producto_z_aux}.
+\end{definition}
+
+\begin{theorem}
+	El conjunto de enteros $\zmath$ es un anillo conmutativo con unidad con las operaciones $+_{\zmath}$ y $\cdot_{\zmath}$.
+\end{theorem}
+
+\begin{proof}
+	Sean $x, y, z\in\zmath$, entonces mostremos cada una de las siguientes propiedades con ayuda de los lemas \ref{lemma: independencia_representantes_z}, \ref{lemma: prop_suma_prod_z} y \ref{lemma: 0_enteros}:
+	\begin{enumerate}
+		\item Conmutatividad para la suma
+		\[
+			x +_{\zmath} y = Z\pa*{f\pa*{x, y}} = Z\pa*{f\pa*{y, x}} = y +_{\zmath} x
+		\]
+		\item Asociatividad para la suma
+		\begin{align*}
+			x +_{\zmath}\pa*{y +_{\zmath} z} &= Z\pa*{f\pa*{x, Z\pa*{f\pa*{y, z}}}}\\
+			&= Z\pa*{f\pa*{x, f\pa*{y, z}}}\\
+			&= Z\pa*{f\pa*{f\pa*{x, y}, z}}\\
+			&= Z\pa*{f\pa*{Z\pa*{f\pa*{x, y}}, z}}\\
+			&=\pa*{x +_{\zmath} y} +_{\zmath} z
+		\end{align*}
+		\item Existencia del neutro aditivo
+		
+		Definamos al entero $0_{\zmath}\coloneqq Z\pa*{\mlist{0, 0}}$, entonces si $x =\mlist{n, m}$ para algunos $n, m\in\nmath$, se tiene que:
+		\begin{align*}
+			x +_{\zmath} 0_{\zmath} &= Z\pa*{f\pa*{x, 0_{\zmath}}} \\
+			&= Z\pa*{f\pa*{\mlist{n, m},Z\pa*{\mlist{0, 0}}}} \\
+			&= Z\pa*{f\pa*{\mlist{n, m}, \mlist{0, 0}}}\\
+			&= Z\pa*{\mlist{n, m}}\\
+			&= Z\pa*{x} = x
+		\end{align*}
+		\item Existencia de inversos aditivos
+		
+		Si $x =\mlist{n, m}$ para algunos $n, m\in\nmath$, entonces definamos $-x\coloneqq Z\pa*{\mlist{m, n}}$. Luego:
+		\begin{align*}
+			x +_{\zmath}\pa*{-x} &= Z\pa*{f\pa*{x, -x}}\\
+			&= Z\pa*{f\pa*{\mlist{n, m}, Z\pa*{\mlist{m, n}}}}\\
+			&= Z\pa*{f\pa*{\mlist{n, m},\mlist{m, n}}}\\
+			&= Z\pa*{\mlist{n + m, n + m}}\\
+			&= Z\pa*{\mlist{0, 0}} = 0_{\zmath}
+		\end{align*}
+		\item Conmutatividad para el producto
+		\[
+		x \cdot_{\zmath} y = Z\pa*{g\pa*{x, y}} = Z\pa*{g\pa*{y, x}} = y \cdot_{\zmath} x
+		\]
+		\item Asociatividad para el producto
+		\begin{align*}
+			x \cdot_{\zmath}\pa*{y \cdot_{\zmath} z} &= Z\pa*{g\pa*{x, Z\pa*{g\pa*{y, z}}}}\\
+			&= Z\pa*{g\pa*{x, g\pa*{y, z}}}\\
+			&= Z\pa*{g\pa*{g\pa*{x, y}, z}}\\
+			&= Z\pa*{g\pa*{Z\pa*{g\pa*{x, y}}, z}}\\
+			&=\pa*{x \cdot_{\zmath} y} \cdot_{\zmath} z
+		\end{align*}
+		\item Existencia del neutro multiplicativo
+		
+		Definamos al entero $1_{\zmath}\coloneqq Z\pa*{\mlist{1, 0}}$, entonces si $x =\mlist{n, m}$ para algunos $n, m\in\nmath$, se tiene que:
+		\begin{align*}
+			x \cdot_{\zmath} 1_{\zmath} &= Z\pa*{g\pa*{x, 1_{\zmath}}} \\
+			&= Z\pa*{g\pa*{\mlist{n, m},Z\pa*{\mlist{1, 0}}}} \\
+			&= Z\pa*{g\pa*{\mlist{n, m}, \mlist{1, 0}}}\\
+			&= Z\pa*{\mlist{n\cdot 1 + m\cdot 0, n\cdot 0 + m\cdot 1}}\\
+			&= Z\pa*{\mlist{n, m}}\\
+			&= Z\pa*{x} = x
+		\end{align*}
+		
+		\item Distributividad
+		
+		\begin{align*}
+			x\cdot_{\zmath}\pa*{y +_{\zmath} z} &= Z\pa*{g\pa*{x, Z\pa*{f\pa*{y, z}}}}\\
+			&= Z\pa*{g\pa*{x, f\pa*{y, z}}}\\
+			&= Z\pa*{f\pa*{g\pa*{x, y}, g\pa*{x, z}}}\\
+			&= Z\pa*{f\pa*{Z\pa*{g\pa*{x, y}}, Z\pa*{g\pa*{x, z}}}}\\
+			&=\pa*{x\cdot_{\zmath} y} +_{\zmath}\pa*{x\cdot_{\zmath} z}
+		\end{align*}
+	\end{enumerate}
+	Por lo tanto, $\zmath$ es un anillo conmutativo con unidad con las operaciones $+_{\zmath}$ y $\cdot_{\zmath}$.
+\end{proof}
+
+Ahora, para definir a los números racionales es fundamental tener el concepto de orden en $\zmath$. Fuera de $\rca$, si tenemos dos números enteros $x = n - m$ y $y = p - q$ para algunos naturales $n$, $m$, $p$ y $q$, sabemos que $x < y$ si y solo si $n - m < p - q$, o equivalentemente, $n + q < p + m$. De esta forma podemos también extender el concepto de orden a $\zmath$ en $\rca$ como tal relación.
+
+\begin{definition}[Orden en $\zmath$]
+	Se define la \emph{relación de orden} en $\zmath$ como la relación $<_{\zmath}\subseteq\zmath[2]$ tal que para cada $x =\mlist{n, m}, y =\mlist{p, q}\in\zmath$:
+	\[
+		x <_{\zmath} y\iff n + q < p + m
+	\]
+\end{definition}
+
+Se tiene que $<_{\zmath}$ existe por $\mcomp{\Delta_{1}^{0}}$, y además es un orden lineal.
+
+\begin{theorem}
+	La relación de orden $<_{\zmath}$ es un orden lineal en $\zmath$.
+\end{theorem}
+\begin{proof}
+	Sean $x =\mlist{n, m}, y =\mlist{p, q}, z =\mlist{r, s}\in\zmath$, entonces mostremos que $<_{\zmath}$ es irreflexiva, transitiva y tricotómica.
+	\begin{enumerate}
+		\item Irreflexividad
+		
+		Mostremos que $\neg\pa*{x <_{\zmath} x}$. Puesto que $n + m = m + n$, entonces se satisface que $\neg\pa*{n + m < m + n}$, por lo que $\neg\pa*{x <_{\zmath} x}$.
+		
+		\item Transitividad
+		
+		Supongamos que $x <_{\zmath} y$ y $y <_{\zmath} z$, entonces $n + q < p + m$ y $p + s < r + q$, por lo que se tiene lo siguiente:
+		\begin{align*}
+			\pa*{n + q} +\pa*{p + s} &<\pa*{p + m} +\pa*{r + q}\\
+			\pa*{n + s} +\pa*{p + q} &<\pa*{r + m} +\pa*{p + q}\\
+			n + s &< r + m
+		\end{align*}
+		Por lo tanto, $x <_{\zmath} z$.
+		
+		\item Tricotomía
+		
+		Como $n, m, p, q\in\nmath$, y $\nmath$ es tricotómico, entonces se satisface una y solo una de las siguientes afirmaciones: $n + q = p + m$, $n + q < p + m$ o $n + q > p + m$. 
+		
+		Si $n + q = p + m$, entonces $x =\zmath y$, lo cual implicaría que $x = y$ ya que al ser enteros, serían representantes de la misma clase de equivalencia.
+		
+		Si $n + q < p + m$, entonces $x <_{\zmath} y$ por definición, y si $n + q > p + m$, también por definición $y <_{\zmath} x$.
+		
+		Por lo tanto, $<_{\zmath}$ es tricotómica.
+	\end{enumerate}
+	Por lo tanto, $<_{\zmath}$ es un orden lineal en $\zmath$.
+\end{proof}
+
+Para finalizar la construcción de $\zmath$, mostremos que los números naturales se pueden encajar en $\zmath$, lo cual podemos entender como que existe un subconjunto de $\zmath$ que se comporta de manera idéntica como lo haría $\nmath$ en cuanto a la suma, producto y orden. Formalmente eso significa que debe existir una función inyectiva de $\nmath$ a $\zmath$ que conserve la suma, producto y orden de $\nmath$ a $\zmath$.
+
+Puesto que nosotros ya interpretábamos cada par $\mlist{n, m}$ de naturales como la resta $n - m$, entonces los números naturales serían los enteros tales que su segunda componente es $0$. Por ejemplo, el número $2$ en $\zmath$ sería el representante de la clase de $\mlist{2, 0}$, pues $2 = 2 - 0$.
+
+Aseguramos que esta traducción de naturales a enteros es aquella función inyectiva que nos permite encajar los naturales en los enteros.
+
+\begin{theorem}[Encaje de $\nmath$ en $\zmath$]
+	Defínase la función $N:\nmath\to\zmath$ tal que para cada $n\in\nmath$, $N\pa*{n}\coloneqq Z\pa*{\mlist{n, 0}}$. Entonces $N$ es inyectiva y satisface las siguientes propiedades:
+	\begin{enumerate}
+		\item Para cada $n, m\in\nmath$, $N\pa*{n + m} = N\pa*{n} +_{\zmath} N\pa*{m}$.
+		\item Para cada $n, m\in\nmath$, $N\pa*{nm} = N\pa*{n} \cdot_{\zmath} N\pa*{m}$.
+		\item Para cada $n, m\in\nmath$, $n < m$ si y solo si $N\pa*{n} <_{\zmath} N\pa*{m}$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Sean $n, m\in\nmath$, entonces:
+	\begin{enumerate}
+		\item Inyectividad de $N$
+		
+		Supongamos que $N\pa*{n} = N\pa*{m}$, entonces se tiene que $Z\pa*{\mlist{n, 0}} = Z\pa*{\mlist{m, 0}}$, lo cual significa que $\mlist{n, 0} =_{\zmath}\mlist{m, 0}$, es decir que $n + 0 = 0 + m$, o equivalentemente, $n = m$. Por lo tanto, $N$ es inyectiva.
+		
+		\item Conservación de la suma
+		
+		Se tiene lo siguiente:
+		\begin{align*}
+			N\pa*{n + m} &= Z\pa*{\mlist{n + m, 0}}\\
+			&= Z\pa*{f\pa*{\mlist{n, 0},\mlist{m, 0}}}\\
+			&= Z\pa*{f\pa*{Z\pa*{\mlist{n, 0}}, Z\pa*{\mlist{m, 0}}}}\\
+			&= Z\pa*{f\pa*{N\pa*{n}, N\pa*{m}}}\\
+			&= N\pa*{n} +_{\zmath} N\pa*{m}
+		\end{align*}
+		
+		\item Conservación del producto
+		
+		Se tiene lo siguiente:
+		\begin{align*}
+			N\pa*{nm} &= Z\pa*{\mlist{nm, 0}}\\
+			&= Z\pa*{\mlist{nm + 0\cdot 0, n\cdot 0 + 0\cdot m}}\\
+			&= Z\pa*{g\pa*{\mlist{n, 0},\mlist{m, 0}}}\\
+			&= Z\pa*{g\pa*{Z\pa*{\mlist{n, 0}}, Z\pa*{\mlist{m, 0}}}}\\
+			&= Z\pa*{g\pa*{N\pa*{n}, N\pa*{m}}}\\
+			&= N\pa*{n} \cdot_{\zmath} N\pa*{m}
+		\end{align*}
+		
+		\item Conservación del orden
+		
+		Sean $N\pa*{n} =\mlist{p, q}$ y $N\pa*{m} =\mlist{r, s}$ para algunos $p, q, r, s\in\nmath$, entonces sabemos que $n + q = p$ y $m + s = r$ por definición de $N$, entonces:
+		\begin{align*}
+			n < m &\iff n + q < m + q\\
+			&\iff p < m + q\\
+			&\iff p + s < m + q + s\\
+			&\iff p + s < r + q\\
+			&\iff \mlist{p, q} <_{\zmath}\mlist{r, s}\\
+			&\iff N\pa*{n} <_{\zmath} N\pa*{m}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+Con esto hemos mostrado que al trabajar con los enteros, también podemos hacer referencia a los naturales si es que necesitamos tratar con ellos. Aunque cuando hablamos de los naturales en $\zmath$ no necesariamente estamos realizando las mismas operaciones en el propio $\nmath$, es decir, no necesariamente $2_{\zmath} +_{\zmath} 3_{\zmath} = 2 + 3$, la inyección $N$ nos permite traducir cada expresión de un conjunto a otro de manera sencilla, indicándonos que podemos ignorar esa diferencia entre $\nmath$ y $\mran{N}$, y en cambio tratarlos como el mismo conjunto.
+
+\subsection{Los números racionales}
+
+Ya que hemos construido los números enteros, ya directamente podemos definir lo que son los números racionales, lo cuales son los más fundamentales para el estudio del Análisis Real que realizaremos. 
+
+Fuera de $\rca$, los números racionales se caracterizan por tener \emph{división}, y en general cualquier número racional $q$ puede expresarse como un cociente entre números enteros $q = n / m$, donde $m > 0$.
