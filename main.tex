@@ -1,6 +1,7 @@
 \input{Before}
+\usepackage{pdfpages}
+\thispagestyle{empty}
 \begin{document}
-
    \begin{titlepage}
         \thispagestyle{empty}
         \begin{minipage}[c][0.17\textheight][c]{0.25\textwidth}
@@ -49,15 +50,13 @@
                 \textsc{\large presenta:}\\[0.5cm]
                 \textsc{\large {Omar Porfirio García}}\\[2cm]          
 
-                % \vspace{0.5cm}
+                \vspace{0.5cm}
 
-                % {\large\scshape Directores de tesis:\\[0.3cm] {Director 1 \\[0.2cm]
-        
-                % Director 2}}\\[.2in]
+                {\large\scshape Director de tesis:\\[0.3cm] {David José Fernández Bretón}}\\[.2in]
 
                 \vspace{0.5cm}
 
-                \large{Ciudad de México,}{ }{2025}
+                \large{Ciudad de México,}{ }{2026}
             \end{center}
         \end{minipage}
     \end{titlepage}
@@ -74,12 +73,15 @@
 
 
 
-
-%\input{Capitulos/c1}
+% Teoría de la computabilidad
+\input{Capitulos/c1}
+% Aritmética de segundo orden
 \input{Capitulos/c2}
+% RCA0
 \input{Capitulos/c3}
+% WKL0
 \input{Capitulos/c4}
 % \newpage
-% \bibliographystyle{apalike}
-% \bibliography{bibliografia.bib}
+%\bibliographystyle{apalike}
+%\bibliography{bibliografia.bib}
 \end{document}
