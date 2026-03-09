@@ -196,6 +196,7 @@ Notemos que esta relación puede definirse por medio de una fórmula $\Delta_{0}
 Ya que vimos que existen elementos diferentes que son \emph{iguales} mediante esta relación, entonces es necesario demostrar que esta relación es de equivalencia para que toda la construcción sea coherente.
 
 \begin{theorem}
+	\label{theo: relacion_equivalencia_z}
 	La relación $=_{\zmath}$ es de equivalencia.
 \end{theorem}
 \begin{proof}
@@ -381,7 +382,7 @@ Con esto podemos ahora definir propiamente lo que son los números enteros en $\
 	\[
 		\zmath\coloneqq\mran{Z}
 	\]
-	es decir, un \emph{número entero} es cualquier natural $x\in\nmath[2]$ tal que existe $n\in\nmath[2]$ para el cual $x =\min\bra*{n}_{=_{\zmath}}$.
+	es decir, un \emph{número entero} es cualquier natural $x\in\nmath$ tal que existe $n\in\nmath[2]$ para el cual $x =\min\bra*{n}_{=_{\zmath}}$.
 \end{definition}
 
 Notemos que $\zmath$ existe por $\mcomp{\Delta_{1}^{0}}$. Además, $Z$ está bien definida porque para cada $x\in\nmath[2]$ se satisface que $x\in\bra*{x}_{=_{\zmath}}$ y luego su mínimo existe. Otra observación es que claramente para cada $x, y\in\nmath[2]$ tales que $x =_{\zmath} y$ se satisface que $Z\pa*{x} = Z\pa*{y}$, pues $x$ y $y$ forman parte de la misma clase y luego tienen el mismo mínimo.
@@ -400,6 +401,7 @@ Ahora podemos también definir adecuadamente la suma y producto de $\zmath$, con
 \end{definition}
 
 \begin{theorem}
+	\label{theo: enteros_anillo}
 	El conjunto de enteros $\zmath$ es un anillo conmutativo con unidad con las operaciones $+_{\zmath}$ y $\cdot_{\zmath}$.
 \end{theorem}
 
@@ -510,7 +512,7 @@ Se tiene que $<_{\zmath}$ existe por $\mcomp{\Delta_{1}^{0}}$, y además es un o
 		
 		Como $n, m, p, q\in\nmath$, y $\nmath$ es tricotómico, entonces se satisface una y solo una de las siguientes afirmaciones: $n + q = p + m$, $n + q < p + m$ o $n + q > p + m$. 
 		
-		Si $n + q = p + m$, entonces $x =\zmath y$, lo cual implicaría que $x = y$ ya que al ser enteros, serían representantes de la misma clase de equivalencia.
+		Si $n + q = p + m$, entonces $x =_{\zmath} y$, lo cual implicaría que $x = y$ ya que al ser enteros, serían representantes de la misma clase de equivalencia.
 		
 		Si $n + q < p + m$, entonces $x <_{\zmath} y$ por definición, y si $n + q > p + m$, también por definición $y <_{\zmath} x$.
 		
@@ -578,10 +580,303 @@ Aseguramos que esta traducción de naturales a enteros es aquella función inyec
 	\end{enumerate}
 \end{proof}
 
-Con esto hemos mostrado que al trabajar con los enteros, también podemos hacer referencia a los naturales si es que necesitamos tratar con ellos. Aunque cuando hablamos de los naturales en $\zmath$ no necesariamente estamos realizando las mismas operaciones en el propio $\nmath$, es decir, no necesariamente $2_{\zmath} +_{\zmath} 3_{\zmath} = 2 + 3$, la inyección $N$ nos permite traducir cada expresión de un conjunto a otro de manera sencilla, indicándonos que podemos ignorar esa diferencia entre $\nmath$ y $\mran{N}$, y en cambio tratarlos como el mismo conjunto.
+Con esto hemos mostrado que al trabajar con los enteros, también podemos hacer referencia a los naturales si es que necesitamos tratar con ellos. Aunque cuando hablamos de los naturales en $\zmath$ no necesariamente estamos realizando las mismas operaciones en el propio $\nmath$, es decir, no necesariamente $2_{\zmath} +_{\zmath} 3_{\zmath} = 2 + 3$, la inyección $N$ nos permite traducir cada expresión de un conjunto a otro de manera sencilla, indicándonos que podemos ignorar esa diferencia entre $\nmath$ y $\mran{N}$, y en cambio tratarlos como el mismo conjunto. Por eso mismo, no haremos distinción simbólica entre $+_{\zmath}$ y la suma en $\nmath$ al trabajar en $\zmath$ debido a ese encaje.
 
 \subsection{Los números racionales}
 
 Ya que hemos construido los números enteros, ya directamente podemos definir lo que son los números racionales, lo cuales son los más fundamentales para el estudio del Análisis Real que realizaremos. 
 
-Fuera de $\rca$, los números racionales se caracterizan por tener \emph{división}, y en general cualquier número racional $q$ puede expresarse como un cociente entre números enteros $q = n / m$, donde $m > 0$.
+Fuera de $\rca$, los números racionales se caracterizan por tener \emph{división}, y en general cualquier número racional $q$ puede expresarse como un cociente entre números enteros $q = n / m$, donde $m > 0$. De manera similar podemos codificar un número racional como un par de números enteros interpretados de la forma anterior. Por ejemplo, el número $2/3$ sería el par $(2, 3)$. Sin embargo, el par no es único, pues $2/3$ también puede representarse con los pares $(4, 6)$, $(6, 9)$, $(8, 12)$, etc. Entonces todos estos pares se deberían considerar \emph{equivalentes} al interpretarse como el mismo racional. En general, para cada par de pares $(p, q)$ y $(r, s)$ que representan a los racionales $p/q$ y $r/s$, estos son equivalentes si y solo si $p/q = r/s$, o equivalentemente $ps = rq$. De esta manera podemos definir la relación de equivalencia entre pares de enteros en $\rca$ que codifica la igualdad entre racionales.
+
+\begin{definition}[Igualdad en $\qmath$]
+	Se define la relación $=_{\qmath}\subseteq\pa*{\zmath\times\zmath[+]}\times\pa*{\zmath\times\zmath[+]}$ como sigue para cada $n, m, p, q\in\nmath$:
+	\[
+	\mlist{n, m} =_{\qmath}\mlist{p, q}\iff nq = pm
+	\]
+\end{definition}
+
+Aquí $\zmath[+]$ se entiende como el conjunto de enteros positivos, es decir el conjunto $\zmath[+] =\set*{n: \pa*{n\in\zmath}\land\pa*{n >_{\zmath} 0}}$. Se tiene también que esta relación existe por $\mcomp{\Delta_{1}^{0}}$. 
+
+De manera análoga al teorema \ref{theo: relacion_equivalencia_z} se demuestra que $=_{\qmath}$ es de equivalencia, por lo que para cada $q\in\zmath\times\zmath[+]$ existe su clase de equivalencia $\bra*{q}_{=_{\qmath}}$ por $\mcomp{\Delta_{1}^{0}}$. Entonces, de manera similar definiremos a los números racionales como el conjunto de elementos mínimos de cada clase de equivalencia.
+
+\begin{definition}[Números racionales]
+	Defínase la función $Q:\zmath\times\zmath[+]\to\nmath$ tal que para cada $q\in\zmath\times\zmath[+]$, $Q\pa*{q} =\min\bra*{q}_{=_{\qmath}}$. Entonces definimos al \emph{conjunto de números racionales} como el subconjunto $\qmath\subseteq\nmath$ tal que:
+	\[
+		\qmath\coloneqq\mran{Q}
+	\]
+	es decir, un \emph{número racional} es cualquier natural $q\in\nmath$ tal que existe $n\in\zmath\times\zmath[+]$ para el cual $q =\min\bra*{n}_{=_{\qmath}}$.
+\end{definition}
+
+De manera análoga podemos definir las operaciones en $\qmath$ por medio de dos funciones auxiliares que codifican la suma y producto de racionales usando los pares de enteros. Fuera de $\rca$, si tenemos dos racionales $x = n/m$ y $y = p/q$, entonces obtenemos lo siguiente:
+\[
+	\begin{NiceArray}{c}
+		x + y =\dfrac{n}{m} +\dfrac{p}{q} =\dfrac{nq + mp}{mq}\\
+		xy =\pa*{\dfrac{n}{m}}\pa*{\dfrac{p}{q}} =\dfrac{np}{mq}
+	\end{NiceArray}
+\]
+
+Por lo que la suma y producto estarían codificados como los pares $\pa*{nq + mp, mq}$ y $\pa*{np, mq}$ respectivamente, lo cual podemos llevar a $\rca$ de la siguiente forma.
+
+\begin{definition}
+	\label{def: suma_producto_q_aux}
+	Definimos las siguientes funciones:
+	\[
+	\begin{NiceArray}{cc}
+		f:\pa*{\zmath\times\zmath[+]}\times\pa*{\zmath\times\zmath[+]}\to\nmath & g:\pa*{\zmath\times\zmath[+]}\times\pa*{\zmath\times\zmath[+]}\to\nmath\\
+		\pa*{\mlist{n, m},\mlist{p, q}}\mapsto\mlist{nq + mp, mq} &\pa*{\mlist{n, m},\mlist{p, q}}\mapsto\mlist{np, mq}
+	\end{NiceArray}
+	\]
+\end{definition}
+
+Al igual que en caso de los enteros, es necesario asegurar que estas operaciones son independientes del representante bajo la igualdad en $\qmath$.
+
+\begin{lemma}
+	\label{lemma: independencia_representantes_q}
+	Para cada $x, y, z, w\in\zmath\times\zmath[+]$ se satisface que si $x =_{\qmath} z$ y $y =_{\qmath} w$, entonces $f\pa*{x, y} =_{\qmath} f\pa*{z, w}$ y $g\pa*{x, y} =_{\qmath} g\pa*{z, w}$.
+\end{lemma}
+
+\begin{proof}
+	Sean $n, p, r, t\in\zmath$ y $m, q, s, u\in\zmath[+]$ tales que $x =\mlist{n, m}$, $y =\mlist{p, q}$, $z =\mlist{r, s}$ y $w =\mlist{t, u}$ donde además $x =_{\qmath} z$ y $y =_{\qmath} w$. Se tiene entonces que $ns = rm$ y $pu = tq$.
+	
+	\begin{enumerate}
+		\item Para $f$ se tiene lo siguiente:
+		\begin{align*}
+			\pa*{nq + mp}\pa*{su} &= nqsu + mpsu\\
+			&= rmqu + tqms\\
+			&=\pa*{ru + st}\pa*{mq}
+		\end{align*}
+		Por lo que $f\pa*{x, y} =_{\qmath} f\pa*{z, w}$.
+		\item Para $g$ se tiene lo siguiente:
+		\[
+			\pa*{np}\pa*{su} =\pa*{ns}\pa*{pu} =\pa*{rm}\pa*{tq}
+		\]
+		Por lo que $g\pa*{x, y} =_{\qmath} g\pa*{z, w}$.
+	\end{enumerate}
+\end{proof}
+
+Una observación a realizar es que en los racionales se cumple la cancelación en la división, es decir, si nosotros tenemos el racional $np/nq$ donde $n\neq 0$, entonces $np/nq = p/q$. Traducido a la construcción que estamos realizando se obtiene el siguiente teorema.
+
+\begin{lemma}
+	\label{lemma: cancelacion_cociente}
+	Para cada $p\in\zmath$ y cada $n, q\in\zmath[+]$ se satisface que $\mlist{np, nq} =_{\qmath}\mlist{p, q}$.
+\end{lemma}
+
+\begin{proof}
+	Se sigue directamente puesto que $\pa*{np}q = p\pa*{nq}$.
+\end{proof}
+
+Con esto podemos demostrar que estas funciones se comportan bien, lo cual significa que son conmutativas, asociativas y distributivas.
+
+\begin{lemma}
+	\label{lemma: prop_suma_prod_q}
+	Para cada $x, y, z\in\zmath\times\zmath[+]$ se satisface lo siguiente:
+	\begin{enumerate}
+		\item $f\pa*{x, y} = f\pa*{y, x}$
+		\item $g\pa*{x, y} = g\pa*{y, x}$
+		\item $f\pa*{x, f\pa*{y, z}} = f\pa*{f\pa*{x, y}, z}$
+		\item $g\pa*{x, g\pa*{y, z}} = g\pa*{g\pa*{x, y}, z}$
+		\item $g\pa*{x, f\pa*{y, z}} =_{\qmath} f\pa*{g\pa*{x, y}, g\pa*{x, z}}$
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	Las demostraciones de los primeros cuatro puntos son análogas a lo que se realiza en las demostraciones del teorema \ref{lemma: prop_suma_prod_z}. La única necesaria a demostrar es la del último punto que es la distributividad. 
+	
+	Sean $n, p, r\in\zmath$ y $m, q, s\in\zmath[+]$ tales que $x =\mlist{n, m}$, $y =\mlist{p, q}$, $z =\mlist{r, s}$, entonces obtenemos lo siguiente usando el lema \ref{lemma: cancelacion_cociente}:
+	\begin{align*}
+		g\pa*{x, f\pa*{y, z}} &= g\pa*{x,\mlist{ps + qr, qs}}\\
+		&=\mlist{n\pa*{ps + qr}, m\pa*{qs}}\\
+		&=\mlist{nps + nqr, mqs}\\
+		&=_{\qmath}\mlist{m\pa*{nps + nqr}, m^{2}qs}\\
+		&=\mlist{\pa*{np}\pa*{ms} +\pa*{mq}\pa*{nr}, \pa*{mq}\pa*{ms}}\\
+		&= f\pa*{\mlist{np, mq},\mlist{nr, ms}}\\
+		&= f\pa*{g\pa*{x, y}, g\pa*{x, z}}
+	\end{align*}
+\end{proof}
+
+\begin{lemma}
+	\label{lemma: 0_1_racionales}
+	Para cada $n\in\zmath[+]$ se satisface que $\mlist{0, 1} =_{\qmath}\mlist{0, n}$ y $\mlist{1, 1} =_{\qmath}\mlist{n, n}$.
+\end{lemma}
+
+\begin{proof}
+	Se sigue directamente de las igualdades $0\cdot n = 0$ y $n = n$.
+\end{proof}
+
+Podemos entonces ahora definir las operaciones de suma y producto en $\qmath$ de manera coherente.
+
+\begin{definition}[Suma y producto en $\qmath$]
+	Se define la \emph{suma} y \emph{producto} en $\qmath$ como las siguientes funciones:
+	\[
+	\begin{NiceArray}{cc}
+		+_{\qmath}:\qmath[2]\to\qmath & \cdot_{\qmath}:\qmath[2]\to\qmath\\
+		\pa*{x, y}\mapsto Q\pa*{f\pa*{x, y}} &\pa*{x, y}\mapsto Q\pa*{g\pa*{x, y}}
+	\end{NiceArray}
+	\]
+	donde $f$ y $g$ son las funciones de la definición \ref{def: suma_producto_q_aux}.
+\end{definition}
+
+Se puede entonces probar una propiedad fundamental la cual es que $\qmath$ es un campo.
+
+\begin{theorem}
+	El conjunto de números racionales $\qmath$ es un campo con las operaciones $+_{\qmath}$ y $\cdot_{\qmath}$.
+\end{theorem}
+
+\begin{proof}
+	Solo es necesario demostrar la existencia de neutros e inversos (aditivos y multiplicativos) en $\qmath$, pues las otras propiedades de campo son análogas a las de la demostración del teorema \ref{theo: enteros_anillo}.
+	
+	\begin{enumerate}
+		\item Neutro aditivo
+		
+		Sea $x =\mlist{p, q}\in\qmath$ para algunos $p\in\zmath$ y $q\in\zmath[+]$. Entonces si definimos $0_{\qmath}\coloneqq Q\pa*{\mlist{0, 1}}$, se obtiene lo siguiente:
+		\begin{align*}
+			x +_{\qmath} 0_{\qmath} &= Q\pa*{f\pa*{x, 0_{\qmath}}}\\
+			&= Q\pa*{f\pa*{\mlist{p, q}, Q\pa*{\mlist{0, 1}}}}\\
+			&= Q\pa*{f\pa*{p, q},\mlist{0, 1}}\\
+			&= Q\pa*{p\cdot 1 + q\cdot 0, q\cdot 1}\\
+			&= Q\pa*{\mlist{p, q}}\\
+			&= Q\pa*{x} = x
+		\end{align*}
+		\item Neutro multiplicativo
+		
+		Sea $x =\mlist{p, q}\in\qmath$ para algunos $p\in\zmath$ y $q\in\zmath[+]$. Entonces si definimos $1_{\qmath}\coloneqq Q\pa*{\mlist{1, 1}}$, se obtiene lo siguiente:
+		\begin{align*}
+			x \cdot_{\qmath} 1_{\qmath} &= Q\pa*{g\pa*{x, 1_{\qmath}}}\\
+			&= Q\pa*{g\pa*{\mlist{p, q}, Q\pa*{\mlist{1, 1}}}}\\
+			&= Q\pa*{g\pa*{p, q},\mlist{1, 1}}\\
+			&= Q\pa*{\mlist{p, q}}\\
+			&= Q\pa*{x} = x
+		\end{align*}
+		
+		\item Inverso aditivo
+		
+		Sea $x =\mlist{p, q}\in\qmath$ para algunos $p\in\zmath$ y $q\in\zmath[+]$. Entonces si definimos $-x\coloneqq Q\pa*{\mlist{-p, q}}$, se obtiene lo siguiente:
+		\begin{align*}
+			x +_{\qmath} \pa*{-x} &= Q\pa*{f\pa*{x, -x}}\\
+			&= Q\pa*{f\pa*{\mlist{p, q}, Q\pa*{\mlist{-p, q}}}}\\
+			&= Q\pa*{f\pa*{p, q},\mlist{-p, q}}\\
+			&= Q\pa*{pq + q\pa*{-p}, q^{2}}\\
+			&= Q\pa*{\mlist{0, q^{2}}}\\
+			&= Q\pa*{\mlist{0, 1}} = 0_{\qmath}
+		\end{align*}
+		
+		\item Inverso multiplicativo
+		
+		Sea $x =\mlist{p, q}\in\qmath$ para algunos $p\in\zmath$ y $q\in\zmath[+]$. Si $x\neq 0_{\qmath}$, entonces $p\neq 0$, luego tenemos dos casos: $p > 0$ o $p < 0$.
+		
+		Si $p > 0$, entonces definimos $x^{-1}\coloneqq Q\pa*{\mlist{q, p}}$. Luego:
+		\begin{align*}
+			x \cdot_{\qmath} x^{-1} &= Q\pa*{g\pa*{x, x^{-1}}}\\
+			&= Q\pa*{g\pa*{\mlist{p, q}, Q\pa*{\mlist{q, p}}}}\\
+			&= Q\pa*{g\pa*{p, q},\mlist{q, p}}\\
+			&= Q\pa*{\mlist{pq, pq}}\\
+			&= Q\pa*{\mlist{1, 1}} = 1_{\qmath}
+		\end{align*}
+		
+		En cambio, si $p < 0$, entonces definimos $x^{-1}\coloneqq Q\pa*{\mlist{-q, -p}}$. Luego:
+		\begin{align*}
+			x \cdot_{\qmath} x^{-1} &= Q\pa*{g\pa*{x, x^{-1}}}\\
+			&= Q\pa*{g\pa*{\mlist{p, q}, Q\pa*{\mlist{-q, -p}}}}\\
+			&= Q\pa*{g\pa*{p, q},\mlist{-q, -p}}\\
+			&= Q\pa*{\mlist{-pq, -pq}}\\
+			&= Q\pa*{\mlist{1, 1}} = 1_{\qmath}
+		\end{align*}
+		
+		En cualquier caso existe $x^{-1}\in\qmath$ tal que $x\cdot_{\qmath}x^{-1} = 1_{\qmath}$
+	\end{enumerate}
+	Por lo tanto, el conjunto $\qmath$ es un campo con las operaciones $+_{\qmath}$ y $\cdot_{\qmath}$.
+\end{proof}
+
+Para terminar con la construcción de los racionales definamos el orden en ellos. Sean $x = n / m$ y $y = p / q$. Puesto que $m$ y $p$ se toman como enteros positivos, entonces se tiene que $x < y$ si y solo si $n / m < p / q$, o equivalentemente $nq < pm$. Entonces de esta manera podemos ahora caracterizar el orden de $\qmath$ en $\rca$.
+
+\begin{definition}[Orden en $\qmath$]
+	Se define la \emph{relación de orden} en $\qmath$ como la relación binaria $<_{\qmath}\subseteq\qmath[2]$ tal que para cada $x =\mlist{n, m}, y =\mlist{p, q}\in\qmath$ para algunos $n, m, p, q\in\zmath$:
+	\[
+		x <_{\qmath} y\iff nq < pm
+	\]
+\end{definition}
+
+\begin{theorem}
+	La relación $<_{\qmath}$ es un orden lineal.
+\end{theorem}
+
+\begin{proof}
+	Sean $x =\mlist{n, m}, y =\mlist{p, q}, z =\mlist{r, s}\in\qmath$ para algunos $n, p, r\in\zmath$ y $m, q, s\in\zmath[+]$. Mostremos entonces que $<_{\qmath}$ es irreflexiva, transitiva y tricotómica.
+	
+	\begin{enumerate}
+		\item Irreflexividad
+		
+		Puesto que el orden en $\zmath$ es irreflexiva, sabemos entonces que $\neg\pa*{nm < nm}$, es decir, $\neg\pa*{x <_{\qmath} x}$.
+		
+		\item Transitividad
+		
+		Supongamos que $x <_{\qmath} y$ y $y <_{\qmath} z$, entonces $nq < pm$ y $ps < rq$. Puesto que $s > 0$, entonces $nqs < pms$. Como $m > 0$, entonces $psm < rqm$. Por transitividad del orden en $\zmath$ tenemos que $nqs < rqm$, y como $q > 0$, entonces $ns < rm$. Por lo tanto, $x <_{\qmath} z$.
+		
+		\item Tricotomía
+		
+		Por la tricotomía en $\zmath$ sabemos que se satisface una y solo una de las siguientes afirmaciones: $nq = pm$, $nq < pm$ o $nq > pm$.
+		
+		Si $nq = pm$, entonces $x =_{\qmath} y$, y puesto que $x, y\in\qmath$, entonces $x = y$.
+		
+		Si $nq < pm$, entonces $x <_{\qmath} y$; y si $nq > pm$, entonces $y <_{\qmath} x$.
+	\end{enumerate}
+	Por lo tanto, $<_{\qmath}$ es un orden lineal.
+\end{proof}
+
+Finalmente podemos demostrar igualmente que podemos encajar $\zmath$ en $\qmath$ mediante el encaje $n\mapsto Q\pa*{\mlist{n, 1}}$, pues se interpreta que $n = n / 1$.
+
+\begin{theorem}[Encaje de $\zmath$ en $\qmath$]
+	Defínase la función $Z:\zmath\to\qmath$ tal que para cada $n\in\zmath$, $Z\pa*{n}\coloneqq Q\pa*{\mlist{n, 1}}$. Entonces $Z$ es inyectiva y satisface las siguientes propiedades:
+	\begin{enumerate}
+		\item Para cada $n, m\in\zmath$, $Z\pa*{n + m} = Z\pa*{n} +_{\qmath} Z\pa*{m}$.
+		\item Para cada $n, m\in\zmath$, $Z\pa*{nm} = Z\pa*{n} \cdot_{\qmath} Z\pa*{m}$.
+		\item Para cada $n, m\in\zmath$, $n < m$ si y solo si $Z\pa*{n} <_{\qmath} Z\pa*{m}$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Sean $p, q\in\zmath$, entonces:
+	\begin{enumerate}
+		\item Inyectividad de $Z$
+		
+		Supongamos que $Z\pa*{p} = Z\pa*{q}$, entonces se tiene que $Q\pa*{\mlist{p, 1}} = Q\pa*{\mlist{q, 1}}$, lo cual significa que $\mlist{p, 1} =_{\qmath}\mlist{q, 1}$, es decir que $p\cdot 1 = q\cdot 1$, o equivalentemente, $p = q$. Por lo tanto, $Z$ es inyectiva.
+		
+		\item Conservación de la suma
+		
+		Se tiene lo siguiente:
+		\begin{align*}
+			Z\pa*{p + q} &= Q\pa*{\mlist{p + q, 1}}\\
+			&= Q\pa*{f\pa*{\mlist{p, 1},\mlist{q, 1}}}\\
+			&= Q\pa*{f\pa*{Q\pa*{\mlist{p, 1}}, Q\pa*{\mlist{q, 1}}}}\\
+			&= Q\pa*{f\pa*{Z\pa*{n}, Z\pa*{m}}}\\
+			&= Z\pa*{n} +_{\qmath} Z\pa*{m}
+		\end{align*}
+		
+		\item Conservación del producto
+		
+		Se tiene lo siguiente:
+		\begin{align*}
+			Z\pa*{pq} &= Q\pa*{\mlist{pq, 1}}\\
+			&= Q\pa*{g\pa*{\mlist{p, 1},\mlist{q, 1}}}\\
+			&= Q\pa*{g\pa*{Q\pa*{\mlist{p, 1}}, Q\pa*{\mlist{q, 1}}}}\\
+			&= Q\pa*{g\pa*{Z\pa*{p}, Z\pa*{q}}}\\
+			&= Z\pa*{n} \cdot_{\qmath} Z\pa*{m}
+		\end{align*}
+		
+		\item Conservación del orden
+		
+		Sean $Z\pa*{p} =\mlist{n, m}$ y $Z\pa*{q} =\mlist{r, s}$ para algunos $n, r\in\zmath$ y $m, s\in\zmath[+]$, entonces sabemos que $pm = n$ y $qs = r$ por definición de $Z$, entonces:
+		\begin{align*}
+			p < q &\iff pm < qm\\
+			&\iff n < mq\\
+			&\iff ns < mqs\\
+			&\iff ns < mr\\
+			&\iff \mlist{n, m} <_{\qmath}\mlist{r, s}\\
+			&\iff Z\pa*{p} <_{\qmath} Z\pa*{q}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\subsection{Los números reales}
+
+Con los racionales podemos entonces definir lo que significa ser un número real. Sin embargo, este tipo de números tiene una peculiaridad, pues estos no son un conjunto de $\rca$, pues cualquier construcción de los reales implica que estos son incontables, por lo que estos no pueden codificarse como un subconjunto de $\nmath$. Aunque puedan existir modelos incontables de $\rca$, su estructura interna es \emph{contable}, por lo que es imposible codificar a los reales como un conjunto tal cual en $\rca$.
