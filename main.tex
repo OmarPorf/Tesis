@@ -1,0 +1,78 @@
+\input{Before}
+\input{Comandos_matematicas}
+\addbibresource{bibliografia.bib}
+\thispagestyle{empty}
+\begin{document}
+	\begin{titlepage}
+		\thispagestyle{empty}
+		
+		% --- PRIMERA COLUMNA ARRIBA (Logo IPN) ---
+		\begin{minipage}[c][0.17\textheight][c]{0.25\textwidth}
+			\begin{center}
+				\includegraphics[width=2.5cm, height=3.5cm]{imagenes/Logo_Instituto_Politécnico_Nacional.png}
+			\end{center}
+		\end{minipage}% <--- ESTE % ES CRUCIAL PARA EVITAR EL SALTO DE LÍNEA
+		% --- SEGUNDA COLUMNA ARRIBA (Títulos IPN y ESFM) ---
+		\begin{minipage}[c][0.195\textheight][t]{0.75\textwidth}
+			\begin{center}
+				\vspace{0.3cm}
+				\textsc{\large INSTITUTO POLITÉCNICO NACIONAL}\\[0.5cm]
+				\vspace{0.3cm}
+				\hrule height2.5pt
+				\vspace{.2cm}
+				\hrule height1pt
+				\vspace{.8cm}
+				\textsc{ESCUELA SUPERIOR DE FÍSICA Y MATEMÁTICAS }\\[0.5cm] 
+			\end{center}
+		\end{minipage}
+		
+		% --- PRIMERA COLUMNA ABAJO (Líneas verticales y Logo ESFM) ---
+		\begin{minipage}[c][0.81\textheight][t]{0.25\textwidth}
+			\vspace*{5mm}
+			\begin{center}
+				\hskip2.0mm
+				% Las tres líneas verticales deben ir continuas, sin \vspace entre ellas
+				\vrule width1pt height13cm\hskip2pt\vrule width2.5pt height13cm\hskip2mm\vrule width1pt height13cm \\
+				\vspace{5mm}
+				\includegraphics[height=4.0cm]{imagenes/ESCUDO_ESFM.png}
+			\end{center}
+		\end{minipage}% <--- ESTE % TAMBIÉN ES CRUCIAL
+		% --- SEGUNDA COLUMNA ABAJO (Datos de la tesis) ---
+		\begin{minipage}[c][0.81\textheight][t]{0.75\textwidth}
+			\begin{center}
+				\vspace{1cm}
+				% Nota: Usé \mathrm{} para que RCA, WKL y ACA no se vean cursivos y espaciados como variables sueltas
+				{\large\scshape Matemáticas en Reversa: Fuerza Axiomática y Fundamentos Lógicos de los Subsistemas $\mathrm{RCA}_0$, $\mathrm{WKL}_0$ y $\mathrm{ACA}_0$}\\[.2in]
+				\vspace{2cm}
+				\textsc{\LARGE T\hspace{1.5cm}E\hspace{1.5cm}S\hspace{1.5cm}I\hspace{1.5cm}S}\\[0.5cm]
+				\textsc{\large que para obtener el grado de:}\\[0.5cm]
+				\textsc{\large Licenciado en Matemática Algorítmica}\\[0.5cm]
+				\textsc{\large presenta:}\\[0.5cm]
+				\textsc{\large Omar Porfirio García}\\[2cm]
+				\vspace{0.5cm}
+				{\large\scshape Director de tesis:\\[0.3cm] David José Fernández Bretón}\\[.2in]
+				\vspace{0.5cm}
+				\large{Ciudad de México, 2026}
+			\end{center}
+		\end{minipage}
+	\end{titlepage}
+%========== ÍNDICE
+\clearpage
+\tableofcontents
+
+%========== CAPÍTULOS
+% Teoría de la computabilidad
+\input{Capitulos/c1}
+% Aritmética de segundo orden
+\input{Capitulos/c2}
+% RCA0
+\input{Capitulos/c3}
+% ACA0
+\input{Capitulos/c4}
+% WKL0
+\input{Capitulos/c5}
+\newpage
+\nocite{*}
+
+\printbibliography[	heading=bibintoc,title={Referencias}]
+\end{document}

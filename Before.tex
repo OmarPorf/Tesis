@@ -1,0 +1,107 @@
+
+\documentclass[12pt, twoside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-noquoting]{babel}
+\usepackage[width=16cm,height=21cm]{geometry}
+\usepackage{tablefootnote}
+\usepackage{fancyhdr}
+\usepackage[backend=biber, style=authoryear, natbib=true]{biblatex}
+\usepackage{tabularray}
+\usepackage[nottoc]{tocbibind}
+\usepackage{hyperref}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{nicematrix}
+\pagestyle{fancy}
+\setlength{\headheight}{20pt}
+\linespread{1.1}
+\fancyhead[E]{\thepage\hfill \textit{\nouppercase{\rightmark}}}
+\fancyhead[O]{\textit{\nouppercase{\leftmark}}\hfill\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\cfoot{}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usepackage[intoc]{nomencl}
+\makenomenclature
+\renewcommand{\nomname}{Lista de símbolos}
+\usepackage{cases}
+\usepackage{xparse}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\listalgorithmname}{Índice de algoritmos}
+
+% 2. Traducir los comandos internos
+\algrenewcommand\algorithmicrequire{\textbf{Entrada:}}
+\algrenewcommand\algorithmicensure{\textbf{Salida:}}
+\algrenewcommand\algorithmicwhile{\textbf{mientras}}
+\algrenewcommand\algorithmicdo{\textbf{hacer}}
+\algrenewcommand\algorithmicend{\textbf{fin}}
+\algrenewcommand\algorithmicif{\textbf{si}}
+\algrenewcommand\algorithmicelse{\textbf{si no}}
+\algrenewcommand\algorithmicthen{\textbf{entonces}}
+\algrenewcommand\algorithmicfor{\textbf{para}}
+\algrenewcommand\algorithmicforall{\textbf{para todo}}
+\algrenewcommand\algorithmicrepeat{\textbf{repetir}}
+\algrenewcommand\algorithmicuntil{\textbf{hasta que}}
+\algrenewcommand\algorithmicreturn{\textbf{regresar}}
+
+% Paquete para gestión de cambios
+% La opción 'draft' muestra los cambios. 
+% La opción 'final' acepta todos los cambios y oculta las marcas (limpia el PDF).
+\usepackage[draft, commentsnumbered, trackchanges]{changes}
+
+% Personalización de alias para que coincidan con los botones de TeXStudio
+\newcommand{\add}[1]{\added{#1}}
+\newcommand{\remove}[1]{\deleted{#1}}
+\newcommand{\replace}[2]{\replaced{#1}{#2}} % Ojo: \replaced{nuevo}{viejo}
+\newcommand{\alert}[1]{\textbf{\textcolor{red}{#1}}} % Definición manual simple
+
+%=====================================
+%
+%\newtheorem{definition}{Definición}[chapter]
+%\newtheorem{theorem}{Teorema}[chapter]
+%\newtheorem{lemma}[theorem]{Lema}
+%\newtheorem{coll}[theorem]{Corolario}
+%\newtheorem{notation}{Notación}[chapter]
+%
+%
+
+\usepackage[framemethod=tikz]{mdframed} % Alternativa estable a tcolorbox
+
+% 1. Definimos tu estilo de texto (cuerpo normal, título en negrita)
+\newtheoremstyle{estiloTesisPlano}
+{0pt}         % Espacio arriba (lo controla mdframed)
+{0pt}         % Espacio abajo (lo controla mdframed)
+{\normalfont} % Cuerpo del texto sin cursivas
+{}            % Sangría
+{\bfseries}   % Fuente del encabezado
+{.}           % Puntuación después del encabezado
+{ }           % Espacio después del encabezado
+{}            % Especificación del encabezado
+
+\theoremstyle{estiloTesisPlano}
+
+% 2. Configuramos el diseño visual global de la línea lateral
+\mdfsetup{
+	hidealllines=true,          % Quita el marco completo
+	leftline=true,              % Activa solo la línea izquierda
+	linecolor=gray!60,          % Color de la línea
+	linewidth=2pt,              % Grosor de la línea
+	innerleftmargin=10pt,       % Espacio entre línea y texto
+	innerrightmargin=0pt,
+	innertopmargin=0pt,
+	innerbottommargin=0pt,
+	skipabove=2ex,              % Espacio antes del teorema
+	skipbelow=2ex               % Espacio después del teorema
+}
+
+% 3. Declaramos los entornos (esto une amsthm y mdframed en un solo paso)
+\newmdtheoremenv{definition}{Definición}[chapter]
+\newmdtheoremenv{theorem}{Teorema}[chapter]
+\newmdtheoremenv{lemma}[theorem]{Lema}
+\newmdtheoremenv{coll}[theorem]{Corolario}
+\newmdtheoremenv{notation}{Notación}[chapter]

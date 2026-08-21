@@ -1,0 +1,38 @@
+# ---- Archivos generados por la compilacion de LaTeX ----
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.loc
+*.lot
+*.nlo
+*.nls
+*.out
+*.run.xml
+*.soc
+*.synctex.gz
+*.toc
+*.xdv
+*.dvi
+*.bak
+*.tmp
+
+# ---- Carpetas de salida de latexmk / VS Code LaTeX Workshop ----
+build/
+out/
+.texpadtmp/
+
+# ---- Sistema operativo ----
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ---- NO ignorar el PDF final (se respalda a proposito) ----
+!main.pdf

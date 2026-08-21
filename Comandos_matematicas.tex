@@ -1,0 +1,62 @@
+% !TEX root = main.tex
+%=====================================
+\DeclarePairedDelimiter{\pa}{(}{)}
+\DeclarePairedDelimiter{\bra}{[}{]}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\inner}{\langle}{\rangle}
+\DeclarePairedDelimiter{\ropen}{[}{)}
+\DeclarePairedDelimiter{\lopen}{(}{]}
+\NewDocumentCommand{\mfunc}{O{}O{}}{\mathcal{F}_{#1}^{#2}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+
+\newcommand{\PRIMITIVO}[1][]{\mathrm{Prim}_{#1}}
+\newcommand{\CERO}{\operatorname{Z}}
+\newcommand{\PROYECCION}[2]{\pi_{#2}^{#1}}
+\newcommand{\SUCESOR}{\operatorname{S}}
+\newcommand{\CPOTENCIA}[1]{2^{#1}}
+\newcommand{\CARACTERISTICA}[1]{\chi_{#1}}
+\newcommand{\DIVERGE}{\uparrow}
+\newcommand{\ACABA}{\downarrow}
+\newcommand{\DOMINIO}[1]{\operatorname{dom}\left(#1\right)}
+\newcommand{\RANGO}[1]{\operatorname{ran}\left(#1\right)}
+\newcommand{\PARCIAL}[1][]{\mathrm{Parcial}_{#1}}
+\newcommand{\TOTAL}[1][]{\mathrm{Total}_{#1}}
+\newcommand{\INSTRUCCIONES}{\mathrm{Instr}}
+\newcommand{\INSTRUCCIONESCOD}{\mathrm{InstrCod}}
+\newcommand{\URM}{\mathrm{URM}}
+\newcommand{\URMCOMPUTABLE}[1][]{\mathrm{URMComp}_{#1}}
+\newcommand{\LONGITUD}{\operatorname{Len}}
+\newcommand{\URMCODIGO}{\mathrm{URMCod}}
+\newcommand{\MAXREGISTRO}{\mathrm{MaxReg}}
+\newcommand{\NUMINSTRUCCIONES}{\mathrm{NumInstr}}
+\newcommand{\CONFIGURACIONES}{\mathrm{Config}}
+\newcommand{\ARITMETICA}{\mathrm{L}_{2}}
+\newcommand{\VARIABLES}[1][]{\mathrm{V}_{#1}}
+\newcommand{\MIN}[1]{\min\left(#1\right)}
+\newcommand{\SECUENCIAS}{\mathrm{Seq}}
+\newcommand{\MAXPOTENCIA}{\mathrm{MaxP}}
+
+\newcommand{\TERMINOS}{\mathrm{Term}}
+\newcommand{\ATOMICAS}{\mathrm{Atom}}
+\newcommand{\FORMULAS}{\mathrm{Form}}
+\newcommand{\ENUNCIADOS}{\mathrm{Sent}}
+
+\newcommand{\INDUCCION}[1]{#1\text{-}\mathrm{IND}}
+\newcommand{\COMPRENSION}[1]{#1\text{-}\mathrm{COM}}
+\newcommand{\PEANO}{\mathrm{PA}^{-}}
+\newcommand{\RCA}{\mathrm{RCA}_{0}}
+\newcommand{\ACA}{\mathrm{ACA}_{0}}
+\newcommand{\WKL}{\mathrm{WKL}_{0}}
+\newcommand{\VARIABLESDE}[1]{\mathrm{Var}\left[#1\right]}
+\newcommand{\LIBRESDE}[1]{\mathrm{Free}\left[#1\right]}
+
+\NewDocumentCommand{\PHI}{m o}{% "m" es argumento obligatorio (mandatory), "o" es opcional
+	\IfNoValueTF{#2}%
+	{\varphi_{#1}}% Si NO se escribe el segundo argumento
+	{\varphi_{#1}^{(#2)}}% Si SÍ se escribe el segundo argumento
+}

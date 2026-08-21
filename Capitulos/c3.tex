@@ -1,0 +1,996 @@
+\chapter{El subsistema $\RCA$}
+\begin{definition}[$\RCA$]
+	Se define al subsistema de $\ARITMETICA$ de \emph{axiomas de comprensión recursiva}, o $\RCA$, como el conjunto de axiomas:
+	\[
+		\RCA\coloneqq\PEANO\cup\INDUCCION{\Sigma_{1}^{0}}\cup\COMPRENSION{\Delta_{1}^{0}}
+	\]
+\end{definition}
+
+\begin{theorem}
+	Sea $S\subseteq\CPOTENCIA{\omega}$ una $\omega$-estructura. $S$ es un $\omega$-modelo de $\RCA$ si y solo si es un ideal de Turing.
+\end{theorem}
+
+\begin{proof}
+	Para la necesidad debemos demostrar lo siguiente:
+	\begin{enumerate}
+		\item $S\neq\varnothing$
+		
+		Consideremos la fórmula $\varphi$ dada por $\neg\left(n = n\right)$. Notemos que $\varphi\in\Delta_{0}^{0}$ y luego $\varphi$ es $\Sigma_{1}^{0}$ y $\Pi_{1}^{0}$. Por lo tanto, por $\COMPRENSION{\Delta_{1}^{0}}$ sabemos que existe el conjunto $X\in S$ definido por $\varphi$. Se tiene entonces lo siguiente:
+		\[
+			X =\left\{n: \varphi\left(n\right)\right\} =\left\{n:\neg\left(n = n\right)\right\} =\varnothing
+		\]
+		
+		Por lo tanto, $\varnothing\in S$, y luego $S\neq\varnothing$.
+		
+		\item Para cada $X, Y\in S$ se satisface que $X\oplus Y\in S$.
+		
+		Consideremos a la fórmula $\varphi$ dada por:
+		\[
+			\left(\exists m < n + 1\right)\left(\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\vee\left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right)
+		\]
+		Notemos que $\varphi\in\Delta_{0}^{0}$, y entonces por $\COMPRENSION{\Delta_{1}^{0}}$ existe $Z\in S$ definido por $\varphi$. Se obtiene entonces lo siguiente:
+		
+		\begin{align*}
+			Z =&\left\{n: \varphi\left(n\right)\right\}\\
+			=&\left\{n: \left(\exists m < n + 1\right)\left(\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right. \right. \\
+			&\left.\left. \vee\left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right)\right\}\\
+			=&\left\{n: \left(\left(\exists m < n + 1\right)\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right.\right. \\
+			&\left.\left.\vee\left(\exists m < n + 1\right) \left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right) \right\}\\
+			=&\left\{n: \left(\exists m < n + 1\right)\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right\} \\
+			&\cup\left\{n: \left(\exists m < n + 1\right) \left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right\}\\
+			=&\left\{2m: m\in X\right\}\cup\left\{2m + 1: m\in Y\right\}\\
+			=& X\oplus Y
+		\end{align*}
+		
+		Por lo tanto, $X\oplus Y\in S$.
+		
+		\item para cada $X, Y\in\CPOTENCIA{\omega}$, si $X\leq_{T} Y$ y $Y\in S$, entonces $X\in S$.
+		
+		Ya que $X\leq_{T} Y$, entonces por el teorema de Post (\ref{theo: teorema_de_post}) sabemos que existe una fórmula $\varphi$ con parámetro $Y$ la cual es $\Sigma_{1}^{0}$ y $\Pi_{1}^{0}$ y que define a $X$. Puesto que $Y\in S$, entonces por $\COMPRENSION{\Delta_{1}^{0}}$ se tiene que existe $Z\in S$ definida por $\varphi$. Por lo tanto, $X = Z\in S$.
+	\end{enumerate}
+	
+	Probemos ahora la suficiencia. Observemos que puesto que $S$ es una $\omega$-estructura, entonces se satisfacen directamente $\PEANO$ y $\INDUCCION{\Sigma_{1}^{0}}$. Luego, es únicamente necesario demostrar que se satisface el esquema $\COMPRENSION{\Delta_{1}^{0}}$.
+	
+	Sea $\varphi\left(n\right)\in\Delta_{1}^{0}$ con $\mathrm{Free}\left[\varphi\right] =\left\{n\right\}$, entonces demostremos que existe $X\in S$ definido por $\varphi$. Debido a que $S\neq\varnothing$, podemos suponer que $\varphi\left(n, Y_{1},\dotsc, Y_{k}\right)$ para algunos parámetros $Y_{1},\dotsc, Y_{k}\in S$ y $k\in\omega^{+}$. Consideremos al conjunto $X\in\CPOTENCIA{\omega}$ definido por $\varphi$, entonces por el teorema de Post generalizado (\ref{theo: teorema_de_post_generalizado}) sabemos que $X\leq_{T}Y_{1}\oplus\dotsb\oplus Y_{k}$. Ya que $Y_{1},\dotsc, Y_{k}\in S$, entonces $Y_{1}\oplus\dotsb\oplus Y_{k}\in S$, y por lo tanto, $X\in S$.
+\end{proof}
+\section{Teoría de números elemental}
+
+De ahora en adelante, todos los siguientes teoremas serán demostrados dentro del subsistema $\RCA$, a menos que se diga lo contrario.
+
+\begin{theorem}[Propiedades básicas de la aritmética]
+	Se satisfacen las siguientes cerraduras universales.
+	\begin{enumerate}
+		\item $\left(\left(\left(n + m\right) + p\right) =\left(n + \left(m + p\right)\right)\right)$
+		\item $\left(\left(0 + n\right) = n\right)$
+		\item $\left(\left(1 + n\right) = n\right)$
+		\item $\left(\left(n + m\right) =\left(m + n\right)\right)$
+		\item $\left(\left(n\cdot\left(m + p\right)\right) =\left(\left(n\cdot m\right) +\left(n\cdot p\right)\right)\right)$
+		\item $\left(\left(\left(n\cdot m\right)\cdot p\right) =\left(n\cdot\left(m\cdot p\right)\right)\right)$
+		\item $\left(\left(\left(n + m\right)\cdot p\right) =\left(\left(n\cdot p\right) +\left(m\cdot p\right)\right)\right)$
+		\item $\left(\left(0\cdot n\right) = 0\right)$
+		\item $\left(\left(1\cdot n\right) = n\right)$
+		\item $\left(\left(n\cdot m\right) =\left(m\cdot n\right)\right)$
+		\item $\left(\left(\left(n < m\right)\land\left(m < p\right)\right)\to\left(n < p\right)\right)$
+		\item $\left(\left(n < m\right)\leftrightarrow\left(\left(n + 1\right) <\left(m + 1\right)\right)\right)$
+		\item $\left(\neg\left(n = 0\right)\to\left(0 < n\right)\right)$
+		\item $\left(\left(n < m\right)\vee\left(n = m\right)\vee\left(m < n\right)\right)$
+		\item $\neg\left(n < n\right)$
+		\item $\left(\left(n < m\right)\leftrightarrow\left(\left(n + p\right) <\left(m + p\right)\right)\right)$
+		\item $\left(n <\left(\left(n + m\right) + 1\right)\right)$
+		\item $\left(\left(\left(n + p\right) =\left(m + p\right)\right)\to\left(n = m\right)\right)$
+		\item $\left(\left(\neg\left(p = 0\right)\land\left(n < m\right)\right)\to\left(\left(n\cdot p\right) < \left(m\cdot p\right)\right)\right)$
+		\item $\left(\left(\neg\left(p = 0\right)\land\left(\left(n\cdot p\right) <\left(m\cdot p\right)\right)\right)\to\left(n < m\right)\right)$
+		\item $\left(\left(\neg\left(p = 0\right)\land\left(\left(n\cdot p\right) =\left(m\cdot p\right)\right)\right)\to\left(n = m\right)\right)$
+		\item $\left(\left(n < m\right)\to\left(\exists p < m\right)\left(\left(\left(n + p\right) + 1\right) = n\right)\right)$
+		\item $\left(\neg\left(n = 0\right)\to\left(\exists m < n\right)\left(\left(m + 1\right) = n\right)\right)$
+	\end{enumerate}
+\end{theorem}
+\comment{Demostraciones}{Demostrar las propiedades del teorema anterior.}
+\begin{notation}
+	Realizaremos la siguiente notación:
+	\begin{enumerate}
+		\item Escribiremos $\left(t_{1}\leq t_{2}\right)$ en lugar de la fórmula $\left(t_{1} < t_{2} + 1\right)$ donde $t_{1}, t_{2}\in\TERMINOS$.
+		\item Escribiremos $\left(t\notin X\right)$ en lugar de la fórmula $\neg\left(t\in X\right)$ donde $t\in\TERMINOS$.
+		\item Escribiremos $\left(t_{1}\neq t_{2}\right)$ en lugar de la fórmula $\neg\left(t_{1} = t_{2}\right)$ donde $t_{1}, t_{2}\in\TERMINOS$.
+	\end{enumerate}
+\end{notation}
+
+\begin{definition}[Mínimo]
+	Sea $X$ un conjunto. Se dice que $X$ tiene un \emph{elemento mínimo} si se satisface la siguiente fórmula:
+	\[
+		\exists k\forall m\left(\left(k\in X\right)\land\left(\left(m\in X\right)\to\left(k\leq m\right)\right)\right)
+	\]
+\end{definition}
+
+
+\begin{theorem}[Principio del buen orden]
+	Todo conjunto $X$ no vacío, es decir tal que se satisface $\exists n\left(n\in X\right)$, tiene un elemento mínimo.
+\end{theorem}
+\begin{proof}
+	Demostremos por contradicción. Consideremos a $X$ un conjunto no vacío, es decir tal que se satisface $\exists n\left(n\in X\right)$, para el cual se cumple lo siguiente:
+	\begin{equation}
+		\label{eq: buen_orden}
+		\forall k\exists m\left(\left(k\notin X\right)\vee\left(\left(m\in X\right)\land\left(m < k\right)\right)\right)
+	\end{equation}
+	Sea $\varphi\left(p\right)$ la fórmula dada por $\left(\forall k\leq p\right)\left(k\notin X\right)$, la cual es $\Delta_{0}^{0}$. Mostremos por $\INDUCCION{\Sigma_{1}^{0}}$ que se satisface la fórmula $\forall p\varphi\left(p\right)$.
+	
+	\begin{itemize}
+		\item (Base) Si $p = 0$, entonces debemos mostrar que $\left(0\notin X\right)$. Supongamos por el contrario que $\left(0\in X\right)$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $\left(m < 0\right)$ y $\left(m\in X\right)$. Puesto que por los axiomas $\PEANO$ se tiene que para cada $n$ se satisface que $\neg\left(n < 0\right)$, entonces llegamos a una contradicción. Por lo tanto, necesariamente $0\notin X$.
+		
+		\item (Paso inductivo) Sea $n$ tal que se satisface $\varphi\left(n\right)$, entonces demostremos que se satisface $\varphi\left(n + 1\right)$. 
+		
+		Supongamos que $\left(\left(n + 1\right)\in X\right)$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $\left(m\in X\right)$ y $m <\left(n + 1\right)$, es decir, $\left(m\leq n\right)$. Ya que se satisface $\varphi\left(n\right)$ por hipótesis, se tiene entonces que $\left(m\notin X\right)$, lo cual contradice el hecho que $\left(m\in X\right)$ como se dedujo anteriormente. Por lo tanto, necesariamente $\left(\left(n + 1\right)\notin X\right)$.
+	\end{itemize}
+	
+	Se sigue entonces por $\INDUCCION{\Sigma_{1}^{0}}$ que:
+	\[
+		\forall p\varphi\left(p\right)\equiv\forall p\left(\forall k\leq p\right)\left(k\notin X\right)\equiv\forall p\left(p\notin X\right)
+	\]
+	lo cual contradice el hecho que $X$ era no vacío.
+	
+	En conclusión, por contradicción, se prueba el teorema.
+\end{proof}
+
+\begin{definition}[Cota superior]
+	Sea $X$ un conjunto. $X$ se dice estar \emph{acotado superiormente} si se satisface la siguiente fórmula:
+	\[
+		\exists n\forall m\left(\left(m\in X\right)\to\left(m\leq n\right)\right)
+	\]
+\end{definition}
+
+\begin{definition}[Máximo]
+	Sea $X$ un conjunto. Se dice que $X$ tiene un \emph{elemento máximo} si se satisface la siguiente fórmula:
+	\[
+		\exists k\forall m\left(\left(k\in X\right)\land\left(\left(m\in X\right)\to\left(m\leq k\right)\right)\right)
+	\]
+\end{definition}
+
+\begin{theorem}[Principio del máximo]
+	Todo conjunto $X$ no vacío y acotado superiormente tiene un elemento máximo.
+\end{theorem}
+
+\begin{proof}
+	Defínase la fórmula $\varphi\left(n\right)$ dada por:
+	\begin{equation}
+		\label{eq: principio_maximo}
+		\left(\left(\forall k\leq n\right)\left(k\notin X\right)\vee\left(\exists p\leq n\right)\left(\forall k\leq n\right)\left(\left(k\in X\right)\to\left(k\leq p\right)\right)\right)
+	\end{equation}
+	la cual es $\Delta_{0}^{0}$. Observemos que esta fórmula se interpreta como que dado $n$ se satisface que todos los elementos menores a $n$ no pertenecen a $X$ o el conjunto $X\cap\set{0,\dotsc, n}$ tiene máximo. Probemos entonces por $\INDUCCION{\Sigma_{1}^{0}}$ que se satisface la fórmula $\forall n\varphi\left(n\right)$.
+	
+	\begin{enumerate}
+		\item (Base) Para $n = 0$ se tienen dos casos: $\left(0\in X\right)$ o $\left(0\notin X\right)$. Si se cumple $\left(0\notin X\right)$, entonces directamente se satisface la primera parte de la fórmula \eqref{eq: principio_maximo}. Si se satisface $\left(0\in X\right)$, entonces tomando $p = 0$ se satisface la segunda parte de la fórmula \eqref{eq: principio_maximo}. En cualquier caso obtenemos que se satisface $\varphi\left(0\right)$.
+		
+		\item (Paso inductivo) Sea $n$ tal que $\varphi\left(n\right)$. Entonces demostremos que se satisface que $\varphi\left(n + 1\right)$.
+		
+		Ya que se satisface $\varphi\left(n\right)$, entonces tenemos tres casos: 
+		\begin{itemize}
+			\item Si se satisface $\left(\left(n + 1\right)\in X\right)$, entonces se satisface la segunda parte de la fórmula $\varphi\left(n + 1\right)$ tomando $p = \left(n + 1\right)$.
+			
+			\item Si se satisface $\left(\left(n + 1\right)\notin X\right)$ y para cada $k$ con $\left(k\leq n\right)$ se cumple que $\left(k\notin X\right)$, entonces claramente se cumple la primer parte de la fórmula $\varphi\left(n + 1\right)$.
+			
+			\item Si se satisface $\left(\left(n + 1\right)\notin X\right)$ y existe un elemento máximo de los elementos de $X$ acotados por $n$, entonces directamente se satisface la segunda parte de la fórmula $\varphi\left(n + 1\right)$.
+		\end{itemize}
+		Se sigue entonces que en cualquier caso se satisface $\varphi\left(n + 1\right)$. Luego, por $\INDUCCION{\Sigma_{1}^{0}}$ se cumple la fórmula $\forall n\varphi\left(n\right)$.
+		
+		Ya que $X$ es acotado superiormente, se deduce que existe $m$ tal que para cada $k$, si $k\in X$, entonces $k\leq m$. Por lo tanto, se satisface particularmente $\varphi\left(m\right)$. 
+		
+		Ahora, puesto que $X$ es no vacío, entonces no se satisface la primera parte de $\varphi\left(m\right)$, de lo cual se sigue que existe $p$ con $\left(p\leq m\right)$ tal que es máximo de los elementos de $X$ acotados por $m$. Como $m$ ya es cota superior de $X$, entonces tal $p$ es un máximo de $X$. 
+	\end{enumerate}
+\end{proof}
+
+\section{Sistemas numéricos}
+\subsection{Los números enteros}
+En esta sección desarrollaremos la construcción de los números enteros, racionales y reales que son necesarios para poder abordar el estudio de los teoremas del Análisis Real que analizaremos en cada uno de los subsistemas. 
+
+Fuera de $\RCA$, recordemos que la característica más importante de los números enteros es que existe la resta, y que para cada número entero $m$ existen dos números naturales $n, k$ tales que $m = n - k$. Con esta propiedad podemos codificar cada número entero con tal par de números naturales que se interpretan de la forma anterior. Por ejemplo, si tenemos el par $\pa*{1, 2}$, entonces lo interpretamos como el número entero $1 - 2 = -1$. Sin embargo, notemos que existen varios pares que nos darían el mismo número entero en ese sentido. Para el caso del $-1$ se tiene que los pares $\pa*{1, 2}$, $\pa*{2, 3}$, $\pa*{3, 4}$ y $\pa*{4, 5}$ se interpretarían de la misma forma. En ese caso, decimos que todos estos pares son \emph{equivalentes} para representar al número $-1$. En general, para cada par de pares $\pa*{n, m}$ y $\pa*{p, q}$, estos son equivalentes si se interpretan como el mismo número entero, es decir, si $n - m = p - q$, o equivalentemente $n + q = p + m$. Con esta condición podemos luego definir una relación de equivalencia que nos codifique la \emph{igualdad} entre números enteros en $\RCA$. 
+
+\begin{definition}[Igualdad en $\ZZ$]
+	Se define la relación $=_{\ZZ}\subseteq\NN^{2}\times\NN^{2}$ como sigue para cada $n, m, p, q\in\NN$:
+	\[
+		\inner*{n, m} =_{\ZZ}\inner*{p, q}\iff n + q = p + m
+	\]
+\end{definition}
+
+Notemos que esta relación puede definirse por medio de una fórmula $\Delta_{0}^{0}$, por lo que existe debido a $\COMPRENSION{\Delta_{1}^{0}}$.
+
+Ya que vimos que existen elementos diferentes que son \emph{iguales} mediante esta relación, entonces es necesario demostrar que esta relación es de equivalencia para que toda la construcción sea coherente.
+
+\begin{theorem}
+	\label{theo: relacion_equivalencia_z}
+	La relación $=_{\ZZ}$ es de equivalencia.
+\end{theorem}
+\begin{proof}
+	Demostremos entonces que $=_{\ZZ}$ es reflexiva, simétrica y transitiva. Sean $n, m, p, q, r, s\in\NN$.
+	\begin{enumerate}
+		\item Reflexividad
+		
+		Puesto que $n + m = m + n$, entonces se sigue directamente $\inner*{n, m} =_{\ZZ}\inner*{n, m}$. Por lo tanto, $=_{\ZZ}$ es reflexiva.
+		
+		\item Simetría
+		
+		Supongamos que $\inner*{n, m} =_{\ZZ}\inner*{p, q}$, entonces por definición se satisface que $n + q = p + m$, o equivalentemente, $p + m = n + q$. De lo anterior se sigue que $\inner*{p, q} =_{\ZZ}\inner*{n, m}$. Por lo tanto, $=_{\ZZ}$ es simétrica.
+		
+		\item Transitividad
+		
+		Supongamos que $\inner*{n, m} =_{\ZZ}\inner*{p, q}$ y $\inner*{p, q} =_{\ZZ}\inner*{r, s}$, entonces se satisface que $n + q = p + m$ y $p + s = r + q$. Sumando ambas igualdades obtenemos lo siguiente:
+		\[
+			\begin{NiceArray}{c}
+				\pa*{n + q} +\pa*{p + s} =\pa*{p + m} +\pa*{r + q}\\
+				\pa*{n + s} +\pa*{p + q} =\pa*{r + m} +\pa*{p + q}\\
+				n + s = r + m
+			\end{NiceArray}
+		\]
+		Lo cual implica que $\inner*{n, m} =_{\ZZ}\inner*{r, s}$. Por lo tanto, $=_{\ZZ}$ es transitiva
+	\end{enumerate}
+	En conclusión, la relación $=_{\ZZ}$ es de equivalencia
+\end{proof}
+
+\begin{notation}
+	Sean $A\subseteq\NN$ y $R\subseteq A^{2}$ de equivalencia, entonces para cada $x\in A$ denotaremos por $\bra*{x}_{R}$ a la clase de equivalencia de $x$, es decir:
+	\[
+		\bra*{x}_{R} =\set*{y\in A: xRy}
+	\]
+\end{notation}
+
+Todo esto nos implica que dado cualquier $x\in\NN^{2}$, su clase de equivalencia $\bra*{x}_{=_{\ZZ}}$ es el conjunto de todos los pares de naturales que se interpretan como el mismo número entero. Más aún, puesto que $=_{\ZZ}$ es un conjunto que existe en $\RCA$, entonces la clase de equivalencia de cualquier par de naturales existe ya que puede definirse fácilmente por una fórmula $\Delta_{0}^{0}$.
+
+Ya que tenemos el concepto de igualdad en los enteros, podemos definir lo que es la suma y producto en ellos. Fuera de $\RCA$, consideremos dos números enteros $x = n - m$ y $y = p - q$, entonces su suma y producto satisface lo siguiente:
+\[
+	\begin{NiceArray}{c}
+		x + y =\pa*{n - m} +\pa*{p - q} =\pa*{n + p} -\pa*{m + q}\\
+		xy =\pa*{n - m}\pa*{p - q} = np - nq - mp + mq =\pa*{np + mq} -\pa*{nq + mp}
+	\end{NiceArray}
+\]
+
+De esta forma, podríamos definir la suma y producto de enteros como los pares $\pa*{n + p, m + q}$ y $\pa*{np + mq, nq + mp}$ respectivamente. Con esto definimos sus equivalentes en $\RCA$.
+
+\begin{definition}
+	\label{def: suma_producto_z_aux}
+	Definimos las siguientes funciones:
+	\[
+		\begin{NiceArray}{cc}
+			f:\NN^{2}\times\NN^{2}\to\NN & g:\NN^{2}\times\NN^{2}\to\NN\\
+			\pa*{\inner*{n, m},\inner*{p, q}}\mapsto\inner*{n + p, m + q} &\pa*{\inner*{n, m},\inner*{p, q}}\mapsto\inner*{np + mq, nq + mp}
+		\end{NiceArray}
+	\]
+\end{definition}
+
+Por el momento no les denominamos suma ni producto debido a que necesitaremos redefinirlas cuando establezcamos propiamente el conjunto de números enteros. 
+
+En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir, que son independientes del representante, son conmutativas, asociativas y distributivas.
+
+\begin{lemma}
+	\label{lemma: independencia_representantes_z}
+	Para cada $x, y, z, w\in\NN^{2}]$ se satisface que si $x =_{\ZZ} z$ y $y =_{\ZZ} w$, entonces $f\pa*{x, y} =_{\ZZ} f\pa*{z, w}$ y $g\pa*{x, y} =_{\ZZ} g\pa*{z, w}$.
+\end{lemma}
+
+\begin{proof}
+	Sean $n, m, p, q, r, s, t, u\in\NN$ tales que $x =\inner*{n, m}$, $y =\inner*{p, q}$, $z =\inner*{r, s}$ y $w =\inner*{t, u}$.
+	\begin{enumerate}
+		\item Mostremos que $f\pa*{x, y} =_{\ZZ} f\pa*{z, w}$.
+		
+		Puesto que $x =_{\ZZ} z$ y $y =_{\ZZ} w$, entonces $n + s = r + m$ y $p + u = t + q$. Luego:
+		\begin{align*}
+			\pa*{n + s} +\pa*{p + u} &=\pa*{r + m} +\pa*{t + q}\\
+			\pa*{n + p} +\pa*{s + u} &=\pa*{r + t} +\pa*{m + q}\\
+			\inner*{n + p, m + q} &=_{\ZZ}\inner*{r + t, s + u}\\
+			f\pa*{x, y} &=_{\ZZ} f\pa*{z, w}
+		\end{align*}
+		
+		\item Mostremos que $g\pa*{x, y} =_{\ZZ} g\pa*{z, w}$.
+		
+		Puesto que $x =_{\ZZ} z$ y $y =_{\ZZ} w$, entonces $n + s = r + m$ y $p + u = t + q$. Luego:
+		\begin{align*}
+			p + u &= t + q\\
+			n\pa*{p + u} &= n\pa*{t + q}\\
+			np + nu &= nt + nq\\
+			np + nu + mq &= nt + nq + mq\\
+			np + mq + nu &= nq + mq + nt\\
+			np + mq + nu + su &= nq + mq + nt + su\\
+			np + mq + \pa*{n + s}u &= nq + mq + nt + su\\
+			np + mq + \pa*{r + m}u &= nq + mq + nt + su\\
+			np + mq + ru + mu &= nq + mq + nt + su\\
+			np + mq + ru + mu + mt &= nq + mq + mt + nt + su\\
+			np + mq + ru + mu + mt &= nq + m\pa*{t + q} + nt + su\\
+			np + mq + ru + mu + mt &= nq + m\pa*{p + u} + nt + su\\
+			np + mq + ru + mu + mt &= nq + mp + mu + nt + su\\
+			np + mq + ru + mt &= nq + mp + nt + su\\
+			np + mq + ru + mt + st &= nq + mp + nt + st + su\\
+			np + mq + ru + mt + st &= nq + mp + \pa*{n + s}t + su\\
+			np + mq + ru + mt + st &= nq + mp + \pa*{r + m}t + su\\
+			np + mq + ru + mt + st &= nq + mp + rt + mt + su\\
+			np + mq + ru + st &= nq + mp + rt + su\\
+			\pa*{np + mq} + \pa*{ru + st} &= \pa*{nq + mp} + \pa*{rt + su}\\
+			\inner*{np + mq, nq + mp} &=_{\ZZ}\inner*{rt + su, ru + st}\\
+			g\pa*{x, y} &=_{\ZZ} g\pa*{z, w}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+\begin{lemma}
+	\label{lemma: prop_suma_prod_z}
+	Para cada $x, y, z\in\NN^{2}$ se satisface lo siguiente:
+	\begin{enumerate}
+		\item $f\pa*{x, y} = f\pa*{y, x}$
+		\item $g\pa*{x, y} = g\pa*{y, x}$
+		\item $f\pa*{x, f\pa*{y, z}} = f\pa*{f\pa*{x, y}, z}$
+		\item $g\pa*{x, g\pa*{y, z}} = g\pa*{g\pa*{x, y}, z}$
+		\item $g\pa*{x, f\pa*{y, z}} = f\pa*{g\pa*{x, y}, g\pa*{x, z}}$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Sean $n, m, p, q, r, s\in\NN$ tales que $x =\inner*{n, m}$, $y =\inner*{p, q}$ y $z =\inner*{r, s}$.
+	\begin{enumerate}
+		\item $f\pa*{x, y} = f\pa*{y, x}$
+		
+		Se tiene lo siguiente:
+		\[
+			f\pa*{x, y} =\inner*{n + p, m + q} =\inner*{p + n, q + m} = f\pa*{y, x}
+		\]
+		\item $g\pa*{x, y} = g\pa*{y, x}$
+		
+		Se satisface lo siguiente:
+		\[
+			g\pa*{x, y} =\inner*{np + mq, nq + mp} =\inner*{pn + qm, pm + qn} = g\pa*{y, x}
+		\]
+		\item $f\pa*{x, f\pa*{y, z}} = f\pa*{f\pa*{x, y}, z}$
+		
+		Se satisface lo siguiente:
+		\begin{align*}
+			f\pa*{x, f\pa*{y, z}} &= f\pa*{x,\inner*{p + r, q + s}}\\
+			&=\inner*{n +\pa*{p + r}, m +\pa*{q + s}}\\
+			&=\inner*{\pa*{n + p} + r, \pa*{m + q} + s}\\
+			&= f\pa*{\inner*{n + p, m + q}, z}\\
+			&= f\pa*{f\pa*{x, y}, z}
+		\end{align*}
+		\item $g\pa*{x, g\pa*{y, z}} = g\pa*{g\pa*{x, y}, z}$
+		
+		Se satisface lo siguiente:
+		\begin{align*}
+			g\pa*{x, g\pa*{y, z}} &= g\pa*{x,\inner*{pr + qs, ps + qr}}\\
+			&=\inner*{n\pa*{pr + qs} + m\pa*{ps + qr}, n\pa*{ps + qr} + m\pa*{pr + qs}}\\
+			&=\inner*{npr + nqs + mps + mqr, nps + nqr + mpr + mqs}\\
+			&=\inner*{\pa*{np + mq}r + \pa*{nq + mp}s, \pa*{np + mq}s + \pa*{nq + mp}r}\\
+			&= g\pa*{\inner*{np + mq, nq + mp}, z}\\
+			&= g\pa*{g\pa*{x, y}, z}
+		\end{align*}
+		\item $g\pa*{x, f\pa*{y, z}} = f\pa*{g\pa*{x, y}, g\pa*{x, z}}$
+		
+		Se satisface lo siguiente:
+		\begin{align*}
+			g\pa*{x, f\pa*{y, z}} &= g\pa*{x,\inner*{p + r, q + s}}\\
+			&=\inner*{n\pa*{p + r} + m\pa*{q + s}, n\pa*{q + s} + m\pa*{p + r}}\\
+			&=\inner*{np + nr + mq + ms, nq + ns + mp + mr}\\
+			&=\inner*{\pa*{np + mq} +\pa*{nr + ms}, \pa*{nq + mp} +\pa*{ns + mr}}\\
+			&= f\pa*{\inner*{np + mq, nq + mp}, \inner*{nr + ms, ns + mr}}\\
+			&= f\pa*{g\pa*{x, y}, g\pa*{x, z}}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+	\label{lemma: 0_enteros}
+	Para cada $n\in\NN$ se satisface que $\inner*{0, 0} =_{\ZZ}\inner*{n, n}$.
+\end{lemma}
+\begin{proof}
+	Se tiene directamente puesto que $n + 0 = 0 + n$.
+\end{proof}
+
+Con esto podemos ahora definir propiamente lo que son los números enteros en $\RCA$. Aunque lo más usual en teoría de conjuntos es usar cada clase de equivalencia como cada número entero y luego el conjunto de números enteros se defina como el conjunto cociente $\NN^{2} / =_{\ZZ}$, en $\RCA$ no existen los conjuntos de conjuntos de números naturales, por lo que no podemos irnos directamente por esa definición. En cambio, de cada clase de equivalencia podríamos elegir un único elemento como representante y luego los números enteros serían tal conjunto de representantes, el cual sí puede existir ya que es un conjunto de naturales, lo cual sí está permitido. Puesto que ya sabemos que dado un conjunto no vacío podemos determinar su elemento mínimo, entonces de cada clase utilizaremos su elemento mínimo como representante.
+
+\begin{definition}[Números enteros]
+	Definimos la función $Z:\NN^{2}\to\NN$ tal que para cada $x\in\NN^{2}$, $Z\pa*{x} =\min\bra*{x}_{=_{\ZZ}}$. Se define al conjunto de \emph{números enteros} como el conjunto $\ZZ\subseteq\NN$ tal que:
+	\[
+		\ZZ\coloneqq\RANGO{Z}
+	\]
+	es decir, un \emph{número entero} es cualquier natural $x\in\NN$ tal que existe $n\in\NN^{2}$ para el cual $x =\min\bra*{n}_{=_{\ZZ}}$.
+\end{definition}
+
+Notemos que $\ZZ$ existe por $\COMPRENSION{\Delta_{1}^{0}}$. Además, $Z$ está bien definida porque para cada $x\in\NN^{2}$ se satisface que $x\in\bra*{x}_{=_{\ZZ}}$ y luego su mínimo existe. Otra observación es que claramente para cada $x, y\in\NN^{2}$ tales que $x =_{\ZZ} y$ se satisface que $Z\pa*{x} = Z\pa*{y}$, pues $x$ y $y$ forman parte de la misma clase y luego tienen el mismo mínimo.
+
+Ahora podemos también definir adecuadamente la suma y producto de $\ZZ$, con lo que podemos demostrar que $\ZZ$ es un anillo con unidad.
+
+\begin{definition}[Suma y producto en $\ZZ$]
+	Se define la \emph{suma} y \emph{producto} en $\ZZ$ como las siguientes funciones:
+	\[
+		\begin{NiceArray}{cc}
+			+_{\ZZ}:\ZZ^{2}\to\ZZ & \cdot_{\ZZ}:\ZZ^{2}\to\ZZ\\
+			\pa*{x, y}\mapsto Z\pa*{f\pa*{x, y}} &\pa*{x, y}\mapsto Z\pa*{g\pa*{x, y}}
+		\end{NiceArray}
+	\]
+	donde $f$ y $g$ son las funciones de la definición \ref{def: suma_producto_z_aux}.
+\end{definition}
+
+\begin{theorem}
+	\label{theo: enteros_anillo}
+	El conjunto de enteros $\ZZ$ es un anillo conmutativo con unidad con las operaciones $+_{\ZZ}$ y $\cdot_{\ZZ}$.
+\end{theorem}
+
+\begin{proof}
+	Sean $x, y, z\in\ZZ$, entonces mostremos cada una de las siguientes propiedades con ayuda de los lemas \ref{lemma: independencia_representantes_z}, \ref{lemma: prop_suma_prod_z} y \ref{lemma: 0_enteros}:
+	\begin{enumerate}
+		\item Conmutatividad para la suma
+		\[
+			x +_{\ZZ} y = Z\pa*{f\pa*{x, y}} = Z\pa*{f\pa*{y, x}} = y +_{\ZZ} x
+		\]
+		\item Asociatividad para la suma
+		\begin{align*}
+			x +_{\ZZ}\pa*{y +_{\ZZ} z} &= Z\pa*{f\pa*{x, Z\pa*{f\pa*{y, z}}}}\\
+			&= Z\pa*{f\pa*{x, f\pa*{y, z}}}\\
+			&= Z\pa*{f\pa*{f\pa*{x, y}, z}}\\
+			&= Z\pa*{f\pa*{Z\pa*{f\pa*{x, y}}, z}}\\
+			&=\pa*{x +_{\ZZ} y} +_{\ZZ} z
+		\end{align*}
+		\item Existencia del neutro aditivo
+		
+		Definamos al entero $0_{\ZZ}\coloneqq Z\pa*{\inner*{0, 0}}$, entonces si $x =\inner*{n, m}$ para algunos $n, m\in\NN$, se tiene que:
+		\begin{align*}
+			x +_{\ZZ} 0_{\ZZ} &= Z\pa*{f\pa*{x, 0_{\ZZ}}} \\
+			&= Z\pa*{f\pa*{\inner*{n, m},Z\pa*{\inner*{0, 0}}}} \\
+			&= Z\pa*{f\pa*{\inner*{n, m}, \inner*{0, 0}}}\\
+			&= Z\pa*{\inner*{n, m}}\\
+			&= Z\pa*{x} = x
+		\end{align*}
+		\item Existencia de inversos aditivos
+		
+		Si $x =\inner*{n, m}$ para algunos $n, m\in\NN$, entonces definamos $-x\coloneqq Z\pa*{\inner*{m, n}}$. Luego:
+		\begin{align*}
+			x +_{\ZZ}\pa*{-x} &= Z\pa*{f\pa*{x, -x}}\\
+			&= Z\pa*{f\pa*{\inner*{n, m}, Z\pa*{\inner*{m, n}}}}\\
+			&= Z\pa*{f\pa*{\inner*{n, m},\inner*{m, n}}}\\
+			&= Z\pa*{\inner*{n + m, n + m}}\\
+			&= Z\pa*{\inner*{0, 0}} = 0_{\ZZ}
+		\end{align*}
+		\item Conmutatividad para el producto
+		\[
+		x \cdot_{\ZZ} y = Z\pa*{g\pa*{x, y}} = Z\pa*{g\pa*{y, x}} = y \cdot_{\ZZ} x
+		\]
+		\item Asociatividad para el producto
+		\begin{align*}
+			x \cdot_{\ZZ}\pa*{y \cdot_{\ZZ} z} &= Z\pa*{g\pa*{x, Z\pa*{g\pa*{y, z}}}}\\
+			&= Z\pa*{g\pa*{x, g\pa*{y, z}}}\\
+			&= Z\pa*{g\pa*{g\pa*{x, y}, z}}\\
+			&= Z\pa*{g\pa*{Z\pa*{g\pa*{x, y}}, z}}\\
+			&=\pa*{x \cdot_{\ZZ} y} \cdot_{\ZZ} z
+		\end{align*}
+		\item Existencia del neutro multiplicativo
+		
+		Definamos al entero $1_{\ZZ}\coloneqq Z\pa*{\inner*{1, 0}}$, entonces si $x =\inner*{n, m}$ para algunos $n, m\in\NN$, se tiene que:
+		\begin{align*}
+			x \cdot_{\ZZ} 1_{\ZZ} &= Z\pa*{g\pa*{x, 1_{\ZZ}}} \\
+			&= Z\pa*{g\pa*{\inner*{n, m},Z\pa*{\inner*{1, 0}}}} \\
+			&= Z\pa*{g\pa*{\inner*{n, m}, \inner*{1, 0}}}\\
+			&= Z\pa*{\inner*{n\cdot 1 + m\cdot 0, n\cdot 0 + m\cdot 1}}\\
+			&= Z\pa*{\inner*{n, m}}\\
+			&= Z\pa*{x} = x
+		\end{align*}
+		
+		\item Distributividad
+		
+		\begin{align*}
+			x\cdot_{\ZZ}\pa*{y +_{\ZZ} z} &= Z\pa*{g\pa*{x, Z\pa*{f\pa*{y, z}}}}\\
+			&= Z\pa*{g\pa*{x, f\pa*{y, z}}}\\
+			&= Z\pa*{f\pa*{g\pa*{x, y}, g\pa*{x, z}}}\\
+			&= Z\pa*{f\pa*{Z\pa*{g\pa*{x, y}}, Z\pa*{g\pa*{x, z}}}}\\
+			&=\pa*{x\cdot_{\ZZ} y} +_{\ZZ}\pa*{x\cdot_{\ZZ} z}
+		\end{align*}
+	\end{enumerate}
+	Por lo tanto, $\ZZ$ es un anillo conmutativo con unidad con las operaciones $+_{\ZZ}$ y $\cdot_{\ZZ}$.
+\end{proof}
+
+Ahora, para definir a los números racionales es fundamental tener el concepto de orden en $\ZZ$. Fuera de $\RCA$, si tenemos dos números enteros $x = n - m$ y $y = p - q$ para algunos naturales $n$, $m$, $p$ y $q$, sabemos que $x < y$ si y solo si $n - m < p - q$, o equivalentemente, $n + q < p + m$. De esta forma podemos también extender el concepto de orden a $\ZZ$ en $\RCA$ como tal relación.
+
+\begin{definition}[Orden en $\ZZ$]
+	Se define la \emph{relación de orden} en $\ZZ$ como la relación $<_{\ZZ}\subseteq\ZZ^{2}$ tal que para cada $x =\inner*{n, m}, y =\inner*{p, q}\in\ZZ$:
+	\[
+		x <_{\ZZ} y\iff n + q < p + m
+	\]
+\end{definition}
+
+Se tiene que $<_{\ZZ}$ existe por $\COMPRENSION{\Delta_{1}^{0}}$, y además es un orden lineal.
+
+\begin{theorem}
+	La relación de orden $<_{\ZZ}$ es un orden lineal en $\ZZ$.
+\end{theorem}
+\begin{proof}
+	Sean $x =\inner*{n, m}, y =\inner*{p, q}, z =\inner*{r, s}\in\ZZ$, entonces mostremos que $<_{\ZZ}$ es irreflexiva, transitiva y tricotómica.
+	\begin{enumerate}
+		\item Irreflexividad
+		
+		Mostremos que $\neg\pa*{x <_{\ZZ} x}$. Puesto que $n + m = m + n$, entonces se satisface que $\neg\pa*{n + m < m + n}$, por lo que $\neg\pa*{x <_{\ZZ} x}$.
+		
+		\item Transitividad
+		
+		Supongamos que $x <_{\ZZ} y$ y $y <_{\ZZ} z$, entonces $n + q < p + m$ y $p + s < r + q$, por lo que se tiene lo siguiente:
+		\begin{align*}
+			\pa*{n + q} +\pa*{p + s} &<\pa*{p + m} +\pa*{r + q}\\
+			\pa*{n + s} +\pa*{p + q} &<\pa*{r + m} +\pa*{p + q}\\
+			n + s &< r + m
+		\end{align*}
+		Por lo tanto, $x <_{\ZZ} z$.
+		
+		\item Tricotomía
+		
+		Como $n, m, p, q\in\NN$, y el orden en $\NN$ es tricotómico, entonces se satisface una y solo una de las siguientes afirmaciones: $n + q = p + m$, $n + q < p + m$ o $n + q > p + m$. 
+		
+		Si $n + q = p + m$, entonces $x =_{\ZZ} y$, lo cual implicaría que $x = y$ ya que al ser enteros, serían representantes de la misma clase de equivalencia.
+		
+		Si $n + q < p + m$, entonces $x <_{\ZZ} y$ por definición, y si $n + q > p + m$, también por definición $y <_{\ZZ} x$.
+		
+		Por lo tanto, $<_{\ZZ}$ es tricotómica.
+	\end{enumerate}
+	Por lo tanto, $<_{\ZZ}$ es un orden lineal en $\ZZ$.
+\end{proof}
+
+Para finalizar la construcción de $\ZZ$, mostremos que los números naturales se pueden encajar en $\ZZ$, lo cual podemos entender como que existe un subconjunto de $\ZZ$ que se comporta de manera idéntica como lo haría $\NN$ en cuanto a la suma, producto y orden. Formalmente eso significa que debe existir una función inyectiva de $\NN$ a $\ZZ$ que conserve la suma, producto y orden de $\NN$ a $\ZZ$.
+
+Puesto que nosotros ya interpretábamos cada par $\inner*{n, m}$ de naturales como la resta $n - m$, entonces los números naturales serían los enteros tales que su segunda componente es $0$. Por ejemplo, el número $2$ en $\ZZ$ sería el representante de la clase de $\inner*{2, 0}$, pues $2 = 2 - 0$.
+
+Aseguramos que esta traducción de naturales a enteros es aquella función inyectiva que nos permite encajar los naturales en los enteros.
+
+\begin{theorem}[Encaje de $\NN$ en $\ZZ$]
+	Defínase la función $N:\NN\to\ZZ$ tal que para cada $n\in\NN$, $N\pa*{n}\coloneqq Z\pa*{\inner*{n, 0}}$. Entonces $N$ es inyectiva y satisface las siguientes propiedades:
+	\begin{enumerate}
+		\item Para cada $n, m\in\NN$, $N\pa*{n + m} = N\pa*{n} +_{\ZZ} N\pa*{m}$.
+		\item Para cada $n, m\in\NN$, $N\pa*{nm} = N\pa*{n} \cdot_{\ZZ} N\pa*{m}$.
+		\item Para cada $n, m\in\NN$, $n < m$ si y solo si $N\pa*{n} <_{\ZZ} N\pa*{m}$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Sean $n, m\in\NN$, entonces:
+	\begin{enumerate}
+		\item Inyectividad de $N$
+		
+		Supongamos que $N\pa*{n} = N\pa*{m}$, entonces se tiene que $Z\pa*{\inner*{n, 0}} = Z\pa*{\inner*{m, 0}}$, lo cual significa que $\inner*{n, 0} =_{\ZZ}\inner*{m, 0}$, es decir que $n + 0 = 0 + m$, o equivalentemente, $n = m$. Por lo tanto, $N$ es inyectiva.
+		
+		\item Conservación de la suma
+		
+		Se tiene lo siguiente:
+		\begin{align*}
+			N\pa*{n + m} &= Z\pa*{\inner*{n + m, 0}}\\
+			&= Z\pa*{f\pa*{\inner*{n, 0},\inner*{m, 0}}}\\
+			&= Z\pa*{f\pa*{Z\pa*{\inner*{n, 0}}, Z\pa*{\inner*{m, 0}}}}\\
+			&= Z\pa*{f\pa*{N\pa*{n}, N\pa*{m}}}\\
+			&= N\pa*{n} +_{\ZZ} N\pa*{m}
+		\end{align*}
+		
+		\item Conservación del producto
+		
+		Se tiene lo siguiente:
+		\begin{align*}
+			N\pa*{nm} &= Z\pa*{\inner*{nm, 0}}\\
+			&= Z\pa*{\inner*{nm + 0\cdot 0, n\cdot 0 + 0\cdot m}}\\
+			&= Z\pa*{g\pa*{\inner*{n, 0},\inner*{m, 0}}}\\
+			&= Z\pa*{g\pa*{Z\pa*{\inner*{n, 0}}, Z\pa*{\inner*{m, 0}}}}\\
+			&= Z\pa*{g\pa*{N\pa*{n}, N\pa*{m}}}\\
+			&= N\pa*{n} \cdot_{\ZZ} N\pa*{m}
+		\end{align*}
+		
+		\item Conservación del orden
+		
+		Sean $N\pa*{n} =\inner*{p, q}$ y $N\pa*{m} =\inner*{r, s}$ para algunos $p, q, r, s\in\NN$, entonces sabemos que $n + q = p$ y $m + s = r$ por definición de $N$, entonces:
+		\begin{align*}
+			n < m &\iff n + q < m + q\\
+			&\iff p < m + q\\
+			&\iff p + s < m + q + s\\
+			&\iff p + s < r + q\\
+			&\iff \inner*{p, q} <_{\ZZ}\inner*{r, s}\\
+			&\iff N\pa*{n} <_{\ZZ} N\pa*{m}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+Con esto hemos mostrado que al trabajar con los enteros, también podemos hacer referencia a los naturales si es que necesitamos tratar con ellos. Aunque cuando hablamos de los naturales en $\ZZ$ no necesariamente estamos realizando las mismas operaciones en el propio $\NN$, es decir, no necesariamente $2_{\ZZ} +_{\ZZ} 3_{\ZZ} = 2 + 3$, la inyección $N$ nos permite traducir cada expresión de un conjunto a otro de manera sencilla, indicándonos que podemos ignorar esa diferencia entre $\NN$ y $\RANGO{N}$, y en cambio tratarlos como el mismo conjunto. Por eso mismo, no haremos distinción simbólica entre $+_{\ZZ}$ y la suma en $\NN$ al trabajar en $\ZZ$ debido a ese encaje.
+
+\subsection{Los números racionales}
+
+Ya que hemos construido los números enteros, ya directamente podemos definir lo que son los números racionales, lo cuales son los más fundamentales para el estudio del Análisis Real que realizaremos. 
+
+Fuera de $\RCA$, los números racionales se caracterizan por tener \emph{división}, y en general cualquier número racional $q$ puede expresarse como un cociente entre números enteros $q = n / m$, donde $m > 0$. De manera similar podemos codificar un número racional como un par de números enteros interpretados de la forma anterior. Por ejemplo, el número $2/3$ sería el par $(2, 3)$. Sin embargo, el par no es único, pues $2/3$ también puede representarse con los pares $(4, 6)$, $(6, 9)$, $(8, 12)$, etc. Entonces todos estos pares se deberían considerar \emph{equivalentes} al interpretarse como el mismo racional. En general, para cada par de pares $(p, q)$ y $(r, s)$ que representan a los racionales $p/q$ y $r/s$, estos son equivalentes si y solo si $p/q = r/s$, o equivalentemente $ps = rq$. De esta manera podemos definir la relación de equivalencia entre pares de enteros en $\RCA$ que codifica la igualdad entre racionales.
+
+\begin{definition}[Igualdad en $\QQ$]
+	Se define la relación $=_{\QQ}\subseteq\pa*{\ZZ\times\ZZ^{+}}\times\pa*{\ZZ\times\ZZ^{+}}$ como sigue para cada $n, m, p, q\in\NN$:
+	\[
+	\inner*{n, m} =_{\QQ}\inner*{p, q}\iff nq = pm
+	\]
+\end{definition}
+
+Aquí $\ZZ^{+}$ se entiende como el conjunto de enteros positivos, es decir el conjunto $\ZZ^{+} =\set*{n: \pa*{n\in\ZZ}\land\pa*{n >_{\ZZ} 0}}$. Se tiene también que esta relación existe por $\COMPRENSION{\Delta_{1}^{0}}$. 
+
+De manera análoga al teorema \ref{theo: relacion_equivalencia_z} se demuestra que $=_{\QQ}$ es de equivalencia, por lo que para cada $q\in\ZZ\times\ZZ^{+}$ existe su clase de equivalencia $\bra*{q}_{=_{\QQ}}$ por $\COMPRENSION{\Delta_{1}^{0}}$. Entonces, de manera similar definiremos a los números racionales como el conjunto de elementos mínimos de cada clase de equivalencia.
+
+\begin{definition}[Números racionales]
+	Defínase la función $Q:\ZZ\times\ZZ^{+}\to\NN$ tal que para cada $q\in\ZZ\times\ZZ^{+}$, $Q\pa*{q} =\min\bra*{q}_{=_{\QQ}}$. Entonces definimos al \emph{conjunto de números racionales} como el subconjunto $\QQ\subseteq\NN$ tal que:
+	\[
+		\QQ\coloneqq\RANGO{Q}
+	\]
+	es decir, un \emph{número racional} es cualquier natural $q\in\NN$ tal que existe $n\in\ZZ\times\ZZ^{+}$ para el cual $q =\min\bra*{n}_{=_{\QQ}}$.
+\end{definition}
+
+De manera análoga podemos definir las operaciones en $\QQ$ por medio de dos funciones auxiliares que codifican la suma y producto de racionales usando los pares de enteros. Fuera de $\RCA$, si tenemos dos racionales $x = n/m$ y $y = p/q$, entonces obtenemos lo siguiente:
+\[
+	\begin{NiceArray}{c}
+		x + y =\dfrac{n}{m} +\dfrac{p}{q} =\dfrac{nq + mp}{mq}\\
+		xy =\pa*{\dfrac{n}{m}}\pa*{\dfrac{p}{q}} =\dfrac{np}{mq}
+	\end{NiceArray}
+\]
+
+Por lo que la suma y producto estarían codificados como los pares $\pa*{nq + mp, mq}$ y $\pa*{np, mq}$ respectivamente, lo cual podemos llevar a $\RCA$ de la siguiente forma.
+
+\begin{definition}
+	\label{def: suma_producto_q_aux}
+	Definimos las siguientes funciones:
+	\[
+	\begin{NiceArray}{cc}
+		f:\pa*{\ZZ\times\ZZ^{+}}\times\pa*{\ZZ\times\ZZ^{+}}\to\NN & g:\pa*{\ZZ\times\ZZ^{+}}\times\pa*{\ZZ\times\ZZ^{+}}\to\NN\\
+		\pa*{\inner*{n, m},\inner*{p, q}}\mapsto\inner*{nq + mp, mq} &\pa*{\inner*{n, m},\inner*{p, q}}\mapsto\inner*{np, mq}
+	\end{NiceArray}
+	\]
+\end{definition}
+
+Al igual que en caso de los enteros, es necesario asegurar que estas operaciones son independientes del representante bajo la igualdad en $\QQ$.
+
+\begin{lemma}
+	\label{lemma: independencia_representantes_q}
+	Para cada $x, y, z, w\in\ZZ\times\ZZ^{+}$ se satisface que si $x =_{\QQ} z$ y $y =_{\QQ} w$, entonces $f\pa*{x, y} =_{\QQ} f\pa*{z, w}$ y $g\pa*{x, y} =_{\QQ} g\pa*{z, w}$.
+\end{lemma}
+
+\begin{proof}
+	Sean $n, p, r, t\in\ZZ$ y $m, q, s, u\in\ZZ^{+}$ tales que $x =\inner*{n, m}$, $y =\inner*{p, q}$, $z =\inner*{r, s}$ y $w =\inner*{t, u}$ donde además $x =_{\QQ} z$ y $y =_{\QQ} w$. Se tiene entonces que $ns = rm$ y $pu = tq$.
+	
+	\begin{enumerate}
+		\item Para $f$ se tiene lo siguiente:
+		\begin{align*}
+			\pa*{nq + mp}\pa*{su} &= nqsu + mpsu\\
+			&= rmqu + tqms\\
+			&=\pa*{ru + st}\pa*{mq}
+		\end{align*}
+		Por lo que $f\pa*{x, y} =_{\QQ} f\pa*{z, w}$.
+		\item Para $g$ se tiene lo siguiente:
+		\[
+			\pa*{np}\pa*{su} =\pa*{ns}\pa*{pu} =\pa*{rm}\pa*{tq}
+		\]
+		Por lo que $g\pa*{x, y} =_{\QQ} g\pa*{z, w}$.
+	\end{enumerate}
+\end{proof}
+
+Una observación a realizar es que en los racionales se cumple la cancelación en la división, es decir, si nosotros tenemos el racional $np/nq$ donde $n\neq 0$, entonces $np/nq = p/q$. Traducido a la construcción que estamos realizando se obtiene el siguiente teorema.
+
+\begin{lemma}
+	\label{lemma: cancelacion_cociente}
+	Para cada $p\in\ZZ$ y cada $n, q\in\ZZ^{+}$ se satisface que $\inner*{np, nq} =_{\QQ}\inner*{p, q}$.
+\end{lemma}
+
+\begin{proof}
+	Se sigue directamente puesto que $\pa*{np}q = p\pa*{nq}$.
+\end{proof}
+
+Con esto podemos demostrar que estas funciones se comportan bien, lo cual significa que son conmutativas, asociativas y distributivas.
+
+\begin{lemma}
+	\label{lemma: prop_suma_prod_q}
+	Para cada $x, y, z\in\ZZ\times\ZZ^{+}$ se satisface lo siguiente:
+	\begin{enumerate}
+		\item $f\pa*{x, y} = f\pa*{y, x}$
+		\item $g\pa*{x, y} = g\pa*{y, x}$
+		\item $f\pa*{x, f\pa*{y, z}} = f\pa*{f\pa*{x, y}, z}$
+		\item $g\pa*{x, g\pa*{y, z}} = g\pa*{g\pa*{x, y}, z}$
+		\item $g\pa*{x, f\pa*{y, z}} =_{\QQ} f\pa*{g\pa*{x, y}, g\pa*{x, z}}$
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	Las demostraciones de los primeros cuatro puntos son análogas a lo que se realiza en las demostraciones del teorema \ref{lemma: prop_suma_prod_z}. La única necesaria a demostrar es la del último punto que es la distributividad. 
+	
+	Sean $n, p, r\in\ZZ$ y $m, q, s\in\ZZ^{+}$ tales que $x =\inner*{n, m}$, $y =\inner*{p, q}$, $z =\inner*{r, s}$, entonces obtenemos lo siguiente usando el lema \ref{lemma: cancelacion_cociente}:
+	\begin{align*}
+		g\pa*{x, f\pa*{y, z}} &= g\pa*{x,\inner*{ps + qr, qs}}\\
+		&=\inner*{n\pa*{ps + qr}, m\pa*{qs}}\\
+		&=\inner*{nps + nqr, mqs}\\
+		&=_{\QQ}\inner*{m\pa*{nps + nqr}, m^{2}qs}\\
+		&=\inner*{\pa*{np}\pa*{ms} +\pa*{mq}\pa*{nr}, \pa*{mq}\pa*{ms}}\\
+		&= f\pa*{\inner*{np, mq},\inner*{nr, ms}}\\
+		&= f\pa*{g\pa*{x, y}, g\pa*{x, z}}
+	\end{align*}
+\end{proof}
+
+\begin{lemma}
+	\label{lemma: 0_1_racionales}
+	Para cada $n\in\ZZ^{+}$ se satisface que $\inner*{0, 1} =_{\QQ}\inner*{0, n}$ y $\inner*{1, 1} =_{\QQ}\inner*{n, n}$.
+\end{lemma}
+
+\begin{proof}
+	Se sigue directamente de las igualdades $0\cdot n = 0$ y $n = n$.
+\end{proof}
+
+Podemos entonces ahora definir las operaciones de suma y producto en $\QQ$ de manera coherente.
+
+\begin{definition}[Suma y producto en $\QQ$]
+	Se define la \emph{suma} y \emph{producto} en $\QQ$ como las siguientes funciones:
+	\[
+	\begin{NiceArray}{cc}
+		+_{\QQ}:QQ^{2}\to\QQ & \cdot_{\QQ}:QQ^{2}\to\QQ\\
+		\pa*{x, y}\mapsto Q\pa*{f\pa*{x, y}} &\pa*{x, y}\mapsto Q\pa*{g\pa*{x, y}}
+	\end{NiceArray}
+	\]
+	donde $f$ y $g$ son las funciones de la definición \ref{def: suma_producto_q_aux}.
+\end{definition}
+
+Se puede entonces probar una propiedad fundamental la cual es que $\QQ$ es un campo.
+
+\begin{theorem}
+	El conjunto de números racionales $\QQ$ es un campo con las operaciones $+_{\QQ}$ y $\cdot_{\QQ}$.
+\end{theorem}
+
+\begin{proof}
+	Solo es necesario demostrar la existencia de neutros e inversos (aditivos y multiplicativos) en $\QQ$, pues las otras propiedades de campo son análogas a las de la demostración del teorema \ref{theo: enteros_anillo}.
+	
+	\begin{enumerate}
+		\item Neutro aditivo
+		
+		Sea $x =\inner*{p, q}\in\QQ$ para algunos $p\in\ZZ$ y $q\in\ZZ^{+}$. Entonces si definimos $0_{\QQ}\coloneqq Q\pa*{\inner*{0, 1}}$, se obtiene lo siguiente:
+		\begin{align*}
+			x +_{\QQ} 0_{\QQ} &= Q\pa*{f\pa*{x, 0_{\QQ}}}\\
+			&= Q\pa*{f\pa*{\inner*{p, q}, Q\pa*{\inner*{0, 1}}}}\\
+			&= Q\pa*{f\pa*{p, q},\inner*{0, 1}}\\
+			&= Q\pa*{p\cdot 1 + q\cdot 0, q\cdot 1}\\
+			&= Q\pa*{\inner*{p, q}}\\
+			&= Q\pa*{x} = x
+		\end{align*}
+		\item Neutro multiplicativo
+		
+		Sea $x =\inner*{p, q}\in\QQ$ para algunos $p\in\ZZ$ y $q\in\ZZ^{+}$. Entonces si definimos $1_{\QQ}\coloneqq Q\pa*{\inner*{1, 1}}$, se obtiene lo siguiente:
+		\begin{align*}
+			x \cdot_{\QQ} 1_{\QQ} &= Q\pa*{g\pa*{x, 1_{\QQ}}}\\
+			&= Q\pa*{g\pa*{\inner*{p, q}, Q\pa*{\inner*{1, 1}}}}\\
+			&= Q\pa*{g\pa*{p, q},\inner*{1, 1}}\\
+			&= Q\pa*{\inner*{p, q}}\\
+			&= Q\pa*{x} = x
+		\end{align*}
+		
+		\item Inverso aditivo
+		
+		Sea $x =\inner*{p, q}\in\QQ$ para algunos $p\in\ZZ$ y $q\in\ZZ^{+}$. Entonces si definimos $-x\coloneqq Q\pa*{\inner*{-p, q}}$, se obtiene lo siguiente:
+		\begin{align*}
+			x +_{\QQ} \pa*{-x} &= Q\pa*{f\pa*{x, -x}}\\
+			&= Q\pa*{f\pa*{\inner*{p, q}, Q\pa*{\inner*{-p, q}}}}\\
+			&= Q\pa*{f\pa*{p, q},\inner*{-p, q}}\\
+			&= Q\pa*{pq + q\pa*{-p}, q^{2}}\\
+			&= Q\pa*{\inner*{0, q^{2}}}\\
+			&= Q\pa*{\inner*{0, 1}} = 0_{\QQ}
+		\end{align*}
+		
+		\item Inverso multiplicativo
+		
+		Sea $x =\inner*{p, q}\in\QQ$ para algunos $p\in\ZZ$ y $q\in\ZZ^{+}$. Si $x\neq 0_{\QQ}$, entonces $p\neq 0$, luego tenemos dos casos: $p > 0$ o $p < 0$.
+		
+		Si $p > 0$, entonces definimos $x^{-1}\coloneqq Q\pa*{\inner*{q, p}}$. Luego:
+		\begin{align*}
+			x \cdot_{\QQ} x^{-1} &= Q\pa*{g\pa*{x, x^{-1}}}\\
+			&= Q\pa*{g\pa*{\inner*{p, q}, Q\pa*{\inner*{q, p}}}}\\
+			&= Q\pa*{g\pa*{p, q},\inner*{q, p}}\\
+			&= Q\pa*{\inner*{pq, pq}}\\
+			&= Q\pa*{\inner*{1, 1}} = 1_{\QQ}
+		\end{align*}
+		
+		En cambio, si $p < 0$, entonces definimos $x^{-1}\coloneqq Q\pa*{\inner*{-q, -p}}$. Luego:
+		\begin{align*}
+			x \cdot_{\QQ} x^{-1} &= Q\pa*{g\pa*{x, x^{-1}}}\\
+			&= Q\pa*{g\pa*{\inner*{p, q}, Q\pa*{\inner*{-q, -p}}}}\\
+			&= Q\pa*{g\pa*{p, q},\inner*{-q, -p}}\\
+			&= Q\pa*{\inner*{-pq, -pq}}\\
+			&= Q\pa*{\inner*{1, 1}} = 1_{\QQ}
+		\end{align*}
+		
+		En cualquier caso existe $x^{-1}\in\QQ$ tal que $x\cdot_{\QQ}x^{-1} = 1_{\QQ}$
+	\end{enumerate}
+	Por lo tanto, el conjunto $\QQ$ es un campo con las operaciones $+_{\QQ}$ y $\cdot_{\QQ}$.
+\end{proof}
+
+Para terminar con la construcción de los racionales definamos el orden en ellos. Sean $x = n / m$ y $y = p / q$. Puesto que $m$ y $p$ se toman como enteros positivos, entonces se tiene que $x < y$ si y solo si $n / m < p / q$, o equivalentemente $nq < pm$. Entonces de esta manera podemos ahora caracterizar el orden de $\QQ$ en $\RCA$.
+
+\begin{definition}[Orden en $\QQ$]
+	Se define la \emph{relación de orden} en $\QQ$ como la relación binaria $<_{\QQ}\subseteq\QQ^{2}$ tal que para cada $x =\inner*{n, m}, y =\inner*{p, q}\in\QQ$ para algunos $n, m, p, q\in\ZZ$:
+	\[
+		x <_{\QQ} y\iff nq < pm
+	\]
+\end{definition}
+
+\begin{theorem}
+	La relación $<_{\QQ}$ es un orden lineal.
+\end{theorem}
+
+\begin{proof}
+	Sean $x =\inner*{n, m}, y =\inner*{p, q}, z =\inner*{r, s}\in\QQ$ para algunos $n, p, r\in\ZZ$ y $m, q, s\in\ZZ^{+}$. Mostremos entonces que $<_{\QQ}$ es irreflexiva, transitiva y tricotómica.
+	
+	\begin{enumerate}
+		\item Irreflexividad
+		
+		Puesto que el orden en $\ZZ$ es irreflexiva, sabemos entonces que $\neg\pa*{nm < nm}$, es decir, $\neg\pa*{x <_{\QQ} x}$.
+		
+		\item Transitividad
+		
+		Supongamos que $x <_{\QQ} y$ y $y <_{\QQ} z$, entonces $nq < pm$ y $ps < rq$. Puesto que $s > 0$, entonces $nqs < pms$. Como $m > 0$, entonces $psm < rqm$. Por transitividad del orden en $\ZZ$ tenemos que $nqs < rqm$, y como $q > 0$, entonces $ns < rm$. Por lo tanto, $x <_{\QQ} z$.
+		
+		\item Tricotomía
+		
+		Por la tricotomía en $\ZZ$ sabemos que se satisface una y solo una de las siguientes afirmaciones: $nq = pm$, $nq < pm$ o $nq > pm$.
+		
+		Si $nq = pm$, entonces $x =_{\QQ} y$, y puesto que $x, y\in\QQ$, entonces $x = y$.
+		
+		Si $nq < pm$, entonces $x <_{\QQ} y$; y si $nq > pm$, entonces $y <_{\QQ} x$.
+	\end{enumerate}
+	Por lo tanto, $<_{\QQ}$ es un orden lineal.
+\end{proof}
+
+Finalmente podemos demostrar igualmente que podemos encajar $\ZZ$ en $\QQ$ mediante el encaje $n\mapsto Q\pa*{\inner*{n, 1}}$, pues se interpreta que $n = n / 1$.
+
+\begin{theorem}[Encaje de $\ZZ$ en $\QQ$]
+	Defínase la función $Z:\ZZ\to\QQ$ tal que para cada $n\in\ZZ$, $Z\pa*{n}\coloneqq Q\pa*{\inner*{n, 1}}$. Entonces $Z$ es inyectiva y satisface las siguientes propiedades:
+	\begin{enumerate}
+		\item Para cada $n, m\in\ZZ$, $Z\pa*{n + m} = Z\pa*{n} +_{\QQ} Z\pa*{m}$.
+		\item Para cada $n, m\in\ZZ$, $Z\pa*{nm} = Z\pa*{n} \cdot_{\QQ} Z\pa*{m}$.
+		\item Para cada $n, m\in\ZZ$, $n < m$ si y solo si $Z\pa*{n} <_{\QQ} Z\pa*{m}$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Sean $p, q\in\ZZ$, entonces:
+	\begin{enumerate}
+		\item Inyectividad de $Z$
+		
+		Supongamos que $Z\pa*{p} = Z\pa*{q}$, entonces se tiene que $Q\pa*{\inner*{p, 1}} = Q\pa*{\inner*{q, 1}}$, lo cual significa que $\inner*{p, 1} =_{\QQ}\inner*{q, 1}$, es decir que $p\cdot 1 = q\cdot 1$, o equivalentemente, $p = q$. Por lo tanto, $Z$ es inyectiva.
+		
+		\item Conservación de la suma
+		
+		Se tiene lo siguiente:
+		\begin{align*}
+			Z\pa*{p + q} &= Q\pa*{\inner*{p + q, 1}}\\
+			&= Q\pa*{f\pa*{\inner*{p, 1},\inner*{q, 1}}}\\
+			&= Q\pa*{f\pa*{Q\pa*{\inner*{p, 1}}, Q\pa*{\inner*{q, 1}}}}\\
+			&= Q\pa*{f\pa*{Z\pa*{n}, Z\pa*{m}}}\\
+			&= Z\pa*{n} +_{\QQ} Z\pa*{m}
+		\end{align*}
+		
+		\item Conservación del producto
+		
+		Se tiene lo siguiente:
+		\begin{align*}
+			Z\pa*{pq} &= Q\pa*{\inner*{pq, 1}}\\
+			&= Q\pa*{g\pa*{\inner*{p, 1},\inner*{q, 1}}}\\
+			&= Q\pa*{g\pa*{Q\pa*{\inner*{p, 1}}, Q\pa*{\inner*{q, 1}}}}\\
+			&= Q\pa*{g\pa*{Z\pa*{p}, Z\pa*{q}}}\\
+			&= Z\pa*{n} \cdot_{\QQ} Z\pa*{m}
+		\end{align*}
+		
+		\item Conservación del orden
+		
+		Sean $Z\pa*{p} =\inner*{n, m}$ y $Z\pa*{q} =\inner*{r, s}$ para algunos $n, r\in\ZZ$ y $m, s\in\ZZ^{+}$, entonces sabemos que $pm = n$ y $qs = r$ por definición de $Z$, entonces:
+		\begin{align*}
+			p < q &\iff pm < qm\\
+			&\iff n < mq\\
+			&\iff ns < mqs\\
+			&\iff ns < mr\\
+			&\iff \inner*{n, m} <_{\QQ}\inner*{r, s}\\
+			&\iff Z\pa*{p} <_{\QQ} Z\pa*{q}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\subsection{Los números reales}
+
+Con los racionales podemos entonces definir lo que significa ser un número real. Sin embargo, este tipo de números tiene una peculiaridad, ya que estos no son un conjunto de $\RCA$, pues cualquier construcción de los reales implica que estos son incontables, por lo que estos no pueden codificarse como un subconjunto de $\NN$. Aunque puedan existir modelos incontables de $\RCA$, su estructura interna es \emph{contable}, por lo que es imposible codificar a los reales como un conjunto tal cual en $\RCA$.
+
+La forma en que definiremos los números reales es por medio de la construcción de Cauchy. Fuera de $\RCA$, recordemos que una propiedad de los racionales es que, tomando la métrica inducida por el valor absoluto, no son un espacio métrico completo, es decir, no todas las sucesiones de Cauchy son convergentes en $\QQ$. Por ejemplo, si nosotros tomamos la sucesión $\set*{x_{n}}_{n\in\omega}$ definida como $x_{0} = 1$ y $x_{n + 1} = x_{n} / 2 + 1 / x_{n}$ para cada $n\in\omega$, entonces puede demostrarse que es una sucesión decreciente y acotada inferiormente por $\sqrt{2}$, y por tanto convergente en $\RR$. Sabemos que toda sucesión convergente en $\RR$ es de Cauchy (pues $\RR$ es completo), luego tal sucesión es una sucesión de Cauchy de números racionales, pero se tiene que $\lim_{n\to\infty}x_{n} =\sqrt{2}\notin\QQ$. 
+
+En ese sentido, podemos construir a $\RR$ \emph{completando} a $\QQ$, es decir, podemos tomar todo el conjunto de sucesiones de Cauchy en $\QQ$ y crear una relación de equivalencia que codifique la igualdad en $\RR$. Si tenemos dos sucesiones de Cauchy $\set*{x_{n}}_{n\in\omega}, \set*{y_{n}}_{n\in\omega}\subseteq\QQ$, entonces diremos que son \emph{equivalentes} si tienen el mismo límite. Sin embargo, como tal límite no necesariamente existe en $\QQ$, entonces podemos resolverlo considerando la sucesión resta $\set*{x_{n} - y_{n}}_{n\in\omega}$, la cual necesariamente convergería a $0$. Por lo tanto, las dos sucesiones son \emph{equivalentes} si y solo si para cada $\varepsilon > 0$ existe $N\in\omega$ tal que para cada $n\geq N$, $\abs*{x_{n} - y_{n}} <\varepsilon$.
+
+Sin embargo, notemos que esta definición de equivalencia mediante convergencia de sucesiones es una fórmula $\Pi_{2}^{0}$, pero este tipo de fórmulas son muy complejas, entonces nos interesa que tal definición sea lo más simple posible. Intuitivamente la definición que tenemos de equivalencia, dada por la convergencia a cero de la resta, se refiere a que ese conjunto de puntos en $\QQ$ se ``aceRCAn'' cada vez más al cero a medida que el índice $n\in\omega$ se hace más grande. El hecho de que los puntos se ``aceRCAn'' cada vez más se traduce formalmente con $\varepsilon$ cuando este es cada vez más ceRCAno a cero, y el tal $N$ se vuelve una función $N\pa*{\varepsilon}$ que nos dice a partir de qué indice ese ``aceRCAmiento'' es cierto. Una forma más sencilla es no usar un $\varepsilon$ arbitrario, sino uno que dependa de los naturales y que sea cada vez más ceRCAno a cero. Una buena propuesta es usar los números $2^{1 - n}$ donde $n\in\omega$, los cuales decaen rápidamente a $0$ entre mayor sea $n$. Se implica entonces que $N$ se vuelve ahora una función de $n$, es decir que $N\pa*{n}$. Sin embargo, notemos que este $N\pa*{n}$ puede oscilar alrededor de $n$, es decir, puede ser que $\abs*{x_{k} - y_{k}}$ empiece a hacerse más pequeño que $2^{1 - n}$ cuando $k\geq N\pa*{n} > n$ y después podría ser que  $\abs*{x_{k} - y_{k}}$ empiece a hacerse más pequeño que $2^{1 -\pa*{n + 3}}$ cuando $k\geq N\pa*{n + 3}$ pero $N\pa*{n + 3} < n + 3$. En ese caso determinar $N\pa*{n}$ puede ser algo muy complicado de una sucesión a otra. Luego, podemos obligar a que tal $N$ sea de hecho $n$, es decir, $N\pa*{n} = n$. Esto deja afuera el hecho de encontrar al $N$ pues ya está más que determinado.
+	
+Con todo eso decimos que dos sucesiones $\set*{x_{n}}_{n\in\omega}, \set*{y_{n}}_{n\in\omega}\subseteq\QQ$ son equivalentes si para cada $n\in\omega$ se satisface que $\abs*{x_{n} - y_{n}} < 2^{1 - n}$. Sin embargo, notemos que esta definición obliga a que la sucesión resta decaiga a un ritmo exponencial, pero no todas las sucesiones de Cauchy decaen tan rápido como para que tal imposición siempre se satisfaga. Para que nuestra definición de equivalencia sea coherente, podemos a su vez imponer que las sucesiones de Cauchy con las que trabajemos decaigan a su vez al mismo ritmo exponencial. Luego podemos imponer que las sucesiones de Cauchy $\set*{x_{n}}_{n\in\omega}\subseteq\QQ$ sean tales que para cada $k, n, m\in\omega$, si $n, m\geq k$, entonces $\abs*{x_{n} - x_{m}} < 2^{-k}$. Podemos simplificar lo anterior tomando $n = k$ y $m\geq n$, lo cual implica que existe $p\in\omega$ tal que $m = n + p$, por lo que trataremos entonces con las sucesiones $\set*{x_{n}}_{n\in\omega}\subseteq\QQ$ tales que para cada $k, p\in\omega$, $\abs*{x_{k} - x_{k + p}} < 2^{-k}$. Con todo esto podemos definir entonces qué significa ser un número real en $\RCA$.
+
+\begin{definition}[Sucesiones]
+	Una \emph{sucesión de números racionales} es una función $f:\NN\to\QQ$. Se denotará a la sucesión $f$ por $\set*{x_{k}}_{k\in\NN}$ si para cada $k\in\NN$, $f\pa*{k} = x_{k}$.
+\end{definition}
+
+\begin{definition}[Números reales]
+	Un \emph{número real} es cualquier sucesión de racionales $\set*{x_{k}}_{k\in\NN}$ tal que para cada $k, p\in\NN$, $\abs*{x_{k} - x_{k + p}} < 2^{-k}$.
+\end{definition}
+
+\begin{definition}[Igualdad entre números reales]
+	Sean $x =\set*{x_{k}}_{k\in\NN}$ y $y =\set*{y_{k}}_{k\in\NN}$ números reales. Decimos que $x$ y $y$ son \emph{iguales}, denotado por $x =_{\RR} y$, si para cada $k$ se satisface que $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$.
+\end{definition}
+
+Aunque esta relación $=_{\RR}$ no es un conjunto que exista en $\RCA$, ya que es una relación entre conjuntos y no entre números, sí podemos verificar que satisface las propiedades de una relación de equivalencia.
+
+\begin{theorem}
+	Se demuestra lo siguiente:
+	\begin{enumerate}
+		\item Para cada número real $x$ se satisface que $x =_{\RR} x$.
+		\item Para cada par de reales $x$ y $y$ se satisface que $x =_{\RR} y$ implica $y =_{\RR} x$.
+		\item Para cada terna de reales $x$, $y$ y $z$ se satisface que $x =_{\RR} y$ y $y =_{\RR} z$ implica $x =_{\RR} z$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Consideremos a los reales $x =\set*{x_{k}}_{k\in\NN}$, $y =\set*{y_{k}}_{k\in\NN}$ y $z =\set*{z_{k}}_{k\in\NN}$.
+	\begin{enumerate}
+		\item Se satisface claramente para cada $k$ que:
+		\[
+			\abs*{x_{k} - x_{k}} = 0 < 2^{-k + 1}
+		\]
+		Por lo que $x =_{\RR} x$.
+		\item Si $x =_{\RR} y$, entonces sabemos que para cada $k$ se satisface que $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$. Directamente se sigue que para cada $k$, $\abs*{y_{k} - x_{k}} < 2^{-k + 1}$, es decir, $y =_{\RR} x$.
+		\item Si $x =_{\RR} y$ y $y =_{\RR} z$, entonces por definición para cada $k$, $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$ y $\abs*{y_{k} - z_{k}} < 2^{-k + 1}$. Consideremos un valor fijo $p > 1$, entonces por la desigualdad del triángulo y al ser $x$, $y$ y $z$ números reales se sigue que para cada $k$:
+		\begin{align*}
+			\abs*{x_{k} - z_{k}} &\leq\abs*{x_{k} - x_{k + p}} +\abs*{x_{k + p} - y_{k + p}} +\abs*{y_{k} - y_{k + p}} + \abs*{y_{k} - z_{k}}\\
+			&< 2^{-k} + 2^{- k - p + 1} + 2^{-k} - 2^{-k + 1}\\
+			&= 2^{- k + 1}\pa*{2^{-1} + 2^{-p} + 2^{-1} + 1}\\
+			&= 2^{-k + 1} 2^{-p + 1}\\
+			&< 2^{-k + 1}
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+Ahora definamos el orden dentro de los reales. Fuera de $\RCA$, pensemos en dos números reales $\set*{x_{n}}_{n\in\omega}$ y $\set*{y_{k}}_{k\in\omega}$. Consideremos que $x =\lim_{n\to\infty}x_{n}$ y $y =\lim_{n\to\infty}y_{n}$ son tales que $x\leq y$. Por la propuesta de definición que tenemos de convergencia en $\RCA$ sabemos que para cada $n, p\in\omega$:
+\[
+	\begin{NiceArray}{c}
+		\abs*{x_{n} - x_{n + p}} < 2^{-n}\\
+		\abs*{y_{n} - y_{n + p}} < 2^{-n}
+	\end{NiceArray}
+\]
+
+Tomando el límite cuando $p\to\infty$ notemos que se tiene lo siguiente para cada $n\in\omega$:
+\[
+	\begin{NiceArray}{c}
+		\abs*{x_{n} - x} < 2^{-n}\\
+		\abs*{y_{n} - y} < 2^{-n}
+\end{NiceArray}
+\]
+de lo cual se sigue que $x_{n} - 2^{-n} < x$ y $y < y_{n} + 2^{n}$. Puesto que $x\leq y$ se tiene que para cada $n\in\omega$, $x_{n} - 2^{-n} < x\leq y < y_{n} + 2^{-k}$, o equivalentemente se satisface que $x_{n} < y_{n} + 2^{-n + 1}$. Además, notemos que tomando el límite cuando $n\to\infty$ obtenemos que:
+\[
+	\lim_{n\to\infty} x_{n}\leq\lim_{n\to\infty}\pa*{y_{n} + 2^{-n + 1}}\implies x\leq y
+\]
+
+Por lo tanto, podemos concluir que $x\leq y$ si y solo si para cada $n\in\omega$ se satisface que $x_{n} < y_{n} + 2^{-n + 1}$. De esta forma podemos definir la relación de orden de los reales en $\RCA$.
+
+\begin{definition}[Orden en $\RR$]
+	Sean $x =\set*{x_{k}}_{k\in\NN}$ y $y =\set*{y_{k}}_{k\in\NN}$ números reales. 
+	\begin{itemize}
+		\item Denotaremos por $x\leq_{\RR} y$ si para cada $k$ se satisface que $x_{k} < y_{k} + 2^{-k + 1}$.
+		
+		\item Denotaremos por $x <_{\RR} y$ si no se satisface que $y\leq_{\RR}x$.
+	\end{itemize}
+\end{definition}
+
+Mostremos que de esta definición de orden se puede demostrar que se satisfacen las propiedades de una relación de orden lineal.
+
+\begin{theorem}
+	Se demuestra lo siguiente:
+	\begin{enumerate}
+		\item Si $x$ es un real, entonces se satisface que $x\leq_{\RR} x$.
+		\item Si $x$, $y$ y $z$ son números reales, $x\leq_{\RR} y$ y $y\leq_{\RR} z$, entonces $x\leq_{\RR} z$.
+		\item Si $x$ y $y$ son números reales, $x\leq_{\RR} y$ y $y\leq_{\RR} x$, entonces $x =_{\RR} y$.
+		\item Si $x$ y $y$ son números reales, entonces $x\leq_{\RR} y$ o $y\leq_{\RR} x$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Consideremos a los números reales $x =\set*{x_{k}}_{k\in\NN}$, $y =\set*{y_{k}}_{k\in\NN}$ y $z =\set*{z_{k}}_{k\in\NN}$.
+	\begin{enumerate}
+		\item Puesto que para cada $k$ se satisface que $2^{-k + 1} > 0$ se sigue que $x_{k} < x_{k} + 2^{-k + 1}$, es decir, $x\leq_{\RR} x$.
+		\item Si $x\leq_{\RR} y$ y $y\leq_{\RR} z$, entonces sabemos que para cada $k$, $x_{k} < y_{k} + 2^{-k + 1}$ y $y_{k} < z_{k} + 2^{-k + 1}$. Consideremos un valor fijo $p > 1$, entonces para cada $k$ se sigue lo siguiente:
+		\begin{align*}
+			x_{k} &< y_{k} + 2^{-k + 1}\\
+			&< y_{k} - y_{k + p} + y_{k + p} + 2^{-k + 1}\\
+			&< 2^{-k} + y_{k + p} + 2^{-k + 1}\\
+			&< 2^{-k} + z_{k + p} + 2^{-k - p + 1} + 2^{-k + 1}\\
+			&< z_{k + p} - z_{k} + z_{k} + 2^{-k} + 2^{-k + 1} + 2^{-k - p + 1}\\
+			&< 2^{-k} + z_{k} + 2^{-k} + 2^{-k + 1} + 2^{-k - p + 1}\\
+			&= z_{k} + 2^{-k + 1}2^{-p + 1}\\
+			&< z_{k} + 2^{-k + 1}
+		\end{align*}
+		Por lo tanto, $x\leq_{\RR} z$.
+		\item Si $x\leq_{\RR} y$ y $y\leq_{\RR} x$, entonces para cada $k$, $x_{k} < y_{k} + 2^{-k + 1}$ y $y_{k} < x_{k} + 2^{-k + 1}$. De la segunda desigualdad obtenemos que $y_{k} - 2^{-k + 1} < x_{k}$, por lo que $y_{k} - 2^{k + 1} < x_{k} < y_{k} + 2^{-k + 1}$, es decir, $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$ para cada $k$. Por lo tanto, $x =_{\RR} y$.
+	\end{enumerate}
+\end{proof}
