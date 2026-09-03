@@ -209,7 +209,7 @@ Para poder demostrar que otras funciones comunes (y particularmente las unarias)
 		\item (Paso inductivo) Sea $x\in\omega$ tal que $f\pa*{x} = h\pa*{\CERO\pa*{x},\PROYECCION{1}{1}\pa*{x}} = h\pa*{0, x}$, entonces se tiene que:
 		\begin{align*}
 			h\pa*{\CERO\pa*{x + 1},\PROYECCION{1}{1}\pa*{x + 1}} &= h\pa*{0, x + 1}\\
-			&= h_{0}\pa*{0, x, h\pa*{0, x}}
+			&= h_{0}\pa*{0, x, h\pa*{0, x}}\\
 			&= g\pa*{\PROYECCION{3}{2}\pa*{0, x, h\pa*{0, x}}, \PROYECCION{3}{3}\pa*{0, x, h\pa*{0, x}}}\\
 			&= g\pa*{x, h\pa*{0, x}}\\
 			&= g\pa*{x, f\pa*{x}}\\
@@ -780,9 +780,9 @@ Para entender mejor cómo se utilizan este tipo de máquinas, abordemos por ejem
 	\caption{Cinta inicial para la máquina $M$}
 \end{figure}
 
-La ejecución de la máquina $M$ se realiza yendo en secuencia por cada uno de los elementos de la tupla. Por lo tanto, se ejecuta primero la instrucción $J\pa*{2, 3, 5}$, la cual compara los contenidos de los registros $R_{2}$ y $R_{3}$. Puesto que $r_{2} = 2$ y $r_{3} = 0$, entonces no se satisface que $r_{2} = r_{3}$, por lo que se sigue con la siguiente instrucción. En esta iteración no se modificó ningún contenido de la cinta.
+La ejecución de la máquina $M$ se realiza yendo en secuencia por cada uno de los elementos de la tupla. Por lo tanto, se ejecuta primero la instrucción $J\pa*{2, 3, 5}$, la cual compara los contenidos de los registros $R_{2}$ y $R_{3}$. Puesto que $r_{2} = 2$ y $r_{3} = 0$, no se satisface que $r_{2} = r_{3}$, por lo que se sigue con la siguiente instrucción. En esta iteración no se modificó ningún contenido de la cinta.
 
-La siguiente instrucción en $M$ es $S\pa*{1}$. Entonces se suma $1$ al contenido en el primer registro, dando como resultado $r_{1} = 3 + 1 = 4$. En este caso sí se modificó el contenido de la cinta, y el resultado se puede ver en la figura \ref{fig:cinta_despues_de_s1}.
+La siguiente instrucción en $M$ es $S\pa*{1}$. En este caso se suma $1$ al contenido en el primer registro, dando como resultado $r_{1} = 3 + 1 = 4$. En este caso sí se modificó el contenido de la cinta, y el resultado se puede ver en la figura \ref{fig:cinta_despues_de_s1}.
 
 \begin{figure}[h!]
 	\centering
@@ -826,11 +826,11 @@ Seguimos con la siguiente instrucción de la tupla que es $S\pa*{3}$, la cual in
 \end{figure}
 
 
-La siguiente instrucción es $J\pa*{1, 1, 1}$ la cual pide comparar los contenidos del registro $1$. Puesto que trivialmente $r_{1} = r_{1}$, entonces debemos ejecutar después la instrucción $1$, es decir, debemos volver al inicio de la tupla $M$ y repetir el proceso de nuevo. En esta iteración no se modificó la cinta.
+La siguiente instrucción es $J\pa*{1, 1, 1}$ la cual pide comparar los contenidos del registro $1$. Puesto que trivialmente $r_{1} = r_{1}$, debemos ejecutar la instrucción $1$, es decir, se regresa al inicio de la tupla $M$ y se realiza el proceso de nuevo. En esta iteración no se modificó la cinta.
 
-Ahora, al ejecutar $J\pa*{2, 3, 5}$ de nuevo se comparan los contenidos en los registros $r_{2}$ y $r_{3}$. Puesto que $r_{2} = 2\neq 1 = r_{3}$, entonces proseguimos con la siguiente instrucción. En esta iteración no se modificó tampoco la cinta.
+Ahora, al ejecutar $J\pa*{2, 3, 5}$ de nuevo se comparan los contenidos en los registros $R_{2}$ y $R_{3}$. Ya que $r_{2} = 2\neq 1 = r_{3}$, entonces proseguimos con la siguiente instrucción. En esta iteración tampoco se modificó la cinta.
 
-Continuando con la instrucción $S\pa*{1}$, se suma $1$ al contenido en el primer registro, dando como resultado $r_{1} = 4 + 1 = 5$, el cual se puede ver en la figura \ref{fig:cinta_despues_de_s1_segunda_vez}.
+Continuando con la instrucción $S\pa*{1}$, se suma $1$ al contenido en el primer registro, dando como resultado $r_{1} = 4 + 1 = 5$. La actualización de la cinta se puede ver en la figura \ref{fig:cinta_despues_de_s1_segunda_vez}.
 
 \begin{figure}[h!]
 	\centering
@@ -874,9 +874,9 @@ Seguimos con la siguiente instrucción $S\pa*{3}$ obteniendo como resultado $r_{
 	\label{fig:cinta_despues_de_s3_segunda_vez}
 \end{figure}
 
-La siguiente instrucción es $J\pa*{1, 1, 1}$. Puesto que trivialmente $r_{1} = r_{1}$, entonces se ejecuta la instrucción $1$, volviendo al inicio de la tupla $M$. En esta iteración no se modificó la cinta. Cuando se ejecuta $J\pa*{2, 3, 5}$, de nuevo se comparan los contenidos en los registros $r_{2}$ y $r_{3}$, y ya que $r_{2} = 2 = r_{3}$, entonces la siguiente instrucción a ejecutar es la número $5$.
+La siguiente instrucción es $J\pa*{1, 1, 1}$. Dado que trivialmente $r_{1} = r_{1}$, entonces se ejecuta la instrucción $1$, volviendo al inicio de la tupla $M$. En esta iteración no se modificó la cinta. Cuando se ejecuta $J\pa*{2, 3, 5}$, de nuevo se comparan los contenidos en los registros $R_{2}$ y $R_{3}$, y ya que $r_{2} = 2 = r_{3}$, la siguiente instrucción a ejecutar es la número $5$.
 
-Notemos que la tupla de instrucciones $M$ solamente tiene $4$ elementos, entonces no es posible realizar la instrucción $5$ que se pidió en $J\pa*{2, 3, 5}$. Cuando esto pasa, se interpreta que el algoritmo ha terminado al no haber más instrucciones a ejecutar. Por lo tanto, la salida de este algoritmo es la cinta $r_{1} = 5$, $r_{2} = r_{3} = 2$ y $r_{n} = 0$ para cada $n > 3$.
+Notemos que la tupla de instrucciones $M$ solamente tiene $4$ elementos, luego no es posible realizar la instrucción $5$ que se pidió en $J\pa*{2, 3, 5}$. Cuando esto pasa, se interpreta que el algoritmo ha terminado al no haber más instrucciones a ejecutar. Por lo tanto, la salida de este algoritmo es la cinta $r_{1} = 5$, $r_{2} = r_{3} = 2$ y $r_{n} = 0$ para cada $n > 3$.
 
 Por lo tanto, la ejecución completa de este algoritmo con la cinta de entrada $r_{1} = 3$, $r_{2} = 2$ y $r_{n} = 0$ para cada $n > 2$ es la que se muestra en la figura \ref{fig:ejecucion_completa_M}. En ella se puede ver cómo se van modificando los contenidos de los registros a medida que se ejecutan las instrucciones de la máquina $M$.
 
@@ -949,7 +949,7 @@ Por lo tanto, la ejecución completa de este algoritmo con la cinta de entrada $
 	\label{fig:ejecucion_completa_M}
 \end{figure}
 
-Este ejemplo nos permite entender cómo es la lógica de este tipo de objetos. Cada una de las cintas que se obtienen a lo largo de la ejecución del algoritmo puede verse como una sucesión de números naturales. Por ejemplo, la cinta de entrada del ejemplo se formaliza como la sucesión $\pa*{3, 2, 0, 0, 0,\dotsc}$. Luego, para cada iteración $k$ del algoritmo se define la función $f_{k}:\omega\to\omega$ como la sucesión de números naturales que contienen los registros de la cinta en esa iteración, de modo que para cada $n\in\omega^{+}$, $f_{k}\pa*{n} = r_{n}$. De esta manera la ejecución del algoritmo dado por una máquina URM es una sucesión de funciones de números naturales $\pa*{f_{k}}_{k\in\omega}$ donde cada $f_{k}$ es la representación de los números de los registros de la cinta en la $k$-ésima iteración. Por convención la cinta de entrada del algoritmo se corresponde con la $0$-ésima iteración. Por lo tanto, como sucesiones, la ejecución de la máquina $M$ puede verse de la siguiente manera:
+Este ejemplo nos permite entender cómo es la lógica de este tipo de objetos. Cada una de las cintas que se obtienen a lo largo de la ejecución del algoritmo puede verse como una sucesión de números naturales. Por ejemplo, la cinta de entrada del ejemplo se formaliza como la sucesión $\pa*{3, 2, 0, 0, 0,\dotsc}$. Luego, para cada iteración $k$ del algoritmo se define la función $f_{k}:\omega\to\omega$ como la sucesión de números naturales contenidos en los registros de la cinta en esa iteración, de modo que para cada $n\in\omega^{+}$, $f_{k}\pa*{n} = r_{n}$. De esta manera la ejecución del algoritmo dado por una máquina URM es una sucesión de funciones de números naturales $\pa*{f_{k}}_{k\in\omega}$ donde cada $f_{k}$ es la representación de los números de los registros de la cinta en la $k$-ésima iteración. Por convención la cinta de entrada del algoritmo se corresponde con la $0$-ésima iteración. Por lo tanto, como sucesiones, la ejecución de la máquina $M$ puede verse de la siguiente manera:
 \[
 	\begin{NiceArray}{ccccc}
 		f_{0}\pa*{1} = 3 & f_{0}\pa*{2} = 2 & f_{0}\pa*{3} = 0 & f_{0}\pa*{4} = 0 &\cdots\\
@@ -1054,9 +1054,9 @@ Con todo esto se define cómo es que se determina la sucesión de las cintas dad
 	Decimos que la máquina $M$ \emph{termina su ejecución} dada la entrada $x$ si existe $k\in\omega$ tal que $f_{k}\pa*{0} > u$.
 \end{definition}
 
-Así formalmente hemos descrito el procedimiento que se había realizado en el ejemplo. Con esto dicho se define qué significa que una función sea \emph{computable} desde este enfoque. De manera simple podemos definir el valor que produce un máquina URM, para cada entrada $x\in\omega^{n}$ con $n\in\omega^{+}$, como el contenido del primer registro si la ejecución acaba.
+Así formalmente hemos descrito el procedimiento que se había realizado en el ejemplo. Con esto dicho se define qué significa que una función sea \emph{computable} desde este enfoque. De manera simple podemos definir el valor que produce una máquina URM, para cada entrada $x\in\omega^{n}$ con $n\in\omega^{+}$, como el contenido del primer registro si la ejecución acaba.
 
-Por ejemplo, considerando el ejemplo que describimos anteriormente, las instrucciones generan un algoritmo tal que dada la entrada $\pa*{3, 2}$, al acabar su ejecución, devuelve el valor $5$ en su primer registro. Resulta de hecho que la máquina que describimos, para cada par de entrada $\pa*{x, y}\in\omega^{2}$ el algoritmo termina y el valor del primer registro es su suma $x + y$. Por lo tanto, tal máquina es una implementación algorítmica de la función suma.
+Por ejemplo, considerando el ejemplo que describimos anteriormente, las instrucciones generan un algoritmo tal que dada la entrada $\pa*{3, 2}$, al acabar su ejecución, devuelve el valor $5$ en su primer registro. Resulta de hecho que la máquina que describimos, para cada par de entrada $\pa*{x, y}\in\omega^{2}$, el algoritmo termina y el valor del primer registro es su suma $x + y$. Por lo tanto, tal máquina es una implementación algorítmica de la función suma.
 
 Sin embargo, dada la misma máquina $M =\pa*{J\pa*{2, 3, 5}, S\pa*{1}, S\pa*{3}, J\pa*{1, 1, 1}}$ podemos darle de entrada ternas $\pa*{x, y, z}\in\omega^{3}$, generando como resultado una función $f:\omega^{3}\to\omega^{\DIVERGE}$ con un comportamiento diferente al de la suma. Consideremos por ejemplo la entrada $\pa*{1, 1, 2}$, entonces se obtiene la siguiente ejecución:
 \[
@@ -1113,16 +1113,16 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 
 La demostración de $\URMCOMPUTABLE\subseteq\PARCIAL$ necesita una herramienta esencial que es la \emph{enumeración}. Esto se refiere a que cada máquina se corresponde con un único número natural que lo identifica y que codifica toda su información, lo cual permite tratar como entradas de funciones parcial-recursivas a los algoritmos mismos. Para poder realizarlo debemos corresponder primero las tuplas de números naturales con números naturales que, igualmente, codifiquen toda su información. 
 
-Aunque existen varias formas de poder codificar listas de naturales, la forma más simple es por medio del teorema fundamental de la aritmética. La idea es generar una inyección entre las listas y los naturales tratando a cada elemento de la lista como potencias de productos de primos. Por ejemplo, si tenemos la lista $\pa*{1, 2, 3}\in\omega^{3}$, entonces podemos mapearlo al número $2^{1}3^{2}5^{3}$. La ventaja de este método es que el teorema fundamental de la aritmética nos asegura que tal producto de primos es único, por lo que podríamos recuperar la lista únicamente factorizando el número que lo representa y recopilando sus potencias. 
+Aunque existen varias formas de poder codificar listas de naturales, la forma más simple es por medio del teorema fundamental de la aritmética. La idea es generar una inyección entre las listas y los naturales tratando a cada elemento de la lista como potencias de productos de primos. Por ejemplo, si tenemos la lista $\pa*{1, 2, 3}\in\omega^{3}$, entonces podemos mapearla al número $2^{1}3^{2}5^{3}$. La ventaja de este método es que el teorema fundamental de la aritmética nos asegura que tal producto de primos es único, por lo que podríamos recuperar la lista únicamente factorizando el número que lo representa y recopilando sus potencias. 
 
-Sin embargo, un problema de esta codificación es cuando tenemos listas con ceros, como por ejemplo las listas $\pa*{1, 2, 0, 0}$ y $\pa*{1, 2}$. Notemos en este caso que ambas listas serían mapeadas al número $2^{1}3^{2}$ justamente porque existen ceros al final de la primer lista. Una forma para poder arreglar esto es sumar $1$ a cada exponente en el mapeo. En este caso, dadas las listas anteriores, podríamos mapear $\pa*{1, 2, 0, 0}$ a $2^{1 + 1}3^{2 + 1}5^{0 + 1}7^{0 + 1}$ y mapear $\pa*{1, 2}$ a $2^{1 + 1}3^{2 + 1}$, donde las listas ahora están mapeadas a diferentes números naturales. Esta forma de mapear listas ya asegura una inyección debido a que ya no tendríamos potencias nulas al trabajar con listas que contengan ceros como elementos.
+Sin embargo, un problema de esta codificación es cuando tenemos listas con ceros, como por ejemplo las listas $\pa*{1, 2, 0, 0}$ y $\pa*{1, 2}$. Notemos en este caso que ambas listas serían mapeadas al número $2^{1}3^{2}$ justamente porque existen ceros al final de la primera lista. Una forma para poder arreglar esto es sumar $1$ a cada exponente en el mapeo. En este caso, dadas las listas anteriores, podríamos mapear $\pa*{1, 2, 0, 0}$ a $2^{1 + 1}3^{2 + 1}5^{0 + 1}7^{0 + 1}$ y mapear $\pa*{1, 2}$ a $2^{1 + 1}3^{2 + 1}$, donde las listas ahora están mapeadas a diferentes números naturales. Esta forma de mapear listas ya asegura una inyección debido a que ya no tendríamos potencias nulas al trabajar con listas que contengan ceros como elementos.
 
 \begin{theorem}
-	La función $f:\omega^{<\omega}\to\omega$ tal que para cada $n\in\omega$ y $x =\pa*{x_{1},\dotsc, x_{n}}\in\omega^{n}$ y se define por:
+	Sea la función $f:\omega^{<\omega}\to\omega$ tal que para cada $n\in\omega$ y $x =\pa*{x_{1},\dotsc, x_{n}}\in\omega^{n}$ definida por:
 	\[
 		f\pa*{x} =\prod_{k = 1}^{n}p_{k}^{x_{k} + 1}
 	\]
-	donde $p_{k}$ es el $k$-ésimo número primo es una inyección.
+	donde $p_{k}$ es el $k$-ésimo número primo, entonces $f$ es inyectiva.
 \end{theorem}
 
 \begin{proof}
@@ -1152,7 +1152,7 @@ Sin embargo, un problema de esta codificación es cuando tenemos listas con cero
 \begin{proof}
 	Denotemos por $f:\omega\to\omega$ a la función que devuelve el $\pa*{n + 1}$-ésimo número primo, entonces se sigue para cada $n\in\omega^{+}$ que para cada $x\in\omega^{n}$:
 	\[
-		\inner*{x} =\prod_{k < n}\pa*{f\pa*{k + 1}}^{\PROYECCION{n}{k + 1}\pa*{x}}
+		\inner*{x} =\prod_{k < n}\pa*{f\pa*{k}}^{\PROYECCION{n}{k + 1}\pa*{x} + 1}
 	\]
 	Ya que $f$, la función proyección, la potencia, suma y producto acotado son primitivo-recursivas, se sigue que las funciones codificación son primitivo-recursivas.
 \end{proof}
@@ -1173,7 +1173,7 @@ De esta forma podemos definir entonces al conjunto de \emph{códigos} o \emph{se
 \begin{proof}
 	Denotemos por $P\subseteq\omega$ al conjunto de números primos y $D\subseteq\omega^{2}$ a la relación ``divide a''. Notemos que la forma de caracterizar los códigos es que son productos de potencias de números primos consecutivos, lo cual puede verse como el conjunto de números $n$ tales que si $p$ es primo y divide a $n$, entonces todo primo menor a $p$ también divide a $n$. Definamos entonces la fórmula:
 	\[
-		\varphi\pa*{n} =\pa*{n > 0\land\pa*{\forall p\leq n}\pa*{\pa*{P\pa*{p}\land D\pa*{p, x}}\to\pa*{\forall q\leq p}\pa*{P\pa*{q}\to D\pa*{q, x}}}}
+		\varphi\pa*{n} =\pa*{n > 0\land\pa*{\forall p\leq n}\pa*{\pa*{P\pa*{p}\land D\pa*{p, n}}\to\pa*{\forall q\leq p}\pa*{P\pa*{q}\to D\pa*{q, n}}}}
 	\]
 	Se tiene entonces que $\SECUENCIAS =\set*{n\in\omega:\varphi\pa*{n}}$. Para el caso de $1$ se satisface también que $\varphi\pa*{1}$ por vacuidad ya que ningún primo es menor o igual que $1$. Ya que $P$ y $D$ son primitivo-recursivas, por los teoremas \ref{coll: prim_rec_formulas} y \ref{coll: prim_rec_acotado} sabemos entonces que $\SECUENCIAS$ es primitivo-recursiva.
 \end{proof}
@@ -1190,7 +1190,7 @@ El objetivo ahora entonces es verificar que ciertas operaciones que podemos real
 				0, &\text{en otro caso}
 			\end{cases}
 		\]
-		\item para cada $k\in\omega^{+}$, la función \emph{acceso} al $\pa*{k + 1}$-ésimo elemento $f_{k}:\omega\to\omega$ definida como sigue para cada $e\in\omega$:
+		\item para cada $k\in\omega$, la función \emph{acceso} al $\pa*{k + 1}$-ésimo elemento $f_{k}:\omega\to\omega$ definida como sigue para cada $e\in\omega$:
 		\[
 			f_{k}\pa*{e} =\begin{cases}
 				x_{k}, &\exists n\pa*{\exists x_{0},\dotsc, x_{n - 1}\in\omega}\pa*{k < n\land e = \inner*{x_{0},\dotsc, x_{n - 1}}}\\
@@ -1209,7 +1209,7 @@ El objetivo ahora entonces es verificar que ciertas operaciones que podemos real
 \end{definition}
 
 \begin{theorem}
-	Las funciones máxima potencia, acceso y longitud satisfacen que son primitivo-recursivas.
+	Las funciones máxima potencia, acceso y longitud son primitivo-recursivas.
 \end{theorem}
 \begin{proof}
 	Para la función máxima potencia la estrategia es utilizar su negación: la máxima potencia es equivalente a la mínima potencia que ya no divide a la secuencia (menos uno). Si $D\subseteq\omega^{2}$ es la relación ``divide a'', se tiene lo siguiente para cada par $x, y\in\omega$:
@@ -1237,7 +1237,7 @@ El objetivo ahora entonces es verificar que ciertas operaciones que podemos real
 \begin{proof}
 	Se sabe que para cada número natural $n\in\omega$ se satisface que $n < 2^{n}$, entonces para cada $e\in\SECUENCIAS$ y cada $k <\LONGITUD\pa*{e}$ se satisface lo siguiente:
 	\[
-		e\bra*{k} < 2^{e\bra*{k}}\leq p_{k}^{e\bra*{k} + 1}\leq e
+		e\bra*{k} < 2^{e\bra*{k}}\leq p_{k + 1}^{e\bra*{k} + 1}\leq e
 	\]
 \end{proof}
 
@@ -1260,22 +1260,21 @@ El objetivo ahora entonces es verificar que ciertas operaciones que podemos real
 	
 	De esta manera se recupera el elemento máximo iterando sobre todos los números $m$ menores o iguales a $e$, por el teorema \ref{theo: ek_menor_e}, verificando si $M(e, m)$. Ya que el máximo es único, entonces aseguramos que a lo más un único número $m$ satisface que $M(e, m)$, y por lo tanto podemos definir a la función máximo como sigue:
 	\[
-		\operatorname{Max}\pa*{e} =\CARACTERISTICA{\SECUENCIAS}\pa*{e}\sum_{m = 0}^{e}k\CARACTERISTICA{M}\pa*{e, m}
+		\operatorname{Max}\pa*{e} =\CARACTERISTICA{\SECUENCIAS}\pa*{e}\sum_{m = 0}^{e}m\CARACTERISTICA{M}\pa*{e, m}
 	\]
 
-	Puesto que $\SECUENCIAS$ y $M_{e}$ son primitivo-recursivas, entonces $\operatorname{Max}$ es primitivo-recursiva.
+	Puesto que $\SECUENCIAS$ y $M$ son primitivo-recursivas, entonces $\operatorname{Max}$ es primitivo-recursiva.
 \end{proof}
 
 Esta función es necesaria para poder demostrar que diferentes funciones son primitivo-recursivas cuando codifiquemos las máquinas URM.
 \subsection{Codificación de máquinas URM}
-
 
 Con todo lo anterior desarrollado, ahora podemos codificar las máquinas URM como números naturales. Recordemos que definimos a las máquinas URM como una secuencia de instrucciones, y cada una de ellas es a su vez representada como una lista. Con todo esto, a cada máquina URM podemos directamente traducirla como la codificación de tales listas. Por ejemplo, si tomamos la máquina URM $M =\pa*{J\pa*{2, 3, 5},S\pa*{1}, S\pa*{3},  J\pa*{1, 1, 1}}$ que calculaba la suma, tendríamos la siguiente secuencia de listas:
 \[
 	M =\pa*{\pa*{3, 2, 3, 5},\pa*{1, 1},\pa*{1, 3},\pa*{3, 1, 1, 1}}
 \]
 
-La primer lista $\pa*{3, 2, 3, 5}$ se codificaría como $\inner*{3, 2, 3, 5} = 2^{4}3^{3}5^{4}7^{6}$ por ejemplo. Las demás listas se codificarían de la siguiente forma:
+La primera lista $\pa*{3, 2, 3, 5}$ se codificaría como $\inner*{3, 2, 3, 5} = 2^{4}3^{3}5^{4}7^{6}$ por ejemplo. Las demás listas se codificarían de la siguiente forma:
 \[
 	\begin{NiceArray}{c}
 		\pa*{3, 2, 3, 5}\to\inner*{3, 2, 3, 5} = 2^{4}3^{3}5^{4}7^{6}\\
@@ -1291,12 +1290,12 @@ Entonces podríamos codificar a $M$ de manera similar de la siguiente forma:
 	&= 2^{2^{4}3^{3}5^{4}7^{6} + 1}3^{2^{2}3^{2} + 1}5^{2^{2}3^{4} + 1}7^{2^{4}3^{2}5^{2}7^{2} + 1}
 \end{align*}
 
-Aunque este número es gigantescamente grande y computacionalmente en la práctica sería muy difícil de calcular, teóricamente es posible, pero el punto principal es que este número es único y con él podemos recuperar cuales son las instrucciones exactas de $M$ usando todas las herramientas que hemos desarrollado. Por ejemplo, con esta máquina se tendría lo siguiente:
+Aunque este número es gigantescamente grande y computacionalmente en la práctica sería muy difícil de calcular, teóricamente es posible, pero el punto principal es que este número es único y con él podemos recuperar cuáles son las instrucciones exactas de $M$ usando todas las herramientas que hemos desarrollado. Por ejemplo, con esta máquina se tendría lo siguiente:
 \[
 	\begin{NiceArray}{c}
-		e\bra*{0} =\inner*{1, 1}\\
-		e\bra*{1} =\inner*{1, 3}\\
-		e\bra*{2} =\inner*{3, 2, 3, 5}\\
+		e\bra*{0} =\inner*{3, 2, 3, 5}\\
+		e\bra*{1} =\inner*{1, 1}\\
+		e\bra*{2} =\inner*{1, 3}\\
 		e\bra*{3} =\inner*{3, 1, 1, 1}
 	\end{NiceArray}
 \]
@@ -1304,19 +1303,19 @@ Aunque este número es gigantescamente grande y computacionalmente en la prácti
 y de igual forma se tendría entonces:
 \[
 	\begin{NiceArray}{cccc}
-		e\bra*{0}\bra*{0} = 1 & e\bra*{1}\bra*{0} = 1 & e\bra*{2}\bra*{0} = 3 & e\bra*{3}\bra*{0} = 3\\
-		e\bra*{0}\bra*{1} = 1 & e\bra*{1}\bra*{1} = 3 & e\bra*{2}\bra*{1} = 2 & e\bra*{3}\bra*{1} = 1\\
-		& & e\bra*{2}\bra*{2} = 3 & e\bra*{3}\bra*{2} = 1\\
-		& & e\bra*{2}\bra*{3} = 5 & e\bra*{3}\bra*{3} = 1\\
+		e\bra*{0}\bra*{0} = 3 & e\bra*{1}\bra*{0} = 1 & e\bra*{2}\bra*{0} = 1 & e\bra*{3}\bra*{0} = 3\\
+		e\bra*{0}\bra*{1} = 2 & e\bra*{1}\bra*{1} = 1 & e\bra*{2}\bra*{1} = 3 & e\bra*{3}\bra*{1} = 1\\
+		e\bra*{0}\bra*{2} = 3& & & e\bra*{3}\bra*{2} = 1\\
+		e\bra*{0}\bra*{3} = 5& & & e\bra*{3}\bra*{3} = 1\\
 	\end{NiceArray}
 \]
 
 Luego, se recupera cada instrucción por medio del acceso a la lista. Sin embargo, notemos que $e\bra*{0}$ corresponde a la \emph{primera} instrucción de la máquina URM. Para facilitar la lectura e identificación de los elementos de la lista y las instrucciones correspondientes que codifican, la codificación de la máquina $M$ iniciará en $0$ con el objetivo de que los accesos a la lista y las instrucciones de $M$ correspondan directamente. En el ejemplo que estábamos analizando se sigue que su código es el siguiente:
 \[
-	\inner*{0, \inner*{1, 1},\inner*{1, 3},\inner*{3, 2, 3, 5},\inner*{3, 1, 1, 1}}
+	\inner*{0, \inner*{3, 2, 3, 5},\inner*{1, 1},\inner*{1, 3},\inner*{3, 1, 1, 1}}
 \]
 
-En este caso se obtiene ahora que $e\bra*{1} =\inner*{1, 1}$ es el código de la primer instrucción $S\pa*{1}$, $e\bra*{2} =\inner*{1, 3}$ el de la segunda instrucción $S\pa*{3}$, $e\bra*{3} =\inner*{3, 2, 3, 5}$ el de la tercera instrucción $J\pa*{2, 3, 5}$ y $e\bra*{4} =\inner*{3, 1, 1, 1}$ el de la cuarta instrucción $J\pa*{1, 1, 1}$.
+En este caso se obtiene ahora que $e\bra*{1} =\inner*{3, 2, 3, 5}$ es el código de la primera instrucción $J\pa*{2, 3, 5}$, $e\bra*{2} =\inner*{1, 1}$ el de la segunda instrucción $S\pa*{1}$, $e\bra*{3} =\inner*{1, 3}$ el de la tercera instrucción $S\pa*{3}$ y $e\bra*{4} =\inner*{3, 1, 1, 1}$ el de la cuarta instrucción $J\pa*{1, 1, 1}$.
 Se define entonces lo siguiente.
 \begin{definition}[Codificación de instrucciones y máquinas URM]
 	Se definen los siguientes conjuntos de codificaciones de instrucciones y máquinas URM
@@ -1389,7 +1388,7 @@ Demostramos ahora las siguientes funciones que nos serán de utilidad para codif
 	\]
 \end{proof}
 
-El objetivo ahora es poder codificar la ejecución de una máquina URM de manera primitvo-recursiva. Para ello, primero debe codificarse el contenido de los registros en una iteración de la máquina. Para ello, recordemos que las ejecuciones de la máquina son una sucesión de funciones $\set*{f_{k}}_{k\in\omega}$ que representan el estado de la cinta en cada iteración $k\in\omega$ (sin considerar los valores $f_{k}(0)$). Por ejemplo, considerando de nuevo el ejemplo de la máquina $M = \pa*{J\pa*{2, 3, 5}, S\pa*{1}, S\pa*{3}, J\pa*{1, 1, 1}}$, tenemos que la sucesión de funciones que representan el estado de la cinta es la siguiente:
+El objetivo ahora es poder codificar la ejecución de una máquina URM de manera primitivo-recursiva. Para ello, primero debe codificarse el contenido de los registros en una iteración de la máquina. Para ello, recordemos que las ejecuciones de la máquina son una sucesión de funciones $\set*{f_{k}}_{k\in\omega}$ que representan el estado de la cinta en cada iteración $k\in\omega$ (sin considerar los valores $f_{k}(0)$). Por ejemplo, considerando de nuevo el ejemplo de la máquina $M = \pa*{J\pa*{2, 3, 5}, S\pa*{1}, S\pa*{3}, J\pa*{1, 1, 1}}$, tenemos que la sucesión de funciones que representan el estado de la cinta es la siguiente:
 \[
 	\begin{NiceArray}{cc}
 		f_{0}: & \pa*{3, 2, 0, 0, 0, 0,\dotsc}\\
@@ -1408,7 +1407,7 @@ Aunque el paso natural podría ser codificar cada función $f_{k}$ como una list
 
 Debido a que en la ejecución de una máquina URM solamente hacemos uso de un número finito de registros en cada iteración, los cuales pueden tomar valores diferentes de cero, podemos codificar únicamente esa parte de la función. Luego, hacemos uso de la función $\operatorname{MaxReg}$, la cual por definición nos da esa cota del registro más grande que podemos utilizar.
 
-Luego, podemos considerar únicamente listas de longitud mayor a $\operatorname{MaxReg}\pa*{e}$ para codificar cada función $f_{k}$. La longitud se considera mayor a $\operatorname{MaxReg}\pa*{e}$ para tener acceso a esos registros que necesita la máquina para ser ejecutada, además de considerar el caso cuando la entrada $f_{0}$ considere una lista más larga que $\operatorname{MaxReg}\pa*{e}$. En nuestro ejemplo, si $e = \inner*{0, \inner*{3, 2, 3, 5},\inner*{1, 1},\inner*{1, 3},\inner*{3, 1, 1, 1}}$, entonces tenemos que $\operatorname{MaxReg}\pa*{e} = 3$. Como la entrada consta de solo dos valores, podemos considerar una lista de longitud $5 >\operatorname{MaxReg}\pa*{e}$. Entonces cada una de las funciones $f_{k}$ se codificaría de la siguiente manera:
+Luego, podemos considerar únicamente listas de longitud mayor a $\operatorname{MaxReg}\pa*{e}$ para codificar cada función $f_{k}$. La longitud se considera mayor a $\operatorname{MaxReg}\pa*{e}$ para tener acceso a esos registros que necesita la máquina para ser ejecutada, además de considerar el caso cuando la entrada $f_{0}$ requiera una lista más larga que $\operatorname{MaxReg}\pa*{e}$. En nuestro ejemplo, si $e = \inner*{0, \inner*{3, 2, 3, 5},\inner*{1, 1},\inner*{1, 3},\inner*{3, 1, 1, 1}}$, entonces tenemos que $\operatorname{MaxReg}\pa*{e} = 3$. Como la entrada consta de solo dos valores, podemos considerar una lista de longitud $5 >\operatorname{MaxReg}\pa*{e}$. Entonces cada una de las funciones $f_{k}$ se codificaría de la siguiente manera:
 \[
 	\begin{NiceArray}{c|ccccccccccc}
 		k & & f_{k}\pa*{0} && f_{k}\pa*{1} && f_{k}\pa*{2} && f_{k}\pa*{3} && f_{k}\pa*{4} & \\\hline
@@ -1437,14 +1436,22 @@ Lo que sigue es determinar cómo es que verificamos que el paso de una configura
 
 Primero debemos asegurar que los números $c$ y $d$ son configuraciones válidas. Lo anterior se traduce al hecho que $c, d\in\operatorname{Config}$, $\LONGITUD\pa*{c}=\LONGITUD\pa*{d}$ y $\LONGITUD\pa*{c},\LONGITUD\pa*{d} >\MAXREGISTRO\pa*{e}$. Después debemos traducir la definición \ref{def:ejecucion_urm} a este contexto para asegurar que $c$ genera a $d$ según las instrucciones de la máquina URM codificada por $e$.
 
+\begin{notation}
+	Sean $f:\omega\to\omega$ y $n\in\omega$, entonces se denota:
+	\[
+		f\upharpoonright n =\inner*{f\pa*{0},\dotsc, f\pa*{n - 1}}
+	\]
+\end{notation}
+
 \begin{definition}[Cómputo]
+	\label{def: computo_urm}
 	Definimos la relación de \emph{cómputo} $\operatorname{Computo}\subseteq\omega^{3}$ de modo que para cada terna $\pa*{e, c, d}\in\omega^{3}$ se satisfaga $\operatorname{Computo}\pa*{e, c, d}$ si y solo si:
 	\begin{enumerate}
 		\item $\URMCODIGO\pa*{e}$,
 		\item $\CONFIGURACIONES\pa*{c}$ y $\CONFIGURACIONES\pa*{d}$,
 		\item $\LONGITUD\pa*{c} =\LONGITUD\pa*{d}$,
 		\item $\LONGITUD\pa*{c} >\MAXREGISTRO\pa*{e}$, y
-		\item dada la ejecución $\set*{f_{k}}_{k\in\omega}$ de la máquina codificada por $e$, existe $k\in\omega$ tal que $c$ codifica a $f_{k}$ y $d$ codifica a $f_{k + 1}$
+		\item dada la ejecución $\set*{f_{k}}_{k\in\omega}$ de la máquina codificada por $e$, si existe $k\in\omega$ tal que $c = f_{k}\upharpoonright \LONGITUD\pa*{c}$, entonces $d = f_{k + 1}\upharpoonright \LONGITUD\pa*{d}$
 	\end{enumerate}
 \end{definition}
 
@@ -1496,7 +1503,7 @@ Con esta relación ya tenemos todas las herramientas necesarias para codificar c
 
 En primer lugar, como $p$ codifica todas las configuraciones de la ejecución de la máquina, como mínimo debe contener a la configuración que codifica la cinta de entrada. Por lo tanto, $p$ debe satisfacer que $\LONGITUD\pa*{p} > 0$ y para cada $k <\LONGITUD\pa*{p}$ se satisface que $\CONFIGURACIONES\pa*{p\bra*{k}}$.
 
-En segundo lugar, la primer configuración corresponde a ingresar los datos de entrada a la cinta; la lista $z$. Para que tengamos espacio suficiente para registrar todos los datos de $z$ en la cinta inicial, la longitud de la cinta debe ser al menos la longitud de $z$ (más uno para guardar la instrucción a ejecutar). Por lo tanto, debe satisfacerse que $\LONGITUD\pa*{p\bra*{0}} >\LONGITUD\pa*{z}$, para cada $k <\LONGITUD\pa*{z}$ se cumple $p\bra*{0}\bra*{k + 1} = z\bra*{k}$ y para cada $k <\LONGITUD\pa*{p\bra*{0}}$, si $k >\LONGITUD\pa*{z}$, entonces $p\bra*{0}\bra*{k} = 0$. Además, como la primer instrucción a ejecutar siempre debe ser la primera, se debe cumplir también que $p\bra*{0}\bra*{0} = 1$.
+En segundo lugar, la primera configuración corresponde a ingresar los datos de entrada a la cinta; la lista $z$. Para que tengamos espacio suficiente para registrar todos los datos de $z$ en la cinta inicial, la longitud de la cinta debe ser al menos la longitud de $z$ (más uno para guardar la instrucción a ejecutar). Por lo tanto, debe satisfacerse que $\LONGITUD\pa*{p\bra*{0}} >\LONGITUD\pa*{z}$, para cada $k <\LONGITUD\pa*{z}$ se cumple $p\bra*{0}\bra*{k + 1} = z\bra*{k}$ y para cada $k <\LONGITUD\pa*{p\bra*{0}}$, si $k >\LONGITUD\pa*{z}$, entonces $p\bra*{0}\bra*{k} = 0$. Además, como la primera instrucción a ejecutar siempre debe ser la primera, se debe cumplir también que $p\bra*{0}\bra*{0} = 1$.
 
 En tercer lugar, cada una de las configuraciones debe codificar una ejecución válida de la máquina codificada por $e$. Por lo tanto, debe satisfacerse para cada $k <\LONGITUD\pa*{p} - 1$ que $\operatorname{Computar}\pa*{e, p\bra*{k}, p\bra*{k + 1}}$.
 
@@ -1505,6 +1512,7 @@ Finalmente, para que $p$ codifique una ejecución que termina, recordemos que ev
 La relación que se define como la conjunción de todas estas condiciones que describen cuando una ejecución de una máquina URM termina se denomina T-predicado de Kleene, y será la pieza fundamental para demostrar que las funciones URM-computables son parcial-computables.
 
 \begin{definition}[T-predicado de Kleene]
+	\label{def: t_predicado_de_kleene}
 	Se define el \emph{T-predicado de Kleene} como la relación $T\subseteq\omega^{3}$ la cual satisface que una terna $\pa*{e, z, p}\in\omega^{3}$ pertenece a $T$ si y solo si:
 	\begin{enumerate}
 		\item $e\in\URMCODIGO$, $z\in\SECUENCIAS$, $p\in\SECUENCIAS$,
@@ -1512,7 +1520,7 @@ La relación que se define como la conjunción de todas estas condiciones que de
 		\item para cada $k <\LONGITUD\pa*{p}$ se satisface $\CONFIGURACIONES\pa*{p\bra*{k}}$,
 		\item $\LONGITUD\pa*{p\bra*{0}} >\LONGITUD\pa*{z}$,
 		\item para cada $k <\LONGITUD\pa*{z}$ se satisface $p\bra*{0}\bra*{k + 1} = z\bra*{k}$,
-		\item para cada $k >\LONGITUD\pa*{z}$ se satisface $p\bra*{0}\bra*{k} = 0$,
+		\item para cada $k <\LONGITUD\pa*{p\bra*{0}}$, si $k >\LONGITUD\pa*{z}$, entonces se satisface $p\bra*{0}\bra*{k} = 0$,
 		\item para cada $k <\LONGITUD\pa*{p} - 1$ se satisface $\operatorname{Computar}\pa*{e, p\bra*{k}, p\bra*{k + 1}}$, y
 		\item $p\bra*{\LONGITUD\pa*{p} - 1}\bra*{0} >\NUMINSTRUCCIONES\pa*{e}$.
 	\end{enumerate}
@@ -1536,7 +1544,7 @@ Notemos que se sigue lo siguiente por definición.
 	La función $U$ es primitivo-recursiva.
 \end{theorem}
 
-Ahora, recordemos que el valor de la función URM-computable que genera una máquina URM no se calcula técnicamente con cualquier ejecución que indique que el cómputo ya terminó, sino con la mínima de ellas. Por lo tanto, el valor de tal función sería el valor de $U$ de la mínima ejecución $p$ para la cual la máquina $e$ con entrada $z$ termina, es decir, $U\pa*{\mu p T\pa*{e, z, p}}$. A esta función que calcula de manera alternativa una función URM-computable se denomina Forma Normal de Kleene.
+Ahora, recordemos que el valor de la función URM-computable que genera una máquina URM no se calcula técnicamente con cualquier ejecución que indique que el cómputo ya terminó, sino con la mínima de ellas. Por lo tanto, el valor de tal función sería el valor de $U$ de la mínima ejecución $p$ para la cual la máquina $e$ con entrada $z$ termina, es decir, $U\pa*{\mu p T\pa*{e, z, p}}$. A esta función que calcula de manera alternativa una función URM-computable se denomina \emph{Forma Normal de Kleene}.
 
 \begin{theorem}[Teorema de la Forma Normal de Kleene]
 	Sean $M$ una máquina URM con codificación $e\in\URMCODIGO$ y $n\in\omega^{+}$, entonces para cada $x\in\omega^{n}$, con $z =\inner*{x}$, se satisface lo siguiente:
@@ -1546,10 +1554,29 @@ Ahora, recordemos que el valor de la función URM-computable que genera una máq
 \end{theorem}
 
 \begin{proof}
-	La demostración de esto se sigue directamente por todo lo que hemos construido. Si $\PHI{M}[n]\pa*{x}\ACABA$, entonces sabemos que existe una ejecución $p\in\omega$ para la cual $T\pa*{e, z, p}$, y luego $\mu p T\pa*{e, z, p}\ACABA$. Entonces por definición de la función $U$ obtenemos que $\PHI{M}[n]\pa*{x} = U\pa*{\mu p T\pa*{e, z, p}}$. 
+	Sean $n\in\omega^{+}$, $x\in\omega^{n}$ y $p\in\SECUENCIAS$ para los cuales solamente se satisfagan los primeros siete puntos de la definición \ref{def: t_predicado_de_kleene}, y sea $\set*{f_{k}}_{k\in\omega}$ la ejecución de la máquina $M$ con entrada $x$.
 	
-	Si por el contrario se tiene que $\PHI{M}[n]\pa*{x}\DIVERGE$, entonces no existe ninguna ejecución $p\in\omega$ para la cual $T\pa*{e, z, p}$, y luego $\mu p T\pa*{e, z, p}\DIVERGE$. Por lo que $\PHI{M}[n]\pa*{x} = U\pa*{\mu p T\pa*{e, z, p}}\DIVERGE$.
+	Por definición de $p$ sabemos que es de la forma $p =\inner*{c_{0},\dotsc, c_{t}}$ de modo que $t =\LONGITUD\pa*{p} - 1$ y para cada $k <\LONGITUD\pa*{p}$, $\CONFIGURACIONES\pa*{c_{k}}$. Además, notemos que para cada $k <\LONGITUD\pa*{p} - 1$ se satisface que $\operatorname{Computo}\pa*{e, c_{k}, c_{k + 1}}$, por lo que debido a la definición de $\operatorname{Computo}$ y de $p$ sabemos que $\LONGITUD\pa*{c_{0}} =\LONGITUD\pa*{c_{1}} =\dotsb =\LONGITUD\pa*{c_{t}} > \LONGITUD\pa*{z}, \MAXREGISTRO\pa*{e}$. Sea entonces $N\coloneqq\LONGITUD\pa*{c_{0}}$.
+
+	Por definición de $p$ sabemos que:
+	\[
+		c_{0} = \langle 1, z\bra*{0},\dotsc, z\bra*{\LONGITUD\pa*{z} - 1},\underbrace{0,\dotsc, 0}_{N -\LONGITUD\pa*{z} - 1}\rangle
+	\]
+	Por lo que se satisface que $f_{0}\upharpoonright N = c_{0}$. Mostremos por inducción que para cada $k\leq t$ se satisface que $f_{k}\upharpoonright N = c_{k}$. El caso base ya lo mostramos, entonces sea $k < t$ tal que $f_{k}\upharpoonright N = c_{k}$. Por la definición \ref{def: computo_urm}, si $f_{k}\upharpoonright N = c_{k}$, entonces $f_{k + 1}\upharpoonright N = c_{k + 1}$.
+
+	Ahora, si $p$ satisface el punto (8) de la definición \ref{def: t_predicado_de_kleene}, entonces se tiene que $c_{t}\bra*{0} >\NUMINSTRUCCIONES\pa*{e}$, de lo cual se implica que $f_{t}\pa*{0} >\NUMINSTRUCCIONES\pa*{e}$, es decir, $\PHI{M}[n]\pa*{x}\ACABA$. Por lo tanto, si $T\pa*{e, z, p}$, entonces $\PHI{M}[n]\pa*{x}\ACABA$.
+
+	Por otro lado, si $\PHI{M}[n]\pa*{x}\ACABA$, entonces existe $m\in\omega$ para el cual $f_{m}\pa*{0} >\NUMINSTRUCCIONES\pa*{e}$. Si tomamos $N =\max\set*{\LONGITUD\pa*{z},\MAXREGISTRO\pa*{e}} + 1$, entonces asignando $p =\inner*{f_{0}\upharpoonright N,\dotsc, f_{m}\upharpoonright N}$ se satisface directamente que $T\pa*{e, z, p}$. Con esto hemos probado entonces que:
+	\[
+		\exists p T\pa*{e, z, p}\iff\PHI{M}[n]\pa*{x}\ACABA
+	\]
+	Si $p\in\SECUENCIAS$ es tal que $T\pa*{e, z, p}$, entonces notemos que por la definición de la función $U$ se satisface que $U\pa*{p} = p\bra*{\LONGITUD\pa*{p} - 1}\bra*{1} = f_{\LONGITUD\pa*{p} - 1}\pa*{1} =\PHI{M}[n]\pa*{x}$; donde la última igualdad se sigue por el punto (3) de la definición \ref{def:ejecucion_urm}. Por lo tanto:
+	\[
+		\PHI{M}[n]\pa*{x} = U\pa*{\mu p T\pa*{e, z, p}}
+	\]
 \end{proof}
+
+Este teorema es la pieza clave que nos faltaba para demostrar la equivalencia entre los enfoques, pues este nos da explícitamente la forma en la que se traduce una función URM-computable en una función parcial-recursiva.
 
 \begin{coll}
 	Toda función URM-computable es parcial-computable.
@@ -1560,7 +1587,7 @@ Ahora, recordemos que el valor de la función URM-computable que genera una máq
 	\[
 		f\pa*{x} =\PHI{M}[n]\pa*{x} = U\pa*{\mu p T\pa*{e,\inner*{x}, p}}
 	\]
-	Puesto que el T-predicado de Kleene y la función $U$ son primitivo-primitivo recursivas, entonces $f$ es parcial-recursiva.
+	Puesto que el T-predicado de Kleene y la función $U$ son primitivo-recursivas, entonces $f$ es parcial-recursiva.
 \end{proof}
 
 \begin{coll}
@@ -1572,6 +1599,8 @@ Otro resultado interesante que se deriva del teorema de la forma normal de Kleen
 \begin{coll}
 	Todo algoritmo puede reescribirse para utilizar a lo más una vez un ciclo \emph{while}.
 \end{coll}
+
+\section{La Máquina Universal, el problema de la detención y conjuntos c.e.}
 
 Ya que se demostró que ambos enfoques de la computabilidad son equivalentes, ya no es necesario hacer distinción cuando una función es URM-computable o cuando es parcial-recursiva. Esto no es un hecho aislado de estos dos modelos que hemos desarrollado para describir la computabilidad. Se ha demostrado que otros modelos diferentes de lo computable como las \emph{máquinas de Turing} o el \emph{cálculo lambda} de Church (y varios otros modelos) siempre son a lo más equivalentes a los modelos que desarrollamos en este texto. 
 
@@ -1630,5 +1659,68 @@ Una consecuencia importante del teorema de la forma normal de Kleene es la exist
 \end{proof}
 
 \begin{notation}
-	Sea $N\in\URM$ la máquina universal, entonces denotaremos por $\Phi_{e}\pa*{z}$ a $\PHI{N}[2](e, z)$ para cada $e, z\in\omega$. 
+	Sea $N\in\URM$ la máquina universal, entonces denotaremos por $\Phi_{e}\pa*{z}$ a $\PHI{N}[2]\pa*{e, z}$ para cada $e, z\in\omega$. 
 \end{notation}
+
+La existencia de la máquina universal nos permite desvincularnos de las máquinas URM cuando hablamos de códigos. Puesto que existe al menos una máquina universal, y esta puede simular cualquier otra máquina teniendo su codificación, mas no la máquina que codifica explícitamente, entonces los algoritmos se corresponden directamente con números naturales. Además, la codificación de algoritmos que construimos mediante máquinas URM no es la única que existe. Existen, por ejemplo, maneras de codificar algoritmos mediante funciones parcial-recursivas, máquinas de Turing, o algún otro modelo de computabilidad, que nos permiten construir el T-predicado de Kleene también; y luego demostrar la existencia de la máquina universal. Más aún, todas estas codificaciones pueden corresponderse de manera biyectiva mediante funciones computables. Por lo tanto, de ahora en adelante los algoritmos se representarán únicamente por números naturales. 
+
+Ahora, debido a la definición de las máquinas URM (o de las funciones parcial-recursivas) sabemos que el conjunto de funciones computables es numerable debido a la numeración de estas mismas. Puesto que el conjunto de todas las posibles funciones parciales no es numerable ya que $\pa*{\omega^{\DIVERGE}}^{\omega}\approx\aleph_{1}$, se sigue que existe una función parcial que no es computable. Aunque este argumento es suficiente para demostrar la existencia de funciones no computables, no nos exhibe un ejemplo explícito de una función que no lo sea. 
+
+De esta manera, para verificar la existencia de funciones no computables, abordaremos la idea de Turing sobre otro problema equivalente: la existencia de conjuntos no computables. Recordemos la interpretación de las funciones computables como algoritmos los cuales pueden ser ejecutados mediante operaciones básicas y ciclos \emph{for} y \emph{while}. Además, recordemos que trabajamos con funciones parciales debido al comportamiento indeseado de los ciclos \emph{while}: la función puede nunca devolver un valor concreto, o la ejecución puede nunca terminar. Por lo tanto, una pregunta natural a realizarse es: ¿existe un proceso algorítmico que nos permita determinar si un algoritmo termina dada una entrada específica? 
+
+La pregunta anterior fue nombrada por Turing como el \emph{problema de la detención}. Este problema puede enunciarse formalmente de la siguiente manera: ¿el conjunto $\set*{\inner*{e, z}\in\omega: \Phi_e\pa*{z}\ACABA}$ es computable? La respuesta a esta pregunta es negativa, y la demostración de ello usa como argumento principal la existencia de la máquina universal. Para poder demostrarlo, utilizaremos otro conjunto que será de ayuda, denominado \emph{conjunto de detención}.
+
+\begin{definition}[Conjunto de detención]
+	\label{def: conjunto_de_detencion}
+	Se define el \emph{conjunto de detención} como el conjunto:
+	\[
+		K\coloneqq\set*{e\in\omega: \Phi_e\pa*{e}\ACABA}
+	\]
+\end{definition}
+
+Este conjunto en cambio colecciona a todos los algoritmos que terminan cuando se les da su propio código como entrada. Esa autorreferencia nos permitirá demostrar que no es computable usando un argumento de diagonalización.
+
+\begin{theorem}[Teorema de Turing]
+	\label{thm: teorema_de_turing}
+	El conjunto de detención $K$ no es computable.
+\end{theorem}
+
+\begin{proof}
+	Probemos por contradicción. Supongamos que $K$ es computable y definamos a la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $e\in\omega$:
+	\[
+		f\pa*{e} =
+		\begin{cases}
+			\Phi_{e}\pa*{e} + 1, & e\in K\\
+			0, & e\notin K
+		\end{cases}
+	\]
+	Puesto que por hipótesis $K$ es computable, se sigue que $f$ es una función computable. Por lo tanto, existe $z\in\omega$ tal que para cada $x\in\omega$, $f\pa*{x} = \Phi_{z}\pa*{x}$. Supongamos que $z\in K$, entonces se satisface lo siguiente:
+	\[
+		\Phi_{z}\pa*{z} = f\pa*{z} =\Phi_{z}\pa*{z} + 1
+	\]
+	Lo cual es una contradicción. Por lo que $z\notin K$, pero eso implica que:
+	\[
+		0 = f\pa*{z} =\Phi_{z}\pa*{z}\DIVERGE
+	\]
+	Lo cual también es una contradicción. Las contradicciones surgen de la suposición que $K$ es computable. Por lo tanto, $K$ no es un conjunto computable.
+\end{proof}
+
+Dentro de esta demostración se utiliza la función auxiliar $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $e\in\omega$:
+\[
+	f\pa*{e} =
+	\begin{cases}
+		\Phi_{e}\pa*{e} + 1, & e\in K\\
+		0, & e\notin K
+	\end{cases}
+\]
+
+Con ayuda de este conjunto se puede demostrar que el problema de la detención tiene solución negativa.
+
+\begin{coll}
+	El conjunto $K'\coloneqq\set*{\inner*{e, z}\in\omega:\Phi_{e}\pa*{z}\ACABA}$ no es computable.
+\end{coll}
+
+\begin{proof}
+	Notemos que para cada $e\in\omega$ se satisface que $\inner*{e, e}\in K'$ si y solo si $e\in K$. Se sigue entonces que $\CARACTERISTICA{K}\pa*{e} =\CARACTERISTICA{K'}\pa*{\inner*{e, e}}$. Si $K'$ fuera computable, entonces $\CARACTERISTICA{K'}$ sería computable, y también $\CARACTERISTICA{K}$ por consiguiente. Puesto que $K$ no es computable por el teorema de Turing, se sigue que $K'$ no es computable.
+\end{proof}
+
