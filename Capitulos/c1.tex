@@ -574,7 +574,7 @@ Las funciones que permiten este tipo de comportamiento se denominan \emph{funcio
 				\DIVERGE, & \text{en otro caso}
 			\end{cases}
 		\]
-		\item (Recursión) Si $n > 1$ y existen funciones parcial-recursivas $g:\omega^{n - 1}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 1}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n - 1}$ y cada $y\in\omega$ se satisface que:
+		\item (Recursión primitiva) Si $n > 1$ y existen funciones parcial-recursivas $g:\omega^{n - 1}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 1}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n - 1}$ y cada $y\in\omega$ se satisface que:
 		\[
 		\begin{NiceArray}{c}
 			f\pa*{x, 0} = g\pa*{x}\\
@@ -1870,7 +1870,71 @@ Otro resultado interesante que se deriva del teorema de la forma normal de Kleen
 	Todo algoritmo puede reescribirse para utilizar a lo más una vez un ciclo \emph{while}.
 \end{coll}
 
-\section{La Máquina Universal, el problema de la detención y conjuntos c.e.}
+Por último, un resultado importante dentro de la teoría, el cual utilizaremos en la aritmética de segundo orden, es cómo podemos describir explícitamente a las funciones total-recursivas. Puesto que las funciones totales son aquellas que siempre convergen para cualquier entrada, y el comportamiento no deseado de la minimización no acotada es el que permite a las funciones parcial-recursivas ser parciales, entonces se puede inferir que si aseguramos la convergencia de la minimización no acotada para ciertas funciones, toda función construida mediante ellas sería total-recursiva. Esa idea es la que motiva la siguiente definición.
+
+\begin{definition}[Funciones regulares]
+	Sean $n\in\omega$ y $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ una función total. Denominamos a $f$ como \emph{regular} si para cada $x\in\omega^{n}$ existe $y\in\omega$ tal que $f\pa*{x, y} = 0$.
+\end{definition}
+
+Este tipo de funciones son las que nos permiten eliminar la divergencia de las funciones parcial-recursivas. Sean $n\in\omega$ y $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ parcial-recursiva, entonces sabemos que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}$ no necesariamente es total, pero si $g$ fuera regular, entonces, por definición, la existencia de un $y\in\omega$ tal que $g\pa*{x, y} = 0$ está asegurada, y luego $f\pa*{x}\ACABA$. Más aún, no solamente este tipo de funciones generan funciones total-recursivas, sino que toda función total-recursiva puede generarse mediante esta restricción de la minimización no acotada sobre funciones regulares.
+
+\begin{theorem}[Caracterización de las funciones total-recursivas]
+	Toda función $f:\omega^{n}\to\omega^{\DIVERGE}$ parcial-recursiva, para algún $n\in\omega$, es total-recursiva si y solo si satisface alguno de los siguientes puntos:
+	\begin{enumerate}
+		\item (Funciones básicas) La función $f$ es una de las siguientes funciones:
+		\begin{itemize}
+			\item La función \emph{cero}: $\CERO:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $\CERO\pa*{x} = 0$.
+			\item Si $n = 1$, la función \emph{sucesor}: $\SUCESOR:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $\SUCESOR\pa*{x} = x + 1$.
+			\item Para algún $k\in\omega^{+}$ con $k\leq n$, la función \emph{proyección}: $\PROYECCION{n}{k}:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x_{1},\dotsc, x_{n}\in\omega$, $\PROYECCION{n}{k}\pa*{x_{1},\dotsc, x_{n}} = x_{k}$.
+		\end{itemize}
+		\item (Composición) Para algún $m\in\omega^{+}$ existen funciones parcial-recursivas $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n}$: 
+		\[
+			f\pa*{x} = h\pa*{g_{1}\pa*{x},\dotsc, g_{m}\pa*{x}}
+		\]
+		\item (Recursión primitiva) Si $n > 1$ y existen funciones parcial-recursivas $g:\omega^{n - 1}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 1}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n - 1}$ y cada $y\in\omega$ se satisface que:
+		\[
+		\begin{NiceArray}{c}
+			f\pa*{x, 0} = g\pa*{x}\\
+			f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
+		\end{NiceArray}
+		\]
+		\item (Minimización restringida) Existe una función parcial-recursiva regular $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que:
+		\[
+			f\pa*{x} = \mu y\pa*{g\pa*{x, y} = 0}
+		\]
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Consideremos primero el converso probando por inducción sobre el conjunto $F$ de funciones generadas por los cuatro puntos. Claramente las funciones básicas son total-recursivas, probando así el caso base. 
+	
+	Para la composición, sean $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ parcial-recursivas para algunos $n, m\in\omega$, y supongamos que son totales. Por definición de composición, se sigue directamente que $h\pa*{g_{1},\dotsc, g_{m}}$ es total-recursiva.
+
+	Para la recursión primitiva, sean $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ parcial-recursivas para algún $n\in\omega$, y supongamos que son totales. Sea $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$ y cada $y\in\omega$:
+	\[
+		\begin{NiceArray}{c}
+			f\pa*{x, 0} = g\pa*{x}\\
+			f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
+		\end{NiceArray}
+	\]
+	Mostremos por inducción sobre $y$ que $f\pa*{x, y}\ACABA$. Debido a que $g$ es total por hipótesis de inducción, se sigue que $f\pa*{x, 0} = g\pa*{x}\ACABA$. Ahora, sea $y\in\omega$ tal que $f\pa*{x, y}\ACABA$. Puesto que $h$ es total por hipótesis de inducción, se sigue que $f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}\ACABA$. Por lo tanto, para cada $y\in\omega$ se satisface que $f\pa*{x, y}\ACABA$. Puesto que $x\in\omega^{n}$ fue arbitrario, se sigue que $f$ es total.
+
+	Para el caso de la minimización restringida, sea $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ parcial-recursiva regular para algún $n\in\omega$, y supongamos que es total-recursiva. Sea $f:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}$. Puesto que $g$ es regular, sabemos que para cada $x\in\omega^{n}$ existe $y\in\omega$ tal que $g\pa*{x, y} = 0$, y debido a que $g$ es total, sabemos que existe un natural $z\in\omega$ el cual satisface que $g\pa*{x, z} = 0$ y para cada $y < z$, $g\pa*{x, y}\ACABA\neq 0$, es decir, $z =\mu y\pa*{g\pa*{x, y} = 0} = f\pa*{x}$. Por lo tanto, $f$ es total.
+
+	Por lo tanto, el conjunto $F$ de las funciones generadas por los cuatro puntos satisface que cada uno de sus elementos es total-recursivo.
+
+	Supongamos ahora que $f:\omega^{n}\to\omega^{\DIVERGE}$ es total-recursiva, y mostremos que $f\in F$. Puesto que $f$ es parcial-recursiva, por el teorema de la forma normal de Kleene, se sabe que existe $e\in\URMCODIGO$ tal que para cada $x\in\omega^{n}$:
+	\[
+		f\pa*{x} = U\pa*{\mu p T\pa*{e, \inner*{x}, p}}
+	\]
+	Puesto que $f$ es total, se tiene que para cada $x\in\omega^{n}$ existe $p\in\omega$ tal que $T\pa*{e,\inner*{x}, p}$. Definamos entonces el conjunto $A =\set*{\pa*{x, p}\in\omega^{n + 1}: T\pa*{e,\inner*{x}, p}}$ el cual es primitivo-recursivo ya que $T$ es primitivo-recursivo, y definamos la función $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que $g = 1 -\CARACTERISTICA{A}$ la cual es primitivo-recursiva. Notemos que para cada $x\in\omega^{n}$ y cada $p\in\omega$ se satisface lo siguiente:
+	\[
+		g\pa*{x, p} = 0\iff 1 -\CARACTERISTICA{A}\pa*{x, p} = 0\iff\CARACTERISTICA{A}\pa*{x, p} = 1\iff T\pa*{e,\inner*{x}, p}
+	\]
+	lo cual también implica que $g$ es regular. Se sigue entonces que para cada $x\in\omega^{n}$, $f\pa*{x} = U\pa*{\mu p\pa*{g\pa*{x, p} = 0}}$. Ahora, por los primeros tres puntos de la definición de $F$ se tiene que $\PRIMITIVO\subseteq F$, y puesto que $U$ y $g$ son primitivo-recursivos, además de que $g$ es regular, se sigue directamente que $f\in F$.
+\end{proof}
+
+\section{Computabilidad y conjuntos c.e.}
 
 Ya que se demostró que ambos enfoques de la computabilidad son equivalentes, ya no es necesario hacer distinción cuando una función es URM-computable o cuando es parcial-recursiva. Esto no es un hecho aislado de estos dos modelos que hemos desarrollado para describir la computabilidad. Se ha demostrado que otros modelos diferentes de lo computable como las \emph{máquinas de Turing} o el \emph{cálculo lambda} de Church (y varios otros modelos) siempre son a lo más equivalentes a los modelos que desarrollamos en este texto. 
 
