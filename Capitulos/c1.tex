@@ -1106,8 +1106,278 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 
 \begin{proof}
 	Probemos por inducción sobre el conjunto de funciones parcial-recursivas. Mostremos primero que las funciones básicas son URM-computables. Sean $n, k\in\omega^{+}$ con $k\leq n$ y definamos las máquinas $M_{1} = \pa*{\pa*{0, 1}}$, $M_{2} =\pa*{\pa*{1, 1}}$ y $M_{3} =\pa*{\pa*{2, k, 1}}$, entonces se sigue directamente que $\CERO =\PHI{M_{1}}[n]$, $\SUCESOR =\PHI{M_{2}}$ y $\PROYECCION{n}{k} =\PHI{M_{3}}[n]$.
+
+	Considérese ahora el caso de la \emph{\textbf{composición}}. Sean $n, k\in\omega$, $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{k}\to\omega^{\DIVERGE}$  funciones parcial-recursivas, y supongamos que existen máquinas URM $G_{1}$, ..., $G_{k}$ y $H$ tales que $h = \PHI{H}[k]$ y para cada $j\leq n$, $g_{j} =\PHI{G_{j}}[n]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida por $f = h\pa*{g_{1},\dotsc, g_{k}}$ es URM-computable.
+
+	Para ello, describiremos cual será el proceso que debe realizar la máquina URM $F$ que computa a $f$. Para cada $j\leq k$ denotemos por $M_{j}\in\omega^{+}$ al registro máximo al cual hace referencia la máquina $G_{j}$ y por $M_{0}$ al registro máximo al cual hace referencia la máquina $H$. Defínase entonces $M =\max\set*{M_{0},\dotsc, M_{k}, n, k}$. El valor $M$ nos servirá como un parámetro auxiliar para poder definir de manera adecuada la máquina $F$. La idea es que la máquina $F$ primero computará los valores de $g_{1},\dotsc, g_{k}$ y los almacenará en los registros $R_{1},\dotsc, R_{k}$, para luego computar el valor de $h$ con esos valores como entrada.
+
+	Dada la entrada $x\in\omega^{n}$, el primer paso es tranferir sus valores en los registros desde $R_{M + k + 1}$ en adelante. La razón es guardar los datos de entrada en estos registros que funcionan como memoria auxiliar, ya que es necesario conocerlos para computar cada una de las funciones $g_{j}$ ($j\leq k$). Además, cada uno de los registros $R_{M + 1},\dotsc, R_{M + k}$ se utilizarán para almacenar los resultados de cada una de las funciones $g_{j}$, y finalmente se computará la función $h$ con estos valores como entrada.
+
+	Luego, después de transferir cada uno de los datos de entrada, se ejecutará la máquina $G_{1}$ (ya que los datos de entrada originales no se modificaron en los registros iniciales). Después de ejecutarse, se transferirá el valor del primer registro a $R_{M + 1}$.
+	Después, se inicializará en $0$ cada uno de los registros desde $R_{1}$ hasta $R_{M}$, y entonces se transferirán los datos de entrada guardados en $R_{M + k + 1},\dotsc, R_{M + k + n}$ en los registros $R_{1},\dotsc, R_{n}$. Repetiremos este mismo proceso para cada máquina $G_{j}$ ($j\leq k$) guardando sus resultados en los registros $R_{M + j}$.
+
+	Al finalizar lo anterior, se tienen guardados los valores de $g_{1}\pa*{x},\dotsc, g_{k}\pa*{x}$ en los registros $R_{M + 1},\dotsc, R_{M + k}$ por hipótesis de inducción. El siguiente paso es inicializar los registros $R_{1},\dotsc, R_{M}$ en $0$ y transferir los valores de los registros $R_{M + 1},\dotsc, R_{M + k}$ a los registros $R_{1},\dotsc, R_{k}$. Finalmente, se ejecutará la máquina $H$ con estos valores como entrada, y el resultado final estará en el primer registro.
+
+	Por hipótesis de inducción se satisface que en el primer registro de la se aloja el valor $h\pa*{g_{1}\pa*{x},\dotsc, g_{k}\pa*{x}} = f\pa*{x}$. Puesto que $x\in\omega^{n}$ fue arbitrario, se concluye que $f =\PHI{F}[n]$. Este proceso puede visualizarse en la figura \ref{fig:cinta_composicion}.
+
+	\begin{figure}[h!]
+		\centering
+		\newcommand{\celda}[5]{%
+			\fill[#4] (#1, #3) rectangle (#2, #3 + 0.8);
+			\draw[thick] (#1, #3) rectangle (#2, #3 + 0.8);
+			\node at ({(#1 + #2)/2}, #3 + 0.4) {#5};
+		}
+		\newcommand{\etapa}[2]{%
+			\node[anchor = east, text width = 3.4cm, align = right] at (-0.3, #1 + 0.4) {\scriptsize #2};
+		}
+		\newcommand{\HL}{violet!50!blue!10}
+		\begin{tikzpicture}[font =\footnotesize]
+			% Encabezados: nombres de los registros y de cada zona de la cinta
+			\node at (2.8, 1.6) {\scriptsize\itshape zona de trabajo};
+			\node at (7.4, 1.6) {\scriptsize\itshape resultados parciales};
+			\node at (10.9, 1.6) {\scriptsize\itshape memoria auxiliar};
+			\node at (0.75, 1.05) {$R_{1}$};
+			\node at (3.55, 1.05) {$R_{2},\dotsc, R_{M}$};
+			\node at (7.4, 1.05) {$R_{M + 1},\dotsc, R_{M + k}$};
+			\node at (10.9, 1.05) {$R_{M + k + 1},\dotsc, R_{M + k + n}$};
+			% (1) Entrada
+			\etapa{0}{Entrada}
+			\celda{0}{1.5}{0}{white}{$x_{1}$}
+			\celda{1.5}{5.6}{0}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+			\celda{5.6}{9.2}{0}{white}{$0\ \cdots\ 0$}
+			\celda{9.2}{12.6}{0}{white}{$0\ \cdots\ 0$}
+			% (2) Copia de la entrada en la memoria auxiliar
+			\etapa{-1.25}{Se copia la entrada}
+			\celda{0}{1.5}{-1.25}{white}{$x_{1}$}
+			\celda{1.5}{5.6}{-1.25}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+			\celda{5.6}{9.2}{-1.25}{white}{$0\ \cdots\ 0$}
+			\celda{9.2}{12.6}{-1.25}{\HL}{$x_{1}\ \cdots\ x_{n}$}
+			% (3) Ejecucion de G_1
+			\etapa{-2.5}{Se ejecuta $G_{1}$}
+			\celda{0}{1.5}{-2.5}{\HL}{$g_{1}\pa*{x}$}
+			\celda{1.5}{5.6}{-2.5}{white}{residuos de $G_{1}$}
+			\celda{5.6}{9.2}{-2.5}{\HL}{$g_{1}\pa*{x}\ \ 0\ \cdots\ 0$}
+			\celda{9.2}{12.6}{-2.5}{white}{$x_{1}\ \cdots\ x_{n}$}
+			% (4) Limpieza y recarga de la entrada
+			\etapa{-3.75}{Se restaura la entrada}
+			\celda{0}{1.5}{-3.75}{\HL}{$x_{1}$}
+			\celda{1.5}{5.6}{-3.75}{\HL}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+			\celda{5.6}{9.2}{-3.75}{white}{$g_{1}\pa*{x}\ \ 0\ \cdots\ 0$}
+			\celda{9.2}{12.6}{-3.75}{white}{$x_{1}\ \cdots\ x_{n}$}
+			% (5) Se repite el ciclo con las demas maquinas
+			\etapa{-5}{Se repite con $G_{2},\dotsc, G_{k}$}
+			\celda{0}{1.5}{-5}{white}{$g_{k}\pa*{x}$}
+			\celda{1.5}{5.6}{-5}{white}{residuos de $G_{k}$}
+			\celda{5.6}{9.2}{-5}{\HL}{$g_{1}\pa*{x}\ \cdots\ g_{k}\pa*{x}$}
+			\celda{9.2}{12.6}{-5}{white}{$x_{1}\ \cdots\ x_{n}$}
+			% (6) Preparacion de la entrada de H
+			\etapa{-6.25}{Se cargan los resultados}
+			\celda{0}{1.5}{-6.25}{\HL}{$g_{1}\pa*{x}$}
+			\celda{1.5}{5.6}{-6.25}{\HL}{$g_{2}\pa*{x}\ \cdots\ g_{k}\pa*{x}\ \ 0\ \cdots\ 0$}
+			\celda{5.6}{9.2}{-6.25}{white}{$g_{1}\pa*{x}\ \cdots\ g_{k}\pa*{x}$}
+			\celda{9.2}{12.6}{-6.25}{white}{$x_{1}\ \cdots\ x_{n}$}
+			% (7) Ejecucion de H
+			\etapa{-7.5}{Se ejecuta $H$}
+			\celda{0}{1.5}{-7.5}{\HL}{$f\pa*{x}$}
+			\celda{1.5}{5.6}{-7.5}{white}{residuos de $H$}
+			\celda{5.6}{9.2}{-7.5}{white}{$g_{1}\pa*{x}\ \cdots\ g_{k}\pa*{x}$}
+			\celda{9.2}{12.6}{-7.5}{white}{$x_{1}\ \cdots\ x_{n}$}
+		\end{tikzpicture}
+		\caption[Máquina URM de la composición]{Evolución de la cinta de la máquina $F$ al computar $f = h\pa*{g_{1},\dotsc, g_{k}}$ sobre la entrada $x =\pa*{x_{1},\dotsc, x_{n}}$}
+		\label{fig:cinta_composicion}
+	\end{figure}
+
+	Continuemos con el caso de la \emph{\textbf{recursión primitiva}}. Sean $n\in\omega$, $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ funciones parcial-recursivas, y supongamos que existen máquinas URM $G$ y $H$ tales que $g = \PHI{G}[n]$ y $h =\PHI{H}[n + 2]$. Mostremos entonces que la función $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ y $y\in\omega$ es URM-computable:
+	\[
+		\begin{NiceArray}{c}
+			f\pa*{x, 0} = g\pa*{x}\\
+			f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
+		\end{NiceArray}
+	\]
+
+	De igual forma describamos cuál es el proceso que debe seguir la máquina URM $F$ la cual satisface $f = \PHI{F}[n + 1]$. Sean $x\in\omega^{n}$, $y\in\omega$ y $z = \pa*{x, y}$, entonces la idea es que la máquina $F$ computará primero el valor $f\pa*{x, 0} = g\pa*{x}$ como caso base y añadiremos instrucciones que nos permitan tener un contador $j$ el cual se comparará con el valor $y$. Si $j < y$, entonces se computará $f\pa*{x, j + 1} = h\pa*{x, j, f\pa*{x, j}}$, y si $j + 1 = y$, entonces acaba el proceso; si no, entonces repetimos lo mismo.
+
+	Sean $M_{g}$ y $M_{h}$ los registros máximos a los cuales hacen referencia las máquinas $G$ y $H$, respectivamente. Defínase $M =\max\set*{M_{g}, M_{h}, n + 2}$. Al ingresar la entrada $z = \pa*{x, y}$, transferiremos únicamente los datos $x$ en los registros $R_{M + 1},\dotsc, R_{M + n}$. Para el caso del valor $y$, lo transferiremos en el registro $R_{M + n + 3}$, ya que el registro $R_{M + n + 1}$ alojará el valor del contador $j$ y el registro $R_{M + n + 2}$ alojará el valor $f\pa*{x, j}$.
+
+	Después, inicializaremos el valor $y$ en el registro $R_{n + 1}$ con $0$. Entonces se ejecutará la máquina $G$, el cual por hipótesis devuelve el valor $g\pa*{x}$ en el primer registro. 
+
+	Sea $j$ el valor en el registro $R_{M + n + 1}$. El siguiente bloque de instrucciones será comparar el valor de los registros $R_{M + n + 1}$ (el valor $j$) y $R_{M + n + 3}$ (el valor $y$); terminamos la ejecución si son iguales, y realizamos lo siguiente si no: transferimos el valor del primer registro ($f\pa*{x, j}$) al registro $R_{M + n + 2}$, sumamos uno al valor del registro $R_{M + n + 1}$ ($j\leftarrow j + 1$), inicializamos con $0$ los registros $R_{1},\dotsc, R_{M}$, transferimos los valores de los registros $R_{M + n + 1},\dotsc, R_{M + n + 2}$ en los registros $R_{1},\dotsc, R_{n + 2}$, y ejecutamos las instrucciones de la máquina $H$ para obtener el valor $f\pa*{x, j + 1} = h\pa*{x, j, f\pa*{x, j}}$ en el primer registro (lo cual se asegura por hipótesis de inducción). Repetimos este mismo bloque.
+
+	De esta manera, cuando $j + 1 = y$, al haber calculado $f\pa*{x, j + 1}$, se tendrá al final de la ejecución en el primer registro el valor $f\pa*{x, y}$. Puesto que $x\in\omega^{n}$ y $y\in\omega$ fueron arbitrarios, se satisface que $f =\PHI{F}[n + 1]$. Este proceso puede visualizarse en la figura \ref{fig:cinta_recursion_primitiva}.
+
+	\begin{figure}[h!]
+		\centering
+		\newcommand{\celda}[5]{%
+			\fill[#4] (#1, #3) rectangle (#2, #3 + 0.8);
+			\draw[thick] (#1, #3) rectangle (#2, #3 + 0.8);
+			\node at ({(#1 + #2)/2}, #3 + 0.4) {#5};
+		}
+		\newcommand{\etapa}[2]{%
+			\node[anchor = east, text width = 3.6cm, align = right] at (-0.3, #1 + 0.4) {\scriptsize\hyphenpenalty = 10000\relax #2};
+		}
+		\newcommand{\HL}{violet!50!blue!10}
+		\resizebox{\textwidth}{!}{%
+		\begin{tikzpicture}[font =\footnotesize]
+			% Encabezados: nombres de los registros y del papel que juega cada uno
+			\node at (3.7, 1.6) {\scriptsize\itshape zona de trabajo};
+			\node at (8.6, 1.6) {\scriptsize\itshape copia de $x$};
+			\node at (10.5, 1.6) {\scriptsize\itshape contador};
+			\node at (12.2, 1.6) {\scriptsize\itshape valor previo};
+			\node at (13.9, 1.6) {\scriptsize\itshape copia de $y$};
+			\node at (1, 1.05) {\scriptsize $R_{1}$};
+			\node at (4.7, 1.05) {\scriptsize $R_{2},\dotsc, R_{M}$};
+			\node at (8.6, 1.05) {\scriptsize $R_{M + 1},\dotsc, R_{M + n}$};
+			\node at (10.5, 1.05) {\scriptsize $R_{M + n + 1}$};
+			\node at (12.2, 1.05) {\scriptsize $R_{M + n + 2}$};
+			\node at (13.9, 1.05) {\scriptsize $R_{M + n + 3}$};
+			% (1) Entrada
+			\etapa{0}{Entrada \mbox{$z =\pa*{x, y}$}}
+			\celda{0}{2}{0}{white}{$x_{1}$}
+			\celda{2}{7.4}{0}{white}{$x_{2}\ \cdots\ x_{n}\ \ y\ \ 0\ \cdots\ 0$}
+			\celda{7.4}{9.8}{0}{white}{$0\ \cdots\ 0$}
+			\celda{9.8}{11.2}{0}{white}{$0$}
+			\celda{11.2}{13.2}{0}{white}{$0$}
+			\celda{13.2}{14.6}{0}{white}{$0$}
+			% (2) Copia de la entrada en la memoria auxiliar
+			\etapa{-1.25}{Se copia la entrada y se borra $y$ de $R_{n + 1}$}
+			\celda{0}{2}{-1.25}{white}{$x_{1}$}
+			\celda{2}{7.4}{-1.25}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+			\celda{7.4}{9.8}{-1.25}{\HL}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-1.25}{\HL}{$0$}
+			\celda{11.2}{13.2}{-1.25}{white}{$0$}
+			\celda{13.2}{14.6}{-1.25}{\HL}{$y$}
+			% (3) Caso base: ejecucion de G
+			\etapa{-2.5}{Se ejecuta $G$ (caso base)}
+			\celda{0}{2}{-2.5}{\HL}{$f\pa*{x, 0}$}
+			\celda{2}{7.4}{-2.5}{white}{residuos de $G$}
+			\celda{7.4}{9.8}{-2.5}{white}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-2.5}{white}{$0$}
+			\celda{11.2}{13.2}{-2.5}{white}{$0$}
+			\celda{13.2}{14.6}{-2.5}{white}{$y$}
+			% (4) Si el contador no ha llegado a y: se guarda f(x, j) y se carga la entrada de H
+			\etapa{-3.75}{Si \mbox{$j\neq y$}: se guarda $f\pa*{x, j}$ y se carga la entrada de $H$}
+			\celda{0}{2}{-3.75}{\HL}{$x_{1}$}
+			\celda{2}{7.4}{-3.75}{\HL}{$x_{2}\ \cdots\ x_{n}\ \ j\ \ f\pa*{x, j}\ \ 0\ \cdots\ 0$}
+			\celda{7.4}{9.8}{-3.75}{white}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-3.75}{white}{$j$}
+			\celda{11.2}{13.2}{-3.75}{\HL}{$f\pa*{x, j}$}
+			\celda{13.2}{14.6}{-3.75}{white}{$y$}
+			% (5) Ejecucion de H
+			\etapa{-5}{Se ejecuta $H$}
+			\celda{0}{2}{-5}{\HL}{$f\pa*{x, j + 1}$}
+			\celda{2}{7.4}{-5}{white}{residuos de $H$}
+			\celda{7.4}{9.8}{-5}{white}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-5}{white}{$j$}
+			\celda{11.2}{13.2}{-5}{white}{$f\pa*{x, j}$}
+			\celda{13.2}{14.6}{-5}{white}{$y$}
+			% (6) Incremento del contador
+			\etapa{-6.25}{Se incrementa el contador}
+			\celda{0}{2}{-6.25}{white}{$f\pa*{x, j + 1}$}
+			\celda{2}{7.4}{-6.25}{white}{residuos de $H$}
+			\celda{7.4}{9.8}{-6.25}{white}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-6.25}{\HL}{$j + 1$}
+			\celda{11.2}{13.2}{-6.25}{white}{$f\pa*{x, j}$}
+			\celda{13.2}{14.6}{-6.25}{white}{$y$}
+			% (7) Fin del ciclo
+			\etapa{-7.5}{Al alcanzarse \mbox{$j = y$}, termina}
+			\celda{0}{2}{-7.5}{\HL}{$f\pa*{x, y}$}
+			\celda{2}{7.4}{-7.5}{white}{residuos de $H$}
+			\celda{7.4}{9.8}{-7.5}{white}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-7.5}{white}{$y$}
+			\celda{11.2}{13.2}{-7.5}{white}{$f\pa*{x, y - 1}$}
+			\celda{13.2}{14.6}{-7.5}{white}{$y$}
+			% Ciclo: las etapas centrales se repiten mientras el contador no alcance a y
+			\draw[thick, ->] (14.6, -5.85) -- (15.1, -5.85) -- (15.1, -3.35) -- (14.6, -3.35);
+			\node[rotate = -90] at (15.4, -4.6) {\scriptsize mientras $j\neq y$};
+		\end{tikzpicture}}
+		\caption[Máquina URM de la recursión primitiva]{Evolución de la cinta de la máquina $F$ al computar por recursión primitiva $f$ sobre la entrada $z =\pa*{x, y}$}
+		\label{fig:cinta_recursion_primitiva}
+	\end{figure}
+
+	Finalicemos con el caso de la \emph{\textbf{minimización no acotada}}. Sean $n\in\omega$ y $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ una función parcial-computable, y supongamos que existe una máquina URM $G$ la cual satisface que $g = \PHI{G}[n + 1]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ es URM-computable:
+	\[
+		f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}
+	\]
+	De igual manera, describiremos el procedimiento que debe seguir una máquina URM $F$ de modo que se satisfaga $f =\PHI{F}[n]$. Sea $x\in\omega^{n}$, entonces la idea es tener un contador $j\in\omega$ de modo que se calculará el valor $g\pa*{x, j}$ y verificaremos si es igual a cero; si es igual a cero, terminamos la ejecución y devolvemos el valor $j$, y si no, entonces aumentamos en uno a $j$ ($j\leftarrow j + 1$) y repetimos el proceso.
+
+	Sea $M_{G}$ el registro máximo al cual hace referencia la máquina $G$, entonces defínase $M =\max\set*{M, n + 1}$. El primer paso es transferir los datos de entrada en el contenido de los registros $R_{M + 1},\dotsc, R_{M + n}$. El contenido del registro $R_{M + n + 1}$ nos servirá como el contador $j$ y el contenido del registro $R_{M + n + 2}$ (el cual contiene el valor de cero) para comparar si la función $g$ se anuló.
+
+	Sea $j$ el contenido del registro $R_{M + n + 1}$. El bloque a realizar es, primero, ejecutar las instrucciones de la máquina $G$ para obtener en el primer registro el valor $g\pa*{x, j}$ por hipótesis de inducción, después se comparan los contenidos de los registros $R_{1}$ y $R_{M + n + 2}$: si sí son iguales, entonces se ejecuta la última instrucción que describiremos más adelante; si no, entonces sumamos uno al contenido del registro $R_{M + n + 1}$ ($j\leftarrow j + 1$), inicializamos con cero los registros $R_{1},\dotsc, R_{M}$, y transferimos el contenido de los registros $R_{M + 1},\dotsc, R_{M + n + 1}$ en los registros $R_{1},\dotsc, R_{n + 1}$. Repetimos el bloque.
+
+	La última instrucción de la máquina es transferir el contenido del registro $R_{M + n + 1}$ (el valor $j$) en el primer registro y se termina la ejecución.
+
+	Si en efecto se satisface que $g\pa*{x, j} = 0$, entonces eso únicamente ocurrió debido a que para cada $k < j$, $g\pa*{x, k}\ACABA$ y (por construcción) $g\pa*{x, k}\neq 0$. Por lo tanto, efectivamente se satisface que, al finalizar la ejecución, el primer registro contiene el valor $\mu j\pa*{g\pa*{x, j} = 0} = f\pa*{x}$. Puesto que $x\in\omega^{n}$ es arbitrario, se satisface que $f =\PHI{F}[n + 1]$. Este proceso puede visualizarse en la figura \ref{fig:cinta_minimizacion}.
+
+	\begin{figure}[h!]
+		\centering
+		\newcommand{\celda}[5]{%
+			\fill[#4] (#1, #3) rectangle (#2, #3 + 0.8);
+			\draw[thick] (#1, #3) rectangle (#2, #3 + 0.8);
+			\node at ({(#1 + #2)/2}, #3 + 0.4) {#5};
+		}
+		\newcommand{\etapa}[2]{%
+			\node[anchor = east, text width = 5.4cm, align = right] at (-0.3, #1 + 0.4) {\scriptsize #2};
+		}
+		\newcommand{\HL}{violet!50!blue!10}
+		\resizebox{\textwidth}{!}{%
+		\begin{tikzpicture}[font =\footnotesize]
+			% Encabezados: nombres de los registros y del papel que juega cada uno
+			\node at (3.7, 1.6) {\scriptsize\itshape zona de trabajo};
+			\node at (8.6, 1.6) {\scriptsize\itshape copia de $x$};
+			\node at (10.5, 1.6) {\scriptsize\itshape contador};
+			\node at (12, 1.6) {\scriptsize\itshape cero};
+			\node at (1, 1.05) {\scriptsize $R_{1}$};
+			\node at (4.7, 1.05) {\scriptsize $R_{2},\dotsc, R_{M}$};
+			\node at (8.6, 1.05) {\scriptsize $R_{M + 1},\dotsc, R_{M + n}$};
+			\node at (10.5, 1.05) {\scriptsize $R_{M + n + 1}$};
+			\node at (12, 1.05) {\scriptsize $R_{M + n + 2}$};
+			% (1) Entrada
+			\etapa{0}{Entrada $x$}
+			\celda{0}{2}{0}{white}{$x_{1}$}
+			\celda{2}{7.4}{0}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+			\celda{7.4}{9.8}{0}{white}{$0\ \cdots\ 0$}
+			\celda{9.8}{11.2}{0}{white}{$0$}
+			\celda{11.2}{12.8}{0}{white}{$0$}
+			% (2) Copia de la entrada y arranque del contador
+			\etapa{-1.25}{Se copia la entrada y arranca el contador}
+			\celda{0}{2}{-1.25}{white}{$x_{1}$}
+			\celda{2}{7.4}{-1.25}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+			\celda{7.4}{9.8}{-1.25}{\HL}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-1.25}{\HL}{$0$}
+			\celda{11.2}{12.8}{-1.25}{\HL}{$0$}
+			% (3) Ejecucion de G sobre (x, j)
+			\etapa{-2.5}{Se ejecuta $G$ sobre \mbox{$\pa*{x, j}$}}
+			\celda{0}{2}{-2.5}{\HL}{$g\pa*{x, j}$}
+			\celda{2}{7.4}{-2.5}{white}{residuos de $G$}
+			\celda{7.4}{9.8}{-2.5}{white}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-2.5}{white}{$j$}
+			\celda{11.2}{12.8}{-2.5}{white}{$0$}
+			% (4) Si g(x, j) no es cero: se incrementa el contador y se recarga la entrada
+			\etapa{-3.75}{Si \mbox{$g\pa*{x, j}\neq 0$}: aumenta $j$ y se recarga la entrada}
+			\celda{0}{2}{-3.75}{\HL}{$x_{1}$}
+			\celda{2}{7.4}{-3.75}{\HL}{$x_{2}\ \cdots\ x_{n}\ \ j + 1\ \ 0\ \cdots\ 0$}
+			\celda{7.4}{9.8}{-3.75}{white}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-3.75}{\HL}{$j + 1$}
+			\celda{11.2}{12.8}{-3.75}{white}{$0$}
+			% (5) Si g(x, j) es cero: el contador es el valor buscado
+			\etapa{-5}{Si \mbox{$g\pa*{x, j} = 0$}: el valor $j$ pasa al primer registro}
+			\celda{0}{2}{-5}{\HL}{$j = f\pa*{x}$}
+			\celda{2}{7.4}{-5}{white}{residuos de $G$}
+			\celda{7.4}{9.8}{-5}{white}{$x_{1}\ \cdots\ x_{n}$}
+			\celda{9.8}{11.2}{-5}{white}{$j$}
+			\celda{11.2}{12.8}{-5}{white}{$0$}
+			% Ciclo: se vuelve a ejecutar G con el contador aumentado
+			\draw[thick, ->] (12.8, -3.35) -- (13.3, -3.35) -- (13.3, -2.1) -- (12.8, -2.1);
+			\node[rotate = -90] at (13.55, -2.725) {\scriptsize repetir};
+		\end{tikzpicture}}
+		\caption[Máquina URM de la minimización no acotada]{Evolución de la cinta de la máquina $F$ al computar $f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}$ sobre la entrada $x =\pa*{x_{1},\dotsc, x_{n}}$}
+		\label{fig:cinta_minimizacion}
+	\end{figure}
+
+	Por lo tanto, por inducción sobre el conjunto de funciones parcial-recursivas, se satisface que para toda función $f:\omega^{n}\to\omega^{\DIVERGE}$, para algún $n\in\omega$, parcial-recursiva existe una máquina URM $F$ la cual satisface que $f =\PHI{F}[n]$.
 \end{proof}
-\comment{Completar}{Falta completar la demostración que las funciones parcial-recursivas son URM-computables.}
+
+La demostración de este teorema no solamente nos asegura que toda función parcial-recursiva es URM-computable, sino que también nos da un método constructivo de cómo describir las instrucciones que debe seguir una máquina URM para computarla. Ese enfoque constructivo en casi todas las demostraciones de las propiedades de los objetos computables es la gran ventaja de toda la teoría, ya que todo objeto es teóricamente construible por un ser humano.
 
 \subsection{Codificación de listas}
 
