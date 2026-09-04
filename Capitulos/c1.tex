@@ -2058,3 +2058,80 @@ Con ayuda de este conjunto se puede demostrar que el problema de la detención t
 	Notemos que para cada $e\in\omega$ se satisface que $\inner*{e, e}\in K'$ si y solo si $e\in K$. Se sigue entonces que $\CARACTERISTICA{K}\pa*{e} =\CARACTERISTICA{K'}\pa*{\inner*{e, e}}$. Si $K'$ fuera computable, entonces $\CARACTERISTICA{K'}$ sería computable, y también $\CARACTERISTICA{K}$ por consiguiente. Puesto que $K$ no es computable por el teorema de Turing, se sigue que $K'$ no es computable.
 \end{proof}
 
+De la demostración del teorema de Turing, la función de diagonalización $f:\omega\to\omega$ definida como:
+\[
+	f\pa*{e} =
+	\begin{cases}
+		\Phi_{e}\pa*{e} + 1, & e\in K\\
+		0, & e\notin K
+	\end{cases}
+\] 
+no puede ser computable ya que $K$ no lo es. Por lo tanto, esta es un ejemplo explícito de la existencia de funciones parciales que no son computables.
+
+La existencia de conjuntos y funciones no computables motiva cierto debilitamiento del concepto de computabilidad. La propiedad para un conjunto de ser computable es una condición muy fuerte, pues exige tener un proceso bien conocido, el cual se pueda ejecutar en un tiempo finito y de manera efectiva, que nos permita \emph{decidir} si un elemento pertenece al conjunto o no.
+
+Una manera de debilitar esa propiedad es no necesariamente poder decidir siempre si un elemento pertenece al conjunto o no, sino, en cambio, poder ``imprimir'' sus elementos. Con ello nos referimos a que exista un algoritmo que permita calcular los elementos del conjunto, de modo que al ejecutarlo ``imprimamos'' cada una de sus salidas para conocer explícitamente qué elementos pertenecen al conjunto. 
+
+Esta forma de ver lo computable es en efecto una forma más débil del concepto que ya tenemos de conjunto computable, pues tiene un problema importante. Consideremos un conjunto $A\subseteq\omega$ y una función $f:\omega\to\omega^{\DIVERGE}$ computable que ``imprime'' a $A$, es decir, es tal que para cada $y\in A$ existe $x\in\omega$ tal que $f\pa*{x} = y$. Esto implica que $A =\RANGO{f}$. Si quisiéramos determinar, por ejemplo, si el número $5$ pertenece a $A$, la función $f$ nos permitiría verificarlo evaluándola hasta encontrar un valor $x\in\omega$ tal que $f\pa*{x} = 5$. Ese proceso no está asegurado para terminar en un tiempo finito, pues existen dos posibles situaciones que podemos enfrentar y nos imposibiliten determinar si $5\in A$. 
+
+La primera es que directamente $5\notin A$ y luego no exista ningún $x\in\omega$ tal que $f\pa*{x} = 5$. Puesto que solamente tenemos acceso a la información que nos proporciona $f$, incluso si intentamos evaluar todo número natural en $f$, nunca podremos determinar que $5\notin A$, incluso teniendo tiempo infinito. 
+
+La segunda situación es que $5\in A$ pero el comportamiento parcial de $f$ nos imposibilite saberlo. Como $5\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = 5$, pero si fuera el caso que $x > 0$ y, por ejemplo, $x - 1$ sea tal que $f\pa*{x - 1}\DIVERGE$. Si nuestra estrategia para encontrar a $5$ fuera evaluar la función en orden $f\pa*{1}, f\pa*{2},\dotsc, f\pa*{x}$, entonces en $f\pa*{x - 1}$ quedaríamos esperando hasta obtener su resultado. Puesto que el problema de la detención $K'$ no es computable, no tenemos manera efectiva en tiempo finito de poder saber que $f\pa*{x - 1}\DIVERGE$. Luego, no sería posible decidir si $5\in A$ incluso cuando es cierto.
+
+Es natural pensar, en la segunda situación, que ir recorriendo la función $f$ desde cero e ir en orden uno por uno no es la mejor estrategia de determinar que en efecto $5\in A$, y puede existir otra manera mejor de evaluar $f$. Sin embargo, encontrar tal estrategia para cada función computable $f$ no es posible de manera computable, pues deberíamos tener acceso a $K'$ para saber qué entradas de $f$ convergen. Por ello, no todos los conjuntos que son rango de funciones computables son computables, pero sí son conjuntos dignos de estudiar.
+
+Este tipo de conjuntos que son rango de funciones computables se denominan \emph{conjuntos computablemente enumerables} ya que cada elemento de ellos puede corresponder con el número que lo genera, de modo que la función computable sirve como una ``etiquetadora'' de los elementos del conjunto enumerándolos de manera natural.
+
+\begin{definition}[Conjuntos computablemente enumerables]
+	Sea $A\subseteq\omega$, entonces se denomina \emph{computablemente enumerable} (o \emph{c.e.}) si $A =\varnothing$ o existe $e\in\omega$ tal que para cada $x\in \omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $\Phi_{e}\pa*{z}= x$.
+\end{definition}
+
+Ya que mencionamos que esta definición es una propiedad más débil a la de los conjuntos computables, entonces es de esperarse que los conjuntos computables sean c.e. Esa afirmación se prueba con ayuda del siguiente teorema.
+
+\begin{theorem}
+	Sea $A\subseteq\omega$ un conjunto infinito y computable, entonces existe una función total-computable y estrictamente creciente $f:\omega\to\omega$ tal que $\RANGO{f} = A$.
+\end{theorem}
+
+\begin{proof}
+	La idea es construir la función $f:\omega\to\omega$ de modo tal que enumere en orden cada uno de los elementos de $A$, es decir, tal que $f\pa*{0}$ sea el mínimo elemento de $A$, $f\pa*{1}$ sea el mínimo elemento de $A\setminus\set*{f\pa*{0}}$, y así sucesivamente. Definamos la función $f:\omega\to\omega$ de la siguiente manera para cada $x\in\omega$:
+	\[
+		\begin{NiceArray}{c}
+			f\pa*{0} = \mu z A\pa*{z}\\
+			f\pa*{x + 1} = \mu z\pa*{A\pa*{z}\land z > f\pa*{x}}
+		\end{NiceArray}
+	\]
+	Verífiquemos que $f$ satisface la proposición. Puesto que $A$ es computable, y $f$ se genera mediante recursión primitiva y minimización no acotada, se sigue que $f$ es parcial-computable. 
+	
+	Mostremos por inducción que $f$ es total. Ya que $A$ es infinito, en particular no es vacío, y luego existe $z\in\omega$ tal que $z\in A$; lo cual implica que $f\pa*{0} =\mu z A\pa*{z}\ACABA$. Sea ahora $x\in\omega$ el cual satisface que $f\pa*{x}\ACABA$. Puesto que $A$ es infinito, se tiene que el conjunto $X =\set*{z\in\omega: A\pa*{z}\land z > f\pa*{x}}$ es no vacío y por tanto $f\pa*{x + 1} = \mu z\pa*{A\pa*{z}\land z > f\pa*{x}} =\mu z X\pa*{z}\ACABA$. Por consiguiente, $f$ es total.
+
+	Por la definición de $f$ se sigue directamente que para cada $x\in\omega$, $f\pa*{x} < f\pa*{x + 1}$. Mostremos por inducción sobre $y$ que para cada $x, y\in\omega$, $f\pa*{x} < f\pa*{x + y + 1}$. Para $y = 0$ se sigue directamente por lo antes dicho. Sea ahora $y\in\omega$ tal que $f\pa*{x} < f\pa*{x + y + 1}$, entonces por el mismo argumento tenemos que $f\pa*{x + y + 1} < f\pa*{x + y + 2}$, y por transitividad se tiene que $f\pa*{x} < f\pa*{x + y + 2}$. Por lo tanto, para cada $x < y\in\omega$ se satisface que $f\pa*{x} < f\pa*{y}$, es decir, $f$ es estrictamente creciente.
+
+	Finalmente, mostremos que $\RANGO{f} = A$. Por la definición de $f$ se sigue directamente que $\RANGO{f}\subseteq A$. Probemos entonces que $A\subseteq\RANGO{f}$, y para ello mostremos equivalentemente por inducción fuerte que para cada $y\in\omega$ y cada $z\leq y$, si $z\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$. Para el caso base $y = 0$ tenemos dos casos: $y\notin A$ o $y\in A$. Si $y\notin A$, se satisface la proposición por vacuidad. Si $y\in A$, entonces se tiene que $y = 0 =\mu z A\pa*{z} = f\pa*{0}$, y tomemos por testigo $x = 0$ por consiguiente.
+
+	Sea ahora $y\in\omega$ tal que para cada $z\leq y$, si $z\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$. Mostremos que se satisface para $y + 1$. Tenemos tres casos: $y + 1\notin A$, $y + 1\in A$ y no existe $z < y + 1$ tal que $z\in A$, o $y + 1\in A$ y existe $z < y + 1$ tal que $z\in A$. En el primer caso, se satisface la afirmación por vacuidad. En el segundo se tendría entonces que $y + 1 =\mu z A\pa*{z} = f\pa*{0}$. En el tercer caso, tomemos al valor $z < y + 1$ máximo tal que $z\in A$. Ya que $z\leq y$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$. Puesto que $z$ es el máximo, se tiene que:
+	\[
+		y + 1 =\mu w\pa*{A\pa*{w}\land w > z} =\mu w\pa*{A\pa*{w}\land w > f\pa*{x}} = f\pa*{x + 1}
+	\]
+
+	Por lo tanto, por inducción se muestró que $A\subseteq\RANGO{f}$, y luego $\RANGO{f} = A$.
+\end{proof}
+
+\begin{coll}
+	Todo subconjunto computable de $\omega$ es c.e.
+\end{coll}
+
+\begin{proof}
+	Sea $A\subseteq\omega$ computable, entonces tenemos tres casos: $A =\varnothing$, $A$ es finito y no vacío, o $A$ es infinito.
+
+	Por definición de los conjuntos c.e. se sigue que si $A =\varnothing$, entonces $A$ es c.e. Si $A$ es infinito, entonces por el teorema anterior se sigue que $A$ es rango de una función total-computable, y luego es c.e. 
+
+	Ahora, si $A$ es finito, entonces podemos definir la misma función $f:\omega\to\omega$ de la siguiente manera para cada $x\in\omega$:
+	\[
+		\begin{NiceArray}{c}
+			f\pa*{0} = \mu z A\pa*{z}\\
+			f\pa*{x + 1} = \mu z\pa*{A\pa*{z}\land z > f\pa*{x}}
+		\end{NiceArray}
+	\]
+
+	Usando los mismos argumentos que el teorema anterior se tiene que $A\subseteq\RANGO{f}$. Notemos por la definición de $f$ que si $x\in\omega$ es tal que $f\pa*{x}\ACABA$, entonces $f\pa*{x}\in A$. Por lo tanto se satisface que $z\in A$ si y solo si existe $x\in\omega$ tal que $f\pa*{x} = z$, es decir, $A$ es c.e.
+\end{proof}
