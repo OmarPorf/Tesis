@@ -1993,7 +1993,7 @@ Una consecuencia importante del teorema de la forma normal de Kleene es la exist
 \end{proof}
 
 \begin{notation}
-	Sea $N\in\URM$ la máquina universal, entonces denotaremos por $\Phi_{e}\pa*{z}$ a $\PHI{N}[2]\pa*{e, z}$ para cada $e, z\in\omega$. 
+	Sea $N\in\URM$ la máquina universal, entonces denotaremos por $\Phi_{e}\pa*{z}$ a $\PHI{N}[2]\pa*{e, \inner*{z}}$ para cada $e, n\in\omega$ y cada $z\in\omega^{n}$. 
 \end{notation}
 
 La existencia de la máquina universal nos permite desvincularnos de las máquinas URM cuando hablamos de códigos. Puesto que existe al menos una máquina universal, y esta puede simular cualquier otra máquina teniendo su codificación, mas no la máquina que codifica explícitamente, entonces los algoritmos se corresponden directamente con números naturales. Además, la codificación de algoritmos que construimos mediante máquinas URM no es la única que existe. Existen, por ejemplo, maneras de codificar algoritmos mediante funciones parcial-recursivas, máquinas de Turing, o algún otro modelo de computabilidad, que nos permiten construir el T-predicado de Kleene también; y luego demostrar la existencia de la máquina universal. Más aún, todas estas codificaciones pueden corresponderse de manera biyectiva mediante funciones computables. Por lo tanto, de ahora en adelante los algoritmos se representarán únicamente por números naturales. 
@@ -2083,7 +2083,7 @@ Es natural pensar, en la segunda situación, que ir recorriendo la función $f$ 
 Este tipo de conjuntos que son rango de funciones computables se denominan \emph{conjuntos computablemente enumerables} ya que cada elemento de ellos puede corresponder con el número que lo genera, de modo que la función computable sirve como una ``etiquetadora'' de los elementos del conjunto enumerándolos de manera natural.
 
 \begin{definition}[Conjuntos computablemente enumerables]
-	Sea $A\subseteq\omega$, entonces se denomina \emph{computablemente enumerable} (o \emph{c.e.}) si $A =\varnothing$ o existe $e\in\omega$ tal que para cada $x\in \omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $\Phi_{e}\pa*{z}= x$.
+	Sea $A\subseteq\omega$, entonces se denomina \emph{computablemente enumerable} (o \emph{c.e.}) si $A =\varnothing$ o existe una función computable $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in \omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $f\pa*{z}= x$.
 \end{definition}
 
 Ya que mencionamos que esta definición es una propiedad más débil a la de los conjuntos computables, entonces es de esperarse que los conjuntos computables sean c.e. Esa afirmación se prueba con ayuda del siguiente teorema.
@@ -2135,3 +2135,160 @@ Ya que mencionamos que esta definición es una propiedad más débil a la de los
 
 	Usando los mismos argumentos que el teorema anterior se tiene que $A\subseteq\RANGO{f}$. Notemos por la definición de $f$ que si $x\in\omega$ es tal que $f\pa*{x}\ACABA$, entonces $f\pa*{x}\in A$. Por lo tanto se satisface que $z\in A$ si y solo si existe $x\in\omega$ tal que $f\pa*{x} = z$, es decir, $A$ es c.e.
 \end{proof}
+
+Una propiedad que será de mucha ayuda es una caracterización de los conjuntos c.e., pues resulta que un conjunto es c.e. no solamente si es rango de una función computable, sino que también si es su dominio.
+
+\begin{theorem}[Caracterización de los conjuntos c.e.]
+	Sea $A\subseteq\omega$, entonces se satisface que $A$ es c.e. si y solo si existe una función computable $f:\omega\to\omega^{\DIVERGE}$ tal que $A =\DOMINIO{f}$.
+\end{theorem}
+
+\begin{proof}
+	Consideremos primero que $A$ es c.e., entonces existen dos casos: $A =\varnothing$ o $A\neq\varnothing$. Si $A =\varnothing$, entonces consideremos a la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $f\pa*{x} =\mu z\pa*{1 = 0}$. Notemos que $f$ es computable ya que el conjunto $X =\set*{e\in\omega: 1 = 0} =\varnothing$ es primitivo-recursivo. Notemos que para cada $x\in\omega$ se satisface que $f\pa*{x}\ACABA$, por lo que $\DOMINIO{f} =\varnothing = A$.
+	
+	Supongamos ahora que $A\neq\varnothing$, entonces existe una función computable $g:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $g\pa*{z} = x$. La manera directa es considerar la siguiente función $f\pa*{x} =\mu z\pa*{g\pa*{z} = x}$, pues notemos que se satisface lo siguiente:
+	\[
+		x\in A\iff\exists z\pa*{g\pa*{z} = x}\iff\mu z\pa*{g\pa*{z} = x}\ACABA\iff f\pa*{x}\ACABA
+	\]
+	Sin embargo, para que lo anterior sea realmente cierto debe satisfacerse que para cada $y < f\pa*{x}$, $g\pa*{y} \ACABA$, lo cual no necesariamente es cierto. Para resolver lo anterior, por el teorema de la forma normal de Kleene existe $e\in\omega$ tal que para cada $z\in\omega$, $g\pa*{z}\ACABA$ si y solo si existe $p\in\omega$ tal que $T\pa*{e, z, p}$. Si queremos calcular el valor $\mu z\pa*{g\pa*{z} = x}$, no solamente debe existir el valor $z\in\omega$ sino que también el valor $p\in\omega$ de modo que:
+	\[
+		f\pa*{x} = \mu z\pa*{g\pa*{z} = x} =\mu z \pa*{U\pa*{\mu p T\pa*{e, z, p}} = x}
+	\]
+
+	Esto podemos simplificarlo de la siguiente manera:
+	\[
+		f\pa*{x} =\mu\inner*{z, p}\pa*{T\pa*{e, z, p}\land U\pa*{p} = x}
+	\]
+	o equivalentemente:
+	\[
+		f\pa*{x}\coloneqq\mu w\pa*{T\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = x}
+	\]
+
+	Notemos que en este caso el conjunto $\set*{w\in\omega: T\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = x}$ es primitivo-recursivo ya que $T$, $U$ y el acceso son primitivo-recursivos, por lo que en efecto $f$ es computable, y además para cada $x\in\omega$:
+	\begin{align*}
+		f\pa*{x}\ACABA&\iff\exists w\pa*{T\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = x}\\
+		&\iff\exists z\exists p\pa*{T\pa*{e, z, p}\land U\pa*{p} = x}\\
+		&\iff\exists z\pa*{g\pa*{z} = x}\\
+		&\iff x\in A
+	\end{align*}
+	Por lo tanto, $A =\DOMINIO{f}$.
+
+	Consideremos ahora que $A =\DOMINIO{g}$ para alguna función computable $g:\omega\to\omega^{\DIVERGE}$ y mostremos que $A$ es c.e. Si $A =\varnothing$, se sigue directamente que $A$ es c.e. Supongamos entonces que $A\neq\varnothing$ y sea $e\in\omega$ tal que para cada $z\in\omega$, $g\pa*{z}\ACABA$ si y solo si existe $p\in\omega$ tal que $T\pa*{e, z, p}$. Definamos entonces la siguiente función $h:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$:
+	\[
+		h\pa*{z} =\mu\inner*{x, p}\pa*{T\pa*{e, x, p}\land U\pa*{p} = z}
+	\]
+	o equivalentemente:
+	\[
+		h\pa*{z}\coloneqq\mu w\pa*{T\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = z}
+	\]
+	
+	Como $T$, $U$ y el acceso son primitivo-recursivos, se sigue que $h$ es computable. Definamos la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$, $f\pa*{x} = h\pa*{z}\bra*{0}$, la cual es computable ya que $f$ es computable. Entonces se satisface lo siguiente para cada $x\in\omega$:
+	\begin{align*}
+		\exists z\pa*{f\pa*{z} = x} &\iff\exists z\pa*{h\pa*{z}\bra*{0} = x}\\
+		&\iff\exists z\exists w\pa*{T\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = z\land w\bra*{0} = x}\\
+		&\iff\exists z\exists p\pa*{T\pa*{e, x, p}\land U\pa*{p} = z}\\
+		&\iff\exists z\pa*{g\pa*{x} = z}\\
+		&\iff x\in A
+	\end{align*}
+	Por lo tanto, $A$ es c.e.
+\end{proof}
+
+Esta propiedad nos permite demostrar de manera casi directa que el conjunto de detención $K$ es c.e. Este resultado nos implica que, aunque $K$ no es computable en el sentido fuerte, sí es posible computar sus valores.
+
+\begin{coll}
+	Los conjunto de detención $K$ y $K'$ son c.e.
+\end{coll}
+
+\begin{proof}
+	Consideremos la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $e\in\omega$, $f\pa*{e} = \Phi_{e}\pa*{e}$, la cual claramente es computable. Entonces se satisface lo siguiente para cada $e\in\omega$:
+	\[
+		f\pa*{e}\ACABA\iff\Phi_{e}\pa*{e}\ACABA\iff e\in K
+	\]
+	Por lo que $K =\DOMINIO{f}$, y luego $K$ es c.e.
+
+	Para el caso de $K'$, se define la función $g:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$ se cumple $g\pa*{z} =\Phi_{z\bra*{0}}\pa*{z\bra*{1}}\CARACTERISTICA{=}\pa*{\LONGITUD\pa*{z}, 2}$, la cual es computable. Entonces para cada $\inner*{e, x}\in\omega$ se satisface lo siguiente:
+	\[
+		g\pa*{\inner*{e, x}}\ACABA\iff\Phi_{e}\pa*{x}\ACABA\iff\inner*{e, x}\in K'
+	\]
+	Por lo que $K' =\DOMINIO{g}$, y luego $K'$ es c.e.
+\end{proof}
+
+Para complementar la definición de c.e. se define lo siguiente.
+
+\begin{definition}[Conjuntos co-computablemente enumerables]
+	Sea $A\subseteq\omega$, entonces se denomina \emph{co-computablemente enumerable} (o \emph{co-c.e.}) si $\omega\setminus A$ es c.e.
+\end{definition}
+
+Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e. con los conjuntos computables. Aunque ya sabemos que los conjuntos computables son c.e., no hemos dicho si existe una característica que deban satisfacer los conjuntos c.e. para ser computables. Resulta que un conjunto c.e. es computable si y solo si es también co-c.e. Una manera de entender por qué es recurriendo a la interpretación que tenemos de los conjuntos c.e. Si el conjunto es c.e. y co-c.e, entonces podemos ``imprimir'' los elementos del conjunto (y de su complemento) de manera computable. Para determinar si un elemento pertenece a él, podemos ejecutar ambas impresiones de manera paralela: si el elemento pertenece, eventualmente será impreso por ser c.e.; y si no, entonces eventualmente será impreso por ser co-c.e. Este proceso es computable y total, por lo que podemos caracterizar de manera computable la función característica del conjunto, y luego sería computable.
+
+\begin{theorem}[Caracterización de los conjuntos computables]
+	Sea $A\subseteq\omega$, entonces $A$ es computable si y solo si es c.e. y co-c.e.
+\end{theorem}
+
+\begin{proof}
+	Si $A$ es computable, entonces es c.e. Además, sabemos que $\omega\setminus A$ es computable, y luego c.e., por lo que $A$ también es co-c.e.
+
+	Consideremos ahora que $A$ es c.e. y co-c.e., y mostremos que $A$ es computable. Si $A =\varnothing$ u $\omega\setminus A =\varnothing$, entonces claramente $A$ es computable. Supongamos ahora que $A\neq\varnothing$ y $\omega\setminus A\neq\varnothing$, entonces como $A$ es c.e. y co-c.e, existen funciones $f, g:\omega\to\omega^{\DIVERGE}$ computables tales que para cada $x\in\omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $f\pa*{z} = x$ y $x\in\omega\setminus A$ si y solo si existe $z\in\omega$ tal que $g\pa*{z} = x$. Sean $e_{0}, e_{1}\in\omega$ tales que $f =\Phi_{e_{0}}$ y $g =\Phi_{e_{1}}$.
+
+	Puesto que $f$ y $g$ pueden ser parciales para algunas entradas, modifiquémoslas para que sean totales. Definamos a las funciones $f', g':\omega\to\omega^{\DIVERGE}$ tales que para cada $z\in\omega$:
+	\[
+		\begin{NiceArray}{c}
+			f'\pa*{z} =
+			\begin{cases}
+				f\pa*{z\bra*{0}} + 1, & z\in\SECUENCIAS\land \LONGITUD\pa*{z} = 2\land T\pa*{e_{0}, z\bra*{0}, z\bra*{1}}\\
+				0, &\text{ en otro caso}
+			\end{cases}
+			\\
+			g'\pa*{z} =
+			\begin{cases}
+				g\pa*{z\bra*{0}} + 1, & z\in\SECUENCIAS\land \LONGITUD\pa*{z} = 2\land T\pa*{e_{1}, z\bra*{0}, z\bra*{1}}\\
+				0, &\text{ en otro caso}
+			\end{cases}
+		\end{NiceArray}
+	\]
+	las cuales son total-computables debido al T-predicado de Kleene. Mostremos que $f'$ y $g'$ no coinciden en sus imágenes de manera no trivial. Sean $z_{0}, z_{1}\in\omega$ tales que $f'\pa*{z_{0}} > 0$ y $g'\pa*{z_{1}} > 0$, y mostremos que $f'\pa*{z_{0}}\neq g'\pa*{z_{1}}$. Puesto que $f'\pa*{z_{0}}, g\pa*{z_{1}} > 0$, entonces por definición $f\pa*{z_{0}\bra*{0}}\ACABA$ y $g\pa*{z_{1}\bra*{0}}\ACABA$ por la condición del T-predicado. Ya que $f$ y $g$ tienen como rangos a $A$ y $\omega\setminus A$ respectivamente, y son disjuntos, se tiene que $f\pa*{z_{0}\bra*{0}}\neq g\pa*{z_{1}\bra*{0}}$, y por tanto:
+	\[
+		f'\pa*{z_{0}} = f\pa*{z_{0}\bra*{0}} + 1\neq g\pa*{z_{1}\bra*{0}} + 1 = g'\pa*{z_{1}}
+	\]
+	
+	De esta manera podemos construir la función $h:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$:
+	\[
+		h\pa*{x} =\mu z\pa*{f'\pa*{z} = x + 1\lor g'\pa*{z} = x + 1}
+	\]
+	la cual es computable puesto que $f'$ y $g'$ son total-computables. Notemos que $h$ es total ya que para cada $x\in\omega$ existen dos casos: si $x\in A$, entonces existe $z_{0}\in\omega$ tal que $f\pa*{z_{0}} = x$, es decir, existe $p\in\omega$ tal que $T\pa*{e_{0}, z_{0}, p}$ y $U\pa*{p} = x$, por lo que tomando $z =\inner*{z_{0}, p}$ obtenemos $f'\pa*{z} = f\pa*{z_{0}} + 1 = x + 1$, y luego se satisface que $h\pa*{x}\ACABA$ por la primer parte de la disyunción; si $x\notin A$, entonces de manera análoga $h\pa*{x}\ACABA$ para la función $g'$. Se sigue que para cada $x\in\omega$ se satisface lo siguiente:
+	\begin{align*}
+		x\in A&\iff\exists z\pa*{f\pa*{z} = x}\\
+		&\iff\exists z\exists p\pa*{T\pa*{e_{0}, z, p}\land U\pa*{p} = x}\\
+		&\iff\exists w\pa*{T\pa*{e_{0}, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = x}\\
+		&\iff\exists w\pa*{f'\pa*{w} = x + 1}\\
+		&\iff f'\pa*{h\pa*{x}} = x + 1
+	\end{align*}
+	
+	\begin{align*}
+		x\notin A&\iff\exists z\pa*{g\pa*{z} = x}\\
+		&\iff\exists z\exists p\pa*{T\pa*{e_{1}, z, p}\land U\pa*{p} = x}\\
+		&\iff\exists z\pa*{T\pa*{e_{1}, z\bra*{0}, z\bra*{1}}\land U\pa*{z\bra*{1}} = x}\\
+		&\iff\exists z\pa*{g'\pa*{z} = x + 1}\\
+		&\iff g'\pa*{h\pa*{x}} = x + 1
+	\end{align*}
+
+	Se sigue entonces para cada $x\in\omega$ que:
+	\[
+		\CARACTERISTICA{A}\pa*{x} =
+		\begin{cases}
+			1, & f'\pa*{h\pa*{x}} = x + 1\\
+			0, & g'\pa*{h\pa*{x}} = x + 1
+		\end{cases}
+	\]
+	Ya que $f'$, $g'$ y $h$ son computables, se sigue que $\CARACTERISTICA{A}$ es computable, es decir, $A$ es computable.
+\end{proof} 
+
+\begin{coll}
+	Los conjuntos de detención $K$ y $K'$ no son co-c.e.
+\end{coll}
+
+\begin{proof}
+	Si $K$ y $K'$ fueran co-c.e., se obtendría que son computables, ya que son c.e., lo cual es una contradicción.
+\end{proof}
+\section{Computabilidad relativa}
+
+El resultado clave de la sección anterior es la existencia de conjuntos que no son computables, justificado por el teorema de Turing. Esa existencia motivó la siguiente pregunta a Alan Turing, y que desarrolló Emil Post: ¿qué se podría computar si tuviéramos acceso a los elementos de conjuntos no computables?
