@@ -22,8 +22,8 @@
 \newcommand{\CARACTERISTICA}[1]{\chi_{#1}}
 \newcommand{\DIVERGE}{\uparrow}
 \newcommand{\ACABA}{\downarrow}
-\newcommand{\DOMINIO}[1]{\operatorname{dom}\left(#1\right)}
-\newcommand{\RANGO}[1]{\operatorname{ran}\left(#1\right)}
+\newcommand{\DOMINIO}[1]{\operatorname{dom}\pa*{#1}}
+\newcommand{\RANGO}[1]{\operatorname{ran}\pa*{#1}}
 \newcommand{\PARCIAL}[1][]{\mathrm{Parcial}_{#1}}
 \newcommand{\TOTAL}[1][]{\mathrm{Total}_{#1}}
 \newcommand{\INSTRUCCIONES}{\mathrm{Instr}}
@@ -37,7 +37,7 @@
 \newcommand{\CONFIGURACIONES}{\mathrm{Config}}
 \newcommand{\ARITMETICA}{\mathrm{L}_{2}}
 \newcommand{\VARIABLES}[1][]{\mathrm{V}_{#1}}
-\newcommand{\MIN}[1]{\min\left(#1\right)}
+\newcommand{\MIN}[1]{\min\pa*{#1}}
 \newcommand{\SECUENCIAS}{\mathrm{Seq}}
 \newcommand{\MAXPOTENCIA}{\mathrm{MaxP}}
 
@@ -52,8 +52,8 @@
 \newcommand{\RCA}{\mathrm{RCA}_{0}}
 \newcommand{\ACA}{\mathrm{ACA}_{0}}
 \newcommand{\WKL}{\mathrm{WKL}_{0}}
-\newcommand{\VARIABLESDE}[1]{\mathrm{Var}\left[#1\right]}
-\newcommand{\LIBRESDE}[1]{\mathrm{Free}\left[#1\right]}
+\newcommand{\VARIABLESDE}[1]{\mathrm{Var}\bra*{#1}}
+\newcommand{\LIBRESDE}[1]{\mathrm{Free}\bra*{#1}}
 
 \NewDocumentCommand{\PHI}{m o}{% "m" es argumento obligatorio (mandatory), "o" es opcional
 	\IfNoValueTF{#2}%

@@ -1,27 +1,29 @@
 \chapter{Aritmética de segundo orden}
 \section{Sintaxis}
 
-El lenguaje de la aritmética de segundo orden será el marco donde podremos desarrollar toda la teoría de las Matemáticas en Reversa. Cuando hablamos de segundo orden, no nos referimos a lo que comúnmente se refiere a la cuantificación sobre funciones o relaciones (o al menos no directamente); sino más bien al hecho de que este lenguaje es un lenguaje de dos \emph{tipos}. Con \emph{tipos} (o \emph{sorts} en inglés) nos referimos a que los elementos que podemos estudiar dentro del lenguaje son de dos clases de elementos diferentes: números y conjuntos. El tener dos clasificaciones diferentes de elementos nos permite hablar más fácil y elegantemente sobre los objetos que vamos a manipular. 
+El lenguaje de la aritmética de segundo orden será el marco donde podremos desarrollar toda la teoría de las Matemáticas en Reversa. Cuando hablamos de segundo orden, no nos referimos a lo que comúnmente se refiere a la cuantificación sobre funciones o relaciones (o al menos no directamente); sino más bien al hecho de que este lenguaje es un lenguaje de dos \emph{tipos}. Con \emph{tipos} (o \emph{sorts} en inglés) nos referimos a que los elementos que podemos estudiar dentro del lenguaje son de dos clases de elementos diferentes: números y conjuntos. El tener dos clasificaciones diferentes de elementos nos permite hablar más fácil y elegantemente sobre los objetos que vamos a manipular.
 
 Utilizar, por ejemplo, el lenguaje estándar de la Teoría de Números ($\mathrm{L}_{1}$) no nos da suficiente riqueza o fuerza para poder hablar de manera directa sobre subconjuntos de números naturales, sino solamente de las propiedades de los números tal cual. Si en cambio utilizáramos el lenguaje de la Teoría de Conjuntos (ZF), este sería un sistema mucho más fuerte que generaría un problema, y es que no podríamos distinguir tan fácilmente cuándo hablamos de números y cuándo de conjuntos de números, pues en este lenguaje ambas serían indistinguibles hasta cierto punto.
 
 Por esos motivos es que el lenguaje de la aritmética de segundo orden es la que mejor se ajusta a nuestros objetivos sobre hablar de manera independiente de números y conjuntos de números sin ser tan débil como el lenguaje de la Teoría de Números, ni tan fuerte como el de la Teoría de Conjuntos.
 
-La característica principal de este lenguaje es el hecho que se trata de un lenguaje de \emph{dos tipos}. Esto significa que hacemos una distinción explícita en el lenguaje de los dos tipos de elementos con los cuales trabajaremos: tipo número y tipo conjunto. Un elemento de tipo número es un elemento que se interpreta como un número natural, mientras que un elemento de tipo conjunto es un elemento que se interpreta como un subconjunto de números naturales. 
+La característica principal de este lenguaje es el hecho que se trata de un lenguaje de \emph{dos tipos}. Esto significa que hacemos una distinción explícita en el lenguaje de los dos tipos de elementos con los cuales trabajaremos: tipo número y tipo conjunto. Un elemento de tipo número es un elemento que se interpreta como un número natural, mientras que un elemento de tipo conjunto es un elemento que se interpreta como un subconjunto de números naturales.
 
 Es necesario recalcar que los elementos de tipo conjunto, al interpretarse, solamente pueden contener a elementos de tipo número. Esto es importante debido a que esta es una restricción que ya no nos permite expresar conjuntos que contienen a otros conjuntos. Formalmente no podríamos, por ejemplo, expresar lo que es un conjunto cociente de una clase de equivalencia sobre los números naturales, o el conjunto potencia de otro conjunto.
 
 \begin{definition}[Lenguaje de la aritmética de segundo orden]
-	El lenguaje de la aritmética de segundo orden es el lenguaje de dos tipos $\ARITMETICA =\left(0, 1, +, \cdot, =, <, \in,\VARIABLES[N],\VARIABLES[C], \mathrm{Log}\right)$ donde:
+	El lenguaje de la aritmética de segundo orden es el lenguaje de dos tipos $\ARITMETICA =\pa*{0, 1, +,\cdot, =, <,\in,\VARIABLES[N],\VARIABLES[C],\mathrm{Log}}$ donde:
+
 	\begin{enumerate}
 		\item los símbolos $0$ y $1$ son de constante (de tipo número).
 		\item los símbolos $+$ y $\cdot$ son de función binaria (de tipo número).
 		\item los símbolos $=$ y $<$ son de relación binaria (de tipo número).
 		\item el símbolo $\in$ es de relación binaria (relaciona tipo número con tipo conjunto).
 		\item los conjuntos $\VARIABLES[N]$ y $\VARIABLES[C]$ son infinitos, no vacíos y disjuntos denominados \emph{conjuntos de variables de tipo número} y \emph{de tipo conjunto} respectivamente.
-		\item el conjunto $\mathrm{Log} = \left\{\neg,\land,\forall,\exists, ), (\right\}$ se denomina \emph{conjunto de símbolos lógicos}. 
+		\item el conjunto $\mathrm{Log} =\set*{\neg,\land,\forall,\exists, ), (}$ se denomina \emph{conjunto de símbolos lógicos}.
 	\end{enumerate}
-	Definimos al conjunto total de variables como $\VARIABLES\coloneqq\VARIABLES[N]\cup\VARIABLES[C]$. 
+
+	Definimos al conjunto total de variables como $\VARIABLES\coloneqq\VARIABLES[N]\cup\VARIABLES[C]$.
 \end{definition}
 
 \begin{notation}
@@ -31,19 +33,20 @@ Es necesario recalcar que los elementos de tipo conjunto, al interpretarse, sola
 Dentro de este lenguaje es que podemos definir los \emph{términos}, los cuales son palabras que se interpretarán como \emph{elementos de los números naturales}, o simplemente \emph{números}. La construcción de los términos se basa en el hecho de que podemos generar nuevos números utilizando como base los números que ya conocemos (0 y 1), además de variables de tipo número, con las cuales podremos expresar propiedades generales de los números más adelante.
 
 \begin{definition}[Términos]
-	Se define el conjunto de \emph{términos} de $\ARITMETICA$ como el mínimo conjunto $\TERMINOS\subseteq\ARITMETICA^{*}$ que satisface los siguientes puntos:
+	Se define el conjunto de \emph{términos} de $\ARITMETICA$ como el mínimo conjunto $\TERMINOS$ que satisface los siguientes puntos:
+
 	\begin{enumerate}
 		\item Las palabras $0$ y $1$ pertenecen a $\TERMINOS$.
 		\item $\VARIABLES[N]\subseteq\TERMINOS$
-		\item para cada $t_{1}$ y $t_{2}$ en $\TERMINOS$, se satisface que las palabras $\left(t_{1} + t_{2}\right)$ y $\left(t_{1}\cdot t_{2}\right)$ pertenecen a $\TERMINOS$.
+		\item para cada $t_{1}$ y $t_{2}$ en $\TERMINOS$, se satisface que las palabras $\pa*{t_{1} + t_{2}}$ y $\pa*{t_{1}\cdot t_{2}}$ pertenecen a $\TERMINOS$.
 	\end{enumerate}
 \end{definition}
 
 Ejemplos de términos de $\ARITMETICA$ son los siguientes:
 \[
 	\begin{array}{cccc}
-	1 & 0 & n & m_{2} \\
-	\left(1 + 0\right) & \left(n\cdot m\right) & \left(1\cdot\left(n_{1} + m_{2}\right)\right) &\left(\left(1 + n\right)\cdot\left(0\cdot m_{1}\right)\right)
+		1 & 0 & n & m_{2}\\
+		\pa*{1 + 0} &\pa*{n\cdot m} &\pa*{1\cdot\pa*{n_{1} + m_{2}}} &\pa*{\pa*{1 + n}\cdot\pa*{0\cdot m_{1}}}
 	\end{array}
 \]
 
@@ -53,9 +56,10 @@ Estas fórmulas son con las que podemos hablar, por ejemplo, de ecuaciones e ine
 
 \begin{definition}[Fórmulas atómicas]
 	Se define el conjunto de fórmulas atómicas de $\ARITMETICA$ como el conjunto $\ATOMICAS\subseteq\ARITMETICA^{*}$ que satisface los siguientes puntos:
+
 	\begin{enumerate}
-		\item para cada $t_{1}$ y $t_{2}$ en $\TERMINOS$ se cumple que las palabras $\left(t_{1} = t_{2}\right)$ y $\left(t_{1} < t_{2}\right)$ pertenecen a $\ATOMICAS$
-		\item para cada $t$ en $\TERMINOS$ y cada $X$ en $\VARIABLES[C]$, la palabra $\left(t\in X\right)$ pertenece a $\ATOMICAS$.
+		\item para cada $t_{1}$ y $t_{2}$ en $\TERMINOS$ se cumple que las palabras $\pa*{t_{1} = t_{2}}$ y $\pa*{t_{1} < t_{2}}$ pertenecen a $\ATOMICAS$
+		\item para cada $t$ en $\TERMINOS$ y cada $X$ en $\VARIABLES[C]$, la palabra $\pa*{t\in X}$ pertenece a $\ATOMICAS$.
 	\end{enumerate}
 \end{definition}
 
@@ -63,29 +67,31 @@ Ejemplos de fórmulas atómicas de $\ARITMETICA$ son las siguientes:
 
 \[
 	\begin{array}{cccc}
-		\left(1 = 0\right) & \left(n = 1\right) & \left(0 = m_{1}\right) & \left(n_{1} = m_{2}\right) \\
-		\left(\left(\left(n + 1\right)=\left(n + n\right)\right)\right) & \left(\left(n\cdot m\right) + m <\left(n\cdot\left(n + 1\right)\right)\right) & \left(\left(n + n\right)\in X\right) & \left(\left(\left(n\cdot n\right) + 1\right)\in Y\right)
+		\pa*{1 = 0} &\pa*{n = 1} &\pa*{0 = m_{1}} &\pa*{n_{1} = m_{2}}\\
+		\pa*{\pa*{\pa*{n + 1}=\pa*{n + n}}} &\pa*{\pa*{n\cdot m} + m <\pa*{n\cdot\pa*{n + 1}}} &\pa*{\pa*{n + n}\in X} &\pa*{\pa*{\pa*{n\cdot n} + 1}\in Y}
 	\end{array}
 \]
 
 Ahora, las \emph{fórmulas} son las afirmaciones o proposiciones que nos permiten la mayor expresividad. Con estas ahora podemos hablar sobre las relaciones entre las fórmulas atómicas, e incluso con otras fórmulas más complejas. Lo importante sobre estas fórmulas es que además de tener conectores lógicos, también disponemos del uso de los cuantificadores. Con los cuantificadores ahora podemos hablar sobre propiedades generales de los números y subconjuntos de números naturales.
 
 \begin{definition}[Fórmulas]
-	Se define el conjunto de fórmulas de $\ARITMETICA$ como el mínimo conjunto $\FORMULAS\subseteq\ARITMETICA^{*}$ que satisface los siguientes puntos:
+	Se define el conjunto de fórmulas de $\ARITMETICA$ como el mínimo conjunto $\FORMULAS$ que satisface los siguientes puntos:
+
 	\begin{enumerate}
 		\item $\ATOMICAS\subseteq\FORMULAS$
 		\item para cada $\varphi\in\FORMULAS$ se satisface que $\neg\varphi\in\FORMULAS$.
-		\item para cada $\varphi_{1}$ y $\varphi_{2}$ en $\FORMULAS$ se satisface que la palabra $\left(\varphi_{1}\land\varphi_{2}\right)$ pertenece a $\FORMULAS$.
+		\item para cada $\varphi_{1}$ y $\varphi_{2}$ en $\FORMULAS$ se satisface que la palabra $\pa*{\varphi_{1}\land\varphi_{2}}$ pertenece a $\FORMULAS$.
 		\item para cada $x\in\VARIABLES$ y cada $\varphi\in\FORMULAS$ se satisface que las palabras $\forall x\varphi$ y $\exists x\varphi$ pertenecen a $\FORMULAS$.
 	\end{enumerate}
 \end{definition}
 
 \begin{notation}
 	Para cada $\varphi_{1}$ y $\varphi_{2}$ en $\FORMULAS$ se realizan las siguientes abreviaciones:
+
 	\begin{enumerate}
-		\item se escribe $\left(\varphi_{1}\vee\varphi_{2}\right)$ en lugar de $\neg\left(\neg\varphi_{1}\land\neg\varphi_{2}\right)$.
-		\item se escribe $\left(\varphi_{1}\to\varphi_{2}\right)$ en lugar de $\left(\neg\varphi_{1}\vee\varphi_{2}\right)$.
-		\item se escribe $\left(\varphi_{1}\leftrightarrow\varphi_{2}\right)$ en lugar de $\left(\left(\varphi_{1}\to\varphi_{2}\right)\land\left(\varphi_{2}\to\varphi_{1}\right)\right)$.
+		\item se escribe $\pa*{\varphi_{1}\vee\varphi_{2}}$ en lugar de $\neg\pa*{\neg\varphi_{1}\land\neg\varphi_{2}}$.
+		\item se escribe $\pa*{\varphi_{1}\to\varphi_{2}}$ en lugar de $\pa*{\neg\varphi_{1}\vee\varphi_{2}}$.
+		\item se escribe $\pa*{\varphi_{1}\leftrightarrow\varphi_{2}}$ en lugar de $\pa*{\pa*{\varphi_{1}\to\varphi_{2}}\land\pa*{\varphi_{2}\to\varphi_{1}}}$.
 	\end{enumerate}
 \end{notation}
 
@@ -93,50 +99,52 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 
 \[
 	\begin{array}{cc}
-		\left(\left(0 < 1\right)\land\left(1 = \left(0 + 1\right)\right)\right) & \neg\left(\left(n + 1\right) < 0\right)\\
-		\left(\left(0 < n\right)\to\exists m\left(\left(m + 1\right) = n\right)\right) & \forall X\exists n\left(\left(n\cdot n\right)\in X\right)
+		\pa*{\pa*{0 < 1}\land\pa*{1 =\pa*{0 + 1}}} &\neg\pa*{\pa*{n + 1} < 0}\\
+		\pa*{\pa*{0 < n}\to\exists m\pa*{\pa*{m + 1} = n}} &\forall X\exists n\pa*{\pa*{n\cdot n}\in X}
 	\end{array}
 \]
 
 \begin{definition}[Conjunto de variables]
 	Sea $\varphi\in\TERMINOS\cup\FORMULAS$. Se define el \emph{conjunto de variables} de $\varphi$ de la siguiente forma inductiva:
+
 	\begin{enumerate}
-		\item Si $\varphi\in\left\{0, 1\right\}$, entonces $\VARIABLESDE{\varphi} =\varnothing$.
-		\item Si $\varphi\in\VARIABLES[N]$, entonces $\VARIABLESDE{\varphi} =\left\{\varphi\right\}$.
-		\item Si $\varphi$ está dada por $\left(t_{1}\alpha t_{2}\right)$ con $\alpha\in\left\{+,\cdot, <, =\right\}$ y $t_{1}, t_{2}\in\TERMINOS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{t_{1}}\cup\VARIABLESDE{t_{2}}$.
-		\item Si $\varphi$ está dada por $\left(t\in X\right)$ con $X\in\VARIABLES[C]$ y $t\in\TERMINOS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{t}\cup\left\{X\right\}$.
+		\item Si $\varphi\in\set*{0, 1}$, entonces $\VARIABLESDE{\varphi} =\varnothing$.
+		\item Si $\varphi\in\VARIABLES[N]$, entonces $\VARIABLESDE{\varphi} =\set*{\varphi}$.
+		\item Si $\varphi$ está dada por $\pa*{t_{1}\alpha t_{2}}$ con $\alpha\in\set*{+,\cdot, <, =}$ y $t_{1}, t_{2}\in\TERMINOS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{t_{1}}\cup\VARIABLESDE{t_{2}}$.
+		\item Si $\varphi$ está dada por $\pa*{t\in X}$ con $X\in\VARIABLES[C]$ y $t\in\TERMINOS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{t}\cup\set*{X}$.
 		\item Si $\varphi$ está dada por $\neg\psi$ con $\psi\in\FORMULAS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{\psi}$.
-		\item Si $\varphi$ está dada por $\left(\psi_{1}\land\psi_{2}\right)$ con $\psi_{1},\psi_{2}\in\FORMULAS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{\psi_{1}}\cup\VARIABLESDE{\psi_{2}}$.
-		\item Si $\varphi$ está dada por $Qx\psi$ con $Q\in\left\{\exists, \forall\right\}$, $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{\psi}\cup\left\{x\right\}$.
+		\item Si $\varphi$ está dada por $\pa*{\psi_{1}\land\psi_{2}}$ con $\psi_{1},\psi_{2}\in\FORMULAS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{\psi_{1}}\cup\VARIABLESDE{\psi_{2}}$.
+		\item Si $\varphi$ está dada por $Qx\psi$ con $Q\in\set*{\exists,\forall}$, $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\VARIABLESDE{\varphi} =\VARIABLESDE{\psi}\cup\set*{x}$.
 	\end{enumerate}
 \end{definition}
 
 \begin{definition}[Conjunto de variables libres]
 	Sea $\varphi\in\FORMULAS$. Se define el \emph{conjunto de variables libres} de $\varphi$ de la siguiente forma inductiva:
+
 	\begin{enumerate}
 		\item Si $\varphi\in\ATOMICAS$, entonces $\LIBRESDE{\varphi} =\VARIABLESDE{\varphi}$.
 		\item Si $\varphi$ está dada por $\neg\psi$ con $\psi\in\FORMULAS$, entonces $\LIBRESDE{\varphi} =\LIBRESDE{\psi}$.
-		\item Si $\varphi$ está dada por $\left(\psi_{1}\land\psi_{2}\right)$ con $\psi_{1},\psi_{2}\in\FORMULAS$, entonces $\LIBRESDE{\varphi} =\LIBRESDE{\psi_{1}}\cup\LIBRESDE{\psi_{2}}$.
-		\item Si $\varphi$ está dada por $Qx\psi$ con $Q\in\left\{\exists, \forall\right\}$, $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\LIBRESDE{\varphi} =\LIBRESDE{\psi}\setminus\left\{x\right\}$.
+		\item Si $\varphi$ está dada por $\pa*{\psi_{1}\land\psi_{2}}$ con $\psi_{1},\psi_{2}\in\FORMULAS$, entonces $\LIBRESDE{\varphi} =\LIBRESDE{\psi_{1}}\cup\LIBRESDE{\psi_{2}}$.
+		\item Si $\varphi$ está dada por $Qx\psi$ con $Q\in\set*{\exists,\forall}$, $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\LIBRESDE{\varphi} =\LIBRESDE{\psi}\setminus\set*{x}$.
 	\end{enumerate}
 \end{definition}
 
 \begin{definition}[Fórmulas cerradas]
 	Se define el conjunto de \emph{fórmulas cerradas} de $\ARITMETICA$ como sigue:
 	\[
-		\ENUNCIADOS\coloneqq\left\{\varphi\in\FORMULAS: \LIBRESDE{\varphi} =\varnothing\right\}
+		\ENUNCIADOS\coloneqq\set*{\varphi\in\FORMULAS:\LIBRESDE{\varphi} =\varnothing}
 	\]
 \end{definition}
-
 
 \section{Semántica}
 
 \begin{definition}[Estructuras]
-	Una \emph{estructura} de $\ARITMETICA$, o \emph{$\ARITMETICA$-estructura}, es una tupla $\mathcal{M} =\left(M_{N}, M_{C}, 0^{\mathcal{M}}, 1^{\mathcal{M}}, +^{\mathcal{M}},\cdot^{\mathcal{M}}, =^{\mathcal{M}}, <^{\mathcal{M}},\in^{\mathcal{M}}\right)$ donde:
+	Una \emph{estructura} de $\ARITMETICA$, o \emph{$\ARITMETICA$-estructura}, es una tupla $\mathcal{M} =\pa*{M_{N}, M_{C}, 0^{\mathcal{M}}, 1^{\mathcal{M}}, +^{\mathcal{M}},\cdot^{\mathcal{M}}, =^{\mathcal{M}}, <^{\mathcal{M}},\in^{\mathcal{M}}}$ donde:
+
 	\begin{enumerate}
 		\item $M_{N}$ y $M_{C}$ son conjuntos no vacíos, denominados \emph{conjuntos de tipo número} y \emph{de tipo conjunto} respectivamente.
 		\item $0^{\mathcal{M}}, 1^{\mathcal{M}}\in M_{N}$
-		\item $+^{\mathcal{M}}, \cdot^{\mathcal{M}}: M_{N}^{2}\to M_{N}$
+		\item $+^{\mathcal{M}},\cdot^{\mathcal{M}}: M_{N}^{2}\to M_{N}$
 		\item $<^{\mathcal{M}}, =^{\mathcal{M}}\subseteq M_{N}^{2}$ donde $=^{\mathcal{M}}$ es la relación identidad.
 		\item $\in^{\mathcal{M}}\subseteq M_{N}\times M_{C}$
 	\end{enumerate}
@@ -144,39 +152,41 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 
 \begin{notation}
 	Para simplificar la notación, una $\ARITMETICA$-estructura se denota por una letra mayúscula en estilo caligráfico, su conjunto de tipo número se denota por esa letra en estilo plano con subíndice $N$, similarmente su conjunto de tipo conjunto se denota con subíndice $C$, y la misma letra sin subíndices es la unión de ambos.
-	
+
 	Por ejemplo, si $\mathcal{A}$ es una $\ARITMETICA$-estructura, entonces $A_{N}$ es su conjunto de tipo número, $A_{C}$ es su conjunto de tipo conjunto y $A = A_{N}\cup A_{C}$.
 \end{notation}
 
 \begin{definition}[$\omega$-estructura]
-	Sea $\mathcal{M}$ una $\ARITMETICA$-estructura. $\mathcal{M}$ se denomina \emph{$\omega$-estructura} si $M_{N} =\omega$, $M_{C}\subseteq\CPOTENCIA{\omega}$, y $+^{\mathcal{M}}$, $\cdot^{\mathcal{M}}$ y $<^{\mathcal{M}}$ se interpretan de la forma estándar en $\omega$, y $\in^{\mathcal{M}}$ se interpreta de la forma estándar de la teoría de conjuntos. 
-	
+	Sea $\mathcal{M}$ una $\ARITMETICA$-estructura. $\mathcal{M}$ se denomina \emph{$\omega$-estructura} si $M_{N} =\omega$, $M_{C}\subseteq\CPOTENCIA{\omega}$, y $+^{\mathcal{M}}$, $\cdot^{\mathcal{M}}$ y $<^{\mathcal{M}}$ se interpretan de la forma estándar en $\omega$, y $\in^{\mathcal{M}}$ se interpreta de la forma estándar de la teoría de conjuntos.
+
 	Identificaremos una $\omega$-estructura por su conjunto de tipo conjunto, por lo que para cada $S\subseteq\CPOTENCIA{\omega}$, al decir que $S$ es una $\omega$-estructura nos referiremos en realidad a la única $\omega$-estructura $\mathcal{M}$ tal que $M_{C} = S$.
 \end{definition}
 
 \comment{Falta de contenido}{Falta agregar conceptos de sintaxis y semántica, como valuaciones, interpretación, implicación lógica, equivalencia lógica y deducción lógica}
 
 \begin{definition}[Valuación de variables]
-	Sea $\mathcal{M}$ una $\ARITMETICA$-estructura. Una \emph{valuación de variables} de $\ARITMETICA$ es una función $s:\VARIABLES\to M$ tal que para cada $n\in\VARIABLES[N]$ se tiene que $s\left[n\right]\in M_{N}$ y para cada $X\in\VARIABLES[C]$ se tiene que $s\left[X\right]\in M_{C}$.
+	Sea $\mathcal{M}$ una $\ARITMETICA$-estructura. Una \emph{valuación de variables} de $\ARITMETICA$ es una función $s:\VARIABLES\to M$ tal que para cada $n\in\VARIABLES[N]$ se tiene que $s\bra*{n}\in M_{N}$ y para cada $X\in\VARIABLES[C]$ se tiene que $s\bra*{X}\in M_{C}$.
 \end{definition}
 
 \begin{definition}[Interpretación de términos]
 	Sean $\mathcal{M}$ una $\ARITMETICA$-estructura y $s:\VARIABLES\to M$ una valuación de variables. La \emph{interpretación} de $\TERMINOS$ en $\mathcal{M}$ dada $s$ es la función $s^{*}:\TERMINOS\to M$ definida como sigue:
+
 	\begin{enumerate}
-		\item Para cada $c\in\left\{0, 1\right\}$, $s^{*}\left[c\right] = c^{\mathcal{M}}$.
-		\item Para cada $n\in\VARIABLES[N]$, $s^{*}\left[n\right] = s\left[n\right]$.
-		\item Para cada $t_{1}, t_{2}\in\TERMINOS$ se tiene que $s^{*}\left[\left(t_{1} + t_{2}\right)\right] = +^{\mathcal{M}}\left(s^{*}\left[t_{1}\right], s^{*}\left[t_{2}\right]\right)$ y $s^{*}\left[\left(t_{1}\cdot t_{2}\right)\right] = \cdot^{\mathcal{M}}\left(s^{*}\left[t_{1}\right], s^{*}\left[t_{2}\right]\right)$
+		\item Para cada $c\in\set*{0, 1}$, $s^{*}\bra*{c} = c^{\mathcal{M}}$.
+		\item Para cada $n\in\VARIABLES[N]$, $s^{*}\bra*{n} = s\bra*{n}$.
+		\item Para cada $t_{1}, t_{2}\in\TERMINOS$ se tiene que $s^{*}\bra*{\pa*{t_{1} + t_{2}}} = +^{\mathcal{M}}\pa*{s^{*}\bra*{t_{1}}, s^{*}\bra*{t_{2}}}$ y $s^{*}\bra*{\pa*{t_{1}\cdot t_{2}}} =\cdot^{\mathcal{M}}\pa*{s^{*}\bra*{t_{1}}, s^{*}\bra*{t_{2}}}$
 	\end{enumerate}
 \end{definition}
 
 \begin{notation}
-	Sean $A_{1},\dotsc, A_{n}$ conjuntos no vacíos con $n\in\omega$ y $R\subseteq\prod\limits_{k = 1}^{n}A_{k}$ una relación. Para cada $\left(x_{1},\dotsc, x_{n}\right)\in \prod\limits_{k = 1}^{n}A_{k}$, escribiremos $R\left(x_{1},\dotsc, x_{n}\right)$ en lugar de $\left(x_{1},\dotsc, x_{n}\right)\in R$.
+	Sean $A_{1},\dotsc, A_{n}$ conjuntos no vacíos con $n\in\omega$ y $R\subseteq\prod\limits_{k = 1}^{n}A_{k}$ una relación. Para cada $\pa*{x_{1},\dotsc, x_{n}}\in\prod\limits_{k = 1}^{n}A_{k}$, escribiremos $R\pa*{x_{1},\dotsc, x_{n}}$ en lugar de $\pa*{x_{1},\dotsc, x_{n}}\in R$.
 \end{notation}
 
 \begin{notation}
-	Sean $A, B$ conjuntos no vacíos, $f: A\to B$, $a\in A$ y $b\in B$. denotamos por $f\left[a\rightsquigarrow b\right]$ a la función $g: A\to B$ dada como sigue:
+	Sean $A, B$ conjuntos no vacíos, $f: A\to B$, $a\in A$ y $b\in B$. denotamos por $f\bra*{a\rightsquigarrow b}$ a la función $g: A\to B$ dada como sigue:
 	\[
-		g\left(x\right) =\begin{cases}
+		g\pa*{x} =
+		\begin{cases}
 			f(x), & x\neq a\\
 			b, & x = a
 		\end{cases}
@@ -184,73 +194,76 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \end{notation}
 
 \begin{definition}[Interpretación de fórmulas]
-	Sean $\mathcal{M}$ una $\ARITMETICA$-estructura y $s:\VARIABLES\to M$ una valuación de variables. Para cada $\varphi\in\FORMULAS$, decimos que $\varphi$ es \emph{verdadera} en $\mathcal{M}$ (o que $\mathcal{M}$ \emph{modela} a $\varphi$) con la valuación $s$, denotado por $\left(\mathcal{M}, s\right)\models\varphi$, si se satisface una de las siguientes condiciones:
+	Sean $\mathcal{M}$ una $\ARITMETICA$-estructura y $s:\VARIABLES\to M$ una valuación de variables. Para cada $\varphi\in\FORMULAS$, decimos que $\varphi$ es \emph{verdadera} en $\mathcal{M}$ (o que $\mathcal{M}$ \emph{modela} a $\varphi$) con la valuación $s$, denotado por $\pa*{\mathcal{M}, s}\models\varphi$, si se satisface una de las siguientes condiciones:
+
 	\begin{enumerate}
-		\item Si $\varphi$ está dada por $\left(t_{1} R t_{2}\right)$ con $t_{1}, t_{2}\in\TERMINOS$ y $R\in\left\{<, =\right\}$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si $R^{\mathcal{M}}\left(s^{*}\left[t_{1}\right], s^{*}\left[t_{2}\right]\right)$.
-		\item Si $\varphi$ está dada por $\left(t\in X\right)$ con $t\in\TERMINOS$ y $X\in\VARIABLES[C]$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si $\in^{\mathcal{M}}\left(s^{*}\left[t\right], s\left[X\right]\right)$.
-		\item Si $\varphi$ está dada por $\neg\psi$ con $\psi\in\FORMULAS$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si no es cierto que $\left(\mathcal{M}, s\right)\models\psi$.
-		\item Si $\varphi$ está dada por $\left(\psi_{1}\land \psi_{2}\right)$ con $\psi_{1}, \psi_{2}\in\FORMULAS$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si $\left(\mathcal{M}, s\right)\models\psi_{1}$ y $\left(\mathcal{M}, s\right)\models\psi_{2}$.
-		\item Si $\varphi$ está dada por $\exists x\psi$ con $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si para algún elemento $a\in M$ ($a\in M_{N}$ si $x\in\VARIABLES[N]$, y $a\in M_{C}$ si $x\in\VARIABLES[C]$) se satisface que $\left(\mathcal{M}, s\left[x\rightsquigarrow a\right]\right)\models\psi$.
-		\item Si $\varphi$ está dada por $\forall x\psi$ con $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\left(\mathcal{M}, s\right)\models\varphi$ si y solo si para cualquier elemento $a\in M_{N}$ si $x\in\VARIABLES[N]$ y $a\in M_{C}$ si $x\in\VARIABLES[C]$, se satisface que $\left(\mathcal{M}, s\left[x\rightsquigarrow a\right]\right)\models\psi$.
+		\item Si $\varphi$ está dada por $\pa*{t_{1} R t_{2}}$ con $t_{1}, t_{2}\in\TERMINOS$ y $R\in\set*{<, =}$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si $R^{\mathcal{M}}\pa*{s^{*}\bra*{t_{1}}, s^{*}\bra*{t_{2}}}$.
+		\item Si $\varphi$ está dada por $\pa*{t\in X}$ con $t\in\TERMINOS$ y $X\in\VARIABLES[C]$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si $\in^{\mathcal{M}}\pa*{s^{*}\bra*{t}, s\bra*{X}}$.
+		\item Si $\varphi$ está dada por $\neg\psi$ con $\psi\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si no es cierto que $\pa*{\mathcal{M}, s}\models\psi$.
+		\item Si $\varphi$ está dada por $\pa*{\psi_{1}\land\psi_{2}}$ con $\psi_{1},\psi_{2}\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si $\pa*{\mathcal{M}, s}\models\psi_{1}$ y $\pa*{\mathcal{M}, s}\models\psi_{2}$.
+		\item Si $\varphi$ está dada por $\exists x\psi$ con $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si para algún elemento $a\in M$ ($a\in M_{N}$ si $x\in\VARIABLES[N]$, y $a\in M_{C}$ si $x\in\VARIABLES[C]$) se satisface que $\pa*{\mathcal{M}, s\bra*{x\rightsquigarrow a}}\models\psi$.
+		\item Si $\varphi$ está dada por $\forall x\psi$ con $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si para cualquier elemento $a\in M_{N}$ si $x\in\VARIABLES[N]$ y $a\in M_{C}$ si $x\in\VARIABLES[C]$, se satisface que $\pa*{\mathcal{M}, s\bra*{x\rightsquigarrow a}}\models\psi$.
 	\end{enumerate}
 \end{definition}
 
 \begin{notation}
 	Sea $\varphi\in\FORMULAS$.
+
 	\begin{enumerate}
-		\item Si $\mathcal{M}$ es una $\ARITMETICA$-estructura, se denotará $\mathcal{M}\models\varphi$ si $\left(\mathcal{M}, s\right)\models\varphi$ para cualquier valuación de variables $s$.
-		\item Se denotará $\models\varphi$ si $\left(\mathcal{M}, s\right)\models\varphi$ para cualquier $\ARITMETICA$-estructura $\mathcal{M}$ y cualquier valuación de variables $s$.
+		\item Si $\mathcal{M}$ es una $\ARITMETICA$-estructura, se denotará $\mathcal{M}\models\varphi$ si $\pa*{\mathcal{M}, s}\models\varphi$ para cualquier valuación de variables $s$.
+		\item Se denotará $\models\varphi$ si $\pa*{\mathcal{M}, s}\models\varphi$ para cualquier $\ARITMETICA$-estructura $\mathcal{M}$ y cualquier valuación de variables $s$.
 	\end{enumerate}
 \end{notation}
 
 \begin{definition}[Definibilidad]
-	Sean $\mathcal{M}$ una $\ARITMETICA$-estructura, $X\in M_{C}$ y $x_{1},\dotsc, x_{m}\in M$ para algún $m\in\omega$. $X$ se dice \emph{definible} en $\ARITMETICA$ con parámetros $x_{1},\dotsc, x_{m}$ si existe $\varphi\left(n, \bar{x}_{1},\dotsc, \bar{x}_{m}\right)\in\FORMULAS$ con $n\in\LIBRESDE{\varphi}$ tal que para cada valuación de variables $s$:
+	Sean $\mathcal{M}$ una $\ARITMETICA$-estructura, $X\in M_{C}$ y $x_{1},\dotsc, x_{m}\in M$ para algún $m\in\omega$. $X$ se dice \emph{definible} en $\ARITMETICA$ con parámetros $x_{1},\dotsc, x_{m}$ si existe $\varphi\pa*{n,\bar{x}_{1},\dotsc,\bar{x}_{m}}\in\FORMULAS$ con $n\in\LIBRESDE{\varphi}$ tal que para cada valuación de variables $s$:
 	\[
-		X =\left\{k\in M_{N}:\left(\mathcal{M}, s_{0}\left[n\rightsquigarrow k\right]\right)\models\varphi\left(n, \bar{x}_{1},\dotsc, \bar{x}_{m}\right)\right\}
+		X =\set*{k\in M_{N}:\pa*{\mathcal{M}, s_{0}\bra*{n\rightsquigarrow k}}\models\varphi\pa*{n,\bar{x}_{1},\dotsc,\bar{x}_{m}}}
 	\]
-	donde $\bar{x}_{1},\dotsc, \bar{x}_{m}\in\VARIABLES$ y $s_{0}: V\to M$ es tal que $s_{0} = s\bra*{\bar{x}_{1}\rightsquigarrow x_{1},\dotsc,\bar{x}_{m}\rightsquigarrow x_{m}}$.
+	donde $\bar{x}_{1},\dotsc,\bar{x}_{m}\in\VARIABLES$ y $s_{0}: V\to M$ es tal que $s_{0} = s\bra*{\bar{x}_{1}\rightsquigarrow x_{1},\dotsc,\bar{x}_{m}\rightsquigarrow x_{m}}$.
 \end{definition}
 
-
 \begin{definition}[Equivalencia lógica]
-	Sean $\varphi,\psi\in\FORMULAS$, entonces $\varphi$ y $\psi$ se denominan \emph{lógicamente equivalentes} si $\models\left(\varphi\leftrightarrow\psi\right)$.
-	
+	Sean $\varphi,\psi\in\FORMULAS$, entonces $\varphi$ y $\psi$ se denominan \emph{lógicamente equivalentes} si $\models\pa*{\varphi\leftrightarrow\psi}$.
+
 	En tal caso se denota por $\varphi\equiv\psi$.
 \end{definition}
 
 \begin{definition}[Implicación semántica]
-	Sean $\Gamma\subseteq\FORMULAS$ y $\varphi\in\FORMULAS$. Decimos que $\varphi$ se \emph{implica semánticamente} de $\Gamma$ si para cada $\ARITMETICA$-estructura $\mathcal{M}$ y valuación de variables $s$ tales que $\left(\mathcal{M}, s\right)\models\psi$ para cada $\psi\in\Gamma$ se sigue que $\left(\mathcal{M}, s\right)\models\varphi$.
-	
+	Sean $\Gamma\subseteq\FORMULAS$ y $\varphi\in\FORMULAS$. Decimos que $\varphi$ se \emph{implica semánticamente} de $\Gamma$ si para cada $\ARITMETICA$-estructura $\mathcal{M}$ y valuación de variables $s$ tales que $\pa*{\mathcal{M}, s}\models\psi$ para cada $\psi\in\Gamma$ se sigue que $\pa*{\mathcal{M}, s}\models\varphi$.
+
 	En tal caso se denotará por $\Gamma\models\varphi$.
 \end{definition}
-
-
 
 \section{Resultados y definiciones esenciales}
 
 \begin{definition}[Cuantificadores acotados]
-	Una \emph{fórmula acotadamente cuantificada} es toda aquella de la forma $\exists n\left(\left(n < t\right)\land\varphi\right)$ o $\forall n\left(\left(n < t\right)\to\varphi\right)$ donde $\varphi\in\FORMULAS$, $n\in\VARIABLES[N]$, $t\in\TERMINOS$ y $n\notin\mathrm{Var}\left[t\right]$.
+	Una \emph{fórmula acotadamente cuantificada} es toda aquella de la forma $\exists n\pa*{\pa*{n < t}\land\varphi}$ o $\forall n\pa*{\pa*{n < t}\to\varphi}$ donde $\varphi\in\FORMULAS$, $n\in\VARIABLES[N]$, $t\in\TERMINOS$ y $n\notin\mathrm{Var}\bra*{t}$.
 \end{definition}
 
 \begin{notation}
-	Sean $\varphi\in\FORMULAS$, $n\in\VARIABLES[N]$ y $t\in\TERMINOS$ tales que $n\notin\mathrm{Var}\left[t\right]$. Entonces:
+	Sean $\varphi\in\FORMULAS$, $n\in\VARIABLES[N]$ y $t\in\TERMINOS$ tales que $n\notin\mathrm{Var}\bra*{t}$. Entonces:
+
 	\begin{enumerate}
-		\item escribiremos $\left(\exists n < t\right)\varphi$ en lugar de $\exists n\left(\left(n < t\right)\land\varphi\right)$.
-		\item escribiremos $\left(\forall n < t\right)\varphi$ en lugar de $\forall n\left(\left(n < t\right)\to\varphi\right)$.
+		\item escribiremos $\pa*{\exists n < t}\varphi$ en lugar de $\exists n\pa*{\pa*{n < t}\land\varphi}$.
+		\item escribiremos $\pa*{\forall n < t}\varphi$ en lugar de $\forall n\pa*{\pa*{n < t}\to\varphi}$.
 	\end{enumerate}
 \end{notation}
 
 \begin{definition}[Jerarquía aritmética]
 	Se define al conjunto de fórmulas $\Delta_{0}^{0}\subseteq\FORMULAS$ como el mínimo conjunto que satisface lo siguiente:
+
 	\begin{enumerate}
 		\item $\ATOMICAS\subseteq\Delta_{0}^{0}$
 		\item para cada $\varphi\in\Delta_{0}^{0}$ se satisface que $\neg\varphi\in\Delta_{0}^{0}$.
-		\item para cada $\varphi_{1},\varphi_{2}\in\Delta_{0}^{0}$ se satisface que $\left(\varphi_{1}\land\varphi_{2}\right)\in\Delta_{0}^{0}$.
-		\item para cada $\varphi\in\Delta_{0}^{0}$, $n\in\VARIABLES[N]$ y $t\in\TERMINOS$ tales que $n\notin\mathrm{Var}\left[t\right]$ se satisface que $\left(\exists n < t\right)\varphi,\left(\forall n < t\right)\varphi\in\Delta_{0}^{0}$.
+		\item para cada $\varphi_{1},\varphi_{2}\in\Delta_{0}^{0}$ se satisface que $\pa*{\varphi_{1}\land\varphi_{2}}\in\Delta_{0}^{0}$.
+		\item para cada $\varphi\in\Delta_{0}^{0}$, $n\in\VARIABLES[N]$ y $t\in\TERMINOS$ tales que $n\notin\mathrm{Var}\bra*{t}$ se satisface que $\pa*{\exists n < t}\varphi,\pa*{\forall n < t}\varphi\in\Delta_{0}^{0}$.
 	\end{enumerate}
+
 	Para cada $k\in\omega^{+}$ se definen los siguientes conjuntos:
+
 	\begin{enumerate}
-		\item $\Sigma_{1}^{0}\subseteq\FORMULAS$ es el conjunto de todas las fórmulas $\varphi\in\FORMULAS$ tales que $\varphi\equiv\exists n\psi$ para algunos $n\in\VARIABLES[N]$ y $\psi\in\Delta_{0}^{0}$. 
+		\item $\Sigma_{1}^{0}\subseteq\FORMULAS$ es el conjunto de todas las fórmulas $\varphi\in\FORMULAS$ tales que $\varphi\equiv\exists n\psi$ para algunos $n\in\VARIABLES[N]$ y $\psi\in\Delta_{0}^{0}$.
 		\item $\Pi_{1}^{0}\subseteq\FORMULAS$ es el conjunto de todas las fórmulas $\varphi\in\FORMULAS$ tales que $\varphi\equiv\forall n\psi$ para algunos $n\in\VARIABLES[N]$ y $\psi\in\Delta_{0}^{0}$.
 		\item $\Sigma_{k + 1}^{0}\subseteq\FORMULAS$ es el conjunto de todas las fórmulas $\varphi\in\FORMULAS$ tales que $\varphi\equiv\exists n\psi$ para algunos $n\in\VARIABLES[N]$ y $\psi\in\Pi_{k}^{0}$.
 		\item $\Pi_{k + 1}^{0}\subseteq\FORMULAS$ es el conjunto de todas las fórmulas $\varphi\in\FORMULAS$ tales que $\varphi\equiv\forall n\psi$ para algunos $n\in\VARIABLES[N]$ y $\psi\in\Sigma_{k}^{0}$.
@@ -262,19 +275,19 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \end{theorem}
 
 \begin{proof}
-	Consideremos una fórmula $\varphi\in\Delta_{0}^{0}$ y $n\in\VARIABLES[N]$ con $n\notin\mathrm{Var}\left[\varphi\right]$. Mostremos que $\varphi\in\Sigma_{1}^{0}$ y $\varphi\in\Pi_{1}^{0}$.
-	
-	Consideremos a la fórmula $\psi$ dada por $\exists n\left(\left(n = n\right)\land\varphi\right)$. Notemos que $\left(\left(n = n\right)\land\varphi\right)\in\Delta_{0}^{0}$ ya que $\left(n = n\right)\in\ATOMICAS\subseteq\Delta_{0}^{0}$ y, por hipótesis, $\varphi\in\Delta_{0}^{0}$. 
-	
+	Consideremos una fórmula $\varphi\in\Delta_{0}^{0}$ y $n\in\VARIABLES[N]$ con $n\notin\mathrm{Var}\bra*{\varphi}$. Mostremos que $\varphi\in\Sigma_{1}^{0}$ y $\varphi\in\Pi_{1}^{0}$.
+
+	Consideremos a la fórmula $\psi$ dada por $\exists n\pa*{\pa*{n = n}\land\varphi}$. Notemos que $\pa*{\pa*{n = n}\land\varphi}\in\Delta_{0}^{0}$ ya que $\pa*{n = n}\in\ATOMICAS\subseteq\Delta_{0}^{0}$ y, por hipótesis, $\varphi\in\Delta_{0}^{0}$.
+
 	Obtenemos lo siguiente:
 	\[
-		\psi\equiv\exists n\left(\left(n = n\right)\land\varphi\right)\equiv\exists n\left(\top\land\varphi\right)\equiv\exists n\varphi\equiv\varphi
+		\psi\equiv\exists n\pa*{\pa*{n = n}\land\varphi}\equiv\exists n\pa*{\top\land\varphi}\equiv\exists n\varphi\equiv\varphi
 	\]
 	Por lo que $\varphi\equiv\psi$, y entonces $\varphi\in\Sigma_{1}^{0}$.
-	
-	Ahora, para el caso de $\Pi_{1}^{0}$, si $\theta$ está dada por $\forall n\left(\left(n = n\right)\to\varphi\right)$, similarmente se tiene que $\left(\left(n = n\right)\to\varphi\right)\in\Delta_{0}^{0}$. Luego:
+
+	Ahora, para el caso de $\Pi_{1}^{0}$, si $\theta$ está dada por $\forall n\pa*{\pa*{n = n}\to\varphi}$, similarmente se tiene que $\pa*{\pa*{n = n}\to\varphi}\in\Delta_{0}^{0}$. Luego:
 	\[
-		\theta\equiv\forall n\left(\left(n = n\right)\to\varphi\right)\equiv\forall n\left(\top\to\varphi\right)\equiv\forall n\varphi\equiv\varphi
+		\theta\equiv\forall n\pa*{\pa*{n = n}\to\varphi}\equiv\forall n\pa*{\top\to\varphi}\equiv\forall n\varphi\equiv\varphi
 	\]
 	Por lo que $\varphi\equiv\theta$, y en conclusión $\varphi\in\Pi_{1}^{0}$.
 \end{proof}
@@ -285,35 +298,41 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \end{lemma}
 
 \begin{proof}
-	Sea $\varphi\left(n_{1},\dotsc, n_{m}\right)\in\Delta_{0}^{0}$ la fórmula con parámetro $Y$ y $n_{1},\dotsc, n_{m}\in\VARIABLES[N]$ tal que $X =\left\{\left(n_{1},\dotsc, n_{m}\right): \varphi\left(n_{1},\dotsc, n_{m}\right)\right\}$. Probemos por inducción sobre el conjunto $\Delta_{0}^{0}$.
+	Sea $\varphi\pa*{n_{1},\dotsc, n_{m}}\in\Delta_{0}^{0}$ la fórmula con parámetro $Y$ y $n_{1},\dotsc, n_{m}\in\VARIABLES[N]$ tal que $X =\set*{\pa*{n_{1},\dotsc, n_{m}}:\varphi\pa*{n_{1},\dotsc, n_{m}}}$. Probemos por inducción sobre el conjunto $\Delta_{0}^{0}$.
+
 	\begin{itemize}
 		\item (Base) Si $\varphi\in\ATOMICAS$, entonces tenemos dos casos:
+
 		\begin{itemize}
-			\item Si $\varphi$ está dada por $\left(t_{1} = t_{2}\right)$ o $\left(t_{1} < t_{2}\right)$ para algunos $t_{1}, t_{2}\in\TERMINOS$, ya que la suma, producto, la relación ``menor que'' y la relación identidad son computables en $\omega$, se sigue que $X$ es computable. Ya que $X\leq_{T}\varnothing$ y $\varnothing\leq_{T} Y$, entonces $X\leq_{T} Y$.
-			\item Si $\varphi$ está dada por $\left(t\in Y\right)$ para algún $t\in\TERMINOS$, ya que la suma y producto son computables en $\omega$, entonces se tiene claramente que $X\leq_{T} Y$.
+			\item Si $\varphi$ está dada por $\pa*{t_{1} = t_{2}}$ o $\pa*{t_{1} < t_{2}}$ para algunos $t_{1}, t_{2}\in\TERMINOS$, ya que la suma, producto, la relación ``menor que'' y la relación identidad son computables en $\omega$, se sigue que $X$ es computable. Ya que $X\leq_{T}\varnothing$ y $\varnothing\leq_{T} Y$, entonces $X\leq_{T} Y$.
+			\item Si $\varphi$ está dada por $\pa*{t\in Y}$ para algún $t\in\TERMINOS$, ya que la suma y producto son computables en $\omega$, entonces se tiene claramente que $X\leq_{T} Y$.
 		\end{itemize}
-		\item (Paso inductivo) Supongamos que $\psi\left(n_{1},\dotsc, n_{m}\right),\theta\left(n_{1},\dotsc, n_{m}\right)\in\Delta_{0}^{0}$ fórmulas con parámetro $Y$ y $n_{1},\dotsc, n_{m}\in\VARIABLES[N]$ definen conjuntos $U, W\in\CPOTENCIA{\omega^{m}}$ respectivamente tales que $U, W\leq_{T} Y$. Entonces tenemos tres casos:
+
+		\item (Paso inductivo) Supongamos que $\psi\pa*{n_{1},\dotsc, n_{m}},\theta\pa*{n_{1},\dotsc, n_{m}}\in\Delta_{0}^{0}$ fórmulas con parámetro $Y$ y $n_{1},\dotsc, n_{m}\in\VARIABLES[N]$ definen conjuntos $U, W\in\CPOTENCIA{\omega^{m}}$ respectivamente tales que $U, W\leq_{T} Y$. Entonces tenemos tres casos:
+
 		\begin{itemize}
-			\item Supongamos que $\varphi$ está dada por $\neg\psi$. Ya que $U\leq_{T} Y$, entonces por propiedades de la computabilidad relativa, se tiene que $\omega^{m}\setminus U\leq_{T} Y$. Puesto que: 
+			\item Supongamos que $\varphi$ está dada por $\neg\psi$. Ya que $U\leq_{T} Y$, entonces por propiedades de la computabilidad relativa, se tiene que $\omega^{m}\setminus U\leq_{T} Y$. Puesto que:
 			\[
-				X =\left\{\left(n_{1},\dotsc, n_{m}\right):\varphi\left(n_{1},\dotsc, n_{m}\right)\right\} =\left\{\left(n_{1},\dotsc, n_{m}\right):\neg\psi\left(n_{1},\dotsc, n_{m}\right)\right\} =\omega^{m}\setminus U
+				X =\set*{\pa*{n_{1},\dotsc, n_{m}}:\varphi\pa*{n_{1},\dotsc, n_{m}}} =\set*{\pa*{n_{1},\dotsc, n_{m}}:\neg\psi\pa*{n_{1},\dotsc, n_{m}}} =\omega^{m}\setminus U
 			\]
 			se sigue que $X\leq_{T} Y$.
-			\item Supongamos que $\varphi$ está dada por $\left(\psi\land\theta\right)$. Ya que $U, W\leq_{T} Y$, entonces $U\cap W\leq_{T} Y$. Puesto que: 
+			\item Supongamos que $\varphi$ está dada por $\pa*{\psi\land\theta}$. Ya que $U, W\leq_{T} Y$, entonces $U\cap W\leq_{T} Y$. Puesto que:
 			\begin{align*}
-				X &=\left\{\left(n_{1},\dotsc, n_{m}\right):\varphi\left(n_{1},\dotsc, n_{m}\right)\right\} \\
-				&=\left\{\left(n_{1},\dotsc, n_{m}\right):\left(\psi\left(n_{1},\dotsc, n_{m}\right)\land\theta\left(n_{1},\dotsc, n_{m}\right)\right)\right\} = U\cap W
+				X &=\set*{\pa*{n_{1},\dotsc, n_{m}}:\varphi\pa*{n_{1},\dotsc, n_{m}}}\\
+				&=\set*{\pa*{n_{1},\dotsc, n_{m}}:\pa*{\psi\pa*{n_{1},\dotsc, n_{m}}\land\theta\pa*{n_{1},\dotsc, n_{m}}}} = U\cap W
 			\end{align*}
 			se sigue entonces que $X\leq_{T} Y$.
-			\item Supongamos que $\varphi$ está dada por $\left(\exists n < t\right)\psi$ o $\left(\forall n < t\right)\psi$ para algunos $n\in\VARIABLES[N]$ y $t\in\TERMINOS$ con $n\notin\mathrm{Var}\left[t\right]$. Sabemos para cualquier caso que como la suma y producto son computables, las búsquedas acotadas también son computables en $Y$, por lo que $X\leq_{T} Y$.
-		\end{itemize} 
+			\item Supongamos que $\varphi$ está dada por $\pa*{\exists n < t}\psi$ o $\pa*{\forall n < t}\psi$ para algunos $n\in\VARIABLES[N]$ y $t\in\TERMINOS$ con $n\notin\mathrm{Var}\bra*{t}$. Sabemos para cualquier caso que como la suma y producto son computables, las búsquedas acotadas también son computables en $Y$, por lo que $X\leq_{T} Y$.
+		\end{itemize}
 	\end{itemize}
+
 	Por lo tanto, podemos afirmar que $X\leq_{T} Y$.
 \end{proof}
 
 \begin{theorem}[Post]
 	\label{theo: teorema_de_post}
 	Sean $S$ una $\omega$-estructura y $X, Y\in S$.
+
 	\begin{enumerate}
 		\item $X$ es c.e. en $Y$ si y solo si $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetro $Y$.
 		\item $X$ es co-c.e. en $Y$ si y solo si $X$ es definible por una fórmula $\Pi_{1}^{0}$ con parámetro $Y$.
@@ -323,30 +342,30 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 
 \begin{proof}
 	\begin{enumerate}
-		\item Demostremos la suficiencia. Sea $\varphi\left(n\right)\in\Sigma_{1}^{0}$ con parámetro $Y$ tal que $X =\left\{n:\varphi\left(n\right)\right\}$, y mostremos que $X$ es c.e. en $Y$. 
-		
-		Como $\varphi\in\Sigma_{1}^{0}$, existen $m\in\VARIABLES[N]$ y $\psi\left(n, m\right)\in\Delta_{0}^{0}$ tales que $\varphi\left(n\right)\equiv\exists m\psi\left(n, m\right)$. Sea $Z =\left\{\left(n, m\right): \psi\left(n, m\right)\right\}$. Como $\psi\in\Delta_{0}^{0}$, por el lema \ref{lemma: delta0_implica_computable} se tiene que $Z$ es $Y$-computable. Definamos entonces la función $Y$-computable $f\left(k\right)\coloneqq\mu m Z\left(k, m\right)$, de lo cual se tiene que para cada $k\in\omega$:
+		\item Demostremos la suficiencia. Sea $\varphi\pa*{n}\in\Sigma_{1}^{0}$ con parámetro $Y$ tal que $X =\set*{n:\varphi\pa*{n}}$, y mostremos que $X$ es c.e. en $Y$.
+
+		Como $\varphi\in\Sigma_{1}^{0}$, existen $m\in\VARIABLES[N]$ y $\psi\pa*{n, m}\in\Delta_{0}^{0}$ tales que $\varphi\pa*{n}\equiv\exists m\psi\pa*{n, m}$. Sea $Z =\set*{\pa*{n, m}:\psi\pa*{n, m}}$. Como $\psi\in\Delta_{0}^{0}$, por el lema \ref{lemma: delta0_implica_computable} se tiene que $Z$ es $Y$-computable. Definamos entonces la función $Y$-computable $f\pa*{k}\coloneqq\mu m Z\pa*{k, m}$, de lo cual se tiene que para cada $k\in\omega$:
 		\begin{align*}
-			k\in X&\iff\varphi\left(k\right)\iff\exists m\psi\left(k, m\right)\iff\exists m Z\left(k, m\right)\\
-			&\iff\mu m Z\left(k, m\right)\ACABA\iff f\left(k\right)\ACABA\iff k\in\DOMINIO{f}
+			k\in X&\iff\varphi\pa*{k}\iff\exists m\psi\pa*{k, m}\iff\exists m Z\pa*{k, m}\\
+			&\iff\mu m Z\pa*{k, m}\ACABA\iff f\pa*{k}\ACABA\iff k\in\DOMINIO{f}
 		\end{align*}
-		
+
 		Por lo que $X$ es el dominio de una función $Y$-computable, de lo cual se tiene que $X$ es c.e. en $Y$.
-		
+
 		Ahora, para la necesidad supongamos que $X$ es c.e. en $Y$, entonces existe $e\in\omega$ tal que $X = W_{e}^{Y}$. Sabemos por otra parte que el T-predicado de Kleene está definido como una fórmula $\mathrm{T}\in\Delta_{0}^{0}$ con parámetro $Y$ de modo que para cada $k\in\omega$:
 		\[
-			k\in X\iff k\in W_{e}^{Y}\iff\mu p\mathrm{T}\left(e, k, Y, p\right)\ACABA\iff\exists p\mathrm{T}\left(e, k, Y, p\right)
+			k\in X\iff k\in W_{e}^{Y}\iff\mu p\mathrm{T}\pa*{e, k, Y, p}\ACABA\iff\exists p\mathrm{T}\pa*{e, k, Y, p}
 		\]
-		Luego, si $\varphi$ está dada por $\exists p\mathrm{T}\left(e, k, Y, p\right)$, se sigue que $\varphi\in\Sigma_{1}^{0}$ y define a $X$. 
+		Luego, si $\varphi$ está dada por $\exists p\mathrm{T}\pa*{e, k, Y, p}$, se sigue que $\varphi\in\Sigma_{1}^{0}$ y define a $X$.
 		\item Para la suficiencia, sea $X$ definible por una fórmula $\varphi\in\Pi_{1}^{0}$ con parámetro $Y$. Como $\varphi\in\Pi_{1}^{0}$, entonces existen $\psi\in\Delta_{0}^{0}$ con parámetro $Y$ y $n\in\VARIABLES[N]$ tales que $\varphi\equiv\forall n\psi$. Notemos que:
 		\[
-			\omega\setminus X =\left\{n:\neg\varphi\left(n\right)\right\} = \left\{n: \neg\forall m\psi\left(n, m\right)\right\} =\left\{n: \exists m\neg\psi\left(n, m\right)\right\}
+			\omega\setminus X =\set*{n:\neg\varphi\pa*{n}} =\set*{n:\neg\forall m\psi\pa*{n, m}} =\set*{n:\exists m\neg\psi\pa*{n, m}}
 		\]
 		Puesto que $\psi\in\Delta_{0}^{0}$, entonces $\neg\psi\in\Delta_{0}^{0}$ y luego $\exists m\neg\psi\in\Sigma_{1}^{0}$. Por tanto $\omega\setminus X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetro $Y$, lo cual implica que $\omega\setminus X$ es c.e. en $Y$ debido al punto anterior. Ya que $\omega\setminus X$ es c.e. en $Y$, se concluye que $X$ es co-c.e. en $Y$.
-		
+
 		Ahora, supongamos que $X$ es co-c.e. en $Y$ para la necesidad. Como $X$ es co-c.e. en $Y$, entonces $\omega\setminus X$ es c.e. en $Y$. Debido al punto anterior sabemos que existe una fórmula $\varphi\in\Sigma_{1}^{0}$ con parámetro $Y$ que define a $\omega\setminus X$. Como $\varphi\in\Sigma_{1}^{0}$, entonces existen $\psi\in\Delta_{0}^{0}$ con parámetro $Y$ y $m\in\VARIABLES[N]$ tales que $\varphi\equiv\exists m\psi$. Se tiene entonces que:
 		\[
-			X =\omega\setminus\left(\omega\setminus X\right) =\left\{n:\neg\varphi\right\} =\left\{n:\neg\exists m\psi\right\} =\left\{n: \forall m\neg\psi\right\}
+			X =\omega\setminus\pa*{\omega\setminus X} =\set*{n:\neg\varphi} =\set*{n:\neg\exists m\psi} =\set*{n:\forall m\neg\psi}
 		\]
 		Ya que $\psi\in\Delta_{0}^{0}$, entonces $\neg\psi\in\Delta_{0}^{0}$, de lo cual se tiene que $\forall m\neg\psi\in\Pi_{1}^{0}$. Por lo tanto, se obtiene que $X$ es definible por una fórmula $\Pi_{1}^{0}$ con parámetro $Y$.
 		\item Sabemos que $X$ es computable en $Y$ si y solo si $X$ es c.e. y co-c.e. en $Y$, de lo cual por los dos puntos anteriores, se cumple si y solo si $X$ es definible por una fórmula $\Sigma_{1}^{0}$ y por una fórmula $\Pi_{1}^{0}$.
@@ -363,29 +382,34 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \end{lemma}
 
 \begin{proof}
-	Sea $\varphi\left(n_{1},\dotsc, n_{m}\right)\in\Delta_{0}^{0}$ la fórmula con parámetros $Y_{1},\dotsc, Y_{m}$ y $n_{1},\dotsc, n_{m}\in\VARIABLES[N]$ tal que $X =\left\{\left(n_{1},\dotsc, n_{m}\right): \varphi\left(n_{1},\dotsc, n_{m}\right)\right\}$. Probemos por inducción sobre el conjunto $\Delta_{0}^{0}$.
+	Sea $\varphi\pa*{n_{1},\dotsc, n_{m}}\in\Delta_{0}^{0}$ la fórmula con parámetros $Y_{1},\dotsc, Y_{m}$ y $n_{1},\dotsc, n_{m}\in\VARIABLES[N]$ tal que $X =\set*{\pa*{n_{1},\dotsc, n_{m}}:\varphi\pa*{n_{1},\dotsc, n_{m}}}$. Probemos por inducción sobre el conjunto $\Delta_{0}^{0}$.
+
 	\begin{itemize}
 		\item (Base) Si $\varphi\in\ATOMICAS$, entonces tenemos dos casos:
+
 		\begin{itemize}
-			\item Si $\varphi$ está dada por $\left(t_{1} = t_{2}\right)$ o $\left(t_{1} < t_{2}\right)$ para algunos $t_{1}, t_{2}\in\TERMINOS$, ya que la suma, producto, la relación ``menor que'' y la relación identidad son computables en $\omega$, se sigue que $X$ es computable. Ya que $X\leq_{T}\varnothing$ y $\varnothing\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
-			\item Si $\varphi$ está dada por $\left(t\in Y_{p}\right)$ para algún $t\in\TERMINOS$ y $p\in\left\{1,\dotsc, k\right\}$, ya que la suma y producto son computables en $\omega$, entonces se tiene claramente que $X\leq_{T} Y_{p}$. Ahora, puesto que $Y_{p}\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces se sigue que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$
+			\item Si $\varphi$ está dada por $\pa*{t_{1} = t_{2}}$ o $\pa*{t_{1} < t_{2}}$ para algunos $t_{1}, t_{2}\in\TERMINOS$, ya que la suma, producto, la relación ``menor que'' y la relación identidad son computables en $\omega$, se sigue que $X$ es computable. Ya que $X\leq_{T}\varnothing$ y $\varnothing\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
+			\item Si $\varphi$ está dada por $\pa*{t\in Y_{p}}$ para algún $t\in\TERMINOS$ y $p\in\set*{1,\dotsc, k}$, ya que la suma y producto son computables en $\omega$, entonces se tiene claramente que $X\leq_{T} Y_{p}$. Ahora, puesto que $Y_{p}\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces se sigue que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$
 		\end{itemize}
-		\item (Paso inductivo) Supongamos que $\psi\left(n_{1},\dotsc, n_{m}\right),\theta\left(n_{1},\dotsc, n_{m}\right)\in\Delta_{0}^{0}$ fórmulas con parámetros $Y_{1}\dotsc, Y_{k}$ y $n_{1},\dotsc, n_{m}\in\VARIABLES[N]$ definen conjuntos $U, W\subseteq\omega^{k}$ respectivamente tales que $U, W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Entonces tenemos tres casos:
+
+		\item (Paso inductivo) Supongamos que $\psi\pa*{n_{1},\dotsc, n_{m}},\theta\pa*{n_{1},\dotsc, n_{m}}\in\Delta_{0}^{0}$ fórmulas con parámetros $Y_{1}\dotsc, Y_{k}$ y $n_{1},\dotsc, n_{m}\in\VARIABLES[N]$ definen conjuntos $U, W\subseteq\omega^{k}$ respectivamente tales que $U, W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Entonces tenemos tres casos:
+
 		\begin{itemize}
-			\item Supongamos que $\varphi$ está dada por $\neg\psi$. Ya que $U\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces por propiedades de la computabilidad relativa, se tiene que $\omega\setminus U\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Puesto que: 
+			\item Supongamos que $\varphi$ está dada por $\neg\psi$. Ya que $U\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces por propiedades de la computabilidad relativa, se tiene que $\omega\setminus U\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Puesto que:
 			\[
-			X =\left\{\left(n_{1},\dotsc, n_{m}\right):\varphi\left(n_{1},\dotsc, n_{m}\right)\right\} =\left\{\left(n_{1},\dotsc, n_{m}\right):\neg\psi\left(n_{1},\dotsc, n_{m}\right)\right\} =\omega\setminus U
+				X =\set*{\pa*{n_{1},\dotsc, n_{m}}:\varphi\pa*{n_{1},\dotsc, n_{m}}} =\set*{\pa*{n_{1},\dotsc, n_{m}}:\neg\psi\pa*{n_{1},\dotsc, n_{m}}} =\omega\setminus U
 			\]
 			se sigue que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
-			\item Supongamos que $\varphi$ está dada por $\left(\psi\land\theta\right)$. Ya que $U, W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $U\cap W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Puesto que: 
+			\item Supongamos que $\varphi$ está dada por $\pa*{\psi\land\theta}$. Ya que $U, W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $U\cap W\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$. Puesto que:
 			\begin{align*}
-				X &=\left\{\left(n_{1},\dotsc, n_{m}\right):\varphi\left(n_{1},\dotsc, n_{m}\right)\right\} \\
-				&=\left\{\left(n_{1},\dotsc, n_{m}\right):\left(\psi\left(n_{1},\dotsc, n_{m}\right)\land\theta\left(n_{1},\dotsc, n_{m}\right)\right)\right\} = U\cap W
+				X &=\set*{\pa*{n_{1},\dotsc, n_{m}}:\varphi\pa*{n_{1},\dotsc, n_{m}}}\\
+				&=\set*{\pa*{n_{1},\dotsc, n_{m}}:\pa*{\psi\pa*{n_{1},\dotsc, n_{m}}\land\theta\pa*{n_{1},\dotsc, n_{m}}}} = U\cap W
 			\end{align*}
 			se sigue entonces que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
-			\item Supongamos que $\varphi$ está dada por $\left(\exists n < t\right)\psi$ o $\left(\forall n < t\right)\psi$ para algunos $n\in\VARIABLES[N]$ y $t\in\TERMINOS$ con $n\notin\mathrm{Var}\left[t\right]$. Sabemos para cualquier caso que como la suma y producto son computables, las búsquedas acotadas también son computables en $Y_{1}\oplus\dotsb\oplus Y_{k}$, por lo que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
-		\end{itemize} 
+			\item Supongamos que $\varphi$ está dada por $\pa*{\exists n < t}\psi$ o $\pa*{\forall n < t}\psi$ para algunos $n\in\VARIABLES[N]$ y $t\in\TERMINOS$ con $n\notin\mathrm{Var}\bra*{t}$. Sabemos para cualquier caso que como la suma y producto son computables, las búsquedas acotadas también son computables en $Y_{1}\oplus\dotsb\oplus Y_{k}$, por lo que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
+		\end{itemize}
 	\end{itemize}
+
 	Por lo tanto, podemos afirmar que $X\leq_{T} Y_{1}\oplus\dotsb\oplus Y_{k}$.
 \end{proof}
 
@@ -396,44 +420,46 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 
 \begin{proof}
 	Probemos por inducción sobre el número de parámetros.
+
 	\begin{itemize}
 		\item (Base) Trivialmente se cumple para el caso $k = 1$.
-		\item (Paso inductivo) Sea $m\in\omega^{+}$ tal que toda fórmula $\Delta_{0}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{m}$ es equivalente a una fórmula igualmente $\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{m}$. 
-		
-		Sea $\varphi\in\Delta_{0}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{m + 1}$. Notemos que cada aparición de $Y_{1}\oplus\dotsb\oplus Y_{m + 1}$ es de la forma $\left(t\in Y_{1}\oplus\dotsb\oplus Y_{m + 1}\right)$ para algún $t\in\TERMINOS$. Por la definición de la yunta se tiene que esta fórmula es equivalente a:
+		\item (Paso inductivo) Sea $m\in\omega^{+}$ tal que toda fórmula $\Delta_{0}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{m}$ es equivalente a una fórmula igualmente $\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{m}$.
+
+		Sea $\varphi\in\Delta_{0}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{m + 1}$. Notemos que cada aparición de $Y_{1}\oplus\dotsb\oplus Y_{m + 1}$ es de la forma $\pa*{t\in Y_{1}\oplus\dotsb\oplus Y_{m + 1}}$ para algún $t\in\TERMINOS$. Por la definición de la yunta se tiene que esta fórmula es equivalente a:
 		\begin{align*}
-			\left(\exists n < t + 1\right)&\left(\left(\left(n\in Y_{1}\oplus\dotsb\oplus Y_{m}\right)\land\left(t =\left(n + n\right)\right)\right)\right. \\
-			&\left. \vee\left(\left(n\in Y_{m + 1}\right)\land\left(t =\left(\left(n + n\right) + 1\right)\right)\right)\right)
+			\pa*{\exists n < t + 1}&\left(\pa*{\pa*{n\in Y_{1}\oplus\dotsb\oplus Y_{m}}\land\pa*{t =\pa*{n + n}}}\right.\\
+			&\left.\vee\pa*{\pa*{n\in Y_{m + 1}}\land\pa*{t =\pa*{\pa*{n + n} + 1}}}\right)
 		\end{align*}
-		la cual es $\Delta_{0}^{0}$. Puesto que la fórmula $\left(\left(n\in Y_{1}\oplus\dotsb\oplus Y_{m}\right)\land\left(t =\left(n + n\right)\right)\right)$ es $\Delta_{0}^{0}$, entonces por hipótesis existe una fórmula $\theta\left(Y_{1},\dotsc,Y_{m}\right)\in\Delta_{0}^{0}$ equivalente. Se tiene entonces que:
+		la cual es $\Delta_{0}^{0}$. Puesto que la fórmula $\pa*{\pa*{n\in Y_{1}\oplus\dotsb\oplus Y_{m}}\land\pa*{t =\pa*{n + n}}}$ es $\Delta_{0}^{0}$, entonces por hipótesis existe una fórmula $\theta\pa*{Y_{1},\dotsc,Y_{m}}\in\Delta_{0}^{0}$ equivalente. Se tiene entonces que:
 		\begin{align*}
-			\left(t\in Y_{1}\oplus\dotsb\oplus Y_{m + 1}\right)\equiv&\left(\exists n < t + 1\right)\left(\theta\left(Y_{1},\dotsc,Y_{m}\right)\right.\\
-			&\left.\vee\left(\left(n\in Y_{m + 1}\right)\land\left(t =\left(\left(n + n\right) + 1\right)\right)\right)\right)
+			\pa*{t\in Y_{1}\oplus\dotsb\oplus Y_{m + 1}}\equiv&\pa*{\exists n < t + 1}\left(\theta\pa*{Y_{1},\dotsc,Y_{m}}\right.\\
+			&\left.\vee\pa*{\pa*{n\in Y_{m + 1}}\land\pa*{t =\pa*{\pa*{n + n} + 1}}}\right)
 		\end{align*}
-		
-		la cual sigue siendo $\Delta_{0}^{0}$. Por lo tanto, al reemplazar cada aparición de la subfórmula $\left(t\in Y_{1}\oplus\dotsb\oplus Y_{m + 1}\right)$ por tal fórmula equivalente en $\varphi$, se obtiene que $\varphi$ es equivalente a una fórmula $\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{m + 1}$.
+
+		la cual sigue siendo $\Delta_{0}^{0}$. Por lo tanto, al reemplazar cada aparición de la subfórmula $\pa*{t\in Y_{1}\oplus\dotsb\oplus Y_{m + 1}}$ por tal fórmula equivalente en $\varphi$, se obtiene que $\varphi$ es equivalente a una fórmula $\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{m + 1}$.
 	\end{itemize}
 \end{proof}
-
 
 \begin{theorem}[Post generalizado]
 	\label{theo: teorema_de_post_generalizado}
 	Sean $S$ una $\omega$-estructura, $k\in\omega^{+}$ y $X, Y_{1},\dotsc, Y_{k}\in S$.
+
 	\begin{enumerate}
 		\item $X$ es c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$ si y solo si $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$.
 		\item $X$ es co-c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$ si y solo si $X$ es definible por una fórmula $\Pi_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$.
 		\item $X$ es computable en $Y_{1}\oplus\dotsb\oplus Y_{k}$ si y solo si $X$ es definible por una fórmula $\Delta_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$.
 	\end{enumerate}
 \end{theorem}
+
 \begin{proof}
 	Es únicamente necesario probar el primer punto, pues las demostraciones de los dos restantes son análogas a las de sus correspondientes del teorema \ref{theo: teorema_de_post}.
-	
-	Para la necesidad, por el teorema de Post (\ref{theo: teorema_de_post}), se tiene que si $X$ es c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{k}$, es decir, existen una fórmula $\varphi\left(Y_{1}\oplus\dotsb\oplus Y_{k}\right)\in\Delta_{0}^{0}$ y $n\in\VARIABLES[N]$ tales que $X$ es definida por $\exists n\varphi\left(Y_{1}\oplus\dotsb\oplus Y_{k}\right)$. Por el teorema \ref{theo: yunta_como_parametro} sabemos que existe $\theta\left(Y_{1},\dotsc, Y_{k}\right)\in\Delta_{0}^{0}$ tal que $\varphi\equiv\theta$, y luego $\exists n\varphi\equiv\exists n\theta$. Por lo tanto, $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetros $Y_{1},\dotsc,Y_{k}$.
-	
-	Ahora, para la suficiencia, sea $X$ definible por una por una fórmula $\Sigma_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$, es decir, existen $m\in\VARIABLES[N]$ y $\varphi\left(n, m\right)\in\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$ tales que $X =\left\{n:\exists m\varphi\left(n, m\right)\right\}$. Por el lema \ref{lemma: delta0_implica_computable_yunta} sabemos que el conjunto $Z\subseteq\omega^{2}$ dado por $Z =\left\{\left(n, m\right): \varphi\left(n, m\right)\right\}$ es $Y_{1}\oplus\dotsb\oplus Y_{k}$-computable. Sea $f\left(n\right) =\mu m Z\left(n, m\right)$ una función $Y_{1}\oplus\dotsb\oplus Y_{k}$-computable, entonces se sigue que para cada $p\in\omega$:
+
+	Para la necesidad, por el teorema de Post (\ref{theo: teorema_de_post}), se tiene que si $X$ es c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$, entonces $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetro $Y_{1}\oplus\dotsb\oplus Y_{k}$, es decir, existen una fórmula $\varphi\pa*{Y_{1}\oplus\dotsb\oplus Y_{k}}\in\Delta_{0}^{0}$ y $n\in\VARIABLES[N]$ tales que $X$ es definida por $\exists n\varphi\pa*{Y_{1}\oplus\dotsb\oplus Y_{k}}$. Por el teorema \ref{theo: yunta_como_parametro} sabemos que existe $\theta\pa*{Y_{1},\dotsc, Y_{k}}\in\Delta_{0}^{0}$ tal que $\varphi\equiv\theta$, y luego $\exists n\varphi\equiv\exists n\theta$. Por lo tanto, $X$ es definible por una fórmula $\Sigma_{1}^{0}$ con parámetros $Y_{1},\dotsc,Y_{k}$.
+
+	Ahora, para la suficiencia, sea $X$ definible por una por una fórmula $\Sigma_{1}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$, es decir, existen $m\in\VARIABLES[N]$ y $\varphi\pa*{n, m}\in\Delta_{0}^{0}$ con parámetros $Y_{1},\dotsc, Y_{k}$ tales que $X =\set*{n:\exists m\varphi\pa*{n, m}}$. Por el lema \ref{lemma: delta0_implica_computable_yunta} sabemos que el conjunto $Z\subseteq\omega^{2}$ dado por $Z =\set*{\pa*{n, m}:\varphi\pa*{n, m}}$ es $Y_{1}\oplus\dotsb\oplus Y_{k}$-computable. Sea $f\pa*{n} =\mu m Z\pa*{n, m}$ una función $Y_{1}\oplus\dotsb\oplus Y_{k}$-computable, entonces se sigue que para cada $p\in\omega$:
 	\begin{align*}
-		p\in X&\iff\exists m\varphi\left(p, m\right)\iff\exists m Z\left(p, m\right)\\
-		&\iff\mu m Z\left(p, m\right)\ACABA\iff f\left(p\right)\ACABA\iff p\in\DOMINIO{f}
+		p\in X&\iff\exists m\varphi\pa*{p, m}\iff\exists m Z\pa*{p, m}\\
+		&\iff\mu m Z\pa*{p, m}\ACABA\iff f\pa*{p}\ACABA\iff p\in\DOMINIO{f}
 	\end{align*}
 	De lo cual se implica que $X =\DOMINIO{f}$. Puesto que $X$ es dominio de una función $Y_{1}\oplus\dotsb\oplus Y_{k}$-computable, entonces se concluye que $X$ es c.e. en $Y_{1}\oplus\dotsb\oplus Y_{k}$.
 \end{proof}
@@ -441,23 +467,31 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \begin{definition}[Axiomas base de la aritmética de segundo orden]
 	\label{def: axiomas_base}
 	Definimos a los \emph{axiomas básicos} de $\ARITMETICA$, denotados por $\PEANO$, como las cerraduras universales de las siguientes fórmulas:
+
 	\begin{enumerate}
-		\item $\neg\left(n + 1 = 0\right)$
-		\item $\left(\left(\left(n + 1\right) = \left(m + 1\right)\right)\to\left(n = m\right)\right)$
-		\item $\left(\left(n +\left(m + 1\right)\right) =\left(\left(n + m\right) + 1\right)\right)$
-		\item $\left(\left(n\cdot 0\right) = 0\right)$
-		\item $\left(\left(n\cdot\left(m + 1\right)\right) =\left(\left(n\cdot m\right) + n\right)\right)$
-		\item $\neg\left(n < 0\right)$
-		\item $\left(\left(n <\left(m + 1\right)\right)\to\left(\left(n < m\right)\vee\left(n = m\right)\right)\right)$
-		\item $\left(\left(n + 0\right) = n\right)$
+		\item $\neg\pa*{\pa*{n + 1} = 0}$
+		\label{def_axiomas: cero_no_es_sucesor}
+		\item $\pa*{\pa*{\pa*{n + 1} =\pa*{m + 1}}\to\pa*{n = m}}$
+		\label{def_axiomas: sucesor_es_inyectiva}
+		\item $\pa*{\pa*{n +\pa*{m + 1}} =\pa*{\pa*{n + m} + 1}}$
+		\label{def_axiomas: sucesor_es_asociativo}
+		\item $\pa*{\pa*{n + 0} = n}$
+		\label{def_axiomas: el_cero_es_identidad}
+		\item $\pa*{\pa*{n\cdot 0} = 0}$
+		\label{def_axiomas: cero_es_absorbente}
+		\item $\pa*{\pa*{n\cdot\pa*{m + 1}} =\pa*{\pa*{n\cdot m} + n}}$
+		\label{def_axiomas: producto_es_distributivo}
+		\item $\neg\pa*{n < 0}$
+		\label{def_axiomas: no_hay_negativos}
+		\item $\pa*{\pa*{n <\pa*{m + 1}}\leftrightarrow\pa*{\pa*{n < m}\vee\pa*{n = m}}}$
+		\label{def_axiomas: el_menor_o_igual}
 	\end{enumerate}
 \end{definition}
-
 
 \begin{definition}[Esquema de inducción]
 	Sea $\Gamma\subseteq\FORMULAS$ no vacío. Se define el \emph{esquema de $\Gamma$-inducción}, denotado por $\INDUCCION{\Gamma}$, como el esquema de cerraduras universales:
 	\[
-		\left(\left(\varphi\left(0\right)\land\forall n\left(\varphi\left(n\right)\to\varphi\left(n + 1\right)\right)\right)\to\forall n\varphi\left(n\right)\right)
+		\pa*{\pa*{\varphi\pa*{0}\land\forall n\pa*{\varphi\pa*{n}\to\varphi\pa*{n + 1}}}\to\forall n\varphi\pa*{n}}
 	\]
 	donde $\varphi\in\Gamma$.
 \end{definition}
@@ -465,13 +499,11 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \begin{definition}[Esquema de $\Delta_{1}^{0}$-comprensión]
 	Se define el \emph{esquema de $\Delta_{1}^{0}$-comprensión}, denotado por $\COMPRENSION{\Delta_{1}^{0}}$, como el esquema de cerraduras universales:
 	\[
-		\left(\forall n\left(\varphi\left(n\right)\leftrightarrow\psi\left(n\right)\right)\to\exists X\forall n\left(\left(n\in X\right)\leftrightarrow\varphi\left(n\right)\right)\right)
+		\pa*{\forall n\pa*{\varphi\pa*{n}\leftrightarrow\psi\pa*{n}}\to\exists X\forall n\pa*{\pa*{n\in X}\leftrightarrow\varphi\pa*{n}}}
 	\]
-	donde $\varphi\left(n\right)\in\Sigma_{1}^{0}$, $\psi\left(n\right)\in\Pi_{1}^{0}$ y $\mathrm{Free}\left[\varphi\right] =\mathrm{Free}\left[\psi\right] =\left\{n\right\}$.
+	donde $\varphi\pa*{n}\in\Sigma_{1}^{0}$, $\psi\pa*{n}\in\Pi_{1}^{0}$ y $\mathrm{Free}\bra*{\varphi} =\mathrm{Free}\bra*{\psi} =\set*{n}$.
 \end{definition}
 
 \begin{definition}[$\omega$-modelo]
 	Sean $\Gamma\subseteq\ENUNCIADOS$ no vacío y $S\subseteq\CPOTENCIA{\omega}$ una $\omega$-estructura. $S$ se denomina \emph{$\omega$-modelo} de $\Gamma$ si $S\models\varphi$ para cada $\varphi\in\Gamma$.
 \end{definition}
-
-

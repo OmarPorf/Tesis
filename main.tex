@@ -2,10 +2,11 @@
 \input{Comandos_matematicas}
 \addbibresource{bibliografia.bib}
 \thispagestyle{empty}
+
 \begin{document}
 	\begin{titlepage}
 		\thispagestyle{empty}
-		
+
 		% --- PRIMERA COLUMNA ARRIBA (Logo IPN) ---
 		\begin{minipage}[c][0.17\textheight][c]{0.25\textwidth}
 			\begin{center}
@@ -22,13 +23,14 @@
 				\vspace{.2cm}
 				\hrule height1pt
 				\vspace{.8cm}
-				\textsc{ESCUELA SUPERIOR DE FÍSICA Y MATEMÁTICAS }\\[0.5cm] 
+				\textsc{ESCUELA SUPERIOR DE FÍSICA Y MATEMÁTICAS }\\[0.5cm]
 			\end{center}
 		\end{minipage}
-		
+
 		% --- PRIMERA COLUMNA ABAJO (Líneas verticales y Logo ESFM) ---
 		\begin{minipage}[c][0.81\textheight][t]{0.25\textwidth}
 			\vspace*{5mm}
+
 			\begin{center}
 				\hskip2.0mm
 				% Las tres líneas verticales deben ir continuas, sin \vspace entre ellas
@@ -56,22 +58,23 @@
 			\end{center}
 		\end{minipage}
 	\end{titlepage}
-%========== ÍNDICE
-\clearpage
-\tableofcontents
-\listoffigures
-%========== CAPÍTULOS
-% Teoría de la computabilidad
-\input{Capitulos/c1}
-% Aritmética de segundo orden
-\input{Capitulos/c2}
-% RCA0
-\input{Capitulos/c3}
-% ACA0
-\input{Capitulos/c4}
-% WKL0
-\input{Capitulos/c5}
-\newpage
-\nocite{*}
-\printbibliography[heading=bibintoc,title={Referencias}]
+
+	%========== ÍNDICE
+	\clearpage
+	\tableofcontents
+	\listoffigures
+	%========== CAPÍTULOS
+	% Teoría de la computabilidad
+	\input{Capitulos/c1}
+	% Aritmética de segundo orden
+	\input{Capitulos/c2}
+	% RCA0
+	\input{Capitulos/c3}
+	% ACA0
+	\input{Capitulos/c4}
+	% WKL0
+	\input{Capitulos/c5}
+	\newpage
+	\nocite{*}
+	\printbibliography[heading=bibintoc,title={Referencias}]
 \end{document}

@@ -13,13 +13,16 @@ La característica principal de las funciones primitivo-recursivas es que se obt
 \begin{definition}[Funciones primitivo-recursivas]
 	\label{def: funciones_primitivas}
 	Sea $n\in\omega^{+}$. Una función $f:\omega^{n}\to\omega$ se denomina \emph{primitivo-recursiva} si satisface alguna de las siguientes condiciones:
+
 	\begin{enumerate}
 		\item (Funciones básicas) La función $f$ es una de las siguientes funciones:
+
 		\begin{itemize}
 			\item La función \emph{cero}: $\CERO:\omega^{n}\to\omega$ tal que para cada $x\in\omega^{n}$, $\CERO\pa*{x} = 0$.
 			\item Si $n = 1$, la función \emph{sucesor}: $\SUCESOR:\omega\to\omega$ tal que para cada $x\in\omega$, $\SUCESOR\pa*{x} = x + 1$.
 			\item Para algún $k\in\omega^{+}$ con $k\leq n$, la función \emph{proyección}: $\PROYECCION{n}{k}:\omega^{n}\to\omega$ tal que para cada $x_{1},\dotsc, x_{n}\in\omega$, $\PROYECCION{n}{k}\pa*{x_{1},\dotsc, x_{n}} = x_{k}$.
 		\end{itemize}
+
 		\item (Composición) Para algún $m\in\omega^{+}$ existen funciones primitivo-recursivas $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega$ y $h:\omega^{m}\to\omega$ tales que para cada $x\in\omega^{n}$, $f\pa*{x} = h\pa*{g_{1}\pa*{x},\dotsc, g_{m}\pa*{x}}$.
 		\item (Recursión) Si $n > 1$ y existen funciones primitivo-recursivas $g:\omega^{n - 1}\to\omega$ y $h:\omega^{n + 1}\to\omega$ tales que para cada $x\in\omega^{n - 1}$ y cada $y\in\omega$ se satisface que:
 		\[
@@ -29,7 +32,7 @@ La característica principal de las funciones primitivo-recursivas es que se obt
 			\end{NiceArray}
 		\]
 	\end{enumerate}
-	
+
 	Para cada $n\in\omega^{+}$, denotamos por $\PRIMITIVO[n]$ al conjunto de todas las funciones primitivo-recursivas de aridad $n$. Definimos al conjunto de funciones primitivo-recursivas como $\PRIMITIVO\coloneqq\bigcup_{n\in\omega^{+}}\PRIMITIVO[n]$.
 \end{definition}
 
@@ -41,19 +44,19 @@ Ejemplo de cómo es que estas funciones modelan una parte de la computabilidad e
 
 Antes de ir a la demostración formal, veamos cómo es que podemos reescribir a estas funciones. Para el caso de la suma, notemos que si $\mathrm{Suma}\pa*{x, y} = x + y$, entonces:
 \[
-	\mathrm{Suma}\pa*{x, y + 1} = x + \pa*{y + 1} = \pa*{x + y} + 1 = \mathrm{Suma}\pa*{x, y} + 1
+	\mathrm{Suma}\pa*{x, y + 1} = x +\pa*{y + 1} =\pa*{x + y} + 1 =\mathrm{Suma}\pa*{x, y} + 1
 \]
 por lo que la suma puede escribirse de manera recursiva sobre el segundo argumento. Notemos que para que la recursión esté bien definida necesitamos tener un caso base. En este caso tendríamos que $\mathrm{Suma}\pa*{x, 0} = x + 0 = x$.
 
 Similarmente para el caso del producto, si $\mathrm{Prod}\pa*{x, y} = xy$, entonces:
 \[
-\mathrm{Prod}\pa*{x, y + 1} = x\pa*{y + 1} = xy + x = \mathrm{Prod}\pa*{x, y} + x
+	\mathrm{Prod}\pa*{x, y + 1} = x\pa*{y + 1} = xy + x =\mathrm{Prod}\pa*{x, y} + x
 \]
 con el caso base $\mathrm{Prod}\pa*{x, 0} = x\cdot 0 = 0$.
 
 Ahora para la exponenciación, si $\mathrm{Exp}\pa*{x, y} = x^{y}$, entonces:
 \[
-\mathrm{Exp}\pa*{x, y + 1} = x^{y + 1} = x^{y}x = \mathrm{Exp}\pa*{x, y}x
+	\mathrm{Exp}\pa*{x, y + 1} = x^{y + 1} = x^{y}x =\mathrm{Exp}\pa*{x, y}x
 \]
 con el caso base $\mathrm{Exp}\pa*{x, 0} = x^{0} = 1$.
 
@@ -67,21 +70,21 @@ Con esto vemos que estas operaciones pueden calcularse de manera recursiva, lo c
 			f\pa*{x, y + 1} =\SUCESOR\pa*{\PROYECCION{3}{3}\pa*{x, y,f\pa*{x, y}}}
 		\end{NiceArray}
 	\]
-	
-	Puesto que $\PROYECCION{1}{1}$, $\SUCESOR$ y $\PROYECCION{3}{3}$ son funciones primitivo-recursivas, se tiene que $f$ es primitivo-recursiva. Mostremos entonces que para cada $x, y\in\omega$ se satisface que $f\pa*{x, y} = x + y$. Mostremos por inducción sobre $y$. 
+
+	Puesto que $\PROYECCION{1}{1}$, $\SUCESOR$ y $\PROYECCION{3}{3}$ son funciones primitivo-recursivas, se tiene que $f$ es primitivo-recursiva. Mostremos entonces que para cada $x, y\in\omega$ se satisface que $f\pa*{x, y} = x + y$. Mostremos por inducción sobre $y$.
+
 	\begin{itemize}
-		\item (Base) Se tiene que para $y = 0$ se sigue que $f\pa*{x, 0} = \PROYECCION{1}{1}\pa*{x} = x = x + y$. 
-		\item (Paso inductivo) Sea $y\in\omega$ tal que $f\pa*{x, y} = x + y$. Entonces mostremos que $f\pa*{x, y + 1} = x + \pa*{y + 1}$. Por la definición de $f$ se tiene lo siguiente:
+		\item (Base) Se tiene que para $y = 0$ se sigue que $f\pa*{x, 0} =\PROYECCION{1}{1}\pa*{x} = x = x + y$.
+		\item (Paso inductivo) Sea $y\in\omega$ tal que $f\pa*{x, y} = x + y$. Entonces mostremos que $f\pa*{x, y + 1} = x +\pa*{y + 1}$. Por la definición de $f$ se tiene lo siguiente:
 		\[
-			f\pa*{x, y + 1} =\SUCESOR\pa*{\PROYECCION{3}{3}\pa*{x, y,f\pa*{x, y}}} = \SUCESOR\pa*{f\pa*{x, y}} = f\pa*{x, y} + 1 = \pa*{x + y} + 1 = x + \pa*{y + 1}
+			f\pa*{x, y + 1} =\SUCESOR\pa*{\PROYECCION{3}{3}\pa*{x, y,f\pa*{x, y}}} =\SUCESOR\pa*{f\pa*{x, y}} = f\pa*{x, y} + 1 =\pa*{x + y} + 1 = x +\pa*{y + 1}
 		\]
 		Probando así la proposición.
 	\end{itemize}
-	
-	
-	Ahora, para el caso del producto definamos la función auxiliar $g: \omega^3\to\omega$ para cada $x, y, z\in\omega$ como:
+
+	Ahora, para el caso del producto definamos la función auxiliar $g:\omega^3\to\omega$ para cada $x, y, z\in\omega$ como:
 	\[
-		g\pa*{x, y, z} = \PROYECCION{3}{3}\pa*{x, y, z} + \PROYECCION{3}{1}\pa*{x, y, z}
+		g\pa*{x, y, z} =\PROYECCION{3}{3}\pa*{x, y, z} +\PROYECCION{3}{1}\pa*{x, y, z}
 	\]
 	la cual es primitivo-recursiva debido a que $\PROYECCION{3}{1}$, $\PROYECCION{3}{3}$ y la suma lo son. Ahora, el producto puede describirse como la función $f:\omega^{2}\to\omega$ tal que:
 	\[
@@ -91,51 +94,54 @@ Con esto vemos que estas operaciones pueden calcularse de manera recursiva, lo c
 		\end{NiceArray}
 	\]
 	Puesto que $\operatorname{Z}$ y $g$ son funciones primitivo-recursivas, se tiene que $f$ es primitivo-recursiva. Mostremos entonces que para cada $x, y\in\omega$ se satisface que $f\pa*{x, y} = xy$. Mostremos por inducción sobre $y$.
+
 	\begin{itemize}
-		\item (Base) Se tiene que para $y = 0$ se sigue que $f\pa*{x, 0} = \CERO\pa*{x} = 0 = xy$. 
+		\item (Base) Se tiene que para $y = 0$ se sigue que $f\pa*{x, 0} =\CERO\pa*{x} = 0 = xy$.
 		\item (Paso inductivo) Sea $y\in\omega$ tal que $f\pa*{x, y} = xy$. Entonces mostremos que $f\pa*{x, y + 1} = x\pa*{y + 1}$. Por la definición de $f$ se tiene lo siguiente:
 		\begin{align*}
-			f\pa*{x, y + 1} &= g\pa*{x, y, f\pa*{x, y}} \\
+			f\pa*{x, y + 1} &= g\pa*{x, y, f\pa*{x, y}}\\
 			&=\PROYECCION{3}{3}\pa*{x, y, f\pa*{x, y}} +\PROYECCION{3}{1}\pa*{x, y}\\
-			&= f\pa*{x, y} +\PROYECCION{2}{1}\pa*{x, y} \\
-			&= f\pa*{x, y} + x \\
+			&= f\pa*{x, y} +\PROYECCION{2}{1}\pa*{x, y}\\
+			&= f\pa*{x, y} + x\\
 			&= xy + x\\
 			&= x\pa*{y + 1}
 		\end{align*}
 		Probando así la proposición.
 	\end{itemize}
-	
-	Para el caso de la exponenciación definamos a la función auxiliar $h: \omega^3\to\omega$ tal que:
+
+	Para el caso de la exponenciación definamos a la función auxiliar $h:\omega^3\to\omega$ tal que:
 	\[
-		h\pa*{x, y, z} = \PROYECCION{3}{3}\pa*{x, y, z}\PROYECCION{3}{1}\pa*{x, y, z}
+		h\pa*{x, y, z} =\PROYECCION{3}{3}\pa*{x, y, z}\PROYECCION{3}{1}\pa*{x, y, z}
 	\]
 	la cual podemos asegurar que es primitivo-recursiva ya que $\PROYECCION{3}{1}$, $\PROYECCION{3}{3}$ y el producto lo son. Por lo tanto, la exponenciación puede describirse mediante la función $f:\omega^{2}\to\omega$ tal que:
 	\[
-	\begin{NiceArray}{c}
-		f\pa*{x, 0} =\SUCESOR\pa*{\CERO\pa*{x}}\\
-		f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
-	\end{NiceArray}
+		\begin{NiceArray}{c}
+			f\pa*{x, 0} =\SUCESOR\pa*{\CERO\pa*{x}}\\
+			f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
+		\end{NiceArray}
 	\]
-	Puesto que $\SUCESOR$, $\CERO$ y $h$ son funciones primitivo-recursivas, se tiene que $f$ es primitivo-recursiva. Mostremos entonces que para cada $x, y\in\omega^{+}$ se satisface que $f\pa*{x, y} = x^{y}$. Prosigamos por inducción sobre $y$. 
+	Puesto que $\SUCESOR$, $\CERO$ y $h$ son funciones primitivo-recursivas, se tiene que $f$ es primitivo-recursiva. Mostremos entonces que para cada $x, y\in\omega^{+}$ se satisface que $f\pa*{x, y} = x^{y}$. Prosigamos por inducción sobre $y$.
+
 	\begin{itemize}
-		\item (Base) Para $y = 0$ se sigue que $f\pa*{x, 0} = \SUCESOR\pa*{\CERO\pa*{x}} = 1 = x^{y}$. 
+		\item (Base) Para $y = 0$ se sigue que $f\pa*{x, 0} =\SUCESOR\pa*{\CERO\pa*{x}} = 1 = x^{y}$.
 		\item (Paso inductivo) Sea $y\in\omega$ tal que $f\pa*{x, y} = x^{y}$. Entonces mostremos que $f\pa*{x, y + 1} = x^{y + 1}$. Por la definición de $f$ se tiene lo siguiente:
 		\begin{align*}
 			f\pa*{x, y + 1} &= h\pa*{x, y, f\pa*{x, y}}\\
 			&=\PROYECCION{3}{3}\pa*{x, y, f\pa*{x, y}}\PROYECCION{3}{1}\pa*{x, y, f\pa*{x, y}}\\
-			&= f\pa*{x, y}x \\
+			&= f\pa*{x, y}x\\
 			&= x^{y}x\\
 			&= x^{y + 1}
 		\end{align*}
 		Probando así la proposición.
 	\end{itemize}
-	
+
 	Para cada $m\in\omega$ y cada $n\in\omega^{+}$ denotemos por $f_{m}^{n}:\omega^{n}\to\omega$ a la función constante $m$, es decir, tal que para cada $x\in\omega^{n}$ se satisface que $f_{m}^{n}\pa*{x} = m$. Mostremos por inducción sobre la constante $m$ que $f_{m}^{n}$ es primitivo-recursiva.
+
 	\begin{itemize}
 		\item (Base) Sea $n\in\omega^{+}$. Para la función $f_{0}^{n}$ claramente que tiene que $f_{0}^{n} =\CERO\circ\PROYECCION{n}{1}$. Puesto que $f_{0}^{n}$ es composición de funciones básicas, entonces es primitivo-recursiva.
-		\item (Paso inductivo) Sean $n\in\omega^{+}$ y $m\in\omega$ tales que $f_{m}^{n}$ es primitivo-recursiva. Notemos que $f_{m + 1}^{n} = \SUCESOR\circ f_{m}^{n}$. Puesto que $\SUCESOR$ es una función básica y $f_{m}^{n}$ es primitivo-recursiva, entonces $f_{m + 1}^{n}$ es primitivo-recursiva.
+		\item (Paso inductivo) Sean $n\in\omega^{+}$ y $m\in\omega$ tales que $f_{m}^{n}$ es primitivo-recursiva. Notemos que $f_{m + 1}^{n} =\SUCESOR\circ f_{m}^{n}$. Puesto que $\SUCESOR$ es una función básica y $f_{m}^{n}$ es primitivo-recursiva, entonces $f_{m + 1}^{n}$ es primitivo-recursiva.
 	\end{itemize}
-	
+
 	Por lo tanto, para cada $n\in\omega^{+}$ y cada $m\in\omega$ se tiene que $f_{m}^{n}$ es primitivo-recursiva.
 \end{proof}
 
@@ -143,11 +149,12 @@ De la demostración anterior puede apreciarse que usar recursión es equivalente
 
 \begin{algorithm}[h!]
 	\caption{Suma}
+
 	\begin{algorithmic}
 		\Require $x$, $y$
 		\Ensure $x + y$
 		\For{$n = 0,\dotsc, y - 1$}
-		\State $x \gets x + 1$
+		\State $x\gets x + 1$
 		\EndFor
 		\State \Return $x$
 	\end{algorithmic}
@@ -157,12 +164,13 @@ En cuanto al producto $xy$ se trataría de un algoritmo el cual utiliza un ciclo
 
 \begin{algorithm}[h!]
 	\caption{Producto}
+
 	\begin{algorithmic}
 		\Require $x$, $y$
 		\Ensure $xy$
 		\State $z\gets 0$
 		\For{$n = 0,\dotsc, y - 1$}
-		\State $z \gets \text{Suma}\pa*{z, x}$
+		\State $z\gets\text{Suma}\pa*{z, x}$
 		\EndFor
 		\State \Return $z$
 	\end{algorithmic}
@@ -170,12 +178,13 @@ En cuanto al producto $xy$ se trataría de un algoritmo el cual utiliza un ciclo
 
 \begin{algorithm}[h!]
 	\caption{Exponenciación}
+
 	\begin{algorithmic}
 		\Require $x$, $y$
 		\Ensure $x^{y}$
 		\State $z\gets 1$
 		\For{$n = 0,\dotsc, y - 1$}
-		\State $z \gets \text{Producto}\pa*{z, x}$
+		\State $z\gets\text{Producto}\pa*{z, x}$
 		\EndFor
 		\State \Return $z$
 	\end{algorithmic}
@@ -195,27 +204,29 @@ Para poder demostrar que otras funciones comunes (y particularmente las unarias)
 
 \begin{proof}
 	Consideremos primero a las funciones auxiliares $h_0:\omega^3\to\omega$ tal que $h_0 = g\pa*{\PROYECCION{3}{2},\PROYECCION{3}{3}}$ y $h:\omega^{2}\to\omega$ definida como sigue para cada $x, y\in\omega$:
-	
+
 	\[
-	\begin{NiceArray}{c}
-		h\pa*{x, 0} = f^{1}_{a}\pa*{x}\\
-		h\pa*{x, y + 1} = h_0\pa*{x, y, h\pa*{x, y}}
-	\end{NiceArray}
+		\begin{NiceArray}{c}
+			h\pa*{x, 0} = f^{1}_{a}\pa*{x}\\
+			h\pa*{x, y + 1} = h_0\pa*{x, y, h\pa*{x, y}}
+		\end{NiceArray}
 	\]
-	
-	Notemos que las funciones $h_0$ y $h$ son primitivo-recursivas puesto que $g$ y las funciones proyección son primitivo-recursivas. Afirmamos que $h$ es una extensión de $f$ donde su primer argumento no afecta a la recursión, de modo que $f = h\pa*{\CERO, \PROYECCION{1}{1}}$. Mostremos tal afirmación por inducción:
+
+	Notemos que las funciones $h_0$ y $h$ son primitivo-recursivas puesto que $g$ y las funciones proyección son primitivo-recursivas. Afirmamos que $h$ es una extensión de $f$ donde su primer argumento no afecta a la recursión, de modo que $f = h\pa*{\CERO,\PROYECCION{1}{1}}$. Mostremos tal afirmación por inducción:
+
 	\begin{itemize}
 		\item (Base) Se tiene que $h\pa*{\CERO\pa*{0},\PROYECCION{1}{1}\pa*{0}} = h\pa*{0, 0} = f_{a}^{1}\pa*{0} = a = f\pa*{0}$.
 		\item (Paso inductivo) Sea $x\in\omega$ tal que $f\pa*{x} = h\pa*{\CERO\pa*{x},\PROYECCION{1}{1}\pa*{x}} = h\pa*{0, x}$, entonces se tiene que:
 		\begin{align*}
 			h\pa*{\CERO\pa*{x + 1},\PROYECCION{1}{1}\pa*{x + 1}} &= h\pa*{0, x + 1}\\
 			&= h_{0}\pa*{0, x, h\pa*{0, x}}\\
-			&= g\pa*{\PROYECCION{3}{2}\pa*{0, x, h\pa*{0, x}}, \PROYECCION{3}{3}\pa*{0, x, h\pa*{0, x}}}\\
+			&= g\pa*{\PROYECCION{3}{2}\pa*{0, x, h\pa*{0, x}},\PROYECCION{3}{3}\pa*{0, x, h\pa*{0, x}}}\\
 			&= g\pa*{x, h\pa*{0, x}}\\
 			&= g\pa*{x, f\pa*{x}}\\
 			&= f\pa*{x + 1}
 		\end{align*}
 	\end{itemize}
+
 	Por lo tanto, se cumple que $f = h\pa*{\CERO,\PROYECCION{1}{1}}$, la cual es primitivo-recursiva ya que $h$ es primitivo-recursiva.
 \end{proof}
 
@@ -223,6 +234,7 @@ Con este teorema podemos entonces demostrar que las funciones factorial, predece
 
 \begin{theorem}
 	Las siguientes funciones son primitivo-recursivas.
+
 	\begin{enumerate}
 		\item El factorial, es decir, la función $f:\omega\to\omega$ tal que para cada $x\in\omega$:
 		\[
@@ -256,54 +268,57 @@ Con este teorema podemos entonces demostrar que las funciones factorial, predece
 	\[
 		\begin{NiceArray}{c}
 			f\pa*{0} = 1\\
-			f\pa*{x + 1} = \pa*{x + 1}\cdot f\pa*{x}
+			f\pa*{x + 1} =\pa*{x + 1}\cdot f\pa*{x}
 		\end{NiceArray}
 	\]
 	la cual es primitivo-recursiva por los teoremas anteriores.
-	
+
 	En el caso de la función predecesor, se puede definir recursivamente como sigue:
 	\[
 		\begin{NiceArray}{c}
 			f\pa*{0} = 0\\
-			f\pa*{x + 1} = \PROYECCION{2}{1}\pa*{x, f\pa*{x}}
+			f\pa*{x + 1} =\PROYECCION{2}{1}\pa*{x, f\pa*{x}}
 		\end{NiceArray}
 	\]
-	la cual es primitivo-recursiva por los teoremas anteriores igualmente. Denotemos a la función predecesor como $\mathrm{Pred}\pa*{x}$. 
-	
+	la cual es primitivo-recursiva por los teoremas anteriores igualmente. Denotemos a la función predecesor como $\mathrm{Pred}\pa*{x}$.
+
 	Para el caso de la resta, esta se puede definir recursivamente como sigue:
 	\[
 		\begin{NiceArray}{c}
 			f\pa*{x, 0} =\PROYECCION{1}{1}\pa*{x}\\
-			f\pa*{x, y + 1} = \mathrm{Pred}\pa*{\PROYECCION{3}{3}\pa*{x, y, f\pa*{x, y}}}
+			f\pa*{x, y + 1} =\mathrm{Pred}\pa*{\PROYECCION{3}{3}\pa*{x, y, f\pa*{x, y}}}
 		\end{NiceArray}
 	\]
 	Mostremos en este caso que realmente se trata de la resta restringida a $\omega$ por inducción sobre el segundo argumento. Para ello, dividamos en dos casos: cuando $y\leq x$ y cuando $y > x$.
-	
+
 	Supongamos que $y\leq x\in\omega$ y mostremos por inducción sobre $y$ que $f\pa*{x, y} = x - y$.
+
 	\begin{itemize}
 		\item (Base) Directamente se tiene que $f\pa*{x, 0} =\PROYECCION{1}{1}\pa*{x} = x = x - 0 = x - y$.
 		\item (Paso inductivo) Sea $y < x$ para el cual $f\pa*{x, y} = x - y$ y mostremos que $f\pa*{x, y + 1} = x -\pa*{y + 1}$.
 		\begin{align*}
-			f\pa*{x, y + 1} &= \mathrm{Pred}\pa*{\PROYECCION{3}{2}\pa*{x, y, f\pa*{x, y}}}\\
-			&= \mathrm{Pred}\pa*{f\pa*{x, y}} \\
-			&= f\pa*{x, y} - 1 \\
-			&= \pa*{x - y} - 1 \\
+			f\pa*{x, y + 1} &=\mathrm{Pred}\pa*{\PROYECCION{3}{2}\pa*{x, y, f\pa*{x, y}}}\\
+			&=\mathrm{Pred}\pa*{f\pa*{x, y}}\\
+			&= f\pa*{x, y} - 1\\
+			&=\pa*{x - y} - 1\\
 			&= x -\pa*{y + 1}
 		\end{align*}
 		Notemos que en este caso, como $y < x$, entonces $f\pa*{x, y} = x - y > 0$, por lo que en efecto $\mathrm{Pred}\pa*{f\pa*{x, y}} = f\pa*{x, y} - 1$.
 	\end{itemize}
-	
+
 	Ahora, para el caso cuando $y > x$, notemos que existe $z\in\omega$ para el cual $y = x + 1 + z$. Por lo tanto, mostremos por inducción sobre $z$ que $f\pa*{x, y} = 0$.
+
 	\begin{itemize}
 		\item (Base) Notemos directamente que $f\pa*{x, x + 1} =\mathrm{Pred}\pa*{f\pa*{x, x}} =\mathrm{Pred}\pa*{0} = 0$.
-		\item (Paso inductivo) Sea $z\in\omega$ para el cual se satisface que $f\pa*{x, x + 1 + z} = 0$, entonces mostremos que $f\pa*{x, x + 1 + \pa*{z + 1}} = 0$.
+		\item (Paso inductivo) Sea $z\in\omega$ para el cual se satisface que $f\pa*{x, x + 1 + z} = 0$, entonces mostremos que $f\pa*{x, x + 1 +\pa*{z + 1}} = 0$.
 		\begin{align*}
-			f\pa*{x, x + 1 + \pa*{z + 1}}
-			&= f\pa*{x, \pa*{x + 1 + z} + 1} \\
-			&= \mathrm{Pred}\pa*{f\pa*{x, x + 1 + z}} \\
+			f\pa*{x, x + 1 +\pa*{z + 1}}
+			&= f\pa*{x,\pa*{x + 1 + z} + 1}\\
+			&=\mathrm{Pred}\pa*{f\pa*{x, x + 1 + z}}\\
 			&=\mathrm{Pred}\pa*{0} = 0
 		\end{align*}
 	\end{itemize}
+
 	Por lo que, en efecto, se concluye que $f$ es la función resta restringida a $\omega$.
 \end{proof}
 
@@ -325,10 +340,10 @@ Ejemplos de conjuntos que son primitivos recursivos están descritos en el sigui
 
 \begin{proof}
 	Notemos que $\CARACTERISTICA{\set{0}}\pa*{x} = 1 - x$ para cada $x\in\omega$, puesto que cuando $x = 0$, se tiene que $1 - x = 1$; y cuando $x > 0$, entonces $1 - x = 0$ por definición de resta restringida. Puesto que la resta es primitivo-recursiva, se sigue que $\CARACTERISTICA{\set{0}}$ es primitivo-recursiva.
-	
+
 	Puesto que $\CARACTERISTICA{\omega^{+}}\pa*{x} = 1 -\CARACTERISTICA{\set{0}}\pa*{x}$ para cada $x\in\omega$ y $\CARACTERISTICA{\set{0}}$ es primitivo-recursiva, se sigue que $\CARACTERISTICA{\omega^{+}}$ es primitivo-recursiva.
-	
-	Finalmente, puesto que $\chi_{ < }\pa*{x, y} =\CARACTERISTICA{\omega^{+}}\pa*{y - x}$, $\CARACTERISTICA{>}\pa*{x, y} =\CARACTERISTICA{\omega^{+}}\pa*{x - y}$ y $\CARACTERISTICA{=}\pa*{x, y} =\CARACTERISTICA{\set{0}}\pa*{\CARACTERISTICA{<}\pa*{x, y} + \CARACTERISTICA{>}\pa*{x, y}}$ para cada $x, y\in\omega$, se concluye que $\CARACTERISTICA{<}$, $\CARACTERISTICA{>}$ y $\CARACTERISTICA{=}$ son primitivo-recursivas.
+
+	Finalmente, puesto que $\chi_{ < }\pa*{x, y} =\CARACTERISTICA{\omega^{+}}\pa*{y - x}$, $\CARACTERISTICA{>}\pa*{x, y} =\CARACTERISTICA{\omega^{+}}\pa*{x - y}$ y $\CARACTERISTICA{=}\pa*{x, y} =\CARACTERISTICA{\set{0}}\pa*{\CARACTERISTICA{<}\pa*{x, y} +\CARACTERISTICA{>}\pa*{x, y}}$ para cada $x, y\in\omega$, se concluye que $\CARACTERISTICA{<}$, $\CARACTERISTICA{>}$ y $\CARACTERISTICA{=}$ son primitivo-recursivas.
 \end{proof}
 
 \begin{theorem}
@@ -348,6 +363,7 @@ Lo siguiente es demostrar que la clase de funciones primitivo-recursivas es cerr
 
 \begin{theorem}
 	Sean $n\in\omega^{+}$, y $f:\omega^{n + 1}\to\omega$ y $g:\omega^{n}\to\omega$ funciones primitivo-recursivas. Entonces:
+
 	\begin{enumerate}
 		\item la función $h:\omega^{n}\to\omega$ dada por $h\pa*{x} =\sum_{z < g\pa*{x}}f\pa*{x, z}$ para cada $x\in\omega^{n}$ es primitivo-recursiva.
 		\item la función $h:\omega^{n}\to\omega$ dada por $h\pa*{x} =\prod_{z < g\pa*{x}}f\pa*{x, z}$ para cada $x\in\omega^{n}$ es primitivo-recursiva.
@@ -362,9 +378,10 @@ Lo siguiente es demostrar que la clase de funciones primitivo-recursivas es cerr
 			p\pa*{x, y + 1} = p\pa*{x, y} + f\pa*{x, y}
 		\end{NiceArray}
 	\]
-	Mostremos que $p\pa*{x, y} =\sum_{z < y}f\pa*{x, z}$ para cada $x\in\omega^{n}$ y $y\in\omega^{+}$ por inducción sobre $y$. 
+	Mostremos que $p\pa*{x, y} =\sum_{z < y}f\pa*{x, z}$ para cada $x\in\omega^{n}$ y $y\in\omega^{+}$ por inducción sobre $y$.
+
 	\begin{itemize}
-		\item (Base) Se tiene que si $y = 0$, entonces: 
+		\item (Base) Se tiene que si $y = 0$, entonces:
 		\[
 			p\pa*{x, 0} = 0 =\sum_{z < 0}f\pa*{x, z} =\sum_{z < y}f\pa*{x, z}
 		\]
@@ -378,6 +395,7 @@ Lo siguiente es demostrar que la clase de funciones primitivo-recursivas es cerr
 
 \begin{notation}
 	Sean $t\in\omega$, $n\in\omega^{+}$ y $R\subseteq\omega^{n + 1}$, entonces para cada $x\in\omega^{n}$ denotamos por:
+
 	\begin{itemize}
 		\item $\pa*{\exists m < t}R\pa*{x, m}$ a la expresión $\exists m\pa*{\pa*{m < t}\land R\pa*{x, m}}$.
 		\item $\pa*{\forall m < t}R\pa*{x}$ a la expresión $\forall m\pa*{\pa*{m < t}\to R\pa*{x, m}}$.
@@ -389,6 +407,7 @@ Lo siguiente es demostrar que la clase de funciones primitivo-recursivas es cerr
 \begin{coll}
 	\label{coll: prim_rec_acotado}
 	Sean $n\in\omega^{+}$, $R\subseteq\omega^{n + 1}$ primitivo-recursivo y $f:\omega^{n}\to\omega$ primitivo-recursiva, entonces:
+
 	\begin{itemize}
 		\item el conjunto $\set{x\in\omega^{n}:\pa*{\exists z < f\pa*{x}}R\pa*{x, z}}$ es primitivo-recursivo.
 		\item el conjunto $\set{x\in\omega^{n}:\pa*{\forall z < f\pa*{x}}R\pa*{x, z}}$ es primitivo-recursivo.
@@ -401,7 +420,7 @@ Es importante notar que los procedimientos descritos siempre terminan, pues exis
 
 Ahora, para demostrar que estos conjuntos son primitivo-recursivos la idea es justamente saber cuándo las fórmulas son verdaderas. Para el caso de $\pa*{\exists z < f\pa*{x}}R\pa*{x, z}$, como mencionamos anteriormente, podemos verificar si alguno de los valores $\chi_{R}\pa*{x, 0}$, $\chi_{R}\pa*{x, 1}$,$\dotsc$, $\chi_{R}\pa*{x, f\pa*{x} - 1}$ es igual a uno; si al menos un término es igual a uno, entonces la fórmula se satisface. La forma de condensar esto en una única expresión es sumar todos los valores, pues la suma será mayor que cero si al menos un valor satisface la fórmula, y será cero si ninguno la satisface, de modo que podemos devolver uno si la suma es mayor que cero y devolvemos cero en caso contrario.
 
-De manera similar, para la expresión $\pa*{\forall z < f\pa*{x}}R\pa*{x, z}$ debemos verificar que todos los valores $\chi_{R}\pa*{x, 0}, \chi_{R}\pa*{x, 1},\dotsc, \chi_{R}\pa*{x, f\pa*{x} - 1}$ son uno para que la fórmula se satisfaga. Eso podemos lograrlo multiplicando todos los valores; si todos son uno, el producto será uno (indicando que la fórmula se satisface), y si al menos uno es cero, entonces el producto será cero (indicando que la fórmula es falsa). 
+De manera similar, para la expresión $\pa*{\forall z < f\pa*{x}}R\pa*{x, z}$ debemos verificar que todos los valores $\chi_{R}\pa*{x, 0},\chi_{R}\pa*{x, 1},\dotsc,\chi_{R}\pa*{x, f\pa*{x} - 1}$ son uno para que la fórmula se satisfaga. Eso podemos lograrlo multiplicando todos los valores; si todos son uno, el producto será uno (indicando que la fórmula se satisface), y si al menos uno es cero, entonces el producto será cero (indicando que la fórmula es falsa).
 
 \begin{proof}
 	Denotemos a los conjuntos como $S =\set{x\in\omega^{n}:\pa*{\exists z < f\pa*{x}}R\pa*{x, z}}$ y $T =\set{x\in\omega^{n}:\pa*{\forall z < f\pa*{x}}R\pa*{x, z}}$, entonces se tiene que:
@@ -411,7 +430,7 @@ De manera similar, para la expresión $\pa*{\forall z < f\pa*{x}}R\pa*{x, z}$ de
 			\CARACTERISTICA{T}\pa*{x} =\prod\limits_{z < f\pa*{x}}\CARACTERISTICA{R}\pa*{x, z}
 		\end{NiceArray}
 	\]
-	
+
 	Puesto que $f$ y $R$ son primitivos recursivos, se sigue que $S$ y $T$ son primitivos recursivos.
 \end{proof}
 
@@ -419,6 +438,7 @@ Cuando hablamos de computación, una herramienta fundamental en la práctica es 
 
 \begin{algorithm}[h!]
 	\caption{\emph{if-then-else}}
+
 	\begin{algorithmic}
 		\If{$R_{1}\pa*{x}$}
 		\State \Return $g_{1}\pa*{x}$
@@ -443,7 +463,7 @@ Donde las expresiones $R_1,\dotsc, R_m$ son las condiciones (disjuntas) que nos 
 			g_{1}\pa*{x}, & R_{1}\pa*{x}\\
 			\vdots\\
 			g_{m}\pa*{x}, & R_{m}\pa*{x}\\
-			g_{m + 1}\pa*{x}, & \text{en otro caso}
+			g_{m + 1}\pa*{x}, &\text{en otro caso}
 		\end{cases}
 	\]
 	es primitivo-recursiva.
@@ -452,14 +472,14 @@ Donde las expresiones $R_1,\dotsc, R_m$ son las condiciones (disjuntas) que nos 
 \begin{proof}
 	Se sigue que:
 	\[
-		f = \sum_{k = 1}^{m}g_{k}\CARACTERISTICA{R_{k}} + g_{m + 1}\CARACTERISTICA{\omega^{n}\setminus\bigsqcup_{k = 1}^{m}R_{k}}
+		f =\sum_{k = 1}^{m}g_{k}\CARACTERISTICA{R_{k}} + g_{m + 1}\CARACTERISTICA{\omega^{n}\setminus\bigsqcup_{k = 1}^{m}R_{k}}
 	\]
 	Por lo tanto, $f$ es primitivo-recursiva.
 \end{proof}
 
 Ya sabemos que la búsqueda existencial acotada es primitivo-recursiva, pero en ciertas ocasiones no solamente necesitamos saber si tal existencia es afirmativa, sino obtener un valor específico que sea un testigo debido a que necesitamos operar con él. Por ejemplo, no solamente necesitamos saber si existen los números primos, sino obtener explícitamente un primo particular. Puesto que trabajamos dentro del marco de los números naturales, la forma más natural de elegir un testigo es tomar el mínimo de ellos. Esa es la razón por la que debemos verificar que computacionalmente podemos encontrar el mínimo elemento que pertenece a una relación.
 
-Consideremos una relación $R\pa*{x, y}$ y $p\in\omega$. Para poder demostrar que encontrar el mínimo valor $z < p$ tal que $R\pa*{x, z}$ puede ser modelado por una función primitivo-recursiva primero debemos justificar que es posible verificar primitivo-recursivamente que un elemento es mínimo o no de una relación. Para ello construimos una relación $S\pa*{x, z}$ la cual nos describa el hecho de que $z = \min\{y: y < p\land R\pa*{x, y}\}$ . Dado que trabajamos con existencia acotada y podemos verificar si un elemento es mínimo, el procedimiento consiste en determinar para cada valor $z < p$ si lo es o no. Ya que ser mínimo es una propiedad de unicidad, si existe, se asegura que hay un único $z$ para el cual $\chi_{S}\pa*{x, z} = 1$ y para cualquier valor $y\neq z$ se tiene $\chi_S\pa*{x, y} = 0$. Por lo tanto, se puede aislar a $z$ realizando la suma $\sum_{y < p}y\cdot\chi_S\pa*{x, y}$. 
+Consideremos una relación $R\pa*{x, y}$ y $p\in\omega$. Para poder demostrar que encontrar el mínimo valor $z < p$ tal que $R\pa*{x, z}$ puede ser modelado por una función primitivo-recursiva primero debemos justificar que es posible verificar primitivo-recursivamente que un elemento es mínimo o no de una relación. Para ello construimos una relación $S\pa*{x, z}$ la cual nos describa el hecho de que $z =\min\{y: y < p\land R\pa*{x, y}\}$ . Dado que trabajamos con existencia acotada y podemos verificar si un elemento es mínimo, el procedimiento consiste en determinar para cada valor $z < p$ si lo es o no. Ya que ser mínimo es una propiedad de unicidad, si existe, se asegura que hay un único $z$ para el cual $\chi_{S}\pa*{x, z} = 1$ y para cualquier valor $y\neq z$ se tiene $\chi_S\pa*{x, y} = 0$. Por lo tanto, se puede aislar a $z$ realizando la suma $\sum_{y < p}y\cdot\chi_S\pa*{x, y}$.
 
 \begin{theorem}[Minimización acotada]
 	Sean $n\in\omega^{+}$, $R\subseteq\omega^{n + 1}$ una relación primitivo-recursiva y $g:\omega^{n}\to\omega$ primitivo-recursiva. Entonces la función $f:\omega^{n}\to\omega$ tal que para cada $x\in\omega^{n}$:
@@ -478,7 +498,7 @@ Consideremos una relación $R\pa*{x, y}$ y $p\in\omega$. Para poder demostrar qu
 	\[
 		S =\set{\pa*{x, z}\in\omega^{n + 1}: R\pa*{x, z}\land\pa*{\forall y < z}\lnot R\pa*{x, y}}
 	\]
-	
+
 	Esta relación es primitivo-recursiva puesto que:
 	\[
 		\CARACTERISTICA{S}\pa*{x, z} =\CARACTERISTICA{R}\pa*{x, z}\pa*{\prod_{y < g\pa*{x}}\CARACTERISTICA{\omega^{n}\setminus R}\pa*{y, x}}
@@ -492,7 +512,7 @@ Consideremos una relación $R\pa*{x, y}$ y $p\in\omega$. Para poder demostrar qu
 \end{proof}
 
 \begin{notation}
-	A la función definida por el teorema anterior dados $n\in\omega^{+}$, $R\subseteq\omega^{n + 1}$ una relación primitivo-recursiva y $g:\omega^{n}\to\omega$ primitivo-recursiva se le denota por $f\pa*{x} = \pa*{\mu z < g\pa*{x}}R\pa*{x, z}$ para cada $x\in\omega^{n}$ y se lee como ``el mínimo $z < g\pa*{x}$ tal que $R\pa*{x, z}$''.
+	A la función definida por el teorema anterior dados $n\in\omega^{+}$, $R\subseteq\omega^{n + 1}$ una relación primitivo-recursiva y $g:\omega^{n}\to\omega$ primitivo-recursiva se le denota por $f\pa*{x} =\pa*{\mu z < g\pa*{x}}R\pa*{x, z}$ para cada $x\in\omega^{n}$ y se lee como ``el mínimo $z < g\pa*{x}$ tal que $R\pa*{x, z}$''.
 \end{notation}
 
 Estas propiedades de las funciones primitivo-recursivas nos permiten mostrar que el conjunto de números primos es primitivo-recursivo, así como también la función que regresa el $\pa*{n + 1}$-ésimo primo. Esto es importante pues nos permitirá demostrar la enumeración de los algoritmos más adelante.
@@ -503,30 +523,30 @@ Estas propiedades de las funciones primitivo-recursivas nos permiten mostrar que
 
 \begin{proof}
 	La relación ``divide a'' puede verse como la relación:
-	
+
 	\[
-		S =\{\pa*{x, y}\in\omega^{2}:\pa*{\exists k \leq y}\pa*{y = kx}\}
+		S =\{\pa*{x, y}\in\omega^{2}:\pa*{\exists k\leq y}\pa*{y = kx}\}
 	\]
-	
+
 	Puesto que usamos búsqueda acotada y la igualdad es primitivo-recursiva, se tiene que $S$ es primitivo-recursivo.
-	
+
 	Ahora, sea $P\subseteq\omega$ el conjunto de los números primos. Notemos que:
-	
+
 	\[
 		P =\{x\in\omega: x > 1\land\neg\pa*{\exists k < x}\pa*{k > 1\land S\pa*{k, x}}\}
 	\]
-	
+
 	Puesto que el ``mayor que'' y $S$ son primitivo-recursivos, se sigue que $P$ es primitivo-recursivo.
-	
+
 	Finalmente, sea $f:\omega\to\omega$ tal que $f\pa*{n}$ es el $\pa*{n + 1}$-ésimo primo para cada $n\in\omega$. Por la prueba de Euclides de la infinitud de los números primos sabemos que $f\pa*{n + 1}\leq f\pa*{n}! + 1$, por lo que $f$ está dada como sigue:
-	
+
 	\[
 		\begin{NiceArray}{c}
 			f\pa*{0} = 2\\
-			f\pa*{n + 1} = \pa*{\mu p < f\pa*{n}! + 2}\pa*{p > f\pa*{n}\land P\pa*{p}}
+			f\pa*{n + 1} =\pa*{\mu p < f\pa*{n}! + 2}\pa*{p > f\pa*{n}\land P\pa*{p}}
 		\end{NiceArray}
 	\]
-	
+
 	Puesto que el factorial y $P$ son primitivo-recursivas, se tiene que $f$ es primitivo-recursiva.
 \end{proof}
 
@@ -544,14 +564,14 @@ Las funciones que permiten este tipo de comportamiento se denominan \emph{funcio
 
 \begin{definition}[Funciones parciales]
 	\begin{enumerate}
-		\item Sea $\DIVERGE$ un conjunto tal que $\DIVERGE\notin\omega$. Definimos entonces al conjunto $\omega^{\DIVERGE}\coloneqq\omega\cup\{\DIVERGE\}$. 
-		
+		\item Sea $\DIVERGE$ un conjunto tal que $\DIVERGE\notin\omega$. Definimos entonces al conjunto $\omega^{\DIVERGE}\coloneqq\omega\cup\{\DIVERGE\}$.
+
 		\item Una \emph{función parcial} es una función $f:\omega^{n}\to\omega^{\DIVERGE}$ para algún $n\in\omega$.
-		
+
 		\item Sean $n\in\omega$, $f:\omega^{n}\to\omega^{\DIVERGE}$ parcial y $x\in\omega^{n}$. Si $f\pa*{x} =\DIVERGE$, entonces lo denotaremos por $f\pa*{x}\DIVERGE$; y si existe $y\in\omega$ tal que $f\pa*{x} = y$, entonces lo denotaremos por $f\pa*{x}\ACABA$.
-		
+
 		\item Sean $n\in\omega$ y $f:\omega^{n}\to\omega^{\DIVERGE}$ parcial, entonces se define el \emph{dominio} de $f$ como el conjunto $\DOMINIO{f}\coloneqq\{x\in\omega^{n}: f\pa*{x}\ACABA\}$.
-		
+
 		\item Sean $n\in\omega$ y $f:\omega^{n}\to\omega^{\DIVERGE}$ parcial, entonces $f$ se denomina \emph{total} si $\DOMINIO{f} =\omega^{n}$.
 	\end{enumerate}
 \end{definition}
@@ -559,31 +579,34 @@ Las funciones que permiten este tipo de comportamiento se denominan \emph{funcio
 \begin{definition}[Funciones parcial-recursivas]
 	\label{def: funciones_parcial_recursivas}
 	Sea $n\in\omega^{+}$. Una función parcial $f:\omega^{n}\to\omega^{\DIVERGE}$ se denomina \emph{parcial-recursiva} si satisface alguna de las siguientes condiciones:
+
 	\begin{enumerate}
 		\item (Funciones básicas) La función $f$ es una de las siguientes funciones:
+
 		\begin{itemize}
 			\item La función \emph{cero}: $\CERO:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $\CERO\pa*{x} = 0$.
 			\item Si $n = 1$, la función \emph{sucesor}: $\SUCESOR:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $\SUCESOR\pa*{x} = x + 1$.
 			\item Para algún $k\in\omega^{+}$ con $k\leq n$, la función \emph{proyección}: $\PROYECCION{n}{k}:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x_{1},\dotsc, x_{n}\in\omega$, $\PROYECCION{n}{k}\pa*{x_{1},\dotsc, x_{n}} = x_{k}$.
 		\end{itemize}
-		\item (Composición) Para algún $m\in\omega^{+}$ existen funciones parcial-recursivas $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n}$: 
+
+		\item (Composición) Para algún $m\in\omega^{+}$ existen funciones parcial-recursivas $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n}$:
 		\[
-			f\pa*{x} = 
+			f\pa*{x} =
 			\begin{cases}
 				h\pa*{g_{1}\pa*{x},\dotsc, g_{m}\pa*{x}}, & g_{1}\pa*{x}\ACABA,\dotsc, g_{m}\pa*{x}\ACABA\\
-				\DIVERGE, & \text{en otro caso}
+				\DIVERGE, &\text{en otro caso}
 			\end{cases}
 		\]
 		\item (Recursión primitiva) Si $n > 1$ y existen funciones parcial-recursivas $g:\omega^{n - 1}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 1}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n - 1}$ y cada $y\in\omega$ se satisface que:
 		\[
-		\begin{NiceArray}{c}
-			f\pa*{x, 0} = g\pa*{x}\\
-			f\pa*{x, y + 1} = 
-			\begin{cases}
-				h\pa*{x, y, f\pa*{x, y}}, & f\pa*{x, y}\ACABA\\
-				\DIVERGE, & f\pa*{x, y}\DIVERGE
-			\end{cases}
-		\end{NiceArray}
+			\begin{NiceArray}{c}
+				f\pa*{x, 0} = g\pa*{x}\\
+				f\pa*{x, y + 1} =
+				\begin{cases}
+					h\pa*{x, y, f\pa*{x, y}}, & f\pa*{x, y}\ACABA\\
+					\DIVERGE, & f\pa*{x, y}\DIVERGE
+				\end{cases}
+			\end{NiceArray}
 		\]
 		\item (Minimización) Existe una función parcial-recursiva $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que:
 		\[
@@ -593,28 +616,28 @@ Las funciones que permiten este tipo de comportamiento se denominan \emph{funcio
 				\DIVERGE, &\text{en otro caso}
 			\end{cases}
 		\]
-		
+
 		A esta función se le denota por $\mu z\pa*{g\pa*{x, z} = 0}$ leída como ``el mínimo $z$ tal que $g\pa*{x, z} = 0$''.
 	\end{enumerate}
-	
+
 	Para cada $n\in\omega^{+}$, denotamos por $\PARCIAL[n]$ al conjunto de todas las funciones parcial-recursivas de aridad $n$. Definimos al conjunto de funciones parcial-recursivas como $\PARCIAL\coloneqq\bigcup_{n\in\omega^{+}}\PARCIAL[n]$.
-	
+
 	Una función se denomina \emph{total-recursiva} si es parcial-recursiva y total.
 \end{definition}
 
-Observemos que la minimización no acotada efectivamente puede verse como un ciclo \emph{while}. Para poder encontrar el valor mínimo $z$ que verifica $g\pa*{x, z} = 0$ podemos ir iterando sobre todos los valores desde $z = 0$ en adelante \emph{mientras} no se satisfaga $g\pa*{x, z} = 0$. Si eventualmente un valor $z$ sí satisface la igualdad, devolvemos tal valor; pero si ningún valor satisface la igualdad, entonces seguiremos buscando indefinidamente.  
+Observemos que la minimización no acotada efectivamente puede verse como un ciclo \emph{while}. Para poder encontrar el valor mínimo $z$ que verifica $g\pa*{x, z} = 0$ podemos ir iterando sobre todos los valores desde $z = 0$ en adelante \emph{mientras} no se satisfaga $g\pa*{x, z} = 0$. Si eventualmente un valor $z$ sí satisface la igualdad, devolvemos tal valor; pero si ningún valor satisface la igualdad, entonces seguiremos buscando indefinidamente.
 
 \begin{algorithm}[h!]
 	\caption{\emph{While}}
+
 	\begin{algorithmic}
 		\State $z\gets 0$
 		\While{$g\pa*{x, z}\neq 0$}
-		\State $z \gets z + 1$
+		\State $z\gets z + 1$
 		\EndWhile
 		\State \Return $z$
 	\end{algorithmic}
 \end{algorithm}
-
 
 Se tiene directamente lo siguiente.
 
@@ -632,6 +655,7 @@ Las demostraciones de la mayoría de los siguientes teoremas son análogas a las
 
 \begin{theorem}
 	Se satisfacen cada una de las siguientes afirmaciones:
+
 	\begin{enumerate}
 		\item Sean $a\in\omega^{\DIVERGE}$ y $g:\omega^{2}\to\omega^{\DIVERGE}$ parcial-recursiva, entonces la función $f:\omega\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega$ es parcial-recursiva:
 		\[
@@ -643,94 +667,96 @@ Las demostraciones de la mayoría de los siguientes teoremas son análogas a las
 		\item Sean $n\in\omega^{+}$ y $A, B\subseteq\omega^{n}$. Si $A$ y $B$ son recursivos, entonces $\omega^{n}\setminus A$, $A\cup B$ y $A\cap B$ son recursivos.
 		\item Sean $n\in\omega^{+}$ y $\varphi,\psi$ fórmulas con $n$ variables libres. Si $\varphi$ y $\psi$ definen conjuntos recursivos, entonces $\neg\varphi$, $\varphi\land\psi$ y $\varphi\vee\psi$ definen conjuntos  recursivos en $\omega^{n}$.
 		\item Sean $n\in\omega^{+}$, y $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ parcial-recursiva y $g:\omega^{n}\to\omega^{\DIVERGE}$ total-recursivas. Entonces:
+
 		\begin{enumerate}
 			\item la función $h:\omega^{n}\to\omega^{\DIVERGE}$ dada por $h\pa*{x} =\sum_{z < g\pa*{x}}f\pa*{x, z}$ para cada $x\in\omega^{n}$ es parcial-recursiva.
 			\item la función $h:\omega^{n}\to\omega^{\DIVERGE}$ dada por $h\pa*{x} =\prod_{z < g\pa*{x}}f\pa*{x, z}$ para cada $x\in\omega^{n}$ es parcial-recursiva.
 		\end{enumerate}
-		
+
 		\item Sean $n\in\omega^{+}$, $R\subseteq\omega^{n + 1}$ recursivo y $f:\omega^{n}\to\omega^{\DIVERGE}$ total-recursiva, entonces:
+
 		\begin{itemize}
 			\item el conjunto $\set{x\in\omega^{n}:\pa*{\exists m < f\pa*{x}R\pa*{x, m}}}$ es recursivo.
 			\item el conjunto $\set{x\in\omega^{n}:\pa*{\forall m < f\pa*{x}}R\pa*{x, m}}$ es recursivo.
 		\end{itemize}
-		
+
 		\item Sean $n, m\in\omega^{+}$, funciones parcial-recursivas $g_{1},\dotsc, g_{m}, g_{m + 1}:\omega^{n}\to\omega^{\DIVERGE}$ y relaciones recursivas $R_{1},\dotsc, R_{m}\subseteq\omega^{n}$ disjuntas a pares, entonces la función $f:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$:
 		\[
-		f\pa*{x} =
-		\begin{cases}
-			g_{1}\pa*{x}, & R_{1}\pa*{x}\\
-			\vdots\\
-			g_{m}\pa*{x}, & R_{m}\pa*{x}\\
-			g_{m + 1}\pa*{x}, & \text{en otro caso}
+			f\pa*{x} =
+			\begin{cases}
+				g_{1}\pa*{x}, & R_{1}\pa*{x}\\
+				\vdots\\
+				g_{m}\pa*{x}, & R_{m}\pa*{x}\\
+				g_{m + 1}\pa*{x}, &\text{en otro caso}
 			\end{cases}
 		\]
 		es parcial-recursiva.
-		
+
 		\item Sean $n\in\omega^{+}$, $R\subseteq\omega^{n + 1}$ una relación recursiva y $g:\omega^{n}\to\omega^{\DIVERGE}$ total-recursiva. Entonces la función $f:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $f\pa*{x} =\pa*{\mu z < g\pa*{x}}R\pa*{x, z}$ es parcial-recursiva.
-		
+
 		\item Sean $n\in\omega^{+}$ y $R\subseteq\omega^{n + 1}$ una relación recursiva. Entonces la función $f:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $f\pa*{x} =\mu zR\pa*{x, z}$ es parcial-recursiva.
 	\end{enumerate}
 \end{theorem}
 
 \begin{proof}
 	Los únicos dos puntos cuya demostración vale la pena detallar son (6) y (8).
-	
-	Para el caso del punto (6), consideremos a $n, m\in\omega^{+}$, las funciones parcial-recursivas $g_{1},\dotsc, g_{m}, g_{m + 1}:\omega^{n}\to\omega^{\DIVERGE}$ y las relaciones recursivas $R_{1},\dotsc, R_{m}\subseteq\omega^{n}$ disjuntas a pares. Definamos $R_{m + 1} = \omega^{n}\setminus\bigsqcup_{k = 1}^{m}R_{k}$. 
+
+	Para el caso del punto (6), consideremos a $n, m\in\omega^{+}$, las funciones parcial-recursivas $g_{1},\dotsc, g_{m}, g_{m + 1}:\omega^{n}\to\omega^{\DIVERGE}$ y las relaciones recursivas $R_{1},\dotsc, R_{m}\subseteq\omega^{n}$ disjuntas a pares. Definamos $R_{m + 1} =\omega^{n}\setminus\bigsqcup_{k = 1}^{m}R_{k}$.
 	Si definimos a $f$ como:
 	\[
-		f = \sum_{k = 1}^{m + 1}g_{k}\chi_{R_{k}}
+		f =\sum_{k = 1}^{m + 1}g_{k}\chi_{R_{k}}
 	\]
-	entonces se tendría que si para algún $x\in\omega^n$ y algún $k \leq m + 1$ se satisface que $g_k\pa*{x}\DIVERGE$, entonces $f\pa*{x}\DIVERGE$ incluso cuando $\chi_{R_k}\pa*{x} = 0$. Para evitar ese comportamiento definamos para cada $k\leq m + 1$ la función auxiliar $h_k:\omega^{n + 1}\to\omega^\DIVERGE$ como sigue para cada $x\in\omega^n$ y cada $y\in\omega$:
+	entonces se tendría que si para algún $x\in\omega^n$ y algún $k\leq m + 1$ se satisface que $g_k\pa*{x}\DIVERGE$, entonces $f\pa*{x}\DIVERGE$ incluso cuando $\chi_{R_k}\pa*{x} = 0$. Para evitar ese comportamiento definamos para cada $k\leq m + 1$ la función auxiliar $h_k:\omega^{n + 1}\to\omega^\DIVERGE$ como sigue para cada $x\in\omega^n$ y cada $y\in\omega$:
 	\[
 		\begin{NiceArray}{c}
 			h_k\pa*{x, 0} = 0\\
 			h_k\pa*{x, y + 1} = g_k\pa*{x}
 		\end{NiceArray}
 	\]
-	Notemos que $h_k\pa*{x, 0} = 0$ y $h_k\pa*{x, 1} = g_k\pa*{x}$. Definamos entonces para cada $k\leq m + 1$ las funciones $g_k':\omega^n\to\omega^\DIVERGE$ para cada $x\in\omega^n$ como $g_k'\pa*{x} = h_k\pa*{x, \chi_{R_k}\pa*{x}}$, la cual es parcial-recursiva. Notemos que estas funciones son tales que:
+	Notemos que $h_k\pa*{x, 0} = 0$ y $h_k\pa*{x, 1} = g_k\pa*{x}$. Definamos entonces para cada $k\leq m + 1$ las funciones $g_k':\omega^n\to\omega^\DIVERGE$ para cada $x\in\omega^n$ como $g_k'\pa*{x} = h_k\pa*{x,\chi_{R_k}\pa*{x}}$, la cual es parcial-recursiva. Notemos que estas funciones son tales que:
 	\[
 		g_k'\pa*{x} =
 		\begin{cases}
 			g_k\pa*{x},& R_k\pa*{x}\\
-			0, & \lnot R_k\pa*{x}
+			0, &\lnot R_k\pa*{x}
 		\end{cases}
 	\]
 	De esta manera obtenemos que:
 	\[
-		f = \sum_{k = 1}^{m + 1}g_{k}'
+		f =\sum_{k = 1}^{m + 1}g_{k}'
 	\]
 	Ahora, para el punto (8), como $R$ es recursiva, entonces $S\coloneqq\omega^{n + 1}\setminus R$ es recursiva, de lo cual se sigue que para cada $x\in\omega^n$:
 	\[
 		f\pa*{x} =\mu z\pa*{\CARACTERISTICA{S}\pa*{x, z} = 0}
 	\]
-	
+
 \end{proof}
 
 El punto (8) del teorema anterior es el que justifica nuestra interpretación de la minimización como el ciclo \emph{while}. Dados $x$ y la relación $R\pa*{x, z}$, si queremos encontrar el mínimo valor $z$ para el cual $R\pa*{x, z}$, entonces iteramos desde $z = 0$ en adelante mientras no se satisfaga $R\pa*{x, z}$. En el primer momento que obtengamos un valor $z$ que satisfaga $R\pa*{x, z}$, lo devolvemos, y entonces ese valor es el mínimo. Esto puede resumirse en el siguiente pseudocódigo:
 
 \begin{algorithm}[h!]
 	\caption{\emph{While}}
+
 	\begin{algorithmic}
 		\State $z\gets 0$
 		\While{$\neg R\pa*{x, z}$}
-		\State $z \gets z + 1$
+		\State $z\gets z + 1$
 		\EndWhile
 		\State \Return $z$
 	\end{algorithmic}
 \end{algorithm}
 
-
-
 \section{Computabilidad: Enfoque mecánico}
 
 El otro enfoque que tenemos de la computabilidad es uno con una visión más relacionada con la ejecución de una máquina. Este considera a los algoritmos como los objetos que normalmente utilizamos en la práctica: una lista de instrucciones finitas que ejecutamos para obtener un resultado. Aunque el enfoque inductivo nos facilita más operar los algoritmos para obtener otros, asegurando que mantenemos la cerradura, este enfoque es mejor para poder entender intuitivamente cómo funcionan procedimentalmente las funciones computables. Uno de los resultados más importantes será demostrar que el enfoque inductivo (con las funciones parcial-recursivas) y este nuevo son equivalentes mediante el teorema de la forma normal de Kleene.
 
-Aunque el modelo más conocido para hablar de este enfoque son las máquinas de Turing, en este texto usaremos un modelo diferente, pero equivalente, el cual es el modelo de las \emph{máquinas sin límite de registros} o \emph{URM} (\emph{Unlimited Register Machines}). Este modelo alternativo nos provee de una mayor ventaja conceptual y matemática, puesto que aquí los datos que entran y salen de la máquina son números naturales directamente, a diferencia de las máquinas de Turing que tratan con alfabetos para formar palabras (generalmente en binario) que después se interpretan como números naturales. 
+Aunque el modelo más conocido para hablar de este enfoque son las máquinas de Turing, en este texto usaremos un modelo diferente, pero equivalente, el cual es el modelo de las \emph{máquinas sin límite de registros} o \emph{URM} (\emph{Unlimited Register Machines}). Este modelo alternativo nos provee de una mayor ventaja conceptual y matemática, puesto que aquí los datos que entran y salen de la máquina son números naturales directamente, a diferencia de las máquinas de Turing que tratan con alfabetos para formar palabras (generalmente en binario) que después se interpretan como números naturales.
 
 De manera simple podemos pensar en una URM como una lista de instrucciones que se ejecutan sobre una cinta compuesta de un número infinito de celdas, donde podemos escribir en cada una un número natural. A cada celda de la cinta se le denomina \emph{registro}, y cada registro puede contener un único número natural. Por el momento denotaremos por $R$ a la cinta, por $R_{n}$ al $n$-ésimo registro de $R$ y por $r_{n}\in\omega$ al contenido de $R_{n}$ para cada $n\in\omega^{+}$. (Figura \ref{fig: cinta_y_registros})
 
 \begin{figure}[h!]
 	\centering
+
 	\begin{tikzpicture}
 		\draw[thick] (0, 1) -- (10, 1);
 		\draw[thick] (0, 0) -- (10, 0);
@@ -746,11 +772,13 @@ De manera simple podemos pensar en una URM como una lista de instrucciones que s
 		\node at (7.5, 0.5) {$r_{n}$};
 		\node at (9, 1.5) {$\cdots$};
 	\end{tikzpicture}
+
 	\caption{Cinta y registros}
 	\label{fig: cinta_y_registros}
 \end{figure}
 
 Ahora, las instrucciones que podemos utilizar se dividen en cuatro tipos:
+
 \begin{enumerate}
 	\item Cero: Para cada $n\in\omega^{+}$ la instrucción $Z\pa*{n}$ indica que se anota $0$ en el $n$-ésimo registro, es decir, en $R_{n}$ se instancia $r_{n}\gets 0$.
 	\item Sucesor: Para cada $n\in\omega^{+}$ la instrucción $S\pa*{n}$ indica que se le suma $1$ al contenido del $n$-ésimo registro, es decir, en $R_{n}$ se instancia $r_{n}\gets r_{n} + 1$.
@@ -764,6 +792,7 @@ Para entender mejor cómo se utilizan este tipo de máquinas, abordemos por ejem
 
 \begin{figure}[h!]
 	\centering
+
 	\begin{tikzpicture}
 		\draw[thick] (0, 1) -- (10, 1);
 		\draw[thick] (0, 0) -- (10, 0);
@@ -776,6 +805,7 @@ Para entender mejor cómo se utilizan este tipo de máquinas, abordemos por ejem
 			\node at (\i + 0.5, 0.5) {0};
 		}
 	\end{tikzpicture}
+
 	\label{fig:cinta_inicial}
 	\caption{Cinta inicial para la máquina $M$}
 \end{figure}
@@ -786,6 +816,7 @@ La siguiente instrucción en $M$ es $S\pa*{1}$. En este caso se suma $1$ al cont
 
 \begin{figure}[h!]
 	\centering
+
 	\begin{tikzpicture}
 		\fill[violet!50!blue!10] (0, 0) rectangle (1, 1);
 		\draw[thick] (0, 1) -- (10, 1);
@@ -799,6 +830,7 @@ La siguiente instrucción en $M$ es $S\pa*{1}$. En este caso se suma $1$ al cont
 			\node at (\i + 0.5, 0.5) {0};
 		}
 	\end{tikzpicture}
+
 	\caption{Cinta después de ejecutar $S\pa*{1}$}
 	\label{fig:cinta_despues_de_s1}
 \end{figure}
@@ -807,6 +839,7 @@ Seguimos con la siguiente instrucción de la tupla que es $S\pa*{3}$, la cual in
 
 \begin{figure}[h!]
 	\centering
+
 	\begin{tikzpicture}
 		\fill[violet!50!blue!10] (2, 0) rectangle (3, 1);
 		\draw[thick] (0, 1) -- (10, 1);
@@ -821,10 +854,10 @@ Seguimos con la siguiente instrucción de la tupla que es $S\pa*{3}$, la cual in
 			\node at (\i + 0.5, 0.5) {0};
 		}
 	\end{tikzpicture}
+
 	\caption{Cinta después de ejecutar $S\pa*{3}$}
 	\label{fig:cinta_despues_de_s3}
 \end{figure}
-
 
 La siguiente instrucción es $J\pa*{1, 1, 1}$ la cual pide comparar los contenidos del registro $1$. Puesto que trivialmente $r_{1} = r_{1}$, debemos ejecutar la instrucción $1$, es decir, se regresa al inicio de la tupla $M$ y se realiza el proceso de nuevo. En esta iteración no se modificó la cinta.
 
@@ -834,6 +867,7 @@ Continuando con la instrucción $S\pa*{1}$, se suma $1$ al contenido en el prime
 
 \begin{figure}[h!]
 	\centering
+
 	\begin{tikzpicture}
 		\fill[violet!50!blue!10] (0, 0) rectangle (1, 1);
 		\draw[thick] (0, 1) -- (10, 1);
@@ -848,6 +882,7 @@ Continuando con la instrucción $S\pa*{1}$, se suma $1$ al contenido en el prime
 			\node at (\i + 0.5, 0.5) {0};
 		}
 	\end{tikzpicture}
+
 	\caption{Cinta después de ejecutar $S\pa*{1}$ por segunda vez}
 	\label{fig:cinta_despues_de_s1_segunda_vez}
 \end{figure}
@@ -856,6 +891,7 @@ Seguimos con la siguiente instrucción $S\pa*{3}$ obteniendo como resultado $r_{
 
 \begin{figure}[h!]
 	\centering
+
 	\begin{tikzpicture}
 		\fill[violet!50!blue!10] (2, 0) rectangle (3, 1);
 		\draw[thick] (0, 1) -- (10, 1);
@@ -870,6 +906,7 @@ Seguimos con la siguiente instrucción $S\pa*{3}$ obteniendo como resultado $r_{
 			\node at (\i + 0.5, 0.5) {0};
 		}
 	\end{tikzpicture}
+
 	\caption{Cinta después de ejecutar $S\pa*{3}$ por segunda vez}
 	\label{fig:cinta_despues_de_s3_segunda_vez}
 \end{figure}
@@ -882,6 +919,7 @@ Por lo tanto, la ejecución completa de este algoritmo con la cinta de entrada $
 
 \begin{figure}[h!]
 	\centering
+
 	\begin{tikzpicture}
 		\foreach \i in {1, 2,..., 10}{
 			\draw[thick] (3, 17 - 2 *\i) -- (8, 17 - 2 * \i);
@@ -891,7 +929,7 @@ Por lo tanto, la ejecución completa de este algoritmo con la cinta de entrada $
 			}
 			\node at (6.5, 16.5 - 2 * \i) {0};
 		}
-		
+
 		\foreach \i in {1, 2,..., 9}{
 			\node at (5.5, 15.5 - 2 *\i) {$\ACABA$};
 		}
@@ -945,6 +983,7 @@ Por lo tanto, la ejecución completa de este algoritmo con la cinta de entrada $
 		\node at (4.5, -3.5) {2};
 		\node at (5.5, -3.5) {2};
 	\end{tikzpicture}
+
 	\caption{Ejecución completa de la máquina $M$}
 	\label{fig:ejecucion_completa_M}
 \end{figure}
@@ -968,7 +1007,7 @@ Este ejemplo nos permite entender cómo es la lógica de este tipo de objetos. C
 Recordemos que el paso de un estado de la cinta a otro está completamente determinado por las instrucciones que tenga la máquina URM. Entonces, para poder manipular de manera adecuada tales instrucciones, y para poder describir de manera más explícita la sucesión de funciones $\set*{f_{k}}_{k\in\omega}$, interpretamos a las instrucciones como tuplas de la siguiente forma:
 \[
 	\begin{NiceArray}{cccc}
-		Z\pa*{n}\to \pa*{0, n} & S\pa*{n}\to \pa*{1, n} & T\pa*{n, m}\to \pa*{2, n, m} & J\pa*{n, m, k}\to \pa*{3, n, m, k}
+		Z\pa*{n}\to\pa*{0, n} & S\pa*{n}\to\pa*{1, n} & T\pa*{n, m}\to\pa*{2, n, m} & J\pa*{n, m, k}\to\pa*{3, n, m, k}
 	\end{NiceArray}
 \]
 
@@ -990,7 +1029,8 @@ Con ello se define ahora lo que es una máquina URM, entendida como una sucesió
 
 Recordando el ejemplo, al principio teníamos una cinta de entrada, la cual es una sucesión de elementos en $\omega$, donde solo un número finito de ellos son diferentes de cero. Lo anterior es debido a que un algoritmo siempre se debe recibir como entrada un número finito de datos, lo cual podemos codificar como tal cinta con esos datos dispuestos a lo largo de ella. Entonces dar como entrada al algoritmo una tupla de datos $\pa*{x_{1},\dotsc, x_{k}}\in\omega^{k}$ para algún $k\in\omega^{+}$ corresponde a definir la función $f_{0}:\omega\to\omega$ tal que para cada $n\in\omega^{+}$:
 \[
-	f_{0}\pa*{n}\coloneqq\begin{cases}
+	f_{0}\pa*{n}\coloneqq
+	\begin{cases}
 		x_{n}, & n\leq k\\
 		0, &\text{en otro caso}
 	\end{cases}
@@ -1005,52 +1045,60 @@ Con todo esto se define cómo es que se determina la sucesión de las cintas dad
 \begin{definition}[Ejecución de una máquina URM]
 	\label{def:ejecucion_urm}
 	Sean $M =\pa*{I_{1},\dotsc, I_{u}}$ una máquina URM y $x =\pa*{x_{1},\dotsc, x_{n}}\in\omega^{n}$ una tupla de entrada para algunos $n, u\in\omega^{+}$. Se define la \emph{ejecución} de la máquina $M$ con entrada $x$ como la sucesión de funciones $\set*{f_{k}}_{k\in\omega}$ definidas de la siguiente manera:
+
 	\begin{enumerate}
 		\item Para cada $m\in\omega$:
 		\[
-			f_{0}\pa*{m} =\begin{cases}
+			f_{0}\pa*{m} =
+			\begin{cases}
 				1, & m = 0\\
 				x_{m}, & 1\leq m\leq n\\
 				0, &\text{en otro caso}
 			\end{cases}
 		\]
 		\item Para cada $k\in\omega$, si $f_{k}\pa*{0}\leq u$ y además:
+
 		\begin{enumerate}
-			\item $I_{f_{k}\pa*{0}} = \pa*{0, i}$ para algún $i\in\omega^{+}$, se tiene entonces que para cada $m\in\omega$:
+			\item $I_{f_{k}\pa*{0}} =\pa*{0, i}$ para algún $i\in\omega^{+}$, se tiene entonces que para cada $m\in\omega$:
 			\[
-				f_{k + 1}\pa*{m} =\begin{cases}
+				f_{k + 1}\pa*{m} =
+				\begin{cases}
 					f_{k}\pa*{0} + 1, & m = 0\\
 					0, & m = i\\
 					f_{k}\pa*{m}, &\text{en otro caso}
 				\end{cases}
 			\]
-			\item $I_{f_{k}\pa*{0}} = \pa*{1, i}$ para algún $i\in\omega^{+}$, se tiene entonces que para cada $m\in\omega$:
+			\item $I_{f_{k}\pa*{0}} =\pa*{1, i}$ para algún $i\in\omega^{+}$, se tiene entonces que para cada $m\in\omega$:
 			\[
-				f_{k + 1}\pa*{m} =\begin{cases}
+				f_{k + 1}\pa*{m} =
+				\begin{cases}
 					f_{k}\pa*{m} + 1, & m\in\set*{0, i}\\
 					f_{k}\pa*{m}, &\text{en otro caso}
 				\end{cases}
 			\]
-			\item $I_{f_{k}\pa*{0}} = \pa*{2, i, j}$ para algunos $i, j\in\omega^{+}$, se tiene entonces que para cada $m\in\omega$:
+			\item $I_{f_{k}\pa*{0}} =\pa*{2, i, j}$ para algunos $i, j\in\omega^{+}$, se tiene entonces que para cada $m\in\omega$:
 			\[
-			f_{k + 1}\pa*{m} =\begin{cases}
-				f_{k}\pa*{0} + 1, & m = 0\\
-				f_{k}\pa*{i}, & m = j\\
-				f_{k}\pa*{m}, &\text{en otro caso}
-			\end{cases}
+				f_{k + 1}\pa*{m} =
+				\begin{cases}
+					f_{k}\pa*{0} + 1, & m = 0\\
+					f_{k}\pa*{i}, & m = j\\
+					f_{k}\pa*{m}, &\text{en otro caso}
+				\end{cases}
 			\]
-			\item $I_{f_{k}\pa*{0}} = \pa*{3, i, j, p}$ para algunos $i, j, p\in\omega^{+}$, se tiene entonces que para cada $m\in\omega$:
+			\item $I_{f_{k}\pa*{0}} =\pa*{3, i, j, p}$ para algunos $i, j, p\in\omega^{+}$, se tiene entonces que para cada $m\in\omega$:
 			\[
-			f_{k + 1}\pa*{m} =\begin{cases}
-				p, & m = 0\text{ y } f_{k}\pa*{i} = f_{k}\pa*{j}\\
-				f_{k}\pa*{0} + 1, & m = 0\text{ y } f_{k}\pa*{i}\neq f_{k}\pa*{j}\\
-				f_{k}\pa*{m}, &\text{en otro caso}
-			\end{cases}
+				f_{k + 1}\pa*{m} =
+				\begin{cases}
+					p, & m = 0\text{ y } f_{k}\pa*{i} = f_{k}\pa*{j}\\
+					f_{k}\pa*{0} + 1, & m = 0\text{ y } f_{k}\pa*{i}\neq f_{k}\pa*{j}\\
+					f_{k}\pa*{m}, &\text{en otro caso}
+				\end{cases}
 			\]
 		\end{enumerate}
+
 		\item Para cada $k > 0$, si $f_{k}\pa*{0} > u$, entonces $f_{k + 1} = f_{k}$.
 	\end{enumerate}
-	
+
 	Decimos que la máquina $M$ \emph{termina su ejecución} dada la entrada $x$ si existe $k\in\omega$ tal que $f_{k}\pa*{0} > u$.
 \end{definition}
 
@@ -1078,19 +1126,20 @@ Sin embargo, dada la misma máquina $M =\pa*{J\pa*{2, 3, 5}, S\pa*{1}, S\pa*{3},
 
 Notemos que al seguir ejecutando las instrucciones el tercer registro siempre es mayor al valor del segundo registro, entonces la instrucción $J\pa*{2, 3, 5}$ nunca redirige a la instrucción $5$; por lo que la ejecución nunca termina. En este caso se tiene que $f\pa*{1, 1, 2}\DIVERGE$. Se puede verificar también que si $\pa*{x, y, z}\in\omega^{3}$ es tal que $y\geq z$, entonces $f\pa*{x, y, z} = x + y - z$; y si $y < z$, entonces $f\pa*{x, y, z}\DIVERGE$.
 
-Con esto podemos apreciar que la misma máquina URM puede darnos diferentes funciones únicamente variando el número de datos de entrada. Por lo tanto, la aridad de la función es esencial para determinar su comportamiento al ser computada mediante una máquina URM. 
+Con esto podemos apreciar que la misma máquina URM puede darnos diferentes funciones únicamente variando el número de datos de entrada. Por lo tanto, la aridad de la función es esencial para determinar su comportamiento al ser computada mediante una máquina URM.
 
 \begin{definition}[Funciones URM-computables]
 	Para cada máquina URM $M\in\INSTRUCCIONES^{k}$ para algún $k\in\omega^{+}$ y cada $n\in\omega^{+}$ se define la \emph{función URM-computable} de $M$ con aridad $n$ como la función parcial $\PHI{M}[n]:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$ con ejecución $\set*{f_{m}^{\pa*{x}}}_{m\in\omega}$:
 	\[
-		\PHI{M}[n]\pa*{x} =\begin{cases}
-			f_{p}^{\pa*{x}}\pa*{1}, & \exists u\pa*{f_{u}^{\pa*{x}}\pa*{0} > k}\land\pa*{p =\min\set*{u: f_{u}^{\pa*{x}}\pa*{0} > k}}\\
+		\PHI{M}[n]\pa*{x} =
+		\begin{cases}
+			f_{p}^{\pa*{x}}\pa*{1}, &\exists u\pa*{f_{u}^{\pa*{x}}\pa*{0} > k}\land\pa*{p =\min\set*{u: f_{u}^{\pa*{x}}\pa*{0} > k}}\\
 			\DIVERGE, &\text{en otro caso}
 		\end{cases}
 	\]
-	
+
 	Una función parcial $f:\omega^{n}\to\omega^{\DIVERGE}$ para algún $n\in\omega^{+}$ se denomina \emph{URM-computable} si existe una máquina URM $M$ tal que $f =\PHI{M}[n]$.
-	
+
 	Definimos al conjunto $\URMCOMPUTABLE$ como el conjunto de las funciones parciales que son URM-computables.
 \end{definition}
 
@@ -1105,9 +1154,9 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 \end{theorem}
 
 \begin{proof}
-	Probemos por inducción sobre el conjunto de funciones parcial-recursivas. Mostremos primero que las funciones básicas son URM-computables. Sean $n, k\in\omega^{+}$ con $k\leq n$ y definamos las máquinas $M_{1} = \pa*{\pa*{0, 1}}$, $M_{2} =\pa*{\pa*{1, 1}}$ y $M_{3} =\pa*{\pa*{2, k, 1}}$, entonces se sigue directamente que $\CERO =\PHI{M_{1}}[n]$, $\SUCESOR =\PHI{M_{2}}$ y $\PROYECCION{n}{k} =\PHI{M_{3}}[n]$.
+	Probemos por inducción sobre el conjunto de funciones parcial-recursivas. Mostremos primero que las funciones básicas son URM-computables. Sean $n, k\in\omega^{+}$ con $k\leq n$ y definamos las máquinas $M_{1} =\pa*{\pa*{0, 1}}$, $M_{2} =\pa*{\pa*{1, 1}}$ y $M_{3} =\pa*{\pa*{2, k, 1}}$, entonces se sigue directamente que $\CERO =\PHI{M_{1}}[n]$, $\SUCESOR =\PHI{M_{2}}$ y $\PROYECCION{n}{k} =\PHI{M_{3}}[n]$.
 
-	Considérese ahora el caso de la \emph{\textbf{composición}}. Sean $n, k\in\omega$, $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{k}\to\omega^{\DIVERGE}$  funciones parcial-recursivas, y supongamos que existen máquinas URM $G_{1}$, ..., $G_{k}$ y $H$ tales que $h = \PHI{H}[k]$ y para cada $j\leq n$, $g_{j} =\PHI{G_{j}}[n]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida por $f = h\pa*{g_{1},\dotsc, g_{k}}$ es URM-computable.
+	Considérese ahora el caso de la \emph{\textbf{composición}}. Sean $n, k\in\omega$, $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{k}\to\omega^{\DIVERGE}$  funciones parcial-recursivas, y supongamos que existen máquinas URM $G_{1}$, ..., $G_{k}$ y $H$ tales que $h =\PHI{H}[k]$ y para cada $j\leq n$, $g_{j} =\PHI{G_{j}}[n]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida por $f = h\pa*{g_{1},\dotsc, g_{k}}$ es URM-computable.
 
 	Para ello, describiremos cual será el proceso que debe realizar la máquina URM $F$ que computa a $f$. Para cada $j\leq k$ denotemos por $M_{j}\in\omega^{+}$ al registro máximo al cual hace referencia la máquina $G_{j}$ y por $M_{0}$ al registro máximo al cual hace referencia la máquina $H$. Defínase entonces $M =\max\set*{M_{0},\dotsc, M_{k}, n, k}$. El valor $M$ nos servirá como un parámetro auxiliar para poder definir de manera adecuada la máquina $F$. La idea es que la máquina $F$ primero computará los valores de $g_{1},\dotsc, g_{k}$ y los almacenará en los registros $R_{1},\dotsc, R_{k}$, para luego computar el valor de $h$ con esos valores como entrada.
 
@@ -1131,6 +1180,7 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 			\node[anchor = east, text width = 3.4cm, align = right] at (-0.3, #1 + 0.4) {\scriptsize #2};
 		}
 		\newcommand{\HL}{violet!50!blue!10}
+
 		\begin{tikzpicture}[font =\footnotesize]
 			% Encabezados: nombres de los registros y de cada zona de la cinta
 			\node at (2.8, 1.6) {\scriptsize\itshape zona de trabajo};
@@ -1183,11 +1233,12 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 			\celda{5.6}{9.2}{-7.5}{white}{$g_{1}\pa*{x}\ \cdots\ g_{k}\pa*{x}$}
 			\celda{9.2}{12.6}{-7.5}{white}{$x_{1}\ \cdots\ x_{n}$}
 		\end{tikzpicture}
+
 		\caption[Máquina URM de la composición]{Evolución de la cinta de la máquina $F$ al computar $f = h\pa*{g_{1},\dotsc, g_{k}}$ sobre la entrada $x =\pa*{x_{1},\dotsc, x_{n}}$}
 		\label{fig:cinta_composicion}
 	\end{figure}
 
-	Continuemos con el caso de la \emph{\textbf{recursión primitiva}}. Sean $n\in\omega$, $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ funciones parcial-recursivas, y supongamos que existen máquinas URM $G$ y $H$ tales que $g = \PHI{G}[n]$ y $h =\PHI{H}[n + 2]$. Mostremos entonces que la función $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ y $y\in\omega$ es URM-computable:
+	Continuemos con el caso de la \emph{\textbf{recursión primitiva}}. Sean $n\in\omega$, $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ funciones parcial-recursivas, y supongamos que existen máquinas URM $G$ y $H$ tales que $g =\PHI{G}[n]$ y $h =\PHI{H}[n + 2]$. Mostremos entonces que la función $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ y $y\in\omega$ es URM-computable:
 	\[
 		\begin{NiceArray}{c}
 			f\pa*{x, 0} = g\pa*{x}\\
@@ -1195,11 +1246,11 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 		\end{NiceArray}
 	\]
 
-	De igual forma describamos cuál es el proceso que debe seguir la máquina URM $F$ la cual satisface $f = \PHI{F}[n + 1]$. Sean $x\in\omega^{n}$, $y\in\omega$ y $z = \pa*{x, y}$, entonces la idea es que la máquina $F$ computará primero el valor $f\pa*{x, 0} = g\pa*{x}$ como caso base y añadiremos instrucciones que nos permitan tener un contador $j$ el cual se comparará con el valor $y$. Si $j < y$, entonces se computará $f\pa*{x, j + 1} = h\pa*{x, j, f\pa*{x, j}}$, y si $j + 1 = y$, entonces acaba el proceso; si no, entonces repetimos lo mismo.
+	De igual forma describamos cuál es el proceso que debe seguir la máquina URM $F$ la cual satisface $f =\PHI{F}[n + 1]$. Sean $x\in\omega^{n}$, $y\in\omega$ y $z =\pa*{x, y}$, entonces la idea es que la máquina $F$ computará primero el valor $f\pa*{x, 0} = g\pa*{x}$ como caso base y añadiremos instrucciones que nos permitan tener un contador $j$ el cual se comparará con el valor $y$. Si $j < y$, entonces se computará $f\pa*{x, j + 1} = h\pa*{x, j, f\pa*{x, j}}$, y si $j + 1 = y$, entonces acaba el proceso; si no, entonces repetimos lo mismo.
 
-	Sean $M_{g}$ y $M_{h}$ los registros máximos a los cuales hacen referencia las máquinas $G$ y $H$, respectivamente. Defínase $M =\max\set*{M_{g}, M_{h}, n + 2}$. Al ingresar la entrada $z = \pa*{x, y}$, transferiremos únicamente los datos $x$ en los registros $R_{M + 1},\dotsc, R_{M + n}$. Para el caso del valor $y$, lo transferiremos en el registro $R_{M + n + 3}$, ya que el registro $R_{M + n + 1}$ alojará el valor del contador $j$ y el registro $R_{M + n + 2}$ alojará el valor $f\pa*{x, j}$.
+	Sean $M_{g}$ y $M_{h}$ los registros máximos a los cuales hacen referencia las máquinas $G$ y $H$, respectivamente. Defínase $M =\max\set*{M_{g}, M_{h}, n + 2}$. Al ingresar la entrada $z =\pa*{x, y}$, transferiremos únicamente los datos $x$ en los registros $R_{M + 1},\dotsc, R_{M + n}$. Para el caso del valor $y$, lo transferiremos en el registro $R_{M + n + 3}$, ya que el registro $R_{M + n + 1}$ alojará el valor del contador $j$ y el registro $R_{M + n + 2}$ alojará el valor $f\pa*{x, j}$.
 
-	Después, inicializaremos el valor $y$ en el registro $R_{n + 1}$ con $0$. Entonces se ejecutará la máquina $G$, el cual por hipótesis devuelve el valor $g\pa*{x}$ en el primer registro. 
+	Después, inicializaremos el valor $y$ en el registro $R_{n + 1}$ con $0$. Entonces se ejecutará la máquina $G$, el cual por hipótesis devuelve el valor $g\pa*{x}$ en el primer registro.
 
 	Sea $j$ el valor en el registro $R_{M + n + 1}$. El siguiente bloque de instrucciones será comparar el valor de los registros $R_{M + n + 1}$ (el valor $j$) y $R_{M + n + 3}$ (el valor $y$); terminamos la ejecución si son iguales, y realizamos lo siguiente si no: transferimos el valor del primer registro ($f\pa*{x, j}$) al registro $R_{M + n + 2}$, sumamos uno al valor del registro $R_{M + n + 1}$ ($j\leftarrow j + 1$), inicializamos con $0$ los registros $R_{1},\dotsc, R_{M}$, transferimos los valores de los registros $R_{M + n + 1},\dotsc, R_{M + n + 2}$ en los registros $R_{1},\dotsc, R_{n + 2}$, y ejecutamos las instrucciones de la máquina $H$ para obtener el valor $f\pa*{x, j + 1} = h\pa*{x, j, f\pa*{x, j}}$ en el primer registro (lo cual se asegura por hipótesis de inducción). Repetimos este mismo bloque.
 
@@ -1217,84 +1268,85 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 		}
 		\newcommand{\HL}{violet!50!blue!10}
 		\resizebox{\textwidth}{!}{%
-		\begin{tikzpicture}[font =\footnotesize]
-			% Encabezados: nombres de los registros y del papel que juega cada uno
-			\node at (3.7, 1.6) {\scriptsize\itshape zona de trabajo};
-			\node at (8.6, 1.6) {\scriptsize\itshape copia de $x$};
-			\node at (10.5, 1.6) {\scriptsize\itshape contador};
-			\node at (12.2, 1.6) {\scriptsize\itshape valor previo};
-			\node at (13.9, 1.6) {\scriptsize\itshape copia de $y$};
-			\node at (1, 1.05) {\scriptsize $R_{1}$};
-			\node at (4.7, 1.05) {\scriptsize $R_{2},\dotsc, R_{M}$};
-			\node at (8.6, 1.05) {\scriptsize $R_{M + 1},\dotsc, R_{M + n}$};
-			\node at (10.5, 1.05) {\scriptsize $R_{M + n + 1}$};
-			\node at (12.2, 1.05) {\scriptsize $R_{M + n + 2}$};
-			\node at (13.9, 1.05) {\scriptsize $R_{M + n + 3}$};
-			% (1) Entrada
-			\etapa{0}{Entrada \mbox{$z =\pa*{x, y}$}}
-			\celda{0}{2}{0}{white}{$x_{1}$}
-			\celda{2}{7.4}{0}{white}{$x_{2}\ \cdots\ x_{n}\ \ y\ \ 0\ \cdots\ 0$}
-			\celda{7.4}{9.8}{0}{white}{$0\ \cdots\ 0$}
-			\celda{9.8}{11.2}{0}{white}{$0$}
-			\celda{11.2}{13.2}{0}{white}{$0$}
-			\celda{13.2}{14.6}{0}{white}{$0$}
-			% (2) Copia de la entrada en la memoria auxiliar
-			\etapa{-1.25}{Se copia la entrada y se borra $y$ de $R_{n + 1}$}
-			\celda{0}{2}{-1.25}{white}{$x_{1}$}
-			\celda{2}{7.4}{-1.25}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
-			\celda{7.4}{9.8}{-1.25}{\HL}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-1.25}{\HL}{$0$}
-			\celda{11.2}{13.2}{-1.25}{white}{$0$}
-			\celda{13.2}{14.6}{-1.25}{\HL}{$y$}
-			% (3) Caso base: ejecucion de G
-			\etapa{-2.5}{Se ejecuta $G$ (caso base)}
-			\celda{0}{2}{-2.5}{\HL}{$f\pa*{x, 0}$}
-			\celda{2}{7.4}{-2.5}{white}{residuos de $G$}
-			\celda{7.4}{9.8}{-2.5}{white}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-2.5}{white}{$0$}
-			\celda{11.2}{13.2}{-2.5}{white}{$0$}
-			\celda{13.2}{14.6}{-2.5}{white}{$y$}
-			% (4) Si el contador no ha llegado a y: se guarda f(x, j) y se carga la entrada de H
-			\etapa{-3.75}{Si \mbox{$j\neq y$}: se guarda $f\pa*{x, j}$ y se carga la entrada de $H$}
-			\celda{0}{2}{-3.75}{\HL}{$x_{1}$}
-			\celda{2}{7.4}{-3.75}{\HL}{$x_{2}\ \cdots\ x_{n}\ \ j\ \ f\pa*{x, j}\ \ 0\ \cdots\ 0$}
-			\celda{7.4}{9.8}{-3.75}{white}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-3.75}{white}{$j$}
-			\celda{11.2}{13.2}{-3.75}{\HL}{$f\pa*{x, j}$}
-			\celda{13.2}{14.6}{-3.75}{white}{$y$}
-			% (5) Ejecucion de H
-			\etapa{-5}{Se ejecuta $H$}
-			\celda{0}{2}{-5}{\HL}{$f\pa*{x, j + 1}$}
-			\celda{2}{7.4}{-5}{white}{residuos de $H$}
-			\celda{7.4}{9.8}{-5}{white}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-5}{white}{$j$}
-			\celda{11.2}{13.2}{-5}{white}{$f\pa*{x, j}$}
-			\celda{13.2}{14.6}{-5}{white}{$y$}
-			% (6) Incremento del contador
-			\etapa{-6.25}{Se incrementa el contador}
-			\celda{0}{2}{-6.25}{white}{$f\pa*{x, j + 1}$}
-			\celda{2}{7.4}{-6.25}{white}{residuos de $H$}
-			\celda{7.4}{9.8}{-6.25}{white}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-6.25}{\HL}{$j + 1$}
-			\celda{11.2}{13.2}{-6.25}{white}{$f\pa*{x, j}$}
-			\celda{13.2}{14.6}{-6.25}{white}{$y$}
-			% (7) Fin del ciclo
-			\etapa{-7.5}{Al alcanzarse \mbox{$j = y$}, termina}
-			\celda{0}{2}{-7.5}{\HL}{$f\pa*{x, y}$}
-			\celda{2}{7.4}{-7.5}{white}{residuos de $H$}
-			\celda{7.4}{9.8}{-7.5}{white}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-7.5}{white}{$y$}
-			\celda{11.2}{13.2}{-7.5}{white}{$f\pa*{x, y - 1}$}
-			\celda{13.2}{14.6}{-7.5}{white}{$y$}
-			% Ciclo: las etapas centrales se repiten mientras el contador no alcance a y
-			\draw[thick, ->] (14.6, -5.85) -- (15.1, -5.85) -- (15.1, -3.35) -- (14.6, -3.35);
-			\node[rotate = -90] at (15.4, -4.6) {\scriptsize mientras $j\neq y$};
-		\end{tikzpicture}}
+			\begin{tikzpicture}[font =\footnotesize]
+				% Encabezados: nombres de los registros y del papel que juega cada uno
+				\node at (3.7, 1.6) {\scriptsize\itshape zona de trabajo};
+				\node at (8.6, 1.6) {\scriptsize\itshape copia de $x$};
+				\node at (10.5, 1.6) {\scriptsize\itshape contador};
+				\node at (12.2, 1.6) {\scriptsize\itshape valor previo};
+				\node at (13.9, 1.6) {\scriptsize\itshape copia de $y$};
+				\node at (1, 1.05) {\scriptsize $R_{1}$};
+				\node at (4.7, 1.05) {\scriptsize $R_{2},\dotsc, R_{M}$};
+				\node at (8.6, 1.05) {\scriptsize $R_{M + 1},\dotsc, R_{M + n}$};
+				\node at (10.5, 1.05) {\scriptsize $R_{M + n + 1}$};
+				\node at (12.2, 1.05) {\scriptsize $R_{M + n + 2}$};
+				\node at (13.9, 1.05) {\scriptsize $R_{M + n + 3}$};
+				% (1) Entrada
+				\etapa{0}{Entrada \mbox{$z =\pa*{x, y}$}}
+				\celda{0}{2}{0}{white}{$x_{1}$}
+				\celda{2}{7.4}{0}{white}{$x_{2}\ \cdots\ x_{n}\ \ y\ \ 0\ \cdots\ 0$}
+				\celda{7.4}{9.8}{0}{white}{$0\ \cdots\ 0$}
+				\celda{9.8}{11.2}{0}{white}{$0$}
+				\celda{11.2}{13.2}{0}{white}{$0$}
+				\celda{13.2}{14.6}{0}{white}{$0$}
+				% (2) Copia de la entrada en la memoria auxiliar
+				\etapa{-1.25}{Se copia la entrada y se borra $y$ de $R_{n + 1}$}
+				\celda{0}{2}{-1.25}{white}{$x_{1}$}
+				\celda{2}{7.4}{-1.25}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+				\celda{7.4}{9.8}{-1.25}{\HL}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-1.25}{\HL}{$0$}
+				\celda{11.2}{13.2}{-1.25}{white}{$0$}
+				\celda{13.2}{14.6}{-1.25}{\HL}{$y$}
+				% (3) Caso base: ejecucion de G
+				\etapa{-2.5}{Se ejecuta $G$ (caso base)}
+				\celda{0}{2}{-2.5}{\HL}{$f\pa*{x, 0}$}
+				\celda{2}{7.4}{-2.5}{white}{residuos de $G$}
+				\celda{7.4}{9.8}{-2.5}{white}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-2.5}{white}{$0$}
+				\celda{11.2}{13.2}{-2.5}{white}{$0$}
+				\celda{13.2}{14.6}{-2.5}{white}{$y$}
+				% (4) Si el contador no ha llegado a y: se guarda f(x, j) y se carga la entrada de H
+				\etapa{-3.75}{Si \mbox{$j\neq y$}: se guarda $f\pa*{x, j}$ y se carga la entrada de $H$}
+				\celda{0}{2}{-3.75}{\HL}{$x_{1}$}
+				\celda{2}{7.4}{-3.75}{\HL}{$x_{2}\ \cdots\ x_{n}\ \ j\ \ f\pa*{x, j}\ \ 0\ \cdots\ 0$}
+				\celda{7.4}{9.8}{-3.75}{white}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-3.75}{white}{$j$}
+				\celda{11.2}{13.2}{-3.75}{\HL}{$f\pa*{x, j}$}
+				\celda{13.2}{14.6}{-3.75}{white}{$y$}
+				% (5) Ejecucion de H
+				\etapa{-5}{Se ejecuta $H$}
+				\celda{0}{2}{-5}{\HL}{$f\pa*{x, j + 1}$}
+				\celda{2}{7.4}{-5}{white}{residuos de $H$}
+				\celda{7.4}{9.8}{-5}{white}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-5}{white}{$j$}
+				\celda{11.2}{13.2}{-5}{white}{$f\pa*{x, j}$}
+				\celda{13.2}{14.6}{-5}{white}{$y$}
+				% (6) Incremento del contador
+				\etapa{-6.25}{Se incrementa el contador}
+				\celda{0}{2}{-6.25}{white}{$f\pa*{x, j + 1}$}
+				\celda{2}{7.4}{-6.25}{white}{residuos de $H$}
+				\celda{7.4}{9.8}{-6.25}{white}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-6.25}{\HL}{$j + 1$}
+				\celda{11.2}{13.2}{-6.25}{white}{$f\pa*{x, j}$}
+				\celda{13.2}{14.6}{-6.25}{white}{$y$}
+				% (7) Fin del ciclo
+				\etapa{-7.5}{Al alcanzarse \mbox{$j = y$}, termina}
+				\celda{0}{2}{-7.5}{\HL}{$f\pa*{x, y}$}
+				\celda{2}{7.4}{-7.5}{white}{residuos de $H$}
+				\celda{7.4}{9.8}{-7.5}{white}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-7.5}{white}{$y$}
+				\celda{11.2}{13.2}{-7.5}{white}{$f\pa*{x, y - 1}$}
+				\celda{13.2}{14.6}{-7.5}{white}{$y$}
+				% Ciclo: las etapas centrales se repiten mientras el contador no alcance a y
+				\draw[thick, ->] (14.6, -5.85) -- (15.1, -5.85) -- (15.1, -3.35) -- (14.6, -3.35);
+				\node[rotate = -90] at (15.4, -4.6) {\scriptsize mientras $j\neq y$};
+			\end{tikzpicture}}
+
 		\caption[Máquina URM de la recursión primitiva]{Evolución de la cinta de la máquina $F$ al computar por recursión primitiva $f$ sobre la entrada $z =\pa*{x, y}$}
 		\label{fig:cinta_recursion_primitiva}
 	\end{figure}
 
-	Finalicemos con el caso de la \emph{\textbf{minimización no acotada}}. Sean $n\in\omega$ y $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ una función parcial-computable, y supongamos que existe una máquina URM $G$ la cual satisface que $g = \PHI{G}[n + 1]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ es URM-computable:
+	Finalicemos con el caso de la \emph{\textbf{minimización no acotada}}. Sean $n\in\omega$ y $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ una función parcial-computable, y supongamos que existe una máquina URM $G$ la cual satisface que $g =\PHI{G}[n + 1]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ es URM-computable:
 	\[
 		f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}
 	\]
@@ -1320,56 +1372,57 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 		}
 		\newcommand{\HL}{violet!50!blue!10}
 		\resizebox{\textwidth}{!}{%
-		\begin{tikzpicture}[font =\footnotesize]
-			% Encabezados: nombres de los registros y del papel que juega cada uno
-			\node at (3.7, 1.6) {\scriptsize\itshape zona de trabajo};
-			\node at (8.6, 1.6) {\scriptsize\itshape copia de $x$};
-			\node at (10.5, 1.6) {\scriptsize\itshape contador};
-			\node at (12, 1.6) {\scriptsize\itshape cero};
-			\node at (1, 1.05) {\scriptsize $R_{1}$};
-			\node at (4.7, 1.05) {\scriptsize $R_{2},\dotsc, R_{M}$};
-			\node at (8.6, 1.05) {\scriptsize $R_{M + 1},\dotsc, R_{M + n}$};
-			\node at (10.5, 1.05) {\scriptsize $R_{M + n + 1}$};
-			\node at (12, 1.05) {\scriptsize $R_{M + n + 2}$};
-			% (1) Entrada
-			\etapa{0}{Entrada $x$}
-			\celda{0}{2}{0}{white}{$x_{1}$}
-			\celda{2}{7.4}{0}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
-			\celda{7.4}{9.8}{0}{white}{$0\ \cdots\ 0$}
-			\celda{9.8}{11.2}{0}{white}{$0$}
-			\celda{11.2}{12.8}{0}{white}{$0$}
-			% (2) Copia de la entrada y arranque del contador
-			\etapa{-1.25}{Se copia la entrada y arranca el contador}
-			\celda{0}{2}{-1.25}{white}{$x_{1}$}
-			\celda{2}{7.4}{-1.25}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
-			\celda{7.4}{9.8}{-1.25}{\HL}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-1.25}{\HL}{$0$}
-			\celda{11.2}{12.8}{-1.25}{\HL}{$0$}
-			% (3) Ejecucion de G sobre (x, j)
-			\etapa{-2.5}{Se ejecuta $G$ sobre \mbox{$\pa*{x, j}$}}
-			\celda{0}{2}{-2.5}{\HL}{$g\pa*{x, j}$}
-			\celda{2}{7.4}{-2.5}{white}{residuos de $G$}
-			\celda{7.4}{9.8}{-2.5}{white}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-2.5}{white}{$j$}
-			\celda{11.2}{12.8}{-2.5}{white}{$0$}
-			% (4) Si g(x, j) no es cero: se incrementa el contador y se recarga la entrada
-			\etapa{-3.75}{Si \mbox{$g\pa*{x, j}\neq 0$}: aumenta $j$ y se recarga la entrada}
-			\celda{0}{2}{-3.75}{\HL}{$x_{1}$}
-			\celda{2}{7.4}{-3.75}{\HL}{$x_{2}\ \cdots\ x_{n}\ \ j + 1\ \ 0\ \cdots\ 0$}
-			\celda{7.4}{9.8}{-3.75}{white}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-3.75}{\HL}{$j + 1$}
-			\celda{11.2}{12.8}{-3.75}{white}{$0$}
-			% (5) Si g(x, j) es cero: el contador es el valor buscado
-			\etapa{-5}{Si \mbox{$g\pa*{x, j} = 0$}: el valor $j$ pasa al primer registro}
-			\celda{0}{2}{-5}{\HL}{$j = f\pa*{x}$}
-			\celda{2}{7.4}{-5}{white}{residuos de $G$}
-			\celda{7.4}{9.8}{-5}{white}{$x_{1}\ \cdots\ x_{n}$}
-			\celda{9.8}{11.2}{-5}{white}{$j$}
-			\celda{11.2}{12.8}{-5}{white}{$0$}
-			% Ciclo: se vuelve a ejecutar G con el contador aumentado
-			\draw[thick, ->] (12.8, -3.35) -- (13.3, -3.35) -- (13.3, -2.1) -- (12.8, -2.1);
-			\node[rotate = -90] at (13.55, -2.725) {\scriptsize repetir};
-		\end{tikzpicture}}
+			\begin{tikzpicture}[font =\footnotesize]
+				% Encabezados: nombres de los registros y del papel que juega cada uno
+				\node at (3.7, 1.6) {\scriptsize\itshape zona de trabajo};
+				\node at (8.6, 1.6) {\scriptsize\itshape copia de $x$};
+				\node at (10.5, 1.6) {\scriptsize\itshape contador};
+				\node at (12, 1.6) {\scriptsize\itshape cero};
+				\node at (1, 1.05) {\scriptsize $R_{1}$};
+				\node at (4.7, 1.05) {\scriptsize $R_{2},\dotsc, R_{M}$};
+				\node at (8.6, 1.05) {\scriptsize $R_{M + 1},\dotsc, R_{M + n}$};
+				\node at (10.5, 1.05) {\scriptsize $R_{M + n + 1}$};
+				\node at (12, 1.05) {\scriptsize $R_{M + n + 2}$};
+				% (1) Entrada
+				\etapa{0}{Entrada $x$}
+				\celda{0}{2}{0}{white}{$x_{1}$}
+				\celda{2}{7.4}{0}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+				\celda{7.4}{9.8}{0}{white}{$0\ \cdots\ 0$}
+				\celda{9.8}{11.2}{0}{white}{$0$}
+				\celda{11.2}{12.8}{0}{white}{$0$}
+				% (2) Copia de la entrada y arranque del contador
+				\etapa{-1.25}{Se copia la entrada y arranca el contador}
+				\celda{0}{2}{-1.25}{white}{$x_{1}$}
+				\celda{2}{7.4}{-1.25}{white}{$x_{2}\ \cdots\ x_{n}\ \ 0\ \cdots\ 0$}
+				\celda{7.4}{9.8}{-1.25}{\HL}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-1.25}{\HL}{$0$}
+				\celda{11.2}{12.8}{-1.25}{\HL}{$0$}
+				% (3) Ejecucion de G sobre (x, j)
+				\etapa{-2.5}{Se ejecuta $G$ sobre \mbox{$\pa*{x, j}$}}
+				\celda{0}{2}{-2.5}{\HL}{$g\pa*{x, j}$}
+				\celda{2}{7.4}{-2.5}{white}{residuos de $G$}
+				\celda{7.4}{9.8}{-2.5}{white}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-2.5}{white}{$j$}
+				\celda{11.2}{12.8}{-2.5}{white}{$0$}
+				% (4) Si g(x, j) no es cero: se incrementa el contador y se recarga la entrada
+				\etapa{-3.75}{Si \mbox{$g\pa*{x, j}\neq 0$}: aumenta $j$ y se recarga la entrada}
+				\celda{0}{2}{-3.75}{\HL}{$x_{1}$}
+				\celda{2}{7.4}{-3.75}{\HL}{$x_{2}\ \cdots\ x_{n}\ \ j + 1\ \ 0\ \cdots\ 0$}
+				\celda{7.4}{9.8}{-3.75}{white}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-3.75}{\HL}{$j + 1$}
+				\celda{11.2}{12.8}{-3.75}{white}{$0$}
+				% (5) Si g(x, j) es cero: el contador es el valor buscado
+				\etapa{-5}{Si \mbox{$g\pa*{x, j} = 0$}: el valor $j$ pasa al primer registro}
+				\celda{0}{2}{-5}{\HL}{$j = f\pa*{x}$}
+				\celda{2}{7.4}{-5}{white}{residuos de $G$}
+				\celda{7.4}{9.8}{-5}{white}{$x_{1}\ \cdots\ x_{n}$}
+				\celda{9.8}{11.2}{-5}{white}{$j$}
+				\celda{11.2}{12.8}{-5}{white}{$0$}
+				% Ciclo: se vuelve a ejecutar G con el contador aumentado
+				\draw[thick, ->] (12.8, -3.35) -- (13.3, -3.35) -- (13.3, -2.1) -- (12.8, -2.1);
+				\node[rotate = -90] at (13.55, -2.725) {\scriptsize repetir};
+			\end{tikzpicture}}
+
 		\caption[Máquina URM de la minimización no acotada]{Evolución de la cinta de la máquina $F$ al computar $f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}$ sobre la entrada $x =\pa*{x_{1},\dotsc, x_{n}}$}
 		\label{fig:cinta_minimizacion}
 	\end{figure}
@@ -1381,9 +1434,9 @@ La demostración de este teorema no solamente nos asegura que toda función parc
 
 \subsection{Codificación de listas}
 
-La demostración de $\URMCOMPUTABLE\subseteq\PARCIAL$ necesita una herramienta esencial que es la \emph{enumeración}. Esto se refiere a que cada máquina se corresponde con un único número natural que lo identifica y que codifica toda su información, lo cual permite tratar como entradas de funciones parcial-recursivas a los algoritmos mismos. Para poder realizarlo debemos corresponder primero las tuplas de números naturales con números naturales que, igualmente, codifiquen toda su información. 
+La demostración de $\URMCOMPUTABLE\subseteq\PARCIAL$ necesita una herramienta esencial que es la \emph{enumeración}. Esto se refiere a que cada máquina se corresponde con un único número natural que lo identifica y que codifica toda su información, lo cual permite tratar como entradas de funciones parcial-recursivas a los algoritmos mismos. Para poder realizarlo debemos corresponder primero las tuplas de números naturales con números naturales que, igualmente, codifiquen toda su información.
 
-Aunque existen varias formas de poder codificar listas de naturales, la forma más simple es por medio del teorema fundamental de la aritmética. La idea es generar una inyección entre las listas y los naturales tratando a cada elemento de la lista como potencias de productos de primos. Por ejemplo, si tenemos la lista $\pa*{1, 2, 3}\in\omega^{3}$, entonces podemos mapearla al número $2^{1}3^{2}5^{3}$. La ventaja de este método es que el teorema fundamental de la aritmética nos asegura que tal producto de primos es único, por lo que podríamos recuperar la lista únicamente factorizando el número que lo representa y recopilando sus potencias. 
+Aunque existen varias formas de poder codificar listas de naturales, la forma más simple es por medio del teorema fundamental de la aritmética. La idea es generar una inyección entre las listas y los naturales tratando a cada elemento de la lista como potencias de productos de primos. Por ejemplo, si tenemos la lista $\pa*{1, 2, 3}\in\omega^{3}$, entonces podemos mapearla al número $2^{1}3^{2}5^{3}$. La ventaja de este método es que el teorema fundamental de la aritmética nos asegura que tal producto de primos es único, por lo que podríamos recuperar la lista únicamente factorizando el número que lo representa y recopilando sus potencias.
 
 Sin embargo, un problema de esta codificación es cuando tenemos listas con ceros, como por ejemplo las listas $\pa*{1, 2, 0, 0}$ y $\pa*{1, 2}$. Notemos en este caso que ambas listas serían mapeadas al número $2^{1}3^{2}$ justamente porque existen ceros al final de la primera lista. Una forma para poder arreglar esto es sumar $1$ a cada exponente en el mapeo. En este caso, dadas las listas anteriores, podríamos mapear $\pa*{1, 2, 0, 0}$ a $2^{1 + 1}3^{2 + 1}5^{0 + 1}7^{0 + 1}$ y mapear $\pa*{1, 2}$ a $2^{1 + 1}3^{2 + 1}$, donde las listas ahora están mapeadas a diferentes números naturales. Esta forma de mapear listas ya asegura una inyección debido a que ya no tendríamos potencias nulas al trabajar con listas que contengan ceros como elementos.
 
@@ -1396,7 +1449,7 @@ Sin embargo, un problema de esta codificación es cuando tenemos listas con cero
 \end{theorem}
 
 \begin{proof}
-	Sean $x, y\in\omega^{<\omega}$ tales que $f\pa*{x} = f\pa*{y}$, entonces mostremos que $x = y$. 
+	Sean $x, y\in\omega^{<\omega}$ tales que $f\pa*{x} = f\pa*{y}$, entonces mostremos que $x = y$.
 
 	Si $x =\varnothing$ o $y =\varnothing$, entonces $f\pa*{x} = 1 = f\pa*{y}$, por lo que $x = y =\varnothing$, debido a que la única lista que se mapea a $1$ es la lista vacía. Por lo tanto, supongamos que $x, y\neq\varnothing$.
 
@@ -1415,7 +1468,7 @@ Sin embargo, un problema de esta codificación es cuando tenemos listas con cero
 	Para cada $n\in\omega^{+}$ y cada $x =\pa*{x_{1},\dotsc, x_{n}}\in\omega^{n}$ se denotará por $\inner*{x} =\inner*{x_{1},\dotsc, x_{n}}$ a $f_{n}\pa*{x}$.
 \end{definition}
 
-\begin{theorem}{}{}
+\begin{theorem}
 	Las funciones de codificación son primitivo-recursivas.
 \end{theorem}
 
@@ -1452,25 +1505,29 @@ El objetivo ahora entonces es verificar que ciertas operaciones que podemos real
 
 \begin{definition}[Máxima potencia, acceso y longitud]
 	Definimos las siguientes funciones:
+
 	\begin{enumerate}
 		\item la función \emph{máxima potencia} $\MAXPOTENCIA:\omega^{2}\to\omega$ definida como sigue para cada $x, y\in\omega$:
 		\[
-			\MAXPOTENCIA\pa*{x, y} =\begin{cases}
+			\MAXPOTENCIA\pa*{x, y} =
+			\begin{cases}
 				\max\set*{n\in\omega: x^{n}\mid y}, & x > 1, y > 0\\
 				0, &\text{en otro caso}
 			\end{cases}
 		\]
 		\item para cada $k\in\omega$, la función \emph{acceso} al $\pa*{k + 1}$-ésimo elemento $f_{k}:\omega\to\omega$ definida como sigue para cada $e\in\omega$:
 		\[
-			f_{k}\pa*{e} =\begin{cases}
-				x_{k}, &\exists n\pa*{\exists x_{0},\dotsc, x_{n - 1}\in\omega}\pa*{k < n\land e = \inner*{x_{0},\dotsc, x_{n - 1}}}\\
+			f_{k}\pa*{e} =
+			\begin{cases}
+				x_{k}, &\exists n\pa*{\exists x_{0},\dotsc, x_{n - 1}\in\omega}\pa*{k < n\land e =\inner*{x_{0},\dotsc, x_{n - 1}}}\\
 				0, &\text{en otro caso}
 			\end{cases}
 		\]
 		Denotaremos por $e\bra*{k}$ a $f_{k}\pa*{e}$.
 		\item la función \emph{longitud} $\LONGITUD:\omega\to\omega$ definida como sigue para cada $e\in\omega$:
 		\[
-			\LONGITUD\pa*{e} =\begin{cases}
+			\LONGITUD\pa*{e} =
+			\begin{cases}
 				n, &\exists n\exists x\in\omega^{n}\pa*{e =\inner*{x}}\\
 				0, &\text{en otro caso}
 			\end{cases}
@@ -1481,18 +1538,19 @@ El objetivo ahora entonces es verificar que ciertas operaciones que podemos real
 \begin{theorem}
 	Las funciones máxima potencia, acceso y longitud son primitivo-recursivas.
 \end{theorem}
+
 \begin{proof}
 	Para la función máxima potencia la estrategia es utilizar su negación: la máxima potencia es equivalente a la mínima potencia que ya no divide a la secuencia (menos uno). Si $D\subseteq\omega^{2}$ es la relación ``divide a'', se tiene lo siguiente para cada par $x, y\in\omega$:
 	\[
 		\MAXPOTENCIA\pa*{x, y} =\CARACTERISTICA{>}\pa*{x, 1}\CARACTERISTICA{>}\pa*{y, 0}\pa*{\pa*{\mu n < y + 1}\lnot D\pa*{x^{n}, y} - 1}
 	\]
 	donde la resta se entiende como la resta en $\omega$. Ya que $D$ es primitivo-recursiva, se sigue que $\MAXPOTENCIA$ es primitivo-recursiva.
-	
+
 	Sea ahora $k\in\omega$, entonces para la función de acceso al $\pa*{k + 1}$-ésimo elemento, si denotamos por $f:\omega\to\omega$ a la función que devuelve el $\pa*{n + 1}$-ésimo número primo, el $\pa*{k + 1}$-ésimo elemento es la potencia $m$ más grande que divide a la secuencia $e$, es decir, tal que $\pa*{f(k)}^{m}\mid e$, pero la cual debemos restarle uno debido a que al codificar las listas sumamos $1$ para asegurar la inyectividad. Se tiene entonces lo siguiente para cada $e\in\omega$:
 	\[
 		e\bra*{k} =\CARACTERISTICA{\SECUENCIAS}\pa*{e}\pa*{\MAXPOTENCIA\pa*{f\pa*{k}, e} - 1}
 	\]
-	
+
 	Finalmente, para la función longitud la estrategia es buscar el primo más grande que divide la secuencia (ya que usamos primos consecutivos). Para ello usamos su negación: buscar el primo más grande es equivalente a buscar el menor primo que no divide a la secuencia (menos uno). Se tiene entonces que para cada $e\in\omega$:
 	\[
 		\LONGITUD\pa*{e} =\CARACTERISTICA{\SECUENCIAS}\pa*{e}\pa*{\mu n < e + 1}\lnot D\pa*{f\pa*{n}, e}
@@ -1514,20 +1572,22 @@ El objetivo ahora entonces es verificar que ciertas operaciones que podemos real
 \begin{theorem}[Máximo]
 	Definimos a la función \emph{máximo} $\operatorname{Max}:\omega\to\omega$ de la siguiente manera:
 	\[
-		\operatorname{Max}\pa*{e}\coloneqq\begin{cases}
-			\max\set*{x_{1},\dotsc, x_{n}}, & \SECUENCIAS\pa*{e}\text{ y } e =\inner*{x_{1},\dotsc, x_{n}}\\
+		\operatorname{Max}\pa*{e}\coloneqq
+		\begin{cases}
+			\max\set*{x_{1},\dotsc, x_{n}}, &\SECUENCIAS\pa*{e}\text{ y } e =\inner*{x_{1},\dotsc, x_{n}}\\
 			0, &\text{en otro caso}
 		\end{cases}
 	\]
 	Entonces $\operatorname{Max}$ es primitivo-recursiva.
 \end{theorem}
+
 \begin{proof}
 	Definimos como ayuda a la relación $M\subseteq\omega^{2}$ de la siguiente forma:
 	\[
 		M\pa*{e, m}\iff\pa*{\exists n <\LONGITUD\pa*{e}}\pa*{e\bra*{n} = m\land\pa*{\forall k <\LONGITUD\pa*{e}}\pa*{e\bra*{k}\leq e\bra*{n}}}
 	\]
-	Esta relación en esencia nos dice que un par $\pa*{e, m}$ está en $M$ si y solo si $m$ es elemento de la lista codificada por $e$ y es el elemento más grande de ella. Puesto que la lista codificada es finita, siempre tiene un único elemento máximo (considerando que no sea vacía). Gracias a los teoremas \ref{coll: prim_rec_formulas} y \ref{coll: prim_rec_acotado}, afirmamos que $M$ es primitivo-recursiva. 
-	
+	Esta relación en esencia nos dice que un par $\pa*{e, m}$ está en $M$ si y solo si $m$ es elemento de la lista codificada por $e$ y es el elemento más grande de ella. Puesto que la lista codificada es finita, siempre tiene un único elemento máximo (considerando que no sea vacía). Gracias a los teoremas \ref{coll: prim_rec_formulas} y \ref{coll: prim_rec_acotado}, afirmamos que $M$ es primitivo-recursiva.
+
 	De esta manera se recupera el elemento máximo iterando sobre todos los números $m$ menores o iguales a $e$, por el teorema \ref{theo: ek_menor_e}, verificando si $M(e, m)$. Ya que el máximo es único, entonces aseguramos que a lo más un único número $m$ satisface que $M(e, m)$, y por lo tanto podemos definir a la función máximo como sigue:
 	\[
 		\operatorname{Max}\pa*{e} =\CARACTERISTICA{\SECUENCIAS}\pa*{e}\sum_{m = 0}^{e}m\CARACTERISTICA{M}\pa*{e, m}
@@ -1582,19 +1642,20 @@ y de igual forma se tendría entonces:
 
 Luego, se recupera cada instrucción por medio del acceso a la lista. Sin embargo, notemos que $e\bra*{0}$ corresponde a la \emph{primera} instrucción de la máquina URM. Para facilitar la lectura e identificación de los elementos de la lista y las instrucciones correspondientes que codifican, la codificación de la máquina $M$ iniciará en $0$ con el objetivo de que los accesos a la lista y las instrucciones de $M$ correspondan directamente. En el ejemplo que estábamos analizando se sigue que su código es el siguiente:
 \[
-	\inner*{0, \inner*{3, 2, 3, 5},\inner*{1, 1},\inner*{1, 3},\inner*{3, 1, 1, 1}}
+	\inner*{0,\inner*{3, 2, 3, 5},\inner*{1, 1},\inner*{1, 3},\inner*{3, 1, 1, 1}}
 \]
 
 En este caso se obtiene ahora que $e\bra*{1} =\inner*{3, 2, 3, 5}$ es el código de la primera instrucción $J\pa*{2, 3, 5}$, $e\bra*{2} =\inner*{1, 1}$ el de la segunda instrucción $S\pa*{1}$, $e\bra*{3} =\inner*{1, 3}$ el de la tercera instrucción $S\pa*{3}$ y $e\bra*{4} =\inner*{3, 1, 1, 1}$ el de la cuarta instrucción $J\pa*{1, 1, 1}$.
 Se define entonces lo siguiente.
+
 \begin{definition}[Codificación de instrucciones y máquinas URM]
 	Se definen los siguientes conjuntos de codificaciones de instrucciones y máquinas URM
-	
+
 	\begin{align*}
 		\INSTRUCCIONESCOD &\coloneqq\set*{\inner*{0, n}\in\omega: n\in\omega^{+}}\cup\set*{\inner*{1, n}\in\omega: n\in\omega^{+}}\\
 		&\cup\set*{\inner*{2, n, m}\in\omega: n, m\in\omega^{+}}\cup\set*{\inner*{3, n, m, k}\in\omega: n, m, k\in\omega^{+}}
 	\end{align*}
-	
+
 	\[
 		\URMCODIGO\coloneqq\set*{\inner*{0, x_{1},\dotsc, x_{n}}\in\omega: n\in\omega^{+}, x_{1},\dotsc, x_{n}\in\INSTRUCCIONESCOD}
 	\]
@@ -1603,6 +1664,7 @@ Se define entonces lo siguiente.
 \begin{theorem}
 	Los conjuntos $\INSTRUCCIONESCOD$ y $\URMCODIGO$ son primitivos recursivos.
 \end{theorem}
+
 \begin{proof}
 	Para demostrar que $\INSTRUCCIONESCOD$ es primitivo-recursivo solo es necesario demostrar que cada uno de los conjuntos que lo componen son primitivos recursivos. Definamos los conjuntos $A_{1} =\set*{\inner*{0, n}\in\omega: n\in\omega^{+}}$, $A_{2} =\set*{\inner*{1, n}\in\omega: n\in\omega^{+}}$, $A_{3} =\set*{\inner*{2, n, m}\in\omega: n, m\in\omega^{+}}$ y $A_{4} =\set*{\inner*{3, n, m, k}\in\omega: n, m, k\in\omega^{+}}$. Notemos lo siguiente:
 	\[
@@ -1614,7 +1676,7 @@ Se define entonces lo siguiente.
 		\end{NiceArray}
 	\]
 	Ya que $\SECUENCIAS$, $\LONGITUD$ y la función de acceso son primitivo-recursivas, por el teorema \ref{coll: prim_rec_formulas} se sigue que $A_{1}$, $A_{2}$, $A_{3}$ y $A_{4}$ son primitivo-recursivas, y luego $\INSTRUCCIONESCOD = A_{1}\cup A_{2}\cup A_{3}\cup A_{4}$ es primitivo-recursiva.
-	
+
 	Para $\URMCODIGO$, un elemento está en él si y solo si es un código y cada elemento de la lista es elemento de $\INSTRUCCIONESCOD$. Ya que $\LONGITUD$ es primitivo-recursiva, se tiene lo siguiente:
 	\begin{align*}
 		\URMCODIGO\pa*{e}\iff&\left(\SECUENCIAS\pa*{e}\land\LONGITUD\pa*{e} > 1\land e\bra*{0} = 0\right.\\
@@ -1627,11 +1689,13 @@ Demostramos ahora las siguientes funciones que nos serán de utilidad para codif
 
 \begin{theorem}
 	Las siguientes funciones son primitivo-recursivas:
+
 	\begin{enumerate}
 		\item La función \emph{número de instrucciones} $\operatorname{NumInstr}:\omega\to\omega$ que devuelve el número de instrucciones de una máquina URM.
 		\item La función \emph{número de registro máximo} $\operatorname{MaxReg}:\omega\to\omega$ que devuelve el registro más grande utilizado por la máquina URM.
 	\end{enumerate}
 \end{theorem}
+
 \begin{proof}
 	Para la función número de instrucciones, ya que el número de instrucciones es simplemente la longitud de la secuencia menos uno (ya que agregamos $0$ al inicio de manera artificial), tenemos lo siguiente:
 	\[
@@ -1654,42 +1718,42 @@ Demostramos ahora las siguientes funciones que nos serán de utilidad para codif
 	\]
 	la cual es primitivo-recursiva y recupera el máximo de los registros de la instrucción actual y el máximo anterior. Luego se tiene que la función número máximo de registros es primitivo-recursiva ya que satisface que para cada $e\in\omega$:
 	\[
-		\operatorname{MaxReg}\pa*{e} = \CARACTERISTICA{\URMCODIGO}\pa*{e}f\pa*{e,\LONGITUD\pa*{e} - 1}
+		\operatorname{MaxReg}\pa*{e} =\CARACTERISTICA{\URMCODIGO}\pa*{e}f\pa*{e,\LONGITUD\pa*{e} - 1}
 	\]
 \end{proof}
 
-El objetivo ahora es poder codificar la ejecución de una máquina URM de manera primitivo-recursiva. Para ello, primero debe codificarse el contenido de los registros en una iteración de la máquina. Para ello, recordemos que las ejecuciones de la máquina son una sucesión de funciones $\set*{f_{k}}_{k\in\omega}$ que representan el estado de la cinta en cada iteración $k\in\omega$ (sin considerar los valores $f_{k}(0)$). Por ejemplo, considerando de nuevo el ejemplo de la máquina $M = \pa*{J\pa*{2, 3, 5}, S\pa*{1}, S\pa*{3}, J\pa*{1, 1, 1}}$, tenemos que la sucesión de funciones que representan el estado de la cinta es la siguiente:
+El objetivo ahora es poder codificar la ejecución de una máquina URM de manera primitivo-recursiva. Para ello, primero debe codificarse el contenido de los registros en una iteración de la máquina. Para ello, recordemos que las ejecuciones de la máquina son una sucesión de funciones $\set*{f_{k}}_{k\in\omega}$ que representan el estado de la cinta en cada iteración $k\in\omega$ (sin considerar los valores $f_{k}(0)$). Por ejemplo, considerando de nuevo el ejemplo de la máquina $M =\pa*{J\pa*{2, 3, 5}, S\pa*{1}, S\pa*{3}, J\pa*{1, 1, 1}}$, tenemos que la sucesión de funciones que representan el estado de la cinta es la siguiente:
 \[
 	\begin{NiceArray}{cc}
-		f_{0}: & \pa*{3, 2, 0, 0, 0, 0,\dotsc}\\
-		f_{1}: & \pa*{3, 2, 0, 0, 0, 0,\dotsc}\\
-		f_{2}: & \pa*{4, 2, 0, 0, 0, 0,\dotsc}\\
-		f_{3}: & \pa*{4, 2, 1, 0, 0, 0,\dotsc}\\
-		f_{4}: & \pa*{4, 2, 1, 0, 0, 0,\dotsc}\\
-		f_{5}: & \pa*{4, 2, 1, 0, 0, 0,\dotsc}\\
-		f_{6}: & \pa*{5, 2, 1, 0, 0, 0,\dotsc}\\
-		f_{7}: & \pa*{5, 2, 2, 0, 0, 0,\dotsc}\\
+		f_{0}: &\pa*{3, 2, 0, 0, 0, 0,\dotsc}\\
+		f_{1}: &\pa*{3, 2, 0, 0, 0, 0,\dotsc}\\
+		f_{2}: &\pa*{4, 2, 0, 0, 0, 0,\dotsc}\\
+		f_{3}: &\pa*{4, 2, 1, 0, 0, 0,\dotsc}\\
+		f_{4}: &\pa*{4, 2, 1, 0, 0, 0,\dotsc}\\
+		f_{5}: &\pa*{4, 2, 1, 0, 0, 0,\dotsc}\\
+		f_{6}: &\pa*{5, 2, 1, 0, 0, 0,\dotsc}\\
+		f_{7}: &\pa*{5, 2, 2, 0, 0, 0,\dotsc}\\
 		\vdots &\vdots
 	\end{NiceArray}
 \]
 
-Aunque el paso natural podría ser codificar cada función $f_{k}$ como una lista, esto no es posible debido a que son infinitas. Por lo tanto, la idea es codificar únicamente la parte de la función que realmente se utiliza en la ejecución de la máquina URM. 
+Aunque el paso natural podría ser codificar cada función $f_{k}$ como una lista, esto no es posible debido a que son infinitas. Por lo tanto, la idea es codificar únicamente la parte de la función que realmente se utiliza en la ejecución de la máquina URM.
 
 Debido a que en la ejecución de una máquina URM solamente hacemos uso de un número finito de registros en cada iteración, los cuales pueden tomar valores diferentes de cero, podemos codificar únicamente esa parte de la función. Luego, hacemos uso de la función $\operatorname{MaxReg}$, la cual por definición nos da esa cota del registro más grande que podemos utilizar.
 
-Luego, podemos considerar únicamente listas de longitud mayor a $\operatorname{MaxReg}\pa*{e}$ para codificar cada función $f_{k}$. La longitud se considera mayor a $\operatorname{MaxReg}\pa*{e}$ para tener acceso a esos registros que necesita la máquina para ser ejecutada, además de considerar el caso cuando la entrada $f_{0}$ requiera una lista más larga que $\operatorname{MaxReg}\pa*{e}$. En nuestro ejemplo, si $e = \inner*{0, \inner*{3, 2, 3, 5},\inner*{1, 1},\inner*{1, 3},\inner*{3, 1, 1, 1}}$, entonces tenemos que $\operatorname{MaxReg}\pa*{e} = 3$. Como la entrada consta de solo dos valores, podemos considerar una lista de longitud $5 >\operatorname{MaxReg}\pa*{e}$. Entonces cada una de las funciones $f_{k}$ se codificaría de la siguiente manera:
+Luego, podemos considerar únicamente listas de longitud mayor a $\operatorname{MaxReg}\pa*{e}$ para codificar cada función $f_{k}$. La longitud se considera mayor a $\operatorname{MaxReg}\pa*{e}$ para tener acceso a esos registros que necesita la máquina para ser ejecutada, además de considerar el caso cuando la entrada $f_{0}$ requiera una lista más larga que $\operatorname{MaxReg}\pa*{e}$. En nuestro ejemplo, si $e =\inner*{0,\inner*{3, 2, 3, 5},\inner*{1, 1},\inner*{1, 3},\inner*{3, 1, 1, 1}}$, entonces tenemos que $\operatorname{MaxReg}\pa*{e} = 3$. Como la entrada consta de solo dos valores, podemos considerar una lista de longitud $5 >\operatorname{MaxReg}\pa*{e}$. Entonces cada una de las funciones $f_{k}$ se codificaría de la siguiente manera:
 \[
 	\begin{NiceArray}{c|ccccccccccc}
-		k & & f_{k}\pa*{0} && f_{k}\pa*{1} && f_{k}\pa*{2} && f_{k}\pa*{3} && f_{k}\pa*{4} & \\\hline
-		0 & \langle & 1 &, & 3 &, & 2 &, & 0 &, & 0 & \rangle\\
-		1 & \langle & 2 &, & 3 &, & 2 &, & 0 &, & 0 & \rangle\\
-		2 & \langle & 3 &, & 4 &, & 2 &, & 0 &, & 0 & \rangle\\
-		3 & \langle & 4 &, & 4 &, & 2 &, & 1 &, & 0 & \rangle\\
-		4 & \langle & 1 &, & 4 &, & 2 &, & 1 &, & 0 & \rangle\\
-		5 & \langle & 2 &, & 4 &, & 2 &, & 1 &, & 0 & \rangle\\
-		6 & \langle & 3 &, & 5 &, & 2 &, & 1 &, & 0 & \rangle\\
-		7 & \langle & 4 &, & 5 &, & 2 &, & 2 &, & 0 & \rangle\\
-		8 & \langle & 5 &, & 5 &, & 2 &, & 2 &, & 0 & \rangle\\
+		k & & f_{k}\pa*{0} && f_{k}\pa*{1} && f_{k}\pa*{2} && f_{k}\pa*{3} && f_{k}\pa*{4} &\\\hline
+		0 &\langle & 1 &, & 3 &, & 2 &, & 0 &, & 0 &\rangle\\
+		1 &\langle & 2 &, & 3 &, & 2 &, & 0 &, & 0 &\rangle\\
+		2 &\langle & 3 &, & 4 &, & 2 &, & 0 &, & 0 &\rangle\\
+		3 &\langle & 4 &, & 4 &, & 2 &, & 1 &, & 0 &\rangle\\
+		4 &\langle & 1 &, & 4 &, & 2 &, & 1 &, & 0 &\rangle\\
+		5 &\langle & 2 &, & 4 &, & 2 &, & 1 &, & 0 &\rangle\\
+		6 &\langle & 3 &, & 5 &, & 2 &, & 1 &, & 0 &\rangle\\
+		7 &\langle & 4 &, & 5 &, & 2 &, & 2 &, & 0 &\rangle\\
+		8 &\langle & 5 &, & 5 &, & 2 &, & 2 &, & 0 &\rangle\\
 	\end{NiceArray}
 \]
 
@@ -1698,7 +1762,7 @@ Estas codificaciones de las funciones $f_{k}$ como listas finitas se denominan \
 \begin{definition}[Configuraciones]
 	El conjunto de configuraciones es el conjunto:
 	\[
-		\operatorname{Config}\coloneqq\set*{c\in\omega: \SECUENCIAS\pa*{c}\land\LONGITUD\pa*{c} > 0\land c\bra*{0} > 0}
+		\operatorname{Config}\coloneqq\set*{c\in\omega:\SECUENCIAS\pa*{c}\land\LONGITUD\pa*{c} > 0\land c\bra*{0} > 0}
 	\]
 \end{definition}
 
@@ -1716,12 +1780,13 @@ Primero debemos asegurar que los números $c$ y $d$ son configuraciones válidas
 \begin{definition}[Cómputo]
 	\label{def: computo_urm}
 	Definimos la relación de \emph{cómputo} $\operatorname{Computo}\subseteq\omega^{3}$ de modo que para cada terna $\pa*{e, c, d}\in\omega^{3}$ se satisfaga $\operatorname{Computo}\pa*{e, c, d}$ si y solo si:
+
 	\begin{enumerate}
 		\item $\URMCODIGO\pa*{e}$,
 		\item $\CONFIGURACIONES\pa*{c}$ y $\CONFIGURACIONES\pa*{d}$,
 		\item $\LONGITUD\pa*{c} =\LONGITUD\pa*{d}$,
 		\item $\LONGITUD\pa*{c} >\MAXREGISTRO\pa*{e}$, y
-		\item dada la ejecución $\set*{f_{k}}_{k\in\omega}$ de la máquina codificada por $e$, si existe $k\in\omega$ tal que $c = f_{k}\upharpoonright \LONGITUD\pa*{c}$, entonces $d = f_{k + 1}\upharpoonright \LONGITUD\pa*{d}$
+		\item dada la ejecución $\set*{f_{k}}_{k\in\omega}$ de la máquina codificada por $e$, si existe $k\in\omega$ tal que $c = f_{k}\upharpoonright\LONGITUD\pa*{c}$, entonces $d = f_{k + 1}\upharpoonright\LONGITUD\pa*{d}$
 	\end{enumerate}
 \end{definition}
 
@@ -1769,7 +1834,7 @@ Primero debemos asegurar que los números $c$ y $d$ son configuraciones válidas
 	Por lo tanto, una terna $\pa*{e, c, d}\in\omega^{3}$ satisface $\operatorname{Computo}\pa*{e, c, d}$ si y solo si satisface la conjunción de todas las fórmulas anteriores, y luego es primitivo-recursiva.
 \end{proof}
 
-Con esta relación ya tenemos todas las herramientas necesarias para codificar cuando una máquina URM se detiene. Consideremos una máquina URM codificada por $e\in\omega$, una entrada codificada por $z\in\omega$ y una lista de configuraciones codificada por $p\in\omega$. Recordemos que una máquina URM acaba cuando existe una ejecución que sobrepasa el número de instrucciones que se pueden ejecutar. El trabajo del número $p$ es codificar esa situación. El valor $p$ es una lista de configuraciones que representa esa sucesión de funciones que formalizan la ejecución de la máquina. 
+Con esta relación ya tenemos todas las herramientas necesarias para codificar cuando una máquina URM se detiene. Consideremos una máquina URM codificada por $e\in\omega$, una entrada codificada por $z\in\omega$ y una lista de configuraciones codificada por $p\in\omega$. Recordemos que una máquina URM acaba cuando existe una ejecución que sobrepasa el número de instrucciones que se pueden ejecutar. El trabajo del número $p$ es codificar esa situación. El valor $p$ es una lista de configuraciones que representa esa sucesión de funciones que formalizan la ejecución de la máquina.
 
 En primer lugar, como $p$ codifica todas las configuraciones de la ejecución de la máquina, como mínimo debe contener a la configuración que codifica la cinta de entrada. Por lo tanto, $p$ debe satisfacer que $\LONGITUD\pa*{p} > 0$ y para cada $k <\LONGITUD\pa*{p}$ se satisface que $\CONFIGURACIONES\pa*{p\bra*{k}}$.
 
@@ -1784,6 +1849,7 @@ La relación que se define como la conjunción de todas estas condiciones que de
 \begin{definition}[T-predicado de Kleene]
 	\label{def: t_predicado_de_kleene}
 	Se define el \emph{T-predicado de Kleene} como la relación $T\subseteq\omega^{3}$ la cual satisface que una terna $\pa*{e, z, p}\in\omega^{3}$ pertenece a $T$ si y solo si:
+
 	\begin{enumerate}
 		\item $e\in\URMCODIGO$, $z\in\SECUENCIAS$, $p\in\SECUENCIAS$,
 		\item $\LONGITUD\pa*{p} > 0$, $p\bra*{0}\bra*{0} = 1$,
@@ -1825,12 +1891,12 @@ Ahora, recordemos que el valor de la función URM-computable que genera una máq
 
 \begin{proof}
 	Sean $n\in\omega^{+}$, $x\in\omega^{n}$ y $p\in\SECUENCIAS$ para los cuales solamente se satisfagan los primeros siete puntos de la definición \ref{def: t_predicado_de_kleene}, y sea $\set*{f_{k}}_{k\in\omega}$ la ejecución de la máquina $M$ con entrada $x$.
-	
-	Por definición de $p$ sabemos que es de la forma $p =\inner*{c_{0},\dotsc, c_{t}}$ de modo que $t =\LONGITUD\pa*{p} - 1$ y para cada $k <\LONGITUD\pa*{p}$, $\CONFIGURACIONES\pa*{c_{k}}$. Además, notemos que para cada $k <\LONGITUD\pa*{p} - 1$ se satisface que $\operatorname{Computo}\pa*{e, c_{k}, c_{k + 1}}$, por lo que debido a la definición de $\operatorname{Computo}$ y de $p$ sabemos que $\LONGITUD\pa*{c_{0}} =\LONGITUD\pa*{c_{1}} =\dotsb =\LONGITUD\pa*{c_{t}} > \LONGITUD\pa*{z}, \MAXREGISTRO\pa*{e}$. Sea entonces $N\coloneqq\LONGITUD\pa*{c_{0}}$.
+
+	Por definición de $p$ sabemos que es de la forma $p =\inner*{c_{0},\dotsc, c_{t}}$ de modo que $t =\LONGITUD\pa*{p} - 1$ y para cada $k <\LONGITUD\pa*{p}$, $\CONFIGURACIONES\pa*{c_{k}}$. Además, notemos que para cada $k <\LONGITUD\pa*{p} - 1$ se satisface que $\operatorname{Computo}\pa*{e, c_{k}, c_{k + 1}}$, por lo que debido a la definición de $\operatorname{Computo}$ y de $p$ sabemos que $\LONGITUD\pa*{c_{0}} =\LONGITUD\pa*{c_{1}} =\dotsb =\LONGITUD\pa*{c_{t}} >\LONGITUD\pa*{z},\MAXREGISTRO\pa*{e}$. Sea entonces $N\coloneqq\LONGITUD\pa*{c_{0}}$.
 
 	Por definición de $p$ sabemos que:
 	\[
-		c_{0} = \langle 1, z\bra*{0},\dotsc, z\bra*{\LONGITUD\pa*{z} - 1},\underbrace{0,\dotsc, 0}_{N -\LONGITUD\pa*{z} - 1}\rangle
+		c_{0} =\langle 1, z\bra*{0},\dotsc, z\bra*{\LONGITUD\pa*{z} - 1},\underbrace{0,\dotsc, 0}_{N -\LONGITUD\pa*{z} - 1}\rangle
 	\]
 	Por lo que se satisface que $f_{0}\upharpoonright N = c_{0}$. Mostremos por inducción que para cada $k\leq t$ se satisface que $f_{k}\upharpoonright N = c_{k}$. El caso base ya lo mostramos, entonces sea $k < t$ tal que $f_{k}\upharpoonright N = c_{k}$. Por la definición \ref{def: computo_urm}, si $f_{k}\upharpoonright N = c_{k}$, entonces $f_{k + 1}\upharpoonright N = c_{k + 1}$.
 
@@ -1880,34 +1946,37 @@ Este tipo de funciones son las que nos permiten eliminar la divergencia de las f
 
 \begin{theorem}[Caracterización de las funciones total-recursivas]
 	Toda función $f:\omega^{n}\to\omega^{\DIVERGE}$ parcial-recursiva, para algún $n\in\omega$, es total-recursiva si y solo si satisface alguno de los siguientes puntos:
+
 	\begin{enumerate}
 		\item (Funciones básicas) La función $f$ es una de las siguientes funciones:
+
 		\begin{itemize}
 			\item La función \emph{cero}: $\CERO:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $\CERO\pa*{x} = 0$.
 			\item Si $n = 1$, la función \emph{sucesor}: $\SUCESOR:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $\SUCESOR\pa*{x} = x + 1$.
 			\item Para algún $k\in\omega^{+}$ con $k\leq n$, la función \emph{proyección}: $\PROYECCION{n}{k}:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x_{1},\dotsc, x_{n}\in\omega$, $\PROYECCION{n}{k}\pa*{x_{1},\dotsc, x_{n}} = x_{k}$.
 		\end{itemize}
-		\item (Composición) Para algún $m\in\omega^{+}$ existen funciones parcial-recursivas $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n}$: 
+
+		\item (Composición) Para algún $m\in\omega^{+}$ existen funciones parcial-recursivas $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n}$:
 		\[
 			f\pa*{x} = h\pa*{g_{1}\pa*{x},\dotsc, g_{m}\pa*{x}}
 		\]
 		\item (Recursión primitiva) Si $n > 1$ y existen funciones parcial-recursivas $g:\omega^{n - 1}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 1}\to\omega^{\DIVERGE}$ tales que para cada $x\in\omega^{n - 1}$ y cada $y\in\omega$ se satisface que:
 		\[
-		\begin{NiceArray}{c}
-			f\pa*{x, 0} = g\pa*{x}\\
-			f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
-		\end{NiceArray}
+			\begin{NiceArray}{c}
+				f\pa*{x, 0} = g\pa*{x}\\
+				f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
+			\end{NiceArray}
 		\]
 		\item (Minimización restringida) Existe una función parcial-recursiva regular $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que:
 		\[
-			f\pa*{x} = \mu y\pa*{g\pa*{x, y} = 0}
+			f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}
 		\]
 	\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-	Consideremos primero el converso probando por inducción sobre el conjunto $F$ de funciones generadas por los cuatro puntos. Claramente las funciones básicas son total-recursivas, probando así el caso base. 
-	
+	Consideremos primero el converso probando por inducción sobre el conjunto $F$ de funciones generadas por los cuatro puntos. Claramente las funciones básicas son total-recursivas, probando así el caso base.
+
 	Para la composición, sean $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ parcial-recursivas para algunos $n, m\in\omega$, y supongamos que son totales. Por definición de composición, se sigue directamente que $h\pa*{g_{1},\dotsc, g_{m}}$ es total-recursiva.
 
 	Para la recursión primitiva, sean $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ parcial-recursivas para algún $n\in\omega$, y supongamos que son totales. Sea $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$ y cada $y\in\omega$:
@@ -1925,7 +1994,7 @@ Este tipo de funciones son las que nos permiten eliminar la divergencia de las f
 
 	Supongamos ahora que $f:\omega^{n}\to\omega^{\DIVERGE}$ es total-recursiva, y mostremos que $f\in F$. Puesto que $f$ es parcial-recursiva, por el teorema de la forma normal de Kleene, se sabe que existe $e\in\URMCODIGO$ tal que para cada $x\in\omega^{n}$:
 	\[
-		f\pa*{x} = U\pa*{\mu p T\pa*{e, \inner*{x}, p}}
+		f\pa*{x} = U\pa*{\mu p T\pa*{e,\inner*{x}, p}}
 	\]
 	Puesto que $f$ es total, se tiene que para cada $x\in\omega^{n}$ existe $p\in\omega$ tal que $T\pa*{e,\inner*{x}, p}$. Definamos entonces el conjunto $A =\set*{\pa*{x, p}\in\omega^{n + 1}: T\pa*{e,\inner*{x}, p}}$ el cual es primitivo-recursivo ya que $T$ es primitivo-recursivo, y definamos la función $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que $g = 1 -\CARACTERISTICA{A}$ la cual es primitivo-recursiva. Notemos que para cada $x\in\omega^{n}$ y cada $p\in\omega$ se satisface lo siguiente:
 	\[
@@ -1936,7 +2005,7 @@ Este tipo de funciones son las que nos permiten eliminar la divergencia de las f
 
 \section{Computabilidad y conjuntos c.e.}
 
-Ya que se demostró que ambos enfoques de la computabilidad son equivalentes, ya no es necesario hacer distinción cuando una función es URM-computable o cuando es parcial-recursiva. Esto no es un hecho aislado de estos dos modelos que hemos desarrollado para describir la computabilidad. Se ha demostrado que otros modelos diferentes de lo computable como las \emph{máquinas de Turing} o el \emph{cálculo lambda} de Church (y varios otros modelos) siempre son a lo más equivalentes a los modelos que desarrollamos en este texto. 
+Ya que se demostró que ambos enfoques de la computabilidad son equivalentes, ya no es necesario hacer distinción cuando una función es URM-computable o cuando es parcial-recursiva. Esto no es un hecho aislado de estos dos modelos que hemos desarrollado para describir la computabilidad. Se ha demostrado que otros modelos diferentes de lo computable como las \emph{máquinas de Turing} o el \emph{cálculo lambda} de Church (y varios otros modelos) siempre son a lo más equivalentes a los modelos que desarrollamos en este texto.
 
 Por esa razón es que la computabilidad no se basa específicamente en un modelo para formalizarla, sino que permite utilizar cualquier modelo que se nos acomode para cada problema específico. Pues todos los modelos que se han desarrollado modelan los mismos objetos, solo desde diferentes puntos de vista.
 
@@ -1993,22 +2062,22 @@ Una consecuencia importante del teorema de la forma normal de Kleene es la exist
 \end{proof}
 
 \begin{notation}
-	Sea $N\in\URM$ la máquina universal, entonces denotaremos por $\Phi_{e}\pa*{z}$ a $\PHI{N}[2]\pa*{e, \inner*{z}}$ para cada $e, n\in\omega$ y cada $z\in\omega^{n}$. 
+	Sea $N\in\URM$ la máquina universal, entonces denotaremos por $\Phi_{e}\pa*{z}$ a $\PHI{N}[2]\pa*{e,\inner*{z}}$ para cada $e, n\in\omega$ y cada $z\in\omega^{n}$.
 \end{notation}
 
-La existencia de la máquina universal nos permite desvincularnos de las máquinas URM cuando hablamos de códigos. Puesto que existe al menos una máquina universal, y esta puede simular cualquier otra máquina teniendo su codificación, mas no la máquina que codifica explícitamente, entonces los algoritmos se corresponden directamente con números naturales. Además, la codificación de algoritmos que construimos mediante máquinas URM no es la única que existe. Existen, por ejemplo, maneras de codificar algoritmos mediante funciones parcial-recursivas, máquinas de Turing, o algún otro modelo de computabilidad, que nos permiten construir el T-predicado de Kleene también; y luego demostrar la existencia de la máquina universal. Más aún, todas estas codificaciones pueden corresponderse de manera biyectiva mediante funciones computables. Por lo tanto, de ahora en adelante los algoritmos se representarán únicamente por números naturales. 
+La existencia de la máquina universal nos permite desvincularnos de las máquinas URM cuando hablamos de códigos. Puesto que existe al menos una máquina universal, y esta puede simular cualquier otra máquina teniendo su codificación, mas no la máquina que codifica explícitamente, entonces los algoritmos se corresponden directamente con números naturales. Además, la codificación de algoritmos que construimos mediante máquinas URM no es la única que existe. Existen, por ejemplo, maneras de codificar algoritmos mediante funciones parcial-recursivas, máquinas de Turing, o algún otro modelo de computabilidad, que nos permiten construir el T-predicado de Kleene también; y luego demostrar la existencia de la máquina universal. Más aún, todas estas codificaciones pueden corresponderse de manera biyectiva mediante funciones computables. Por lo tanto, de ahora en adelante los algoritmos se representarán únicamente por números naturales.
 
-Ahora, debido a la definición de las máquinas URM (o de las funciones parcial-recursivas) sabemos que el conjunto de funciones computables es numerable debido a la numeración de estas mismas. Puesto que el conjunto de todas las posibles funciones parciales no es numerable ya que $\pa*{\omega^{\DIVERGE}}^{\omega}\approx\aleph_{1}$, se sigue que existe una función parcial que no es computable. Aunque este argumento es suficiente para demostrar la existencia de funciones no computables, no nos exhibe un ejemplo explícito de una función que no lo sea. 
+Ahora, debido a la definición de las máquinas URM (o de las funciones parcial-recursivas) sabemos que el conjunto de funciones computables es numerable debido a la numeración de estas mismas. Puesto que el conjunto de todas las posibles funciones parciales no es numerable ya que $\pa*{\omega^{\DIVERGE}}^{\omega}\approx\aleph_{1}$, se sigue que existe una función parcial que no es computable. Aunque este argumento es suficiente para demostrar la existencia de funciones no computables, no nos exhibe un ejemplo explícito de una función que no lo sea.
 
-De esta manera, para verificar la existencia de funciones no computables, abordaremos la idea de Turing sobre otro problema equivalente: la existencia de conjuntos no computables. Recordemos la interpretación de las funciones computables como algoritmos los cuales pueden ser ejecutados mediante operaciones básicas y ciclos \emph{for} y \emph{while}. Además, recordemos que trabajamos con funciones parciales debido al comportamiento indeseado de los ciclos \emph{while}: la función puede nunca devolver un valor concreto, o la ejecución puede nunca terminar. Por lo tanto, una pregunta natural a realizarse es: ¿existe un proceso algorítmico que nos permita determinar si un algoritmo termina dada una entrada específica? 
+De esta manera, para verificar la existencia de funciones no computables, abordaremos la idea de Turing sobre otro problema equivalente: la existencia de conjuntos no computables. Recordemos la interpretación de las funciones computables como algoritmos los cuales pueden ser ejecutados mediante operaciones básicas y ciclos \emph{for} y \emph{while}. Además, recordemos que trabajamos con funciones parciales debido al comportamiento indeseado de los ciclos \emph{while}: la función puede nunca devolver un valor concreto, o la ejecución puede nunca terminar. Por lo tanto, una pregunta natural a realizarse es: ¿existe un proceso algorítmico que nos permita determinar si un algoritmo termina dada una entrada específica?
 
-La pregunta anterior fue nombrada por Turing como el \emph{problema de la detención}. Este problema puede enunciarse formalmente de la siguiente manera: ¿el conjunto $\set*{\inner*{e, z}\in\omega: \Phi_e\pa*{z}\ACABA}$ es computable? La respuesta a esta pregunta es negativa, y la demostración de ello usa como argumento principal la existencia de la máquina universal. Para poder demostrarlo, utilizaremos otro conjunto que será de ayuda, denominado \emph{conjunto de detención}.
+La pregunta anterior fue nombrada por Turing como el \emph{problema de la detención}. Este problema puede enunciarse formalmente de la siguiente manera: ¿el conjunto $\set*{\inner*{e, z}\in\omega:\Phi_e\pa*{z}\ACABA}$ es computable? La respuesta a esta pregunta es negativa, y la demostración de ello usa como argumento principal la existencia de la máquina universal. Para poder demostrarlo, utilizaremos otro conjunto que será de ayuda, denominado \emph{conjunto de detención}.
 
 \begin{definition}[Conjunto de detención]
 	\label{def: conjunto_de_detencion}
 	Se define el \emph{conjunto de detención} como el conjunto:
 	\[
-		K\coloneqq\set*{e\in\omega: \Phi_e\pa*{e}\ACABA}
+		K\coloneqq\set*{e\in\omega:\Phi_e\pa*{e}\ACABA}
 	\]
 \end{definition}
 
@@ -2028,7 +2097,7 @@ Este conjunto en cambio colecciona a todos los algoritmos que terminan cuando se
 			0, & e\notin K
 		\end{cases}
 	\]
-	Puesto que por hipótesis $K$ es computable, se sigue que $f$ es una función computable. Por lo tanto, existe $z\in\omega$ tal que para cada $x\in\omega$, $f\pa*{x} = \Phi_{z}\pa*{x}$. Supongamos que $z\in K$, entonces se satisface lo siguiente:
+	Puesto que por hipótesis $K$ es computable, se sigue que $f$ es una función computable. Por lo tanto, existe $z\in\omega$ tal que para cada $x\in\omega$, $f\pa*{x} =\Phi_{z}\pa*{x}$. Supongamos que $z\in K$, entonces se satisface lo siguiente:
 	\[
 		\Phi_{z}\pa*{z} = f\pa*{z} =\Phi_{z}\pa*{z} + 1
 	\]
@@ -2038,15 +2107,6 @@ Este conjunto en cambio colecciona a todos los algoritmos que terminan cuando se
 	\]
 	Lo cual también es una contradicción. Las contradicciones surgen de la suposición que $K$ es computable. Por lo tanto, $K$ no es un conjunto computable.
 \end{proof}
-
-Dentro de esta demostración se utiliza la función auxiliar $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $e\in\omega$:
-\[
-	f\pa*{e} =
-	\begin{cases}
-		\Phi_{e}\pa*{e} + 1, & e\in K\\
-		0, & e\notin K
-	\end{cases}
-\]
 
 Con ayuda de este conjunto se puede demostrar que el problema de la detención tiene solución negativa.
 
@@ -2065,25 +2125,25 @@ De la demostración del teorema de Turing, la función de diagonalización $f:\o
 		\Phi_{e}\pa*{e} + 1, & e\in K\\
 		0, & e\notin K
 	\end{cases}
-\] 
+\]
 no puede ser computable ya que $K$ no lo es. Por lo tanto, esta es un ejemplo explícito de la existencia de funciones parciales que no son computables.
 
 La existencia de conjuntos y funciones no computables motiva cierto debilitamiento del concepto de computabilidad. La propiedad para un conjunto de ser computable es una condición muy fuerte, pues exige tener un proceso bien conocido, el cual se pueda ejecutar en un tiempo finito y de manera efectiva, que nos permita \emph{decidir} si un elemento pertenece al conjunto o no.
 
-Una manera de debilitar esa propiedad es no necesariamente poder decidir siempre si un elemento pertenece al conjunto o no, sino, en cambio, poder ``imprimir'' sus elementos. Con ello nos referimos a que exista un algoritmo que permita calcular los elementos del conjunto, de modo que al ejecutarlo ``imprimamos'' cada una de sus salidas para conocer explícitamente qué elementos pertenecen al conjunto. 
+Una manera de debilitar esa propiedad es no necesariamente poder decidir siempre si un elemento pertenece al conjunto o no, sino, en cambio, poder ``imprimir'' sus elementos. Con ello nos referimos a que exista un algoritmo que permita calcular los elementos del conjunto, de modo que al ejecutarlo ``imprimamos'' cada una de sus salidas para conocer explícitamente qué elementos pertenecen al conjunto.
 
-Esta forma de ver lo computable es en efecto una forma más débil del concepto que ya tenemos de conjunto computable, pues tiene un problema importante. Consideremos un conjunto $A\subseteq\omega$ y una función $f:\omega\to\omega^{\DIVERGE}$ computable que ``imprime'' a $A$, es decir, es tal que para cada $y\in A$ existe $x\in\omega$ tal que $f\pa*{x} = y$. Esto implica que $A =\RANGO{f}$. Si quisiéramos determinar, por ejemplo, si el número $5$ pertenece a $A$, la función $f$ nos permitiría verificarlo evaluándola hasta encontrar un valor $x\in\omega$ tal que $f\pa*{x} = 5$. Ese proceso no está asegurado para terminar en un tiempo finito, pues existen dos posibles situaciones que podemos enfrentar y nos imposibiliten determinar si $5\in A$. 
+Esta forma de ver lo computable es en efecto una forma más débil del concepto que ya tenemos de conjunto computable, pues tiene un problema importante. Consideremos un conjunto $A\subseteq\omega$ y una función $f:\omega\to\omega^{\DIVERGE}$ computable que ``imprime'' a $A$, es decir, es tal que para cada $y\in A$ existe $x\in\omega$ tal que $f\pa*{x} = y$. Esto implica que $A =\RANGO{f}$. Si quisiéramos determinar, por ejemplo, si el número $5$ pertenece a $A$, la función $f$ nos permitiría verificarlo evaluándola hasta encontrar un valor $x\in\omega$ tal que $f\pa*{x} = 5$. Ese proceso no está asegurado para terminar en un tiempo finito, pues existen dos posibles situaciones que podemos enfrentar y nos imposibiliten determinar si $5\in A$.
 
-La primera es que directamente $5\notin A$ y luego no exista ningún $x\in\omega$ tal que $f\pa*{x} = 5$. Puesto que solamente tenemos acceso a la información que nos proporciona $f$, incluso si intentamos evaluar todo número natural en $f$, nunca podremos determinar que $5\notin A$, incluso teniendo tiempo infinito. 
+La primera es que directamente $5\notin A$ y luego no exista ningún $x\in\omega$ tal que $f\pa*{x} = 5$. Puesto que solamente tenemos acceso a la información que nos proporciona $f$, incluso si intentamos evaluar todo número natural en $f$, nunca podremos determinar que $5\notin A$, incluso teniendo tiempo infinito.
 
-La segunda situación es que $5\in A$ pero el comportamiento parcial de $f$ nos imposibilite saberlo. Como $5\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = 5$, pero si fuera el caso que $x > 0$ y, por ejemplo, $x - 1$ sea tal que $f\pa*{x - 1}\DIVERGE$. Si nuestra estrategia para encontrar a $5$ fuera evaluar la función en orden $f\pa*{1}, f\pa*{2},\dotsc, f\pa*{x}$, entonces en $f\pa*{x - 1}$ quedaríamos esperando hasta obtener su resultado. Puesto que el problema de la detención $K'$ no es computable, no tenemos manera efectiva en tiempo finito de poder saber que $f\pa*{x - 1}\DIVERGE$. Luego, no sería posible decidir si $5\in A$ incluso cuando es cierto.
+La segunda situación es que $5\in A$ pero el comportamiento parcial de $f$ nos imposibilite saberlo. Como $5\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = 5$, pero es posible el caso que $x > 0$ y, por ejemplo, $x - 1$ sea tal que $f\pa*{x - 1}\DIVERGE$. Si nuestra estrategia para encontrar a $5$ fuera evaluar la función en orden $f\pa*{1}, f\pa*{2},\dotsc, f\pa*{x}$, entonces en $f\pa*{x - 1}$ quedaríamos esperando indefinidamente hasta obtener su resultado. Puesto que el problema de la detención $K'$ no es computable, no tenemos manera efectiva en tiempo finito de poder saber que $f\pa*{x - 1}\DIVERGE$. Luego, no sería posible decidir si $5\in A$ incluso cuando es cierto.
 
 Es natural pensar, en la segunda situación, que ir recorriendo la función $f$ desde cero e ir en orden uno por uno no es la mejor estrategia de determinar que en efecto $5\in A$, y puede existir otra manera mejor de evaluar $f$. Sin embargo, encontrar tal estrategia para cada función computable $f$ no es posible de manera computable, pues deberíamos tener acceso a $K'$ para saber qué entradas de $f$ convergen. Por ello, no todos los conjuntos que son rango de funciones computables son computables, pero sí son conjuntos dignos de estudiar.
 
 Este tipo de conjuntos que son rango de funciones computables se denominan \emph{conjuntos computablemente enumerables} ya que cada elemento de ellos puede corresponder con el número que lo genera, de modo que la función computable sirve como una ``etiquetadora'' de los elementos del conjunto enumerándolos de manera natural.
 
 \begin{definition}[Conjuntos computablemente enumerables]
-	Sea $A\subseteq\omega$, entonces se denomina \emph{computablemente enumerable} (o \emph{c.e.}) si $A =\varnothing$ o existe una función computable $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in \omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $f\pa*{z}= x$.
+	Sea $A\subseteq\omega$, entonces se denomina \emph{computablemente enumerable} (o \emph{c.e.}) si $A =\varnothing$ o existe una función computable $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $f\pa*{z}= x$.
 \end{definition}
 
 Ya que mencionamos que esta definición es una propiedad más débil a la de los conjuntos computables, entonces es de esperarse que los conjuntos computables sean c.e. Esa afirmación se prueba con ayuda del siguiente teorema.
@@ -2096,13 +2156,13 @@ Ya que mencionamos que esta definición es una propiedad más débil a la de los
 	La idea es construir la función $f:\omega\to\omega$ de modo tal que enumere en orden cada uno de los elementos de $A$, es decir, tal que $f\pa*{0}$ sea el mínimo elemento de $A$, $f\pa*{1}$ sea el mínimo elemento de $A\setminus\set*{f\pa*{0}}$, y así sucesivamente. Definamos la función $f:\omega\to\omega$ de la siguiente manera para cada $x\in\omega$:
 	\[
 		\begin{NiceArray}{c}
-			f\pa*{0} = \mu z A\pa*{z}\\
-			f\pa*{x + 1} = \mu z\pa*{A\pa*{z}\land z > f\pa*{x}}
+			f\pa*{0} =\mu z A\pa*{z}\\
+			f\pa*{x + 1} =\mu z\pa*{A\pa*{z}\land z > f\pa*{x}}
 		\end{NiceArray}
 	\]
-	Verífiquemos que $f$ satisface la proposición. Puesto que $A$ es computable, y $f$ se genera mediante recursión primitiva y minimización no acotada, se sigue que $f$ es parcial-computable. 
-	
-	Mostremos por inducción que $f$ es total. Ya que $A$ es infinito, en particular no es vacío, y luego existe $z\in\omega$ tal que $z\in A$; lo cual implica que $f\pa*{0} =\mu z A\pa*{z}\ACABA$. Sea ahora $x\in\omega$ el cual satisface que $f\pa*{x}\ACABA$. Puesto que $A$ es infinito, se tiene que el conjunto $X =\set*{z\in\omega: A\pa*{z}\land z > f\pa*{x}}$ es no vacío y por tanto $f\pa*{x + 1} = \mu z\pa*{A\pa*{z}\land z > f\pa*{x}} =\mu z X\pa*{z}\ACABA$. Por consiguiente, $f$ es total.
+	Verífiquemos que $f$ satisface la proposición. Puesto que $A$ es computable, y $f$ se genera mediante recursión primitiva y minimización no acotada, se sigue que $f$ es parcial-computable.
+
+	Mostremos por inducción que $f$ es total. Ya que $A$ es infinito, en particular no es vacío, y luego existe $z\in\omega$ tal que $z\in A$; lo cual implica que $f\pa*{0} =\mu z A\pa*{z}\ACABA$. Sea ahora $x\in\omega$ el cual satisface que $f\pa*{x}\ACABA$. Puesto que $A$ es infinito, se tiene que el conjunto $X =\set*{z\in\omega: A\pa*{z}\land z > f\pa*{x}}$ es no vacío y por tanto $f\pa*{x + 1} =\mu z\pa*{A\pa*{z}\land z > f\pa*{x}} =\mu z X\pa*{z}\ACABA$. Por consiguiente, $f$ es total.
 
 	Por la definición de $f$ se sigue directamente que para cada $x\in\omega$, $f\pa*{x} < f\pa*{x + 1}$. Mostremos por inducción sobre $y$ que para cada $x, y\in\omega$, $f\pa*{x} < f\pa*{x + y + 1}$. Para $y = 0$ se sigue directamente por lo antes dicho. Sea ahora $y\in\omega$ tal que $f\pa*{x} < f\pa*{x + y + 1}$, entonces por el mismo argumento tenemos que $f\pa*{x + y + 1} < f\pa*{x + y + 2}$, y por transitividad se tiene que $f\pa*{x} < f\pa*{x + y + 2}$. Por lo tanto, para cada $x < y\in\omega$ se satisface que $f\pa*{x} < f\pa*{y}$, es decir, $f$ es estrictamente creciente.
 
@@ -2123,13 +2183,13 @@ Ya que mencionamos que esta definición es una propiedad más débil a la de los
 \begin{proof}
 	Sea $A\subseteq\omega$ computable, entonces tenemos tres casos: $A =\varnothing$, $A$ es finito y no vacío, o $A$ es infinito.
 
-	Por definición de los conjuntos c.e. se sigue que si $A =\varnothing$, entonces $A$ es c.e. Si $A$ es infinito, entonces por el teorema anterior se sigue que $A$ es rango de una función total-computable, y luego es c.e. 
+	Por definición de los conjuntos c.e. se sigue que si $A =\varnothing$, entonces $A$ es c.e. Si $A$ es infinito, entonces por el teorema anterior se sigue que $A$ es rango de una función total-computable, y luego es c.e.
 
 	Ahora, si $A$ es finito, entonces podemos definir la misma función $f:\omega\to\omega$ de la siguiente manera para cada $x\in\omega$:
 	\[
 		\begin{NiceArray}{c}
-			f\pa*{0} = \mu z A\pa*{z}\\
-			f\pa*{x + 1} = \mu z\pa*{A\pa*{z}\land z > f\pa*{x}}
+			f\pa*{0} =\mu z A\pa*{z}\\
+			f\pa*{x + 1} =\mu z\pa*{A\pa*{z}\land z > f\pa*{x}}
 		\end{NiceArray}
 	\]
 
@@ -2144,14 +2204,14 @@ Una propiedad que será de mucha ayuda es una caracterización de los conjuntos 
 
 \begin{proof}
 	Consideremos primero que $A$ es c.e., entonces existen dos casos: $A =\varnothing$ o $A\neq\varnothing$. Si $A =\varnothing$, entonces consideremos a la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $f\pa*{x} =\mu z\pa*{1 = 0}$. Notemos que $f$ es computable ya que el conjunto $X =\set*{e\in\omega: 1 = 0} =\varnothing$ es primitivo-recursivo. Notemos que para cada $x\in\omega$ se satisface que $f\pa*{x}\ACABA$, por lo que $\DOMINIO{f} =\varnothing = A$.
-	
+
 	Supongamos ahora que $A\neq\varnothing$, entonces existe una función computable $g:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $g\pa*{z} = x$. La manera directa es considerar la siguiente función $f\pa*{x} =\mu z\pa*{g\pa*{z} = x}$, pues notemos que se satisface lo siguiente:
 	\[
 		x\in A\iff\exists z\pa*{g\pa*{z} = x}\iff\mu z\pa*{g\pa*{z} = x}\ACABA\iff f\pa*{x}\ACABA
 	\]
-	Sin embargo, para que lo anterior sea realmente cierto debe satisfacerse que para cada $y < f\pa*{x}$, $g\pa*{y} \ACABA$, lo cual no necesariamente es cierto. Para resolver lo anterior, por el teorema de la forma normal de Kleene existe $e\in\omega$ tal que para cada $z\in\omega$, $g\pa*{z}\ACABA$ si y solo si existe $p\in\omega$ tal que $T\pa*{e, z, p}$. Si queremos calcular el valor $\mu z\pa*{g\pa*{z} = x}$, no solamente debe existir el valor $z\in\omega$ sino que también el valor $p\in\omega$ de modo que:
+	Sin embargo, para que lo anterior sea realmente cierto debe satisfacerse que para cada $y < f\pa*{x}$, $g\pa*{y}\ACABA$, lo cual no necesariamente es cierto. Para resolver lo anterior, por el teorema de la forma normal de Kleene existe $e\in\omega$ tal que para cada $z\in\omega$, $g\pa*{z}\ACABA$ si y solo si existe $p\in\omega$ tal que $T\pa*{e, z, p}$. Si queremos calcular el valor $\mu z\pa*{g\pa*{z} = x}$, no solamente debe existir el valor $z\in\omega$ sino que también el valor $p\in\omega$ de modo que:
 	\[
-		f\pa*{x} = \mu z\pa*{g\pa*{z} = x} =\mu z \pa*{U\pa*{\mu p T\pa*{e, z, p}} = x}
+		f\pa*{x} =\mu z\pa*{g\pa*{z} = x} =\mu z\pa*{U\pa*{\mu p T\pa*{e, z, p}} = x}
 	\]
 
 	Esto podemos simplificarlo de la siguiente manera:
@@ -2180,7 +2240,7 @@ Una propiedad que será de mucha ayuda es una caracterización de los conjuntos 
 	\[
 		h\pa*{z}\coloneqq\mu w\pa*{T\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = z}
 	\]
-	
+
 	Como $T$, $U$ y el acceso son primitivo-recursivos, se sigue que $h$ es computable. Definamos la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$, $f\pa*{x} = h\pa*{z}\bra*{0}$, la cual es computable ya que $f$ es computable. Entonces se satisface lo siguiente para cada $x\in\omega$:
 	\begin{align*}
 		\exists z\pa*{f\pa*{z} = x} &\iff\exists z\pa*{h\pa*{z}\bra*{0} = x}\\
@@ -2199,7 +2259,7 @@ Esta propiedad nos permite demostrar de manera casi directa que el conjunto de d
 \end{coll}
 
 \begin{proof}
-	Consideremos la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $e\in\omega$, $f\pa*{e} = \Phi_{e}\pa*{e}$, la cual claramente es computable. Entonces se satisface lo siguiente para cada $e\in\omega$:
+	Consideremos la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $e\in\omega$, $f\pa*{e} =\Phi_{e}\pa*{e}$, la cual claramente es computable. Entonces se satisface lo siguiente para cada $e\in\omega$:
 	\[
 		f\pa*{e}\ACABA\iff\Phi_{e}\pa*{e}\ACABA\iff e\in K
 	\]
@@ -2234,13 +2294,13 @@ Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e
 		\begin{NiceArray}{c}
 			f'\pa*{z} =
 			\begin{cases}
-				f\pa*{z\bra*{0}} + 1, & z\in\SECUENCIAS\land \LONGITUD\pa*{z} = 2\land T\pa*{e_{0}, z\bra*{0}, z\bra*{1}}\\
+				f\pa*{z\bra*{0}} + 1, & z\in\SECUENCIAS\land\LONGITUD\pa*{z} = 2\land T\pa*{e_{0}, z\bra*{0}, z\bra*{1}}\\
 				0, &\text{ en otro caso}
 			\end{cases}
 			\\
 			g'\pa*{z} =
 			\begin{cases}
-				g\pa*{z\bra*{0}} + 1, & z\in\SECUENCIAS\land \LONGITUD\pa*{z} = 2\land T\pa*{e_{1}, z\bra*{0}, z\bra*{1}}\\
+				g\pa*{z\bra*{0}} + 1, & z\in\SECUENCIAS\land\LONGITUD\pa*{z} = 2\land T\pa*{e_{1}, z\bra*{0}, z\bra*{1}}\\
 				0, &\text{ en otro caso}
 			\end{cases}
 		\end{NiceArray}
@@ -2249,7 +2309,7 @@ Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e
 	\[
 		f'\pa*{z_{0}} = f\pa*{z_{0}\bra*{0}} + 1\neq g\pa*{z_{1}\bra*{0}} + 1 = g'\pa*{z_{1}}
 	\]
-	
+
 	De esta manera podemos construir la función $h:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$:
 	\[
 		h\pa*{x} =\mu z\pa*{f'\pa*{z} = x + 1\lor g'\pa*{z} = x + 1}
@@ -2262,7 +2322,7 @@ Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e
 		&\iff\exists w\pa*{f'\pa*{w} = x + 1}\\
 		&\iff f'\pa*{h\pa*{x}} = x + 1
 	\end{align*}
-	
+
 	\begin{align*}
 		x\notin A&\iff\exists z\pa*{g\pa*{z} = x}\\
 		&\iff\exists z\exists p\pa*{T\pa*{e_{1}, z, p}\land U\pa*{p} = x}\\
@@ -2280,7 +2340,7 @@ Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e
 		\end{cases}
 	\]
 	Ya que $f'$, $g'$ y $h$ son computables, se sigue que $\CARACTERISTICA{A}$ es computable, es decir, $A$ es computable.
-\end{proof} 
+\end{proof}
 
 \begin{coll}
 	Los conjuntos de detención $K$ y $K'$ no son co-c.e.
@@ -2289,6 +2349,7 @@ Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e
 \begin{proof}
 	Si $K$ y $K'$ fueran co-c.e., se obtendría que son computables, ya que son c.e., lo cual es una contradicción.
 \end{proof}
+
 \section{Computabilidad relativa}
 
 El resultado clave de la sección anterior es la existencia de conjuntos que no son computables, justificado por el teorema de Turing. Esa existencia motivó la siguiente pregunta a Alan Turing, y que desarrolló Emil Post: ¿qué se podría computar si tuviéramos acceso a los elementos de conjuntos no computables?

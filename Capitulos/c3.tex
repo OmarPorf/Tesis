@@ -1,4 +1,5 @@
-\chapter{El subsistema $\RCA$}
+  \chapter{El subsistema $\RCA$}
+
 \begin{definition}[$\RCA$]
 	Se define al subsistema de $\ARITMETICA$ de \emph{axiomas de comprensión recursiva}, o $\RCA$, como el conjunto de axiomas:
 	\[
@@ -12,136 +13,309 @@
 
 \begin{proof}
 	Para la necesidad debemos demostrar lo siguiente:
+
 	\begin{enumerate}
 		\item $S\neq\varnothing$
-		
-		Consideremos la fórmula $\varphi$ dada por $\neg\left(n = n\right)$. Notemos que $\varphi\in\Delta_{0}^{0}$ y luego $\varphi$ es $\Sigma_{1}^{0}$ y $\Pi_{1}^{0}$. Por lo tanto, por $\COMPRENSION{\Delta_{1}^{0}}$ sabemos que existe el conjunto $X\in S$ definido por $\varphi$. Se tiene entonces lo siguiente:
+
+		Consideremos la fórmula $\varphi$ dada por $\neg\pa*{n = n}$. Notemos que $\varphi\in\Delta_{0}^{0}$ y luego $\varphi$ es $\Sigma_{1}^{0}$ y $\Pi_{1}^{0}$. Por lo tanto, por $\COMPRENSION{\Delta_{1}^{0}}$ sabemos que existe el conjunto $X\in S$ definido por $\varphi$. Se tiene entonces lo siguiente:
 		\[
-			X =\left\{n: \varphi\left(n\right)\right\} =\left\{n:\neg\left(n = n\right)\right\} =\varnothing
+			X =\set*{n:\varphi\pa*{n}} =\set*{n: n\neq n} =\varnothing
 		\]
-		
+
 		Por lo tanto, $\varnothing\in S$, y luego $S\neq\varnothing$.
-		
+
 		\item Para cada $X, Y\in S$ se satisface que $X\oplus Y\in S$.
-		
+
 		Consideremos a la fórmula $\varphi$ dada por:
 		\[
-			\left(\exists m < n + 1\right)\left(\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\vee\left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right)
+			\pa*{\exists m < n + 1}\pa*{\pa*{m\in X\land n = 2m}\lor\pa*{m\in Y\land n = 2m + 1}}
 		\]
 		Notemos que $\varphi\in\Delta_{0}^{0}$, y entonces por $\COMPRENSION{\Delta_{1}^{0}}$ existe $Z\in S$ definido por $\varphi$. Se obtiene entonces lo siguiente:
-		
+
 		\begin{align*}
-			Z =&\left\{n: \varphi\left(n\right)\right\}\\
-			=&\left\{n: \left(\exists m < n + 1\right)\left(\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right. \right. \\
-			&\left.\left. \vee\left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right)\right\}\\
-			=&\left\{n: \left(\left(\exists m < n + 1\right)\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right.\right. \\
-			&\left.\left.\vee\left(\exists m < n + 1\right) \left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right) \right\}\\
-			=&\left\{n: \left(\exists m < n + 1\right)\left(\left(m\in X\right)\land\left(n =\left(m + m\right)\right)\right)\right\} \\
-			&\cup\left\{n: \left(\exists m < n + 1\right) \left(\left(m\in Y\right)\land\left(n =\left(\left(m + m\right) + 1\right)\right)\right)\right\}\\
-			=&\left\{2m: m\in X\right\}\cup\left\{2m + 1: m\in Y\right\}\\
+			Z =&\set*{n:\varphi\pa*{n}}\\
+			=&\set*{n:\pa*{\exists m < n + 1}\pa*{\pa*{m\in X\land n = 2m}\lor\pa*{m\in Y\land n = 2m + 1}}}\\
+			=&\set*{n:\pa*{\exists m < n + 1}\pa*{m\in X\land n = 2m}\lor\pa*{\exists m < n + 1}\pa*{m\in Y\land n = 2m + 1}}\\
+			=&\set*{n:\pa*{\exists m < n + 1}\pa*{m\in X\land n = 2m}}\cup\set*{n:\pa*{\exists m < n + 1}\pa*{m\in Y\land n = 2m + 1}}\\
+			=&\set*{2m: m\in X}\cup\set*{2m + 1: m\in Y}\\
 			=& X\oplus Y
 		\end{align*}
-		
+
 		Por lo tanto, $X\oplus Y\in S$.
-		
+
 		\item para cada $X, Y\in\CPOTENCIA{\omega}$, si $X\leq_{T} Y$ y $Y\in S$, entonces $X\in S$.
-		
+
 		Ya que $X\leq_{T} Y$, entonces por el teorema de Post (\ref{theo: teorema_de_post}) sabemos que existe una fórmula $\varphi$ con parámetro $Y$ la cual es $\Sigma_{1}^{0}$ y $\Pi_{1}^{0}$ y que define a $X$. Puesto que $Y\in S$, entonces por $\COMPRENSION{\Delta_{1}^{0}}$ se tiene que existe $Z\in S$ definida por $\varphi$. Por lo tanto, $X = Z\in S$.
 	\end{enumerate}
-	
+
 	Probemos ahora la suficiencia. Observemos que puesto que $S$ es una $\omega$-estructura, entonces se satisfacen directamente $\PEANO$ y $\INDUCCION{\Sigma_{1}^{0}}$. Luego, es únicamente necesario demostrar que se satisface el esquema $\COMPRENSION{\Delta_{1}^{0}}$.
-	
-	Sea $\varphi\left(n\right)\in\Delta_{1}^{0}$ con $\mathrm{Free}\left[\varphi\right] =\left\{n\right\}$, entonces demostremos que existe $X\in S$ definido por $\varphi$. Debido a que $S\neq\varnothing$, podemos suponer que $\varphi\left(n, Y_{1},\dotsc, Y_{k}\right)$ para algunos parámetros $Y_{1},\dotsc, Y_{k}\in S$ y $k\in\omega^{+}$. Consideremos al conjunto $X\in\CPOTENCIA{\omega}$ definido por $\varphi$, entonces por el teorema de Post generalizado (\ref{theo: teorema_de_post_generalizado}) sabemos que $X\leq_{T}Y_{1}\oplus\dotsb\oplus Y_{k}$. Ya que $Y_{1},\dotsc, Y_{k}\in S$, entonces $Y_{1}\oplus\dotsb\oplus Y_{k}\in S$, y por lo tanto, $X\in S$.
+
+	Sea $\varphi\pa*{n}\in\Delta_{1}^{0}$ con $\mathrm{Free}\bra*{\varphi} =\set*{n}$, entonces demostremos que existe $X\in S$ definido por $\varphi$. Debido a que $S\neq\varnothing$, podemos suponer que $\varphi\pa*{n, Y_{1},\dotsc, Y_{k}}$ para algunos parámetros $Y_{1},\dotsc, Y_{k}\in S$ y $k\in\omega^{+}$. Consideremos al conjunto $X\in\CPOTENCIA{\omega}$ definido por $\varphi$, entonces por el teorema de Post generalizado (\ref{theo: teorema_de_post_generalizado}) sabemos que $X\leq_{T}Y_{1}\oplus\dotsb\oplus Y_{k}$. Ya que $Y_{1},\dotsc, Y_{k}\in S$, entonces $Y_{1}\oplus\dotsb\oplus Y_{k}\in S$, y por lo tanto, $X\in S$.
 \end{proof}
+
 \section{Teoría de números elemental}
 
 De ahora en adelante, todos los siguientes teoremas serán demostrados dentro del subsistema $\RCA$, a menos que se diga lo contrario.
 
 \begin{theorem}[Propiedades básicas de la aritmética]
 	Se satisfacen las siguientes cerraduras universales.
+
 	\begin{enumerate}
-		\item $\left(\left(\left(n + m\right) + p\right) =\left(n + \left(m + p\right)\right)\right)$
-		\item $\left(\left(0 + n\right) = n\right)$
-		\item $\left(\left(1 + n\right) = n\right)$
-		\item $\left(\left(n + m\right) =\left(m + n\right)\right)$
-		\item $\left(\left(n\cdot\left(m + p\right)\right) =\left(\left(n\cdot m\right) +\left(n\cdot p\right)\right)\right)$
-		\item $\left(\left(\left(n\cdot m\right)\cdot p\right) =\left(n\cdot\left(m\cdot p\right)\right)\right)$
-		\item $\left(\left(\left(n + m\right)\cdot p\right) =\left(\left(n\cdot p\right) +\left(m\cdot p\right)\right)\right)$
-		\item $\left(\left(0\cdot n\right) = 0\right)$
-		\item $\left(\left(1\cdot n\right) = n\right)$
-		\item $\left(\left(n\cdot m\right) =\left(m\cdot n\right)\right)$
-		\item $\left(\left(\left(n < m\right)\land\left(m < p\right)\right)\to\left(n < p\right)\right)$
-		\item $\left(\left(n < m\right)\leftrightarrow\left(\left(n + 1\right) <\left(m + 1\right)\right)\right)$
-		\item $\left(\neg\left(n = 0\right)\to\left(0 < n\right)\right)$
-		\item $\left(\left(n < m\right)\vee\left(n = m\right)\vee\left(m < n\right)\right)$
-		\item $\neg\left(n < n\right)$
-		\item $\left(\left(n < m\right)\leftrightarrow\left(\left(n + p\right) <\left(m + p\right)\right)\right)$
-		\item $\left(n <\left(\left(n + m\right) + 1\right)\right)$
-		\item $\left(\left(\left(n + p\right) =\left(m + p\right)\right)\to\left(n = m\right)\right)$
-		\item $\left(\left(\neg\left(p = 0\right)\land\left(n < m\right)\right)\to\left(\left(n\cdot p\right) < \left(m\cdot p\right)\right)\right)$
-		\item $\left(\left(\neg\left(p = 0\right)\land\left(\left(n\cdot p\right) <\left(m\cdot p\right)\right)\right)\to\left(n < m\right)\right)$
-		\item $\left(\left(\neg\left(p = 0\right)\land\left(\left(n\cdot p\right) =\left(m\cdot p\right)\right)\right)\to\left(n = m\right)\right)$
-		\item $\left(\left(n < m\right)\to\left(\exists p < m\right)\left(\left(\left(n + p\right) + 1\right) = n\right)\right)$
-		\item $\left(\neg\left(n = 0\right)\to\left(\exists m < n\right)\left(\left(m + 1\right) = n\right)\right)$
+		\item $\pa*{n + m} + p = n +\pa*{m + p}$
+		\item $0 + n = n$
+		\item $n + 1 = 1 + n$
+		\item $n + m = m + n$
+		\item $n\pa*{m + p} = nm + np$
+		\item $\pa*{nm}p = n\pa*{mp}$
+		\item $\pa*{n + m}p = np + mp$
+		\item $0\cdot n = 0$
+		\item $1\cdot n = n$
+		\item $nm = mn$
+		\item $\pa*{n < m\land m < p}\to n < p$
+		\item $n < m\leftrightarrow n + 1 < m + 1$
+		\item $n\neq 0\to 0 < n$
+		\item $\pa*{n < m}\lor\pa*{n = m}\lor\pa*{m < n}$
+		\item $\neg\pa*{n < n}$
+		\item $ n < m\leftrightarrow n + p < m + p$
+		\item $n < n + m + 1$
+		\item $n + p = m + p\to n = m$
+		\item $\pa*{p\neq 0\land n < m}\to np < mp$
+		\item $\pa*{p\neq 0\land np < mp}\to n < m$
+		\item $\pa*{p\neq 0\land np = mp}\to n = m$
+		\item $n < m\to\pa*{\exists p < m}\pa*{n + p + 1 = m}$
+		\item $n\neq 0\to\pa*{\exists m < n}\pa*{m + 1 = n}$
 	\end{enumerate}
 \end{theorem}
-\comment{Demostraciones}{Demostrar las propiedades del teorema anterior.}
-\begin{notation}
-	Realizaremos la siguiente notación:
+
+\begin{proof}
+	Cada una de estas afirmaciones se demostrarán por $\INDUCCION{\Sigma_{1}^{0}}$ notando que cada una de las fórmulas es $\Delta_{0}^{0}$, y luego $\Sigma_{1}^{0}$. Además, siempre haremos referencia a los axiomas básicos de la definición \ref{def: axiomas_base}.
 	\begin{enumerate}
-		\item Escribiremos $\left(t_{1}\leq t_{2}\right)$ en lugar de la fórmula $\left(t_{1} < t_{2} + 1\right)$ donde $t_{1}, t_{2}\in\TERMINOS$.
-		\item Escribiremos $\left(t\notin X\right)$ en lugar de la fórmula $\neg\left(t\in X\right)$ donde $t\in\TERMINOS$.
-		\item Escribiremos $\left(t_{1}\neq t_{2}\right)$ en lugar de la fórmula $\neg\left(t_{1} = t_{2}\right)$ donde $t_{1}, t_{2}\in\TERMINOS$.
+		\item $\pa*{n + m} + p = n +\pa*{m + p}$
+		
+		Mostermos por inducción sobre $p$. Para el caso base $p = 0$ se satisface lo siguiente por el axioma (\ref{def_axiomas: el_cero_es_identidad}):
+		\[
+			\pa*{n + m} + 0 = n + m = n +\pa*{m + 0}
+		\]
+
+		Ahora, sea $p$ tal que $\pa*{n + m} + p = n +\pa*{m + p}$, y mostremos que se satisface para $p + 1$. Por el axioma (\ref{def_axiomas: sucesor_es_asociativo}) y la hipótesis de inducción se sigue:
+		\begin{align*}
+			\pa*{n + m} + \pa*{p + 1} &= \pa*{\pa*{n + m} + p} + 1 \\
+			&= \pa*{n +\pa*{m + p}} + 1 \\
+			&= n +\pa*{\pa*{m + p} + 1}\\
+			&= n +\pa*{m +\pa*{p + 1}}
+		\end{align*}
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m, p$ se satisface $\pa*{n + m} + p = n +\pa*{m + p}$.
+
+		\item $0 + n = n$
+		
+		Mostremos por inducción sobre $n$. Para el caso base $n = 0$ se sigue que $0 + 0 = 0$ por el axioma (\ref{def_axiomas: el_cero_es_identidad}).
+
+		Sea ahora $n$ tal que $0 + n = n$, y mostremos que se satisface para $n + 1$. Por el axioma (\ref{def_axiomas: sucesor_es_asociativo})
+		\[
+			0 +\pa*{n + 1} =\pa*{0 + n} + 1 = n + 1
+		\]
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n$ se satisface $0 + n = n$.
+
+		\item $n + 1 = 1 + n$
+		
+		Mostremos por inducción sobre $n$. Para el caso base $n = 0$ se tiene por el punto anterior y por el axioma (\ref{def_axiomas: el_cero_es_identidad}) que $0 + 1 = 1 = 1 + 0$.
+
+		Sea ahora $n$ tal que $n + 1 = 1 + n$ y mostremos que se satisface para $n + 1$. Por el axioma (\ref{def_axiomas: sucesor_es_asociativo}) y la hipótesis de inducción se satisface lo siguiente:
+		\[
+			\pa*{n + 1} + 1 = \pa*{1 + n} + 1 = 1 + \pa*{n + 1}
+		\]
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n$ se satisface $n + 1 = 1 + n$.
+
+		\item $n + m = m + n$
+		
+		Mostremos por inducción sobre $n$. Para el caso base $n = 0$ se tiene por el (2) y por el axioma (\ref{def_axiomas: el_cero_es_identidad}) que $0 + m = m = m + 0$.
+
+		Sea ahora $n$ tal que $n + m = m + n$ y mostremos que se satisface para $n + 1$. Por el punto anterior, el primer punto y la hipótesis de inducción se satisface lo siguiente:
+		\[
+			\pa*{n + 1} + m = n +\pa*{1 + m} = n +\pa*{m + 1} =\pa*{n + m} + 1 =\pa*{m + n} + 1 = m +\pa*{n + 1}
+		\]
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n$ se satisface $n + m = m + n$.
+
+		\item $n\pa*{m + p} = nm + np$
+		
+		Mostremos por inducción sobre $p$. Para el caso base $p = 0$ se tiene por los axiomas (\ref{def_axiomas: cero_es_absorbente}) y (\ref{def_axiomas: el_cero_es_identidad}) lo siguiente:
+		\[
+			n\pa*{m + 0} = nm = nm + 0 = nm + n\cdot 0
+		\]
+
+		Sea ahora $p$ tal que $n\pa*{m + p} = nm + np$, y mostremos que se satisface para $p + 1$. Por los axiomas (\ref{def_axiomas: sucesor_es_asociativo}), (\ref{def_axiomas: cero_es_absorbente}) y (\ref{def_axiomas: producto_es_distributivo}), y la hipótesis de inducción se tiene lo siguiente:
+		\begin{align*}
+			n\pa*{m +\pa*{p + 1}} &= n\pa*{\pa*{m + p} + 1} \\
+			&= n\pa*{m + p} + n \\
+			&=\pa*{nm + np} + n \\
+			&= nm +\pa*{np + n} \\
+			&= nm + n\pa*{p + 1}
+		\end{align*}
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m, p$ se satisface $n\pa*{m + p} = nm + np$.
+
+		\item $\pa*{nm}p = n\pa*{mp}$
+		
+		Mostremos por inducción sobre $p$. Para el caso base $p = 0$ se tiene por el axioma (\ref{def_axiomas: cero_es_absorbente}) lo siguiente:
+		\[
+			\pa*{nm}\cdot 0 = 0 = n\cdot 0 = n\pa*{m\cdot 0}
+		\]
+
+		Sea ahora $p$ tal que $\pa*{nm}p = n\pa*{mp}$, y mostremos que se satisface para $p + 1$. Por el axioma (\ref{def_axiomas: producto_es_distributivo}), el punto anterior, y la hipótesis de inducción se tiene lo siguiente:
+		\begin{align*}
+			\pa*{nm}\pa*{p + 1} = \pa*{nm}p + nm = n\pa*{mp} + nm = n\pa*{mp + m} = n\pa*{m\pa*{p + 1}}
+		\end{align*}
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m, p$ se satisface $\pa*{nm}p = n\pa*{mp}$.
+
+		\item $\pa*{n + m}p = np + mp$
+		
+		Mostremos por inducción sobre $p$. Para el caso base $p = 0$ se tiene por los axiomas (\ref{def_axiomas: el_cero_es_identidad}) y (\ref{def_axiomas: cero_es_absorbente}) lo siguiente:
+		\[
+			\pa*{n + m}\cdot 0 = 0 = 0 + 0 = n\cdot 0 + m\cdot 0
+		\]
+
+		Sea ahora $p$ tal que $\pa*{n + m}p = np + mp$, y mostremos que se satisface para $p + 1$. Por el axioma (\ref{def_axiomas: producto_es_distributivo}), el primer y cuarto punto, y la hipótesis de inducción se tiene lo siguiente:
+		\begin{align*}
+			\pa*{n + m}\pa*{p + 1} &= \pa*{n + m}p + \pa*{n + m} \\
+			&=\pa*{np + mp} +\pa*{n + m}\\
+			&=\pa*{\pa*{np + mp} + n} + m\\
+			&=\pa*{np +\pa*{mp + n}} + m\\
+			&=\pa*{np +\pa*{n + mp}} + m\\
+			&=\pa*{\pa*{np + n} + mp} + m\\
+			&=\pa*{n\pa*{p + 1} + mp} + m\\
+			&= n\pa*{p + 1} +\pa*{mp + m}\\
+			&=n\pa*{p + 1} + m\pa*{p + 1}
+		\end{align*}
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m, p$ se satisface $\pa*{n + m}p = np + mp$.
+
+		\item $0\cdot n = 0$
+		
+		Mostremos por inducción sobre $n$. Para el caso base $n = 0$ se tiene por el axioma (\ref{def_axiomas: cero_es_absorbente}) que $0\cdot 0 = 0$.
+
+		Sea ahora $n$ tal que $0\cdot n = 0$, y mostremos que se satisface para $n + 1$. Por los axiomas (\ref{def_axiomas: el_cero_es_identidad}) y (\ref{def_axiomas: producto_es_distributivo}), y la hipótesis de inducción se tiene lo siguiente:
+		\[
+			0\cdot\pa*{n + 1} = 0\cdot n + 0 = 0 + 0 = 0
+		\]
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n$ se satisface $0\cdot n = 0$.
+
+		\item $1\cdot n = n$
+		
+		Mostremos por inducción sobre $n$. Para el caso base $n = 0$ se tiene por el axioma (\ref{def_axiomas: cero_es_absorbente}) que $1\cdot 0 = 0$.
+
+		Sea ahora $n$ tal que $1\cdot n = n$, y mostremos que se satisface para $n + 1$. Por el axioma (\ref{def_axiomas: producto_es_distributivo}) y la hipótesis de inducción se tiene lo siguiente:
+		\[
+			1\cdot\pa*{n + 1} = 1\cdot n + 1 = n + 1
+		\]
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n$ se satisface $1\cdot n = n$.
+
+		\item $nm = mn$
+		
+		Mostremos por inducción sobre $n$. Para el caso base $n = 0$ se tiene por el axioma (\ref{def_axiomas: cero_es_absorbente}) y por el octavo punto que $0\cdot m = 0 = m\cdot 0$.
+
+		Sea ahora $n$ tal que $nm = mn$, y mostremos que se satisface para $n + 1$. Por el axioma (\ref{def_axiomas: producto_es_distributivo}), los puntos séptimo y noveno, y la hipótesis de inducción se tiene lo siguiente:
+		\[
+			\pa*{n + 1}m = nm + 1\cdot m = nm + m = mn + n = m\pa*{n + 1}
+		\]
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m$ se satisface $nm = mn$.
+
+		\item $\pa*{n < m\land m < p}\to n < p$
+		
+		Mostremos por inducción sobre $p$. Para el caso base $p = 0$ se tiene por vacuidad debido al axioma (\ref{def_axiomas: no_hay_negativos}) que $\pa*{n < m\land m < 0}\to n < 0$.
+
+		Sea $p$ tal que $n < m$ y $m < p$ implican $n < p$, y mostremos para $p + 1$. Si suponemos que $n < m$ y $m < p + 1$, entonces por el axioma (\ref{def_axiomas: el_menor_o_igual}) se tienen dos casos: $m < p$ o $m = p$. Si $m < p$, por hipótesis de inducción se sigue que $n < p$; y por el mismo axioma (\ref{def_axiomas: el_menor_o_igual}) se tiene que $n < p + 1$. Si $m = p$, entonces $n < p$ por sustitución, de lo cual se implica $n < p + 1$ por el axioma (\ref{def_axiomas: el_menor_o_igual}). En cualquier caso se concluye que si $n < m$ y $m < p + 1$, entonces $n < p + 1$
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m, p$ se satisface que $n < m$ y $n < p$ implican $n < p$.
+
+		\item $n < m\leftrightarrow n + 1 < m + 1$
+		
+		Mostremos por inducción sobre $m$. Para el caso base $m = 0$, la primer implicación ($n < 0\to n + 1 < 0 + 1$) se satisface por vacuidad por el axioma \ref{def_axiomas: no_hay_negativos}; si ahora suponemos que $n + 1 < 0 + 1$, entonces $n + 1 < 0$ o $n + 1 = 0$ por el axioma \ref{def_axiomas: el_menor_o_igual}. Si $n + 1 < 0$, entonces se satisface que $n < m$ por vacuidad debido al axioma (\ref{def_axiomas: no_hay_negativos}). Ahora, supongamos que $n + 1 = 0$ es verdadero, entonces por el axioma (\ref{def_axiomas: el_menor_o_igual}) se satisface que $n < n + 1 = 0$; lo cual es una contradicción por el axioma (\ref{def_axiomas: no_hay_negativos}), y luego se satisface que $n < m$ por vacuidad.
+
+		Sea $m$ tal que $n < m$ si y solo si $n + 1 < m + 1$, y mostremos que se satisface para $m + 1$. Si suponemos primero que $n < m + 1$, entonces por el axioma (\ref{def_axiomas: el_menor_o_igual}) se satisface que $n < m$ o $n = m$. En el primer caso, por hipótesis de inducción, se satisface que $n + 1 < m + 1$, y por el mismo axioma y el punto anterior se satisface que $n + 1 < m + 1 <\pa*{m + 1} + 1$, es decir, $n + 1 <\pa*{m + 1} + 1$. En el segundo caso, por el axioma (\ref{def_axiomas: el_menor_o_igual}) sabemos que $m + 1 <\pa*{m + 1} + 1$, y puesto que $n = m$, entonces reemplazando se satisface que $n + 1 <\pa*{m + 1} + 1$. En cualquier caso se satisface que $n < m + 1$ implica $n + 1 <\pa*{m + 1} + 1$.
+
+		Supongamos ahora que $n + 1 <\pa*{m + 1} + 1$, entonces por el axioma (\ref{def_axiomas: el_menor_o_igual}) se satisface que $n + 1 < m + 1$ o $n + 1 = m + 1$. En el primer caso, por hipótesis de inducción, se satisface que $n < m$, y puesto que $m < m + 1$ por el mismo axioma, se implica por el punto anterior que $n < m + 1$. Ahora, en el segundo caso, por el axioma (\ref{def_axiomas: sucesor_es_inyectiva}) se satisface que $n = m$, y puesto que $m < m + 1$, entonces reemplazando se cumple que $n < m + 1$. En cualquier caso se satisface que $n + 1 <\pa*{m + 1} + 1$ implica $n < m + 1$.
+
+		Por lo tanto, se obtiene que $n < m + 1$ si y solo si $n + 1 <\pa*{m + 1} + 1$. Se sigue entonces por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m$ se satisface que $n < m$ si y solo si $n + 1 < m + 1$.
+
+		\item $n\neq 0\to 0 < n$
+		
+		Mostremos por inducción sobre $n$. Para el caso base se satisface $0\neq 0\to 0 < 0$ por vacuidad.
+
+		Sea $n$ tal que $n\neq 0$ implica $0 < n$, y mostremos que se cumple para $n + 1$. Si $n + 1\neq 0$, entonces tenemos dos casos: $n = 0$ o $n\neq 0$. Si $n = 0$, entonces por el axioma (\ref{def_axiomas: el_menor_o_igual}) se tiene que $n = 0 < 0 + 1 = n + 1$. Si suponemos ahora el segundo caso, entonces por hipótesis de inducción la afirmación $n\neq 0$ implica $0 < n$. Por el mismo axioma (\ref{def_axiomas: el_menor_o_igual}) se tiene que $n < n + 1$, y por transitividad del décimoprimer punto se cumple que $0 < n + 1$. En cualquier caso $n + 1\neq 0$ implica $0 < n + 1$.
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n$ se satisface que $n \neq 0$ si y solo si $0 < n$.
+
+		\item $\pa*{n < m}\lor\pa*{n = m}\lor\pa*{m < n}$
+		\item $\neg\pa*{n < n}$
+		\item $ n < m\leftrightarrow n + p < m + p$
+		\item $n < n + m + 1$
+		\item $n + p = m + p\to n = m$
+		\item $\pa*{p\neq 0\land n < m}\to np < mp$
+		\item $\pa*{p\neq 0\land np < mp}\to n < m$
+		\item $\pa*{p\neq 0\land np = mp}\to n = m$
+		\item $n < m\to\pa*{\exists p < m}\pa*{n + p + 1 = m}$
+		\item $n\neq 0\to\pa*{\exists m < n}\pa*{m + 1 = n}$
 	\end{enumerate}
-\end{notation}
+\end{proof}
+
+\comment{Demostraciones}{Demostrar las propiedades del teorema anterior.}
+
 
 \begin{definition}[Mínimo]
 	Sea $X$ un conjunto. Se dice que $X$ tiene un \emph{elemento mínimo} si se satisface la siguiente fórmula:
 	\[
-		\exists k\forall m\left(\left(k\in X\right)\land\left(\left(m\in X\right)\to\left(k\leq m\right)\right)\right)
+		\exists k\forall m\pa*{k\in X\land\pa*{m\in X\to k\leq m}}
 	\]
 \end{definition}
 
-
 \begin{theorem}[Principio del buen orden]
-	Todo conjunto $X$ no vacío, es decir tal que se satisface $\exists n\left(n\in X\right)$, tiene un elemento mínimo.
+	Todo conjunto $X$ no vacío, es decir tal que se satisface $\exists n\pa*{n\in X}$, tiene un elemento mínimo.
 \end{theorem}
+
 \begin{proof}
-	Demostremos por contradicción. Consideremos a $X$ un conjunto no vacío, es decir tal que se satisface $\exists n\left(n\in X\right)$, para el cual se cumple lo siguiente:
+	Demostremos por contradicción. Consideremos a $X$ un conjunto no vacío, es decir tal que se satisface $\exists n\pa*{n\in X}$, para el cual se cumple lo siguiente:
 	\begin{equation}
 		\label{eq: buen_orden}
-		\forall k\exists m\left(\left(k\notin X\right)\vee\left(\left(m\in X\right)\land\left(m < k\right)\right)\right)
+		\forall k\exists m\pa*{k\notin X\lor\pa*{m\in X\land m < k}}
 	\end{equation}
-	Sea $\varphi\left(p\right)$ la fórmula dada por $\left(\forall k\leq p\right)\left(k\notin X\right)$, la cual es $\Delta_{0}^{0}$. Mostremos por $\INDUCCION{\Sigma_{1}^{0}}$ que se satisface la fórmula $\forall p\varphi\left(p\right)$.
-	
+	Sea $\varphi\pa*{p}$ la fórmula dada por $\pa*{\forall k\leq p}\pa*{k\notin X}$, la cual es $\Delta_{0}^{0}$. Mostremos por $\INDUCCION{\Sigma_{1}^{0}}$ que se satisface la fórmula $\forall p\varphi\pa*{p}$.
+
 	\begin{itemize}
-		\item (Base) Si $p = 0$, entonces debemos mostrar que $\left(0\notin X\right)$. Supongamos por el contrario que $\left(0\in X\right)$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $\left(m < 0\right)$ y $\left(m\in X\right)$. Puesto que por los axiomas $\PEANO$ se tiene que para cada $n$ se satisface que $\neg\left(n < 0\right)$, entonces llegamos a una contradicción. Por lo tanto, necesariamente $0\notin X$.
-		
-		\item (Paso inductivo) Sea $n$ tal que se satisface $\varphi\left(n\right)$, entonces demostremos que se satisface $\varphi\left(n + 1\right)$. 
-		
-		Supongamos que $\left(\left(n + 1\right)\in X\right)$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $\left(m\in X\right)$ y $m <\left(n + 1\right)$, es decir, $\left(m\leq n\right)$. Ya que se satisface $\varphi\left(n\right)$ por hipótesis, se tiene entonces que $\left(m\notin X\right)$, lo cual contradice el hecho que $\left(m\in X\right)$ como se dedujo anteriormente. Por lo tanto, necesariamente $\left(\left(n + 1\right)\notin X\right)$.
+		\item (Base) Si $p = 0$, entonces debemos mostrar que $0\notin X$. Supongamos por el contrario que $0\in X$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $m < 0$ y $m\in X$. Puesto que por los axiomas $\PEANO$ se tiene que para cada $n$ se satisface que $\neg\pa*{n < 0}$, entonces llegamos a una contradicción. Por lo tanto, necesariamente $0\notin X$.
+
+		\item (Paso inductivo) Sea $n$ tal que se satisface $\varphi\pa*{n}$, entonces demostremos que se satisface $\varphi\pa*{n + 1}$.
+
+		Supongamos que $n + 1\in X$, entonces por la fórmula \eqref{eq: buen_orden} se sigue que existe $m$ tal que $m\in X$ y $m < n + 1$, es decir, $m\leq n$. Ya que se satisface $\varphi\pa*{n}$ por hipótesis, se tiene entonces que $m\notin X$, lo cual contradice el hecho que $m\in X$ como se dedujo anteriormente. Por lo tanto, necesariamente $n + 1\notin X$.
 	\end{itemize}
-	
+
 	Se sigue entonces por $\INDUCCION{\Sigma_{1}^{0}}$ que:
 	\[
-		\forall p\varphi\left(p\right)\equiv\forall p\left(\forall k\leq p\right)\left(k\notin X\right)\equiv\forall p\left(p\notin X\right)
+		\forall p\varphi\pa*{p}\equiv\forall p\pa*{\forall k\leq p}\pa*{k\notin X}\equiv\forall p\pa*{p\notin X}
 	\]
 	lo cual contradice el hecho que $X$ era no vacío.
-	
+
 	En conclusión, por contradicción, se prueba el teorema.
 \end{proof}
 
 \begin{definition}[Cota superior]
 	Sea $X$ un conjunto. $X$ se dice estar \emph{acotado superiormente} si se satisface la siguiente fórmula:
 	\[
-		\exists n\forall m\left(\left(m\in X\right)\to\left(m\leq n\right)\right)
+		\exists n\forall m\pa*{m\in X\to m\leq n}
 	\]
 \end{definition}
 
 \begin{definition}[Máximo]
 	Sea $X$ un conjunto. Se dice que $X$ tiene un \emph{elemento máximo} si se satisface la siguiente fórmula:
 	\[
-		\exists k\forall m\left(\left(k\in X\right)\land\left(\left(m\in X\right)\to\left(m\leq k\right)\right)\right)
+		\exists k\forall m\pa*{k\in X\land\pa*{m\in X\to m\leq k}}
 	\]
 \end{definition}
 
@@ -150,39 +324,41 @@ De ahora en adelante, todos los siguientes teoremas serán demostrados dentro de
 \end{theorem}
 
 \begin{proof}
-	Defínase la fórmula $\varphi\left(n\right)$ dada por:
+	Defínase la fórmula $\varphi\pa*{n}$ dada por:
 	\begin{equation}
 		\label{eq: principio_maximo}
-		\left(\left(\forall k\leq n\right)\left(k\notin X\right)\vee\left(\exists p\leq n\right)\left(\forall k\leq n\right)\left(\left(k\in X\right)\to\left(k\leq p\right)\right)\right)
+		\pa*{\forall k\leq n}\pa*{k\notin X}\lor\pa*{\exists p\leq n}\pa*{\forall k\leq n}\pa*{k\in X\to k\leq p}
 	\end{equation}
-	la cual es $\Delta_{0}^{0}$. Observemos que esta fórmula se interpreta como que dado $n$ se satisface que todos los elementos menores a $n$ no pertenecen a $X$ o el conjunto $X\cap\set{0,\dotsc, n}$ tiene máximo. Probemos entonces por $\INDUCCION{\Sigma_{1}^{0}}$ que se satisface la fórmula $\forall n\varphi\left(n\right)$.
-	
+	la cual es $\Delta_{0}^{0}$. Observemos que esta fórmula se interpreta como que dado $n$ se satisface que todos los elementos menores a $n$ no pertenecen a $X$ o el conjunto $X\cap\set{0,\dotsc, n}$ tiene máximo. Probemos entonces por $\INDUCCION{\Sigma_{1}^{0}}$ que se satisface la fórmula $\forall n\varphi\pa*{n}$.
+
 	\begin{enumerate}
-		\item (Base) Para $n = 0$ se tienen dos casos: $\left(0\in X\right)$ o $\left(0\notin X\right)$. Si se cumple $\left(0\notin X\right)$, entonces directamente se satisface la primera parte de la fórmula \eqref{eq: principio_maximo}. Si se satisface $\left(0\in X\right)$, entonces tomando $p = 0$ se satisface la segunda parte de la fórmula \eqref{eq: principio_maximo}. En cualquier caso obtenemos que se satisface $\varphi\left(0\right)$.
-		
-		\item (Paso inductivo) Sea $n$ tal que $\varphi\left(n\right)$. Entonces demostremos que se satisface que $\varphi\left(n + 1\right)$.
-		
-		Ya que se satisface $\varphi\left(n\right)$, entonces tenemos tres casos: 
+		\item (Base) Para $n = 0$ se tienen dos casos: $0\in X$ o $0\notin X$. Si se cumple $0\notin X$, entonces directamente se satisface la primera parte de la fórmula \eqref{eq: principio_maximo}. Si se satisface $0\in X$, entonces tomando $p = 0$ se satisface la segunda parte de la fórmula \eqref{eq: principio_maximo}. En cualquier caso obtenemos que se satisface $\varphi\pa*{0}$.
+
+		\item (Paso inductivo) Sea $n$ tal que $\varphi\pa*{n}$. Entonces demostremos que se satisface que $\varphi\pa*{n + 1}$.
+
+		Ya que se satisface $\varphi\pa*{n}$, entonces tenemos tres casos:
+
 		\begin{itemize}
-			\item Si se satisface $\left(\left(n + 1\right)\in X\right)$, entonces se satisface la segunda parte de la fórmula $\varphi\left(n + 1\right)$ tomando $p = \left(n + 1\right)$.
-			
-			\item Si se satisface $\left(\left(n + 1\right)\notin X\right)$ y para cada $k$ con $\left(k\leq n\right)$ se cumple que $\left(k\notin X\right)$, entonces claramente se cumple la primer parte de la fórmula $\varphi\left(n + 1\right)$.
-			
-			\item Si se satisface $\left(\left(n + 1\right)\notin X\right)$ y existe un elemento máximo de los elementos de $X$ acotados por $n$, entonces directamente se satisface la segunda parte de la fórmula $\varphi\left(n + 1\right)$.
+			\item Si se satisface $n + 1\in X$, entonces se satisface la segunda parte de la fórmula $\varphi\pa*{n + 1}$ tomando $p = n + 1$.
+
+			\item Si se satisface $n + 1\notin X$ y para cada $k$ con $k\leq n$ se cumple que $k\notin X$, entonces claramente se cumple la primer parte de la fórmula $\varphi\pa*{n + 1}$.
+
+			\item Si se satisface $n + 1\notin X$ y existe un elemento máximo de los elementos de $X$ acotados por $n$, entonces directamente se satisface la segunda parte de la fórmula $\varphi\pa*{n + 1}$.
 		\end{itemize}
-		Se sigue entonces que en cualquier caso se satisface $\varphi\left(n + 1\right)$. Luego, por $\INDUCCION{\Sigma_{1}^{0}}$ se cumple la fórmula $\forall n\varphi\left(n\right)$.
-		
-		Ya que $X$ es acotado superiormente, se deduce que existe $m$ tal que para cada $k$, si $k\in X$, entonces $k\leq m$. Por lo tanto, se satisface particularmente $\varphi\left(m\right)$. 
-		
-		Ahora, puesto que $X$ es no vacío, entonces no se satisface la primera parte de $\varphi\left(m\right)$, de lo cual se sigue que existe $p$ con $\left(p\leq m\right)$ tal que es máximo de los elementos de $X$ acotados por $m$. Como $m$ ya es cota superior de $X$, entonces tal $p$ es un máximo de $X$. 
+
+		Se sigue entonces que en cualquier caso se satisface $\varphi\pa*{n + 1}$. Luego, por $\INDUCCION{\Sigma_{1}^{0}}$ se cumple la fórmula $\forall n\varphi\pa*{n}$.
+
+		Ya que $X$ es acotado superiormente, se deduce que existe $m$ tal que para cada $k$, si $k\in X$, entonces $k\leq m$. Por lo tanto, se satisface particularmente $\varphi\pa*{m}$.
+
+		Ahora, puesto que $X$ es no vacío, entonces no se satisface la primera parte de $\varphi\pa*{m}$, de lo cual se sigue que existe $p$ con $p\leq m$ tal que es máximo de los elementos de $X$ acotados por $m$. Como $m$ ya es cota superior de $X$, entonces tal $p$ es un máximo de $X$.
 	\end{enumerate}
 \end{proof}
 
 \section{Sistemas numéricos}
 \subsection{Los números enteros}
-En esta sección desarrollaremos la construcción de los números enteros, racionales y reales que son necesarios para poder abordar el estudio de los teoremas del Análisis Real que analizaremos en cada uno de los subsistemas. 
+En esta sección desarrollaremos la construcción de los números enteros, racionales y reales que son necesarios para poder abordar el estudio de los teoremas del Análisis Real que analizaremos en cada uno de los subsistemas.
 
-Fuera de $\RCA$, recordemos que la característica más importante de los números enteros es que existe la resta, y que para cada número entero $m$ existen dos números naturales $n, k$ tales que $m = n - k$. Con esta propiedad podemos codificar cada número entero con tal par de números naturales que se interpretan de la forma anterior. Por ejemplo, si tenemos el par $\pa*{1, 2}$, entonces lo interpretamos como el número entero $1 - 2 = -1$. Sin embargo, notemos que existen varios pares que nos darían el mismo número entero en ese sentido. Para el caso del $-1$ se tiene que los pares $\pa*{1, 2}$, $\pa*{2, 3}$, $\pa*{3, 4}$ y $\pa*{4, 5}$ se interpretarían de la misma forma. En ese caso, decimos que todos estos pares son \emph{equivalentes} para representar al número $-1$. En general, para cada par de pares $\pa*{n, m}$ y $\pa*{p, q}$, estos son equivalentes si se interpretan como el mismo número entero, es decir, si $n - m = p - q$, o equivalentemente $n + q = p + m$. Con esta condición podemos luego definir una relación de equivalencia que nos codifique la \emph{igualdad} entre números enteros en $\RCA$. 
+Fuera de $\RCA$, recordemos que la característica más importante de los números enteros es que existe la resta, y que para cada número entero $m$ existen dos números naturales $n, k$ tales que $m = n - k$. Con esta propiedad podemos codificar cada número entero con tal par de números naturales que se interpretan de la forma anterior. Por ejemplo, si tenemos el par $\pa*{1, 2}$, entonces lo interpretamos como el número entero $1 - 2 = -1$. Sin embargo, notemos que existen varios pares que nos darían el mismo número entero en ese sentido. Para el caso del $-1$ se tiene que los pares $\pa*{1, 2}$, $\pa*{2, 3}$, $\pa*{3, 4}$ y $\pa*{4, 5}$ se interpretarían de la misma forma. En ese caso, decimos que todos estos pares son \emph{equivalentes} para representar al número $-1$. En general, para cada par de pares $\pa*{n, m}$ y $\pa*{p, q}$, estos son equivalentes si se interpretan como el mismo número entero, es decir, si $n - m = p - q$, o equivalentemente $n + q = p + m$. Con esta condición podemos luego definir una relación de equivalencia que nos codifique la \emph{igualdad} entre números enteros en $\RCA$.
 
 \begin{definition}[Igualdad en $\ZZ$]
 	Se define la relación $=_{\ZZ}\subseteq\NN^{2}\times\NN^{2}$ como sigue para cada $n, m, p, q\in\NN$:
@@ -199,19 +375,21 @@ Ya que vimos que existen elementos diferentes que son \emph{iguales} mediante es
 	\label{theo: relacion_equivalencia_z}
 	La relación $=_{\ZZ}$ es de equivalencia.
 \end{theorem}
+
 \begin{proof}
-	Demostremos entonces que $=_{\ZZ}$ es reflexiva, simétrica y transitiva. Sean $n, m, p, q, r, s\in\NN$.
+	Demostremos entonces que $=_{\ZZ}$ es reflexiva, simétrica y transitiva. Consideremos a $n, m, p, q, r, s\in\NN$.
+
 	\begin{enumerate}
 		\item Reflexividad
-		
+
 		Puesto que $n + m = m + n$, entonces se sigue directamente $\inner*{n, m} =_{\ZZ}\inner*{n, m}$. Por lo tanto, $=_{\ZZ}$ es reflexiva.
-		
+
 		\item Simetría
-		
+
 		Supongamos que $\inner*{n, m} =_{\ZZ}\inner*{p, q}$, entonces por definición se satisface que $n + q = p + m$, o equivalentemente, $p + m = n + q$. De lo anterior se sigue que $\inner*{p, q} =_{\ZZ}\inner*{n, m}$. Por lo tanto, $=_{\ZZ}$ es simétrica.
-		
+
 		\item Transitividad
-		
+
 		Supongamos que $\inner*{n, m} =_{\ZZ}\inner*{p, q}$ y $\inner*{p, q} =_{\ZZ}\inner*{r, s}$, entonces se satisface que $n + q = p + m$ y $p + s = r + q$. Sumando ambas igualdades obtenemos lo siguiente:
 		\[
 			\begin{NiceArray}{c}
@@ -222,6 +400,7 @@ Ya que vimos que existen elementos diferentes que son \emph{iguales} mediante es
 		\]
 		Lo cual implica que $\inner*{n, m} =_{\ZZ}\inner*{r, s}$. Por lo tanto, $=_{\ZZ}$ es transitiva
 	\end{enumerate}
+
 	En conclusión, la relación $=_{\ZZ}$ es de equivalencia
 \end{proof}
 
@@ -255,7 +434,7 @@ De esta forma, podríamos definir la suma y producto de enteros como los pares $
 	\]
 \end{definition}
 
-Por el momento no les denominamos suma ni producto debido a que necesitaremos redefinirlas cuando establezcamos propiamente el conjunto de números enteros. 
+Por el momento no les denominamos suma ni producto debido a que necesitaremos redefinirlas cuando establezcamos propiamente el conjunto de números enteros.
 
 En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir, que son independientes del representante, son conmutativas, asociativas y distributivas.
 
@@ -266,9 +445,10 @@ En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir
 
 \begin{proof}
 	Sean $n, m, p, q, r, s, t, u\in\NN$ tales que $x =\inner*{n, m}$, $y =\inner*{p, q}$, $z =\inner*{r, s}$ y $w =\inner*{t, u}$.
+
 	\begin{enumerate}
 		\item Mostremos que $f\pa*{x, y} =_{\ZZ} f\pa*{z, w}$.
-		
+
 		Puesto que $x =_{\ZZ} z$ y $y =_{\ZZ} w$, entonces $n + s = r + m$ y $p + u = t + q$. Luego:
 		\begin{align*}
 			\pa*{n + s} +\pa*{p + u} &=\pa*{r + m} +\pa*{t + q}\\
@@ -276,9 +456,9 @@ En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir
 			\inner*{n + p, m + q} &=_{\ZZ}\inner*{r + t, s + u}\\
 			f\pa*{x, y} &=_{\ZZ} f\pa*{z, w}
 		\end{align*}
-		
+
 		\item Mostremos que $g\pa*{x, y} =_{\ZZ} g\pa*{z, w}$.
-		
+
 		Puesto que $x =_{\ZZ} z$ y $y =_{\ZZ} w$, entonces $n + s = r + m$ y $p + u = t + q$. Luego:
 		\begin{align*}
 			p + u &= t + q\\
@@ -287,8 +467,8 @@ En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir
 			np + nu + mq &= nt + nq + mq\\
 			np + mq + nu &= nq + mq + nt\\
 			np + mq + nu + su &= nq + mq + nt + su\\
-			np + mq + \pa*{n + s}u &= nq + mq + nt + su\\
-			np + mq + \pa*{r + m}u &= nq + mq + nt + su\\
+			np + mq +\pa*{n + s}u &= nq + mq + nt + su\\
+			np + mq +\pa*{r + m}u &= nq + mq + nt + su\\
 			np + mq + ru + mu &= nq + mq + nt + su\\
 			np + mq + ru + mu + mt &= nq + mq + mt + nt + su\\
 			np + mq + ru + mu + mt &= nq + m\pa*{t + q} + nt + su\\
@@ -296,19 +476,21 @@ En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir
 			np + mq + ru + mu + mt &= nq + mp + mu + nt + su\\
 			np + mq + ru + mt &= nq + mp + nt + su\\
 			np + mq + ru + mt + st &= nq + mp + nt + st + su\\
-			np + mq + ru + mt + st &= nq + mp + \pa*{n + s}t + su\\
-			np + mq + ru + mt + st &= nq + mp + \pa*{r + m}t + su\\
+			np + mq + ru + mt + st &= nq + mp +\pa*{n + s}t + su\\
+			np + mq + ru + mt + st &= nq + mp +\pa*{r + m}t + su\\
 			np + mq + ru + mt + st &= nq + mp + rt + mt + su\\
 			np + mq + ru + st &= nq + mp + rt + su\\
-			\pa*{np + mq} + \pa*{ru + st} &= \pa*{nq + mp} + \pa*{rt + su}\\
+			\pa*{np + mq} +\pa*{ru + st} &=\pa*{nq + mp} +\pa*{rt + su}\\
 			\inner*{np + mq, nq + mp} &=_{\ZZ}\inner*{rt + su, ru + st}\\
 			g\pa*{x, y} &=_{\ZZ} g\pa*{z, w}
 		\end{align*}
 	\end{enumerate}
 \end{proof}
+
 \begin{lemma}
 	\label{lemma: prop_suma_prod_z}
 	Para cada $x, y, z\in\NN^{2}$ se satisface lo siguiente:
+
 	\begin{enumerate}
 		\item $f\pa*{x, y} = f\pa*{y, x}$
 		\item $g\pa*{x, y} = g\pa*{y, x}$
@@ -317,51 +499,53 @@ En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir
 		\item $g\pa*{x, f\pa*{y, z}} = f\pa*{g\pa*{x, y}, g\pa*{x, z}}$
 	\end{enumerate}
 \end{lemma}
+
 \begin{proof}
 	Sean $n, m, p, q, r, s\in\NN$ tales que $x =\inner*{n, m}$, $y =\inner*{p, q}$ y $z =\inner*{r, s}$.
+
 	\begin{enumerate}
 		\item $f\pa*{x, y} = f\pa*{y, x}$
-		
+
 		Se tiene lo siguiente:
 		\[
 			f\pa*{x, y} =\inner*{n + p, m + q} =\inner*{p + n, q + m} = f\pa*{y, x}
 		\]
 		\item $g\pa*{x, y} = g\pa*{y, x}$
-		
+
 		Se satisface lo siguiente:
 		\[
 			g\pa*{x, y} =\inner*{np + mq, nq + mp} =\inner*{pn + qm, pm + qn} = g\pa*{y, x}
 		\]
 		\item $f\pa*{x, f\pa*{y, z}} = f\pa*{f\pa*{x, y}, z}$
-		
+
 		Se satisface lo siguiente:
 		\begin{align*}
 			f\pa*{x, f\pa*{y, z}} &= f\pa*{x,\inner*{p + r, q + s}}\\
 			&=\inner*{n +\pa*{p + r}, m +\pa*{q + s}}\\
-			&=\inner*{\pa*{n + p} + r, \pa*{m + q} + s}\\
+			&=\inner*{\pa*{n + p} + r,\pa*{m + q} + s}\\
 			&= f\pa*{\inner*{n + p, m + q}, z}\\
 			&= f\pa*{f\pa*{x, y}, z}
 		\end{align*}
 		\item $g\pa*{x, g\pa*{y, z}} = g\pa*{g\pa*{x, y}, z}$
-		
+
 		Se satisface lo siguiente:
 		\begin{align*}
 			g\pa*{x, g\pa*{y, z}} &= g\pa*{x,\inner*{pr + qs, ps + qr}}\\
 			&=\inner*{n\pa*{pr + qs} + m\pa*{ps + qr}, n\pa*{ps + qr} + m\pa*{pr + qs}}\\
 			&=\inner*{npr + nqs + mps + mqr, nps + nqr + mpr + mqs}\\
-			&=\inner*{\pa*{np + mq}r + \pa*{nq + mp}s, \pa*{np + mq}s + \pa*{nq + mp}r}\\
+			&=\inner*{\pa*{np + mq}r +\pa*{nq + mp}s,\pa*{np + mq}s +\pa*{nq + mp}r}\\
 			&= g\pa*{\inner*{np + mq, nq + mp}, z}\\
 			&= g\pa*{g\pa*{x, y}, z}
 		\end{align*}
 		\item $g\pa*{x, f\pa*{y, z}} = f\pa*{g\pa*{x, y}, g\pa*{x, z}}$
-		
+
 		Se satisface lo siguiente:
 		\begin{align*}
 			g\pa*{x, f\pa*{y, z}} &= g\pa*{x,\inner*{p + r, q + s}}\\
 			&=\inner*{n\pa*{p + r} + m\pa*{q + s}, n\pa*{q + s} + m\pa*{p + r}}\\
 			&=\inner*{np + nr + mq + ms, nq + ns + mp + mr}\\
-			&=\inner*{\pa*{np + mq} +\pa*{nr + ms}, \pa*{nq + mp} +\pa*{ns + mr}}\\
-			&= f\pa*{\inner*{np + mq, nq + mp}, \inner*{nr + ms, ns + mr}}\\
+			&=\inner*{\pa*{np + mq} +\pa*{nr + ms},\pa*{nq + mp} +\pa*{ns + mr}}\\
+			&= f\pa*{\inner*{np + mq, nq + mp},\inner*{nr + ms, ns + mr}}\\
 			&= f\pa*{g\pa*{x, y}, g\pa*{x, z}}
 		\end{align*}
 	\end{enumerate}
@@ -371,6 +555,7 @@ En cambio, demostremos que estas dos operaciones se ``comportan bien'', es decir
 	\label{lemma: 0_enteros}
 	Para cada $n\in\NN$ se satisface que $\inner*{0, 0} =_{\ZZ}\inner*{n, n}$.
 \end{lemma}
+
 \begin{proof}
 	Se tiene directamente puesto que $n + 0 = 0 + n$.
 \end{proof}
@@ -393,7 +578,7 @@ Ahora podemos también definir adecuadamente la suma y producto de $\ZZ$, con lo
 	Se define la \emph{suma} y \emph{producto} en $\ZZ$ como las siguientes funciones:
 	\[
 		\begin{NiceArray}{cc}
-			+_{\ZZ}:\ZZ^{2}\to\ZZ & \cdot_{\ZZ}:\ZZ^{2}\to\ZZ\\
+			+_{\ZZ}:\ZZ^{2}\to\ZZ &\cdot_{\ZZ}:\ZZ^{2}\to\ZZ\\
 			\pa*{x, y}\mapsto Z\pa*{f\pa*{x, y}} &\pa*{x, y}\mapsto Z\pa*{g\pa*{x, y}}
 		\end{NiceArray}
 	\]
@@ -407,6 +592,7 @@ Ahora podemos también definir adecuadamente la suma y producto de $\ZZ$, con lo
 
 \begin{proof}
 	Sean $x, y, z\in\ZZ$, entonces mostremos cada una de las siguientes propiedades con ayuda de los lemas \ref{lemma: independencia_representantes_z}, \ref{lemma: prop_suma_prod_z} y \ref{lemma: 0_enteros}:
+
 	\begin{enumerate}
 		\item Conmutatividad para la suma
 		\[
@@ -421,17 +607,17 @@ Ahora podemos también definir adecuadamente la suma y producto de $\ZZ$, con lo
 			&=\pa*{x +_{\ZZ} y} +_{\ZZ} z
 		\end{align*}
 		\item Existencia del neutro aditivo
-		
+
 		Definamos al entero $0_{\ZZ}\coloneqq Z\pa*{\inner*{0, 0}}$, entonces si $x =\inner*{n, m}$ para algunos $n, m\in\NN$, se tiene que:
 		\begin{align*}
-			x +_{\ZZ} 0_{\ZZ} &= Z\pa*{f\pa*{x, 0_{\ZZ}}} \\
-			&= Z\pa*{f\pa*{\inner*{n, m},Z\pa*{\inner*{0, 0}}}} \\
-			&= Z\pa*{f\pa*{\inner*{n, m}, \inner*{0, 0}}}\\
+			x +_{\ZZ} 0_{\ZZ} &= Z\pa*{f\pa*{x, 0_{\ZZ}}}\\
+			&= Z\pa*{f\pa*{\inner*{n, m},Z\pa*{\inner*{0, 0}}}}\\
+			&= Z\pa*{f\pa*{\inner*{n, m},\inner*{0, 0}}}\\
 			&= Z\pa*{\inner*{n, m}}\\
 			&= Z\pa*{x} = x
 		\end{align*}
 		\item Existencia de inversos aditivos
-		
+
 		Si $x =\inner*{n, m}$ para algunos $n, m\in\NN$, entonces definamos $-x\coloneqq Z\pa*{\inner*{m, n}}$. Luego:
 		\begin{align*}
 			x +_{\ZZ}\pa*{-x} &= Z\pa*{f\pa*{x, -x}}\\
@@ -442,30 +628,30 @@ Ahora podemos también definir adecuadamente la suma y producto de $\ZZ$, con lo
 		\end{align*}
 		\item Conmutatividad para el producto
 		\[
-		x \cdot_{\ZZ} y = Z\pa*{g\pa*{x, y}} = Z\pa*{g\pa*{y, x}} = y \cdot_{\ZZ} x
+			x\cdot_{\ZZ} y = Z\pa*{g\pa*{x, y}} = Z\pa*{g\pa*{y, x}} = y\cdot_{\ZZ} x
 		\]
 		\item Asociatividad para el producto
 		\begin{align*}
-			x \cdot_{\ZZ}\pa*{y \cdot_{\ZZ} z} &= Z\pa*{g\pa*{x, Z\pa*{g\pa*{y, z}}}}\\
+			x\cdot_{\ZZ}\pa*{y\cdot_{\ZZ} z} &= Z\pa*{g\pa*{x, Z\pa*{g\pa*{y, z}}}}\\
 			&= Z\pa*{g\pa*{x, g\pa*{y, z}}}\\
 			&= Z\pa*{g\pa*{g\pa*{x, y}, z}}\\
 			&= Z\pa*{g\pa*{Z\pa*{g\pa*{x, y}}, z}}\\
-			&=\pa*{x \cdot_{\ZZ} y} \cdot_{\ZZ} z
+			&=\pa*{x\cdot_{\ZZ} y}\cdot_{\ZZ} z
 		\end{align*}
 		\item Existencia del neutro multiplicativo
-		
+
 		Definamos al entero $1_{\ZZ}\coloneqq Z\pa*{\inner*{1, 0}}$, entonces si $x =\inner*{n, m}$ para algunos $n, m\in\NN$, se tiene que:
 		\begin{align*}
-			x \cdot_{\ZZ} 1_{\ZZ} &= Z\pa*{g\pa*{x, 1_{\ZZ}}} \\
-			&= Z\pa*{g\pa*{\inner*{n, m},Z\pa*{\inner*{1, 0}}}} \\
-			&= Z\pa*{g\pa*{\inner*{n, m}, \inner*{1, 0}}}\\
+			x\cdot_{\ZZ} 1_{\ZZ} &= Z\pa*{g\pa*{x, 1_{\ZZ}}}\\
+			&= Z\pa*{g\pa*{\inner*{n, m},Z\pa*{\inner*{1, 0}}}}\\
+			&= Z\pa*{g\pa*{\inner*{n, m},\inner*{1, 0}}}\\
 			&= Z\pa*{\inner*{n\cdot 1 + m\cdot 0, n\cdot 0 + m\cdot 1}}\\
 			&= Z\pa*{\inner*{n, m}}\\
 			&= Z\pa*{x} = x
 		\end{align*}
-		
+
 		\item Distributividad
-		
+
 		\begin{align*}
 			x\cdot_{\ZZ}\pa*{y +_{\ZZ} z} &= Z\pa*{g\pa*{x, Z\pa*{f\pa*{y, z}}}}\\
 			&= Z\pa*{g\pa*{x, f\pa*{y, z}}}\\
@@ -474,6 +660,7 @@ Ahora podemos también definir adecuadamente la suma y producto de $\ZZ$, con lo
 			&=\pa*{x\cdot_{\ZZ} y} +_{\ZZ}\pa*{x\cdot_{\ZZ} z}
 		\end{align*}
 	\end{enumerate}
+
 	Por lo tanto, $\ZZ$ es un anillo conmutativo con unidad con las operaciones $+_{\ZZ}$ y $\cdot_{\ZZ}$.
 \end{proof}
 
@@ -491,15 +678,17 @@ Se tiene que $<_{\ZZ}$ existe por $\COMPRENSION{\Delta_{1}^{0}}$, y además es u
 \begin{theorem}
 	La relación de orden $<_{\ZZ}$ es un orden lineal en $\ZZ$.
 \end{theorem}
+
 \begin{proof}
 	Sean $x =\inner*{n, m}, y =\inner*{p, q}, z =\inner*{r, s}\in\ZZ$, entonces mostremos que $<_{\ZZ}$ es irreflexiva, transitiva y tricotómica.
+
 	\begin{enumerate}
 		\item Irreflexividad
-		
+
 		Mostremos que $\neg\pa*{x <_{\ZZ} x}$. Puesto que $n + m = m + n$, entonces se satisface que $\neg\pa*{n + m < m + n}$, por lo que $\neg\pa*{x <_{\ZZ} x}$.
-		
+
 		\item Transitividad
-		
+
 		Supongamos que $x <_{\ZZ} y$ y $y <_{\ZZ} z$, entonces $n + q < p + m$ y $p + s < r + q$, por lo que se tiene lo siguiente:
 		\begin{align*}
 			\pa*{n + q} +\pa*{p + s} &<\pa*{p + m} +\pa*{r + q}\\
@@ -507,17 +696,18 @@ Se tiene que $<_{\ZZ}$ existe por $\COMPRENSION{\Delta_{1}^{0}}$, y además es u
 			n + s &< r + m
 		\end{align*}
 		Por lo tanto, $x <_{\ZZ} z$.
-		
+
 		\item Tricotomía
-		
-		Como $n, m, p, q\in\NN$, y el orden en $\NN$ es tricotómico, entonces se satisface una y solo una de las siguientes afirmaciones: $n + q = p + m$, $n + q < p + m$ o $n + q > p + m$. 
-		
+
+		Como $n, m, p, q\in\NN$, y el orden en $\NN$ es tricotómico, entonces se satisface una y solo una de las siguientes afirmaciones: $n + q = p + m$, $n + q < p + m$ o $n + q > p + m$.
+
 		Si $n + q = p + m$, entonces $x =_{\ZZ} y$, lo cual implicaría que $x = y$ ya que al ser enteros, serían representantes de la misma clase de equivalencia.
-		
+
 		Si $n + q < p + m$, entonces $x <_{\ZZ} y$ por definición, y si $n + q > p + m$, también por definición $y <_{\ZZ} x$.
-		
+
 		Por lo tanto, $<_{\ZZ}$ es tricotómica.
 	\end{enumerate}
+
 	Por lo tanto, $<_{\ZZ}$ es un orden lineal en $\ZZ$.
 \end{proof}
 
@@ -529,22 +719,24 @@ Aseguramos que esta traducción de naturales a enteros es aquella función inyec
 
 \begin{theorem}[Encaje de $\NN$ en $\ZZ$]
 	Defínase la función $N:\NN\to\ZZ$ tal que para cada $n\in\NN$, $N\pa*{n}\coloneqq Z\pa*{\inner*{n, 0}}$. Entonces $N$ es inyectiva y satisface las siguientes propiedades:
+
 	\begin{enumerate}
 		\item Para cada $n, m\in\NN$, $N\pa*{n + m} = N\pa*{n} +_{\ZZ} N\pa*{m}$.
-		\item Para cada $n, m\in\NN$, $N\pa*{nm} = N\pa*{n} \cdot_{\ZZ} N\pa*{m}$.
+		\item Para cada $n, m\in\NN$, $N\pa*{nm} = N\pa*{n}\cdot_{\ZZ} N\pa*{m}$.
 		\item Para cada $n, m\in\NN$, $n < m$ si y solo si $N\pa*{n} <_{\ZZ} N\pa*{m}$.
 	\end{enumerate}
 \end{theorem}
 
 \begin{proof}
 	Sean $n, m\in\NN$, entonces:
+
 	\begin{enumerate}
 		\item Inyectividad de $N$
-		
+
 		Supongamos que $N\pa*{n} = N\pa*{m}$, entonces se tiene que $Z\pa*{\inner*{n, 0}} = Z\pa*{\inner*{m, 0}}$, lo cual significa que $\inner*{n, 0} =_{\ZZ}\inner*{m, 0}$, es decir que $n + 0 = 0 + m$, o equivalentemente, $n = m$. Por lo tanto, $N$ es inyectiva.
-		
+
 		\item Conservación de la suma
-		
+
 		Se tiene lo siguiente:
 		\begin{align*}
 			N\pa*{n + m} &= Z\pa*{\inner*{n + m, 0}}\\
@@ -553,9 +745,9 @@ Aseguramos que esta traducción de naturales a enteros es aquella función inyec
 			&= Z\pa*{f\pa*{N\pa*{n}, N\pa*{m}}}\\
 			&= N\pa*{n} +_{\ZZ} N\pa*{m}
 		\end{align*}
-		
+
 		\item Conservación del producto
-		
+
 		Se tiene lo siguiente:
 		\begin{align*}
 			N\pa*{nm} &= Z\pa*{\inner*{nm, 0}}\\
@@ -563,18 +755,18 @@ Aseguramos que esta traducción de naturales a enteros es aquella función inyec
 			&= Z\pa*{g\pa*{\inner*{n, 0},\inner*{m, 0}}}\\
 			&= Z\pa*{g\pa*{Z\pa*{\inner*{n, 0}}, Z\pa*{\inner*{m, 0}}}}\\
 			&= Z\pa*{g\pa*{N\pa*{n}, N\pa*{m}}}\\
-			&= N\pa*{n} \cdot_{\ZZ} N\pa*{m}
+			&= N\pa*{n}\cdot_{\ZZ} N\pa*{m}
 		\end{align*}
-		
+
 		\item Conservación del orden
-		
+
 		Sean $N\pa*{n} =\inner*{p, q}$ y $N\pa*{m} =\inner*{r, s}$ para algunos $p, q, r, s\in\NN$, entonces sabemos que $n + q = p$ y $m + s = r$ por definición de $N$, entonces:
 		\begin{align*}
 			n < m &\iff n + q < m + q\\
 			&\iff p < m + q\\
 			&\iff p + s < m + q + s\\
 			&\iff p + s < r + q\\
-			&\iff \inner*{p, q} <_{\ZZ}\inner*{r, s}\\
+			&\iff\inner*{p, q} <_{\ZZ}\inner*{r, s}\\
 			&\iff N\pa*{n} <_{\ZZ} N\pa*{m}
 		\end{align*}
 	\end{enumerate}
@@ -584,18 +776,18 @@ Con esto hemos mostrado que al trabajar con los enteros, también podemos hacer 
 
 \subsection{Los números racionales}
 
-Ya que hemos construido los números enteros, ya directamente podemos definir lo que son los números racionales, lo cuales son los más fundamentales para el estudio del Análisis Real que realizaremos. 
+Ya que hemos construido los números enteros, ya directamente podemos definir lo que son los números racionales, lo cuales son los más fundamentales para el estudio del Análisis Real que realizaremos.
 
 Fuera de $\RCA$, los números racionales se caracterizan por tener \emph{división}, y en general cualquier número racional $q$ puede expresarse como un cociente entre números enteros $q = n / m$, donde $m > 0$. De manera similar podemos codificar un número racional como un par de números enteros interpretados de la forma anterior. Por ejemplo, el número $2/3$ sería el par $(2, 3)$. Sin embargo, el par no es único, pues $2/3$ también puede representarse con los pares $(4, 6)$, $(6, 9)$, $(8, 12)$, etc. Entonces todos estos pares se deberían considerar \emph{equivalentes} al interpretarse como el mismo racional. En general, para cada par de pares $(p, q)$ y $(r, s)$ que representan a los racionales $p/q$ y $r/s$, estos son equivalentes si y solo si $p/q = r/s$, o equivalentemente $ps = rq$. De esta manera podemos definir la relación de equivalencia entre pares de enteros en $\RCA$ que codifica la igualdad entre racionales.
 
 \begin{definition}[Igualdad en $\QQ$]
 	Se define la relación $=_{\QQ}\subseteq\pa*{\ZZ\times\ZZ^{+}}\times\pa*{\ZZ\times\ZZ^{+}}$ como sigue para cada $n, m, p, q\in\NN$:
 	\[
-	\inner*{n, m} =_{\QQ}\inner*{p, q}\iff nq = pm
+		\inner*{n, m} =_{\QQ}\inner*{p, q}\iff nq = pm
 	\]
 \end{definition}
 
-Aquí $\ZZ^{+}$ se entiende como el conjunto de enteros positivos, es decir el conjunto $\ZZ^{+} =\set*{n: \pa*{n\in\ZZ}\land\pa*{n >_{\ZZ} 0}}$. Se tiene también que esta relación existe por $\COMPRENSION{\Delta_{1}^{0}}$. 
+Aquí $\ZZ^{+}$ se entiende como el conjunto de enteros positivos, es decir el conjunto $\ZZ^{+} =\set*{n:\pa*{n\in\ZZ}\land\pa*{n >_{\ZZ} 0}}$. Se tiene también que esta relación existe por $\COMPRENSION{\Delta_{1}^{0}}$.
 
 De manera análoga al teorema \ref{theo: relacion_equivalencia_z} se demuestra que $=_{\QQ}$ es de equivalencia, por lo que para cada $q\in\ZZ\times\ZZ^{+}$ existe su clase de equivalencia $\bra*{q}_{=_{\QQ}}$ por $\COMPRENSION{\Delta_{1}^{0}}$. Entonces, de manera similar definiremos a los números racionales como el conjunto de elementos mínimos de cada clase de equivalencia.
 
@@ -621,10 +813,10 @@ Por lo que la suma y producto estarían codificados como los pares $\pa*{nq + mp
 	\label{def: suma_producto_q_aux}
 	Definimos las siguientes funciones:
 	\[
-	\begin{NiceArray}{cc}
-		f:\pa*{\ZZ\times\ZZ^{+}}\times\pa*{\ZZ\times\ZZ^{+}}\to\NN & g:\pa*{\ZZ\times\ZZ^{+}}\times\pa*{\ZZ\times\ZZ^{+}}\to\NN\\
-		\pa*{\inner*{n, m},\inner*{p, q}}\mapsto\inner*{nq + mp, mq} &\pa*{\inner*{n, m},\inner*{p, q}}\mapsto\inner*{np, mq}
-	\end{NiceArray}
+		\begin{NiceArray}{cc}
+			f:\pa*{\ZZ\times\ZZ^{+}}\times\pa*{\ZZ\times\ZZ^{+}}\to\NN & g:\pa*{\ZZ\times\ZZ^{+}}\times\pa*{\ZZ\times\ZZ^{+}}\to\NN\\
+			\pa*{\inner*{n, m},\inner*{p, q}}\mapsto\inner*{nq + mp, mq} &\pa*{\inner*{n, m},\inner*{p, q}}\mapsto\inner*{np, mq}
+		\end{NiceArray}
 	\]
 \end{definition}
 
@@ -637,7 +829,7 @@ Al igual que en caso de los enteros, es necesario asegurar que estas operaciones
 
 \begin{proof}
 	Sean $n, p, r, t\in\ZZ$ y $m, q, s, u\in\ZZ^{+}$ tales que $x =\inner*{n, m}$, $y =\inner*{p, q}$, $z =\inner*{r, s}$ y $w =\inner*{t, u}$ donde además $x =_{\QQ} z$ y $y =_{\QQ} w$. Se tiene entonces que $ns = rm$ y $pu = tq$.
-	
+
 	\begin{enumerate}
 		\item Para $f$ se tiene lo siguiente:
 		\begin{align*}
@@ -670,6 +862,7 @@ Con esto podemos demostrar que estas funciones se comportan bien, lo cual signif
 \begin{lemma}
 	\label{lemma: prop_suma_prod_q}
 	Para cada $x, y, z\in\ZZ\times\ZZ^{+}$ se satisface lo siguiente:
+
 	\begin{enumerate}
 		\item $f\pa*{x, y} = f\pa*{y, x}$
 		\item $g\pa*{x, y} = g\pa*{y, x}$
@@ -680,15 +873,15 @@ Con esto podemos demostrar que estas funciones se comportan bien, lo cual signif
 \end{lemma}
 
 \begin{proof}
-	Las demostraciones de los primeros cuatro puntos son análogas a lo que se realiza en las demostraciones del teorema \ref{lemma: prop_suma_prod_z}. La única necesaria a demostrar es la del último punto que es la distributividad. 
-	
+	Las demostraciones de los primeros cuatro puntos son análogas a lo que se realiza en las demostraciones del teorema \ref{lemma: prop_suma_prod_z}. La única necesaria a demostrar es la del último punto que es la distributividad.
+
 	Sean $n, p, r\in\ZZ$ y $m, q, s\in\ZZ^{+}$ tales que $x =\inner*{n, m}$, $y =\inner*{p, q}$, $z =\inner*{r, s}$, entonces obtenemos lo siguiente usando el lema \ref{lemma: cancelacion_cociente}:
 	\begin{align*}
 		g\pa*{x, f\pa*{y, z}} &= g\pa*{x,\inner*{ps + qr, qs}}\\
 		&=\inner*{n\pa*{ps + qr}, m\pa*{qs}}\\
 		&=\inner*{nps + nqr, mqs}\\
 		&=_{\QQ}\inner*{m\pa*{nps + nqr}, m^{2}qs}\\
-		&=\inner*{\pa*{np}\pa*{ms} +\pa*{mq}\pa*{nr}, \pa*{mq}\pa*{ms}}\\
+		&=\inner*{\pa*{np}\pa*{ms} +\pa*{mq}\pa*{nr},\pa*{mq}\pa*{ms}}\\
 		&= f\pa*{\inner*{np, mq},\inner*{nr, ms}}\\
 		&= f\pa*{g\pa*{x, y}, g\pa*{x, z}}
 	\end{align*}
@@ -700,7 +893,7 @@ Con esto podemos demostrar que estas funciones se comportan bien, lo cual signif
 \end{lemma}
 
 \begin{proof}
-	Se sigue directamente de las igualdades $0\cdot n = 0$ y $n = n$.
+	Se sigue directamente de las igualdades $0n = 0$ y $n = n$.
 \end{proof}
 
 Podemos entonces ahora definir las operaciones de suma y producto en $\QQ$ de manera coherente.
@@ -708,10 +901,10 @@ Podemos entonces ahora definir las operaciones de suma y producto en $\QQ$ de ma
 \begin{definition}[Suma y producto en $\QQ$]
 	Se define la \emph{suma} y \emph{producto} en $\QQ$ como las siguientes funciones:
 	\[
-	\begin{NiceArray}{cc}
-		+_{\QQ}:QQ^{2}\to\QQ & \cdot_{\QQ}:QQ^{2}\to\QQ\\
-		\pa*{x, y}\mapsto Q\pa*{f\pa*{x, y}} &\pa*{x, y}\mapsto Q\pa*{g\pa*{x, y}}
-	\end{NiceArray}
+		\begin{NiceArray}{cc}
+			+_{\QQ}:QQ^{2}\to\QQ &\cdot_{\QQ}:QQ^{2}\to\QQ\\
+			\pa*{x, y}\mapsto Q\pa*{f\pa*{x, y}} &\pa*{x, y}\mapsto Q\pa*{g\pa*{x, y}}
+		\end{NiceArray}
 	\]
 	donde $f$ y $g$ son las funciones de la definición \ref{def: suma_producto_q_aux}.
 \end{definition}
@@ -724,10 +917,10 @@ Se puede entonces probar una propiedad fundamental la cual es que $\QQ$ es un ca
 
 \begin{proof}
 	Solo es necesario demostrar la existencia de neutros e inversos (aditivos y multiplicativos) en $\QQ$, pues las otras propiedades de campo son análogas a las de la demostración del teorema \ref{theo: enteros_anillo}.
-	
+
 	\begin{enumerate}
 		\item Neutro aditivo
-		
+
 		Sea $x =\inner*{p, q}\in\QQ$ para algunos $p\in\ZZ$ y $q\in\ZZ^{+}$. Entonces si definimos $0_{\QQ}\coloneqq Q\pa*{\inner*{0, 1}}$, se obtiene lo siguiente:
 		\begin{align*}
 			x +_{\QQ} 0_{\QQ} &= Q\pa*{f\pa*{x, 0_{\QQ}}}\\
@@ -738,52 +931,53 @@ Se puede entonces probar una propiedad fundamental la cual es que $\QQ$ es un ca
 			&= Q\pa*{x} = x
 		\end{align*}
 		\item Neutro multiplicativo
-		
+
 		Sea $x =\inner*{p, q}\in\QQ$ para algunos $p\in\ZZ$ y $q\in\ZZ^{+}$. Entonces si definimos $1_{\QQ}\coloneqq Q\pa*{\inner*{1, 1}}$, se obtiene lo siguiente:
 		\begin{align*}
-			x \cdot_{\QQ} 1_{\QQ} &= Q\pa*{g\pa*{x, 1_{\QQ}}}\\
+			x\cdot_{\QQ} 1_{\QQ} &= Q\pa*{g\pa*{x, 1_{\QQ}}}\\
 			&= Q\pa*{g\pa*{\inner*{p, q}, Q\pa*{\inner*{1, 1}}}}\\
 			&= Q\pa*{g\pa*{p, q},\inner*{1, 1}}\\
 			&= Q\pa*{\inner*{p, q}}\\
 			&= Q\pa*{x} = x
 		\end{align*}
-		
+
 		\item Inverso aditivo
-		
+
 		Sea $x =\inner*{p, q}\in\QQ$ para algunos $p\in\ZZ$ y $q\in\ZZ^{+}$. Entonces si definimos $-x\coloneqq Q\pa*{\inner*{-p, q}}$, se obtiene lo siguiente:
 		\begin{align*}
-			x +_{\QQ} \pa*{-x} &= Q\pa*{f\pa*{x, -x}}\\
+			x +_{\QQ}\pa*{-x} &= Q\pa*{f\pa*{x, -x}}\\
 			&= Q\pa*{f\pa*{\inner*{p, q}, Q\pa*{\inner*{-p, q}}}}\\
 			&= Q\pa*{f\pa*{p, q},\inner*{-p, q}}\\
 			&= Q\pa*{pq + q\pa*{-p}, q^{2}}\\
 			&= Q\pa*{\inner*{0, q^{2}}}\\
 			&= Q\pa*{\inner*{0, 1}} = 0_{\QQ}
 		\end{align*}
-		
+
 		\item Inverso multiplicativo
-		
+
 		Sea $x =\inner*{p, q}\in\QQ$ para algunos $p\in\ZZ$ y $q\in\ZZ^{+}$. Si $x\neq 0_{\QQ}$, entonces $p\neq 0$, luego tenemos dos casos: $p > 0$ o $p < 0$.
-		
+
 		Si $p > 0$, entonces definimos $x^{-1}\coloneqq Q\pa*{\inner*{q, p}}$. Luego:
 		\begin{align*}
-			x \cdot_{\QQ} x^{-1} &= Q\pa*{g\pa*{x, x^{-1}}}\\
+			x\cdot_{\QQ} x^{-1} &= Q\pa*{g\pa*{x, x^{-1}}}\\
 			&= Q\pa*{g\pa*{\inner*{p, q}, Q\pa*{\inner*{q, p}}}}\\
 			&= Q\pa*{g\pa*{p, q},\inner*{q, p}}\\
 			&= Q\pa*{\inner*{pq, pq}}\\
 			&= Q\pa*{\inner*{1, 1}} = 1_{\QQ}
 		\end{align*}
-		
+
 		En cambio, si $p < 0$, entonces definimos $x^{-1}\coloneqq Q\pa*{\inner*{-q, -p}}$. Luego:
 		\begin{align*}
-			x \cdot_{\QQ} x^{-1} &= Q\pa*{g\pa*{x, x^{-1}}}\\
+			x\cdot_{\QQ} x^{-1} &= Q\pa*{g\pa*{x, x^{-1}}}\\
 			&= Q\pa*{g\pa*{\inner*{p, q}, Q\pa*{\inner*{-q, -p}}}}\\
 			&= Q\pa*{g\pa*{p, q},\inner*{-q, -p}}\\
 			&= Q\pa*{\inner*{-pq, -pq}}\\
 			&= Q\pa*{\inner*{1, 1}} = 1_{\QQ}
 		\end{align*}
-		
+
 		En cualquier caso existe $x^{-1}\in\QQ$ tal que $x\cdot_{\QQ}x^{-1} = 1_{\QQ}$
 	\end{enumerate}
+
 	Por lo tanto, el conjunto $\QQ$ es un campo con las operaciones $+_{\QQ}$ y $\cdot_{\QQ}$.
 \end{proof}
 
@@ -802,24 +996,25 @@ Para terminar con la construcción de los racionales definamos el orden en ellos
 
 \begin{proof}
 	Sean $x =\inner*{n, m}, y =\inner*{p, q}, z =\inner*{r, s}\in\QQ$ para algunos $n, p, r\in\ZZ$ y $m, q, s\in\ZZ^{+}$. Mostremos entonces que $<_{\QQ}$ es irreflexiva, transitiva y tricotómica.
-	
+
 	\begin{enumerate}
 		\item Irreflexividad
-		
+
 		Puesto que el orden en $\ZZ$ es irreflexiva, sabemos entonces que $\neg\pa*{nm < nm}$, es decir, $\neg\pa*{x <_{\QQ} x}$.
-		
+
 		\item Transitividad
-		
+
 		Supongamos que $x <_{\QQ} y$ y $y <_{\QQ} z$, entonces $nq < pm$ y $ps < rq$. Puesto que $s > 0$, entonces $nqs < pms$. Como $m > 0$, entonces $psm < rqm$. Por transitividad del orden en $\ZZ$ tenemos que $nqs < rqm$, y como $q > 0$, entonces $ns < rm$. Por lo tanto, $x <_{\QQ} z$.
-		
+
 		\item Tricotomía
-		
+
 		Por la tricotomía en $\ZZ$ sabemos que se satisface una y solo una de las siguientes afirmaciones: $nq = pm$, $nq < pm$ o $nq > pm$.
-		
+
 		Si $nq = pm$, entonces $x =_{\QQ} y$, y puesto que $x, y\in\QQ$, entonces $x = y$.
-		
+
 		Si $nq < pm$, entonces $x <_{\QQ} y$; y si $nq > pm$, entonces $y <_{\QQ} x$.
 	\end{enumerate}
+
 	Por lo tanto, $<_{\QQ}$ es un orden lineal.
 \end{proof}
 
@@ -827,22 +1022,24 @@ Finalmente podemos demostrar igualmente que podemos encajar $\ZZ$ en $\QQ$ media
 
 \begin{theorem}[Encaje de $\ZZ$ en $\QQ$]
 	Defínase la función $Z:\ZZ\to\QQ$ tal que para cada $n\in\ZZ$, $Z\pa*{n}\coloneqq Q\pa*{\inner*{n, 1}}$. Entonces $Z$ es inyectiva y satisface las siguientes propiedades:
+
 	\begin{enumerate}
 		\item Para cada $n, m\in\ZZ$, $Z\pa*{n + m} = Z\pa*{n} +_{\QQ} Z\pa*{m}$.
-		\item Para cada $n, m\in\ZZ$, $Z\pa*{nm} = Z\pa*{n} \cdot_{\QQ} Z\pa*{m}$.
+		\item Para cada $n, m\in\ZZ$, $Z\pa*{nm} = Z\pa*{n}\cdot_{\QQ} Z\pa*{m}$.
 		\item Para cada $n, m\in\ZZ$, $n < m$ si y solo si $Z\pa*{n} <_{\QQ} Z\pa*{m}$.
 	\end{enumerate}
 \end{theorem}
 
 \begin{proof}
 	Sean $p, q\in\ZZ$, entonces:
+
 	\begin{enumerate}
 		\item Inyectividad de $Z$
-		
+
 		Supongamos que $Z\pa*{p} = Z\pa*{q}$, entonces se tiene que $Q\pa*{\inner*{p, 1}} = Q\pa*{\inner*{q, 1}}$, lo cual significa que $\inner*{p, 1} =_{\QQ}\inner*{q, 1}$, es decir que $p\cdot 1 = q\cdot 1$, o equivalentemente, $p = q$. Por lo tanto, $Z$ es inyectiva.
-		
+
 		\item Conservación de la suma
-		
+
 		Se tiene lo siguiente:
 		\begin{align*}
 			Z\pa*{p + q} &= Q\pa*{\inner*{p + q, 1}}\\
@@ -851,27 +1048,27 @@ Finalmente podemos demostrar igualmente que podemos encajar $\ZZ$ en $\QQ$ media
 			&= Q\pa*{f\pa*{Z\pa*{n}, Z\pa*{m}}}\\
 			&= Z\pa*{n} +_{\QQ} Z\pa*{m}
 		\end{align*}
-		
+
 		\item Conservación del producto
-		
+
 		Se tiene lo siguiente:
 		\begin{align*}
 			Z\pa*{pq} &= Q\pa*{\inner*{pq, 1}}\\
 			&= Q\pa*{g\pa*{\inner*{p, 1},\inner*{q, 1}}}\\
 			&= Q\pa*{g\pa*{Q\pa*{\inner*{p, 1}}, Q\pa*{\inner*{q, 1}}}}\\
 			&= Q\pa*{g\pa*{Z\pa*{p}, Z\pa*{q}}}\\
-			&= Z\pa*{n} \cdot_{\QQ} Z\pa*{m}
+			&= Z\pa*{n}\cdot_{\QQ} Z\pa*{m}
 		\end{align*}
-		
+
 		\item Conservación del orden
-		
+
 		Sean $Z\pa*{p} =\inner*{n, m}$ y $Z\pa*{q} =\inner*{r, s}$ para algunos $n, r\in\ZZ$ y $m, s\in\ZZ^{+}$, entonces sabemos que $pm = n$ y $qs = r$ por definición de $Z$, entonces:
 		\begin{align*}
 			p < q &\iff pm < qm\\
 			&\iff n < mq\\
 			&\iff ns < mqs\\
 			&\iff ns < mr\\
-			&\iff \inner*{n, m} <_{\QQ}\inner*{r, s}\\
+			&\iff\inner*{n, m} <_{\QQ}\inner*{r, s}\\
 			&\iff Z\pa*{p} <_{\QQ} Z\pa*{q}
 		\end{align*}
 	\end{enumerate}
@@ -883,11 +1080,11 @@ Con los racionales a nuestra disposición, el siguiente paso es definir qué sig
 
 La construcción que seguiremos es la de Cauchy. Para motivarla, recordemos (fuera de $\RCA$) que $\QQ$, con la métrica inducida por el valor absoluto, no es un espacio métrico completo: existen sucesiones de Cauchy de racionales que no convergen en $\QQ$. Por ejemplo, la sucesión $\set*{x_{n}}_{n\in\omega}$ definida por $x_{0} = 1$ y $x_{n + 1} = x_{n} / 2 + 1 / x_{n}$ es, a partir de su segundo término, decreciente y acotada inferiormente por $\sqrt{2}$, y por lo tanto convergente en $\RR$. Como toda sucesión convergente en $\RR$ es de Cauchy, se trata de una sucesión de Cauchy de números racionales; sin embargo, $\lim_{n\to\infty}x_{n} =\sqrt{2}\notin\QQ$.
 
-La idea es entonces construir $\RR$ \emph{completando} a $\QQ$: consideramos todas las sucesiones de Cauchy de racionales e identificamos aquellas que deberían tener el mismo límite. Como ese límite no necesariamente existe en $\QQ$, no podemos compararlo directamente; lo que sí podemos hacer es examinar la sucesión resta $\set*{x_{n} - y_{n}}_{n\in\omega}$, la cual debería converger a $0$. Así, diremos que dos sucesiones de Cauchy $\set*{x_{n}}_{n\in\omega}, \set*{y_{n}}_{n\in\omega}\subseteq\QQ$ son \emph{equivalentes} si para cada $\varepsilon > 0$ existe $N\in\omega$ tal que $\abs*{x_{n} - y_{n}} <\varepsilon$ para cada $n\geq N$.
+La idea es entonces construir $\RR$ \emph{completando} a $\QQ$: consideramos todas las sucesiones de Cauchy de racionales e identificamos aquellas que deberían tener el mismo límite. Como ese límite no necesariamente existe en $\QQ$, no podemos compararlo directamente; lo que sí podemos hacer es examinar la sucesión resta $\set*{x_{n} - y_{n}}_{n\in\omega}$, la cual debería converger a $0$. Así, diremos que dos sucesiones de Cauchy $\set*{x_{n}}_{n\in\omega},\set*{y_{n}}_{n\in\omega}\subseteq\QQ$ son \emph{equivalentes} si para cada $\varepsilon > 0$ existe $N\in\omega$ tal que $\abs*{x_{n} - y_{n}} <\varepsilon$ para cada $n\geq N$.
 
 Esta definición, sin embargo, tiene un costo: vista como fórmula es $\Pi_{2}^{0}$, y trabajar en $\RCA$ con una noción de igualdad tan compleja resulta poco conveniente, por lo que nos interesa simplificarla. Observemos qué dice realmente la definición: la resta se ``acerca'' al cero tanto como queramos (el papel de $\varepsilon$) a partir de cierto índice (el papel de $N$), de modo que $N$ es, implícitamente, una función $N\pa*{\varepsilon}$. Una primera simplificación es no usar un $\varepsilon$ arbitrario, sino una sucesión concreta de valores que decaiga a cero; una buena propuesta son los números $2^{1 - n}$ con $n\in\omega$, que decaen rápidamente a $0$ conforme $n$ crece. Con esto, $N$ pasa a ser una función de $n$. Aun así, la función $N\pa*{n}$ puede comportarse de manera errática: puede ser mayor que $n$ para algunos valores y menor para otros, de modo que determinarla puede ser complicado y variar de una pareja de sucesiones a otra. La segunda simplificación es entonces eliminar por completo la búsqueda de $N$ imponiendo $N\pa*{n} = n$.
 
-Llegamos así a la siguiente definición: dos sucesiones $\set*{x_{n}}_{n\in\omega}, \set*{y_{n}}_{n\in\omega}\subseteq\QQ$ son equivalentes si para cada $n\in\omega$ se satisface que $\abs*{x_{n} - y_{n}} < 2^{1 - n}$. Ahora bien, esta condición obliga a que la sucesión resta decaiga a un ritmo exponencial, y no toda sucesión de Cauchy decae tan rápido. Para que la noción de equivalencia sea coherente, basta restringirnos desde el inicio a sucesiones de Cauchy que decaigan a ese mismo ritmo: pedimos que para cada $k, n, m\in\omega$, si $n, m\geq k$, entonces $\abs*{x_{n} - x_{m}} < 2^{-k}$. Esta condición se simplifica tomando $n = k$ y escribiendo $m = k + p$ con $p\in\omega$: trabajaremos entonces con las sucesiones $\set*{x_{n}}_{n\in\omega}\subseteq\QQ$ tales que para cada $k, p\in\omega$, $\abs*{x_{k} - x_{k + p}} < 2^{-k}$. Con todo esto podemos definir qué significa ser un número real en $\RCA$.
+Llegamos así a la siguiente definición: dos sucesiones $\set*{x_{n}}_{n\in\omega},\set*{y_{n}}_{n\in\omega}\subseteq\QQ$ son equivalentes si para cada $n\in\omega$ se satisface que $\abs*{x_{n} - y_{n}} < 2^{1 - n}$. Ahora bien, esta condición obliga a que la sucesión resta decaiga a un ritmo exponencial, y no toda sucesión de Cauchy decae tan rápido. Para que la noción de equivalencia sea coherente, basta restringirnos desde el inicio a sucesiones de Cauchy que decaigan a ese mismo ritmo: pedimos que para cada $k, n, m\in\omega$, si $n, m\geq k$, entonces $\abs*{x_{n} - x_{m}} < 2^{-k}$. Esta condición se simplifica tomando $n = k$ y escribiendo $m = k + p$ con $p\in\omega$: trabajaremos entonces con las sucesiones $\set*{x_{n}}_{n\in\omega}\subseteq\QQ$ tales que para cada $k, p\in\omega$, $\abs*{x_{k} - x_{k + p}} < 2^{-k}$. Con todo esto podemos definir qué significa ser un número real en $\RCA$.
 
 \begin{definition}[Sucesiones]
 	Una \emph{sucesión de números racionales} es una función $f:\NN\to\QQ$. Se denotará a la sucesión $f$ por $\set*{x_{k}}_{k\in\NN}$ si para cada $k\in\NN$, $f\pa*{k} = x_{k}$.
@@ -905,6 +1102,7 @@ Aunque esta relación $=_{\RR}$ no es un conjunto que exista en $\RCA$, ya que e
 
 \begin{theorem}
 	Se demuestra lo siguiente:
+
 	\begin{enumerate}
 		\item Para cada número real $x$ se satisface que $x =_{\RR} x$.
 		\item Para cada par de reales $x$ y $y$ se satisface que $x =_{\RR} y$ implica $y =_{\RR} x$.
@@ -914,6 +1112,7 @@ Aunque esta relación $=_{\RR}$ no es un conjunto que exista en $\RCA$, ya que e
 
 \begin{proof}
 	Consideremos a los reales $x =\set*{x_{k}}_{k\in\NN}$, $y =\set*{y_{k}}_{k\in\NN}$ y $z =\set*{z_{k}}_{k\in\NN}$.
+
 	\begin{enumerate}
 		\item Se satisface claramente para cada $k$ que:
 		\[
@@ -923,7 +1122,7 @@ Aunque esta relación $=_{\RR}$ no es un conjunto que exista en $\RCA$, ya que e
 		\item Si $x =_{\RR} y$, entonces sabemos que para cada $k$ se satisface que $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$. Directamente se sigue que para cada $k$, $\abs*{y_{k} - x_{k}} < 2^{-k + 1}$, es decir, $y =_{\RR} x$.
 		\item Si $x =_{\RR} y$ y $y =_{\RR} z$, entonces por definición para cada $k$, $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$ y $\abs*{y_{k} - z_{k}} < 2^{-k + 1}$. Consideremos un valor fijo $p > 1$, entonces por la desigualdad del triángulo y al ser $x$, $y$ y $z$ números reales se sigue que para cada $k$:
 		\begin{align*}
-			\abs*{x_{k} - z_{k}} &\leq\abs*{x_{k} - x_{k + p}} +\abs*{x_{k + p} - y_{k + p}} +\abs*{y_{k} - y_{k + p}} + \abs*{y_{k} - z_{k}}\\
+			\abs*{x_{k} - z_{k}} &\leq\abs*{x_{k} - x_{k + p}} +\abs*{x_{k + p} - y_{k + p}} +\abs*{y_{k} - y_{k + p}} +\abs*{y_{k} - z_{k}}\\
 			&< 2^{-k} + 2^{- k - p + 1} + 2^{-k} - 2^{-k + 1}\\
 			&= 2^{- k + 1}\pa*{2^{-1} + 2^{-p} + 2^{-1} + 1}\\
 			&= 2^{-k + 1} 2^{-p + 1}\\
@@ -945,7 +1144,7 @@ Tomando el límite cuando $p\to\infty$ notemos que se tiene lo siguiente para ca
 	\begin{NiceArray}{c}
 		\abs*{x_{n} - x} < 2^{-n}\\
 		\abs*{y_{n} - y} < 2^{-n}
-\end{NiceArray}
+	\end{NiceArray}
 \]
 de lo cual se sigue que $x_{n} - 2^{-n} < x$ y $y < y_{n} + 2^{n}$. Puesto que $x\leq y$ se tiene que para cada $n\in\omega$, $x_{n} - 2^{-n} < x\leq y < y_{n} + 2^{-n}$, o equivalentemente se satisface que $x_{n} < y_{n} + 2^{-n + 1}$. Además, notemos que tomando el límite cuando $n\to\infty$ obtenemos que:
 \[
@@ -955,10 +1154,11 @@ de lo cual se sigue que $x_{n} - 2^{-n} < x$ y $y < y_{n} + 2^{n}$. Puesto que $
 Por lo tanto, podemos concluir que $x\leq y$ si y solo si para cada $n\in\omega$ se satisface que $x_{n} < y_{n} + 2^{-n + 1}$. De esta forma podemos definir la relación de orden de los reales en $\RCA$.
 
 \begin{definition}[Orden en $\RR$]
-	Sean $x =\set*{x_{k}}_{k\in\NN}$ y $y =\set*{y_{k}}_{k\in\NN}$ números reales. 
+	Sean $x =\set*{x_{k}}_{k\in\NN}$ y $y =\set*{y_{k}}_{k\in\NN}$ números reales.
+
 	\begin{itemize}
 		\item Denotaremos por $x\leq_{\RR} y$ si para cada $k$ se satisface que $x_{k} < y_{k} + 2^{-k + 1}$.
-		
+
 		\item Denotaremos por $x <_{\RR} y$ si no se satisface que $y\leq_{\RR}x$.
 	\end{itemize}
 \end{definition}
@@ -967,6 +1167,7 @@ Mostremos que de esta definición de orden se puede demostrar que se satisfacen 
 
 \begin{theorem}
 	Se demuestra lo siguiente:
+
 	\begin{enumerate}
 		\item Si $x$ es un real, entonces se satisface que $x\leq_{\RR} x$.
 		\item Si $x$, $y$ y $z$ son números reales, $x\leq_{\RR} y$ y $y\leq_{\RR} z$, entonces $x\leq_{\RR} z$.
@@ -977,6 +1178,7 @@ Mostremos que de esta definición de orden se puede demostrar que se satisfacen 
 
 \begin{proof}
 	Consideremos a los números reales $x =\set*{x_{k}}_{k\in\NN}$, $y =\set*{y_{k}}_{k\in\NN}$ y $z =\set*{z_{k}}_{k\in\NN}$.
+
 	\begin{enumerate}
 		\item Puesto que para cada $k$ se satisface que $2^{-k + 1} > 0$ se sigue que $x_{k} < x_{k} + 2^{-k + 1}$, es decir, $x\leq_{\RR} x$.
 		\item Si $x\leq_{\RR} y$ y $y\leq_{\RR} z$, entonces sabemos que para cada $k$, $x_{k} < y_{k} + 2^{-k + 1}$ y $y_{k} < z_{k} + 2^{-k + 1}$. Consideremos un valor fijo $p > 1$, entonces para cada $k$ se sigue lo siguiente:
