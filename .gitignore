@@ -36,3 +36,23 @@ Desktop.ini
 
 # ---- NO ignorar el PDF final (se respalda a proposito) ----
 !main.pdf
+
+# ---- Material de consulta: NO se respalda (solo va lo de la tesis) ----
+Referencias/
+
+# ---- Metadatos de sincronizacion (Syncthing / OneDrive) ----
+.stfolder/
+.stversions/
+*.sync-conflict-*
+
+# ---- Copias de conflicto que generan OneDrive y Syncthing ----
+main (*).pdf
+* (1).*
+* (2).*
+* (3).*
+* (4).*
+* (5).*
+* (6).*
+* (7).*
+* (8).*
+* (9).*

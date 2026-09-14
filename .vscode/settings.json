@@ -1,3 +1,28 @@
 {
-    "workbench.colorTheme": "Solarized Dark"
+    "workbench.colorTheme": "Solarized Dark",
+
+    // ---------- Git / respaldo de la tesis ----------
+
+    // Revisa GitHub en segundo plano cada 3 min y avisa si hay cambios
+    // que no tienes localmente (util si algun dia trabajas en otra maquina).
+    "git.autofetch": true,
+    "git.autofetchPeriod": 180,
+
+    // Al hacer Commit, sube automaticamente a GitHub.
+    // Asi no se te queda un commit solo en tu compu por olvidar "Sync Changes".
+    "git.postCommitCommand": "push",
+
+    // No preguntar "estas seguro?" cada vez que sincronizas.
+    "git.confirmSync": false,
+
+    // Obliga a marcar (stage) lo que quieres incluir antes de commitear,
+    // en lugar de meter todo automaticamente. Te deja decidir, por ejemplo,
+    // no subir main.pdf en cada commit.
+    "git.enableSmartCommit": false,
+
+    // Separa visualmente los archivos nuevos de los modificados.
+    "git.untrackedChanges": "separate",
+
+    // Muestra los cambios en arbol de carpetas (Capitulos/, imagenes/).
+    "scm.defaultViewMode": "tree"
 }
