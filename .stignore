@@ -1,0 +1,5 @@
+// ---- Patrones de exclusion de Syncthing (carpeta "Tesis") ----
+// El repositorio de Git NO se sincroniza con Syncthing: de eso se encarga
+// GitHub. Si dos dispositivos escriben dentro de .git al mismo tiempo, el
+// repositorio se corrompe (de ahi salian los index.lock sueltos).
+.git
