@@ -249,15 +249,53 @@ De ahora en adelante, todos los siguientes teoremas serán demostrados dentro de
 		
 		Mostremos por inducción sobre $n$. Para el caso base se satisface $0\neq 0\to 0 < 0$ por vacuidad.
 
-		Sea $n$ tal que $n\neq 0$ implica $0 < n$, y mostremos que se cumple para $n + 1$. Si $n + 1\neq 0$, entonces tenemos dos casos: $n = 0$ o $n\neq 0$. Si $n = 0$, entonces por el axioma (\ref{def_axiomas: el_menor_o_igual}) se tiene que $n = 0 < 0 + 1 = n + 1$. Si suponemos ahora el segundo caso, entonces por hipótesis de inducción la afirmación $n\neq 0$ implica $0 < n$. Por el mismo axioma (\ref{def_axiomas: el_menor_o_igual}) se tiene que $n < n + 1$, y por transitividad del décimoprimer punto se cumple que $0 < n + 1$. En cualquier caso $n + 1\neq 0$ implica $0 < n + 1$.
+		Sea $n$ tal que $n\neq 0$ implica $0 < n$, y mostremos que se cumple para $n + 1$. Si $n + 1\neq 0$, entonces tenemos dos casos: $n = 0$ o $n\neq 0$. Si $n = 0$, entonces por el axioma (\ref{def_axiomas: el_menor_o_igual}) se tiene que $n = 0 < 0 + 1 = n + 1$. Si suponemos ahora el segundo caso, entonces por hipótesis de inducción la afirmación $n\neq 0$ implica $0 < n$. Por el mismo axioma (\ref{def_axiomas: el_menor_o_igual}) se tiene que $n < n + 1$, y por transitividad del undécimo     punto se cumple que $0 < n + 1$. En cualquier caso $n + 1\neq 0$ implica $0 < n + 1$.
 
 		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n$ se satisface que $n \neq 0$ si y solo si $0 < n$.
 
 		\item $\pa*{n < m}\lor\pa*{n = m}\lor\pa*{m < n}$
+		
+		Mostremos por inducción sobre $n$. Para el caso base se tiene por el punto anterior, de manera equivalente, que para cada $m$, $m = 0$ o $0 < m$. Por lo tanto, se satisface la fórmula $\pa*{0 < m}\lor\pa*{0 = m}\lor\pa*{m < 0}$.
+
+		Sea ahora $n$ tal que $n < m$, $n = m$ o $m < n$, y mostremos que se satisface para $n + 1$, de lo cual se tienen tres casos. Si $n < m$, entonces $n + 1 < m + 1$ por el duodécimo punto, y por el axioma \ref{def_axiomas: el_menor_o_igual} se satisface que $n + 1 < m$ o $n + 1 = m$. Si $n = m$, entonces $n + 1 = m + 1$, y puesto que $m < m + 1$, se sigue que $m < n + 1$. Si $m < n$, entonces $m + 1 < n + 1$ por el punto anterior, y puesto que $m < m + 1$, se sigue que $m < n + 1$. En cualquier caso se satisface la fórmula $\pa*{n < m}\lor\pa*{n = m}\lor\pa*{m < n}$.
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m$ se satisface que $n < m$, $n = m$ o $m < n$.
+
 		\item $\neg\pa*{n < n}$
+		
+		Mostremos por inducción sobre $n$. Para el caso base se satisface que $\lnot\pa*{0 < 0}$ por el axioma \ref{def_axiomas: no_hay_negativos}.
+
+		Sea ahora $n$ tal que $\lnot\pa*{n < n}$, y mostremos que se satisface para $n + 1$. Por el duodécimo punto, de manera equivalente, tenemos que $\lnot\pa*{n < n}$ si y solo si $\lnot\pa*{n + 1 < n + 1}$. Por hipótesis de inducción, ya que $\lnot\pa*{n < n}$, se sigue que $\lnot\pa*{n + 1 < n + 1}$.
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n$ se satisface que $\lnot\pa*{n < n}$.
+
 		\item $ n < m\leftrightarrow n + p < m + p$
+		
+		Mostremos por inducción sobre $p$. Para el caso base, por el axioma \ref{def_axiomas: el_cero_es_identidad} se satisface que para cada $n, m$, $n + 0 = n$ y $m + 0 = m$. Por lo tanto, por sustitución se satisface que $n < m$ si y solo si $n + 0 < m + 0$.
+
+		Sea ahora $p$ tal que $n < m$ si y solo si $n + p < m + p$, y mostremos para $p + 1$. Por hipótesis de inducción, y por el primer y duodécimo punto se satisface que $n < m$ si y solo si $n + p < m + p$ si y solo si $\pa*{n + p} + 1 <\pa*{m + p} + 1$ si y solo si $n +\pa*{p + 1} < m +\pa*{p + 1}$.
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m, p$ se satisface que $n < m$ si y solo si $n + p < m + p$.
+
 		\item $n < n + m + 1$
+		
+		Mostremos por inducción sobre $m$. Para el caso base, se sigue por los axiomas \ref{def_axiomas: el_cero_es_identidad} y \ref{def_axiomas: el_menor_o_igual} que $n < n + 1 = n + 0 + 1$.
+
+		Sea ahora $m$ tal que $n < n + m + 1$, y mostremos que se satisface para $m + 1$. Por hipótesis de inducción, el axioma \ref{def_axiomas: el_menor_o_igual} y el primer punto se satisface que:
+		\[
+			n < n + m + 1 < n + m + 1 + 1 = n +\pa*{m + 1} + 1
+		\]
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m$ se satisface que $n < n + m + 1$.
+
 		\item $n + p = m + p\to n = m$
+		
+		Mostremos por inducción sobre $p$. Para el caso base se sigue por el axioma \ref{def_axiomas: el_cero_es_identidad} que $n + 0 = m + 0$ implica $n = m$.
+
+		Sea ahora $p$ tal que $n + p = m + p$ implica $n = m$, y mostremos para $p + 1$. Si $n + p + 1 = m + p + 1$, entonces por el primer punto y el axioma \ref{def_axiomas: sucesor_es_inyectiva} se sigue que $n + p = m + p$; y por hipótesis de inducción se cumple que $n = m$.
+
+		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m, p$ se satisface que $n + p = m + p$ implica $n = m$.
+
 		\item $\pa*{p\neq 0\land n < m}\to np < mp$
 		\item $\pa*{p\neq 0\land np < mp}\to n < m$
 		\item $\pa*{p\neq 0\land np = mp}\to n = m$

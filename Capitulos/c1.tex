@@ -2203,7 +2203,7 @@ Una propiedad que será de mucha ayuda es una caracterización de los conjuntos 
 \end{theorem}
 
 \begin{proof}
-	Consideremos primero que $A$ es c.e., entonces existen dos casos: $A =\varnothing$ o $A\neq\varnothing$. Si $A =\varnothing$, entonces consideremos a la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $f\pa*{x} =\mu z\pa*{1 = 0}$. Notemos que $f$ es computable ya que el conjunto $X =\set*{e\in\omega: 1 = 0} =\varnothing$ es primitivo-recursivo. Notemos que para cada $x\in\omega$ se satisface que $f\pa*{x}\ACABA$, por lo que $\DOMINIO{f} =\varnothing = A$.
+	Consideremos primero que $A$ es c.e., entonces existen dos casos: $A =\varnothing$ o $A\neq\varnothing$. Si $A =\varnothing$, entonces consideremos a la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $f\pa*{x} =\mu z\pa*{1 = 0}$. Notemos que $f$ es computable ya que el conjunto $X =\set*{e\in\omega: 1 = 0} =\varnothing$ es primitivo-recursivo. Notemos que para cada $x\in\omega$ se satisface que $f\pa*{x}\DIVERGE$, por lo que $\DOMINIO{f} =\varnothing = A$.
 
 	Supongamos ahora que $A\neq\varnothing$, entonces existe una función computable $g:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $x\in A$ si y solo si existe $z\in\omega$ tal que $g\pa*{z} = x$. La manera directa es considerar la siguiente función $f\pa*{x} =\mu z\pa*{g\pa*{z} = x}$, pues notemos que se satisface lo siguiente:
 	\[
@@ -2265,7 +2265,7 @@ Esta propiedad nos permite demostrar de manera casi directa que el conjunto de d
 	\]
 	Por lo que $K =\DOMINIO{f}$, y luego $K$ es c.e.
 
-	Para el caso de $K'$, se define la función $g:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$ se cumple $g\pa*{z} =\Phi_{z\bra*{0}}\pa*{z\bra*{1}}\CARACTERISTICA{=}\pa*{\LONGITUD\pa*{z}, 2}$, la cual es computable. Entonces para cada $\inner*{e, x}\in\omega$ se satisface lo siguiente:
+	Para el caso de $K'$, se define la función $g:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$ se cumple $g\pa*{z} =\Phi_{z\bra*{0}}\pa*{z\bra*{1}}$, la cual es computable. Entonces para cada $\inner*{e, x}\in\omega$ se satisface lo siguiente:
 	\[
 		g\pa*{\inner*{e, x}}\ACABA\iff\Phi_{e}\pa*{x}\ACABA\iff\inner*{e, x}\in K'
 	\]
@@ -2305,7 +2305,7 @@ Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e
 			\end{cases}
 		\end{NiceArray}
 	\]
-	las cuales son total-computables debido al T-predicado de Kleene. Mostremos que $f'$ y $g'$ no coinciden en sus imágenes de manera no trivial. Sean $z_{0}, z_{1}\in\omega$ tales que $f'\pa*{z_{0}} > 0$ y $g'\pa*{z_{1}} > 0$, y mostremos que $f'\pa*{z_{0}}\neq g'\pa*{z_{1}}$. Puesto que $f'\pa*{z_{0}}, g\pa*{z_{1}} > 0$, entonces por definición $f\pa*{z_{0}\bra*{0}}\ACABA$ y $g\pa*{z_{1}\bra*{0}}\ACABA$ por la condición del T-predicado. Ya que $f$ y $g$ tienen como rangos a $A$ y $\omega\setminus A$ respectivamente, y son disjuntos, se tiene que $f\pa*{z_{0}\bra*{0}}\neq g\pa*{z_{1}\bra*{0}}$, y por tanto:
+	las cuales son total-computables debido al T-predicado de Kleene. Mostremos que $f'$ y $g'$ no coinciden en sus imágenes para entradas que satisfacen su primer condición. Sean $z_{0}, z_{1}\in\omega$ tales que $f'\pa*{z_{0}} > 0$ y $g'\pa*{z_{1}} > 0$, y mostremos que $f'\pa*{z_{0}}\neq g'\pa*{z_{1}}$. Puesto que $f'\pa*{z_{0}}, g\pa*{z_{1}} > 0$, entonces por definición $f\pa*{z_{0}\bra*{0}}\ACABA$ y $g\pa*{z_{1}\bra*{0}}\ACABA$ por la condición del T-predicado. Ya que $f$ y $g$ tienen como rangos a $A$ y $\omega\setminus A$ respectivamente, y son disjuntos, se tiene que $f\pa*{z_{0}\bra*{0}}\neq g\pa*{z_{1}\bra*{0}}$, y por tanto:
 	\[
 		f'\pa*{z_{0}} = f\pa*{z_{0}\bra*{0}} + 1\neq g\pa*{z_{1}\bra*{0}} + 1 = g'\pa*{z_{1}}
 	\]
