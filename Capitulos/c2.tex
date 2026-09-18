@@ -59,6 +59,12 @@ Por medio de estos símbolos es que se formaremos las expresiones o \emph{palabr
 	Sean $A$ un conjunto no vacío y $n\in\omega$. Una \emph{palabra} de longitud $n$ con símbolos en $A$ es un elemento de $A^{n}$. Además, dados $a_{0},\dotsc, a_{n}\in A$, denotaremos por $a_{0}a_{1}\cdots a_{n}$ a la palabra $\pa*{a_{0},\dotsc, a_{n}}\in A^{n + 1}$.
 \end{definition}
 
+Ejemplos de palabras de $\ARITMETICA$ son $\pa*{0, =, 1, +, x}$, $\pa*{0, \cdot, 1,\in, X}$ y $\pa*{x,\cdot, (, 1, +, x, ), <, 0}$, las cuales se simplifican en notación a ``$0 = 1 + x$'', ``$0\cdot 1\in X$'' y ``$x\cdot\pa*{1 + x} < 0$''; así como también $\pa*{), =, 1, +, X}$ y $\pa*{X, +, 1, 0, (}$, las cuales se simplifican a ``$) = 1 + X$'' y ``$X + 10($''. Es importante notar que ser una palabra de $\ARITMETICA$ no necesariamente implica que esta ``tenga sentido'', es decir, no necesariamente sabemos cómo interpretar a lo que hace referencia la expresión. Con los ejemplo anteriores, con nuestra experiencia en matemáticas, y particularmente con los números naturales, la palabra ``$0 = 1 + x$'' puede interpretarse como la ecuación donde se busca un número natural (representado por $x$) tal que su sucesor es cero; sin embargo, para el caso de la palabra ``$X + 10($'' no se tiene una interpretación concreta de lo que se refiere. 
+
+Por lo tanto, necesitamos definir cuáles son las palabras que realmente podamos interpretar mediante ciertas reglas que nos permitan expresar las proposiciones que nos interese analizar, además de estar libre de ambigüedad en su interpretación. A este tipo de palabras se les denomina \emph{fórmulas}, y serán el objeto de estudio de este capítulo.
+
+
+
 Dentro de este lenguaje es que podemos definir los \emph{términos}, los cuales son palabras que se interpretarán como \emph{elementos de los números naturales}, o simplemente \emph{números}. La construcción de los términos se basa en el hecho de que podemos generar nuevos números utilizando como base los números que ya conocemos (0 y 1), además de variables de tipo número, con las cuales podremos expresar propiedades generales de los números más adelante.
 
 \begin{definition}[Términos]
@@ -168,7 +174,7 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \section{Semántica}
 
 \begin{definition}[Estructuras]
-	Una \emph{estructura} de $\ARITMETICA$, o \emph{$\ARITMETICA$-estructura}, es una tupla $\mathcal{M} =\pa*{M_{N}, M_{C}, 0^{\mathcal{M}}, 1^{\mathcal{M}}, +^{\mathcal{M}},\cdot^{\mathcal{M}}, =^{\mathcal{M}}, <^{\mathcal{M}},\in^{\mathcal{M}}}$ donde:
+	Una \emph{estructura} de $\ARITMETICA$, o simplemente             \emph{estructura}, es una tupla $\mathcal{M} =\pa*{M_{N}, M_{C}, 0^{\mathcal{M}}, 1^{\mathcal{M}}, +^{\mathcal{M}},\cdot^{\mathcal{M}}, =^{\mathcal{M}}, <^{\mathcal{M}},\in^{\mathcal{M}}}$ donde:
 
 	\begin{enumerate}
 		\item $M_{N}$ y $M_{C}$ son conjuntos no vacíos, denominados \emph{conjuntos de tipo número} y \emph{de tipo conjunto} respectivamente.
@@ -180,13 +186,13 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \end{definition}
 
 \begin{notation}
-	Para simplificar la notación, una $\ARITMETICA$-estructura se denota por una letra mayúscula en estilo caligráfico, su conjunto de tipo número se denota por esa letra en estilo plano con subíndice $N$, similarmente su conjunto de tipo conjunto se denota con subíndice $C$, y la misma letra sin subíndices es la unión de ambos.
+	Para simplificar la notación, una estructura se denota por una letra mayúscula en estilo caligráfico, su conjunto de tipo número se denota por esa letra en estilo plano con subíndice $N$, similarmente su conjunto de tipo conjunto se denota con subíndice $C$, y la misma letra sin subíndices es la unión de ambos.
 
-	Por ejemplo, si $\mathcal{A}$ es una $\ARITMETICA$-estructura, entonces $A_{N}$ es su conjunto de tipo número, $A_{C}$ es su conjunto de tipo conjunto y $A = A_{N}\cup A_{C}$.
+	Por ejemplo, si $\mathcal{A}$ es una estructura, entonces $A_{N}$ es su conjunto de tipo número, $A_{C}$ es su conjunto de tipo conjunto y $A = A_{N}\cup A_{C}$.
 \end{notation}
 
 \begin{definition}[$\omega$-estructura]
-	Sea $\mathcal{M}$ una $\ARITMETICA$-estructura. $\mathcal{M}$ se denomina \emph{$\omega$-estructura} si $M_{N} =\omega$, $M_{C}\subseteq\CPOTENCIA{\omega}$, y $+^{\mathcal{M}}$, $\cdot^{\mathcal{M}}$ y $<^{\mathcal{M}}$ se interpretan de la forma estándar en $\omega$, y $\in^{\mathcal{M}}$ se interpreta de la forma estándar de la teoría de conjuntos.
+	Sea $\mathcal{M}$ una estructura. $\mathcal{M}$ se denomina \emph{$\omega$-estructura} si $M_{N} =\omega$, $M_{C}\subseteq\CPOTENCIA{\omega}$, y $+^{\mathcal{M}}$, $\cdot^{\mathcal{M}}$ y $<^{\mathcal{M}}$ se interpretan de la forma estándar en $\omega$, y $\in^{\mathcal{M}}$ se interpreta de la forma estándar de la teoría de conjuntos.
 
 	Identificaremos una $\omega$-estructura por su conjunto de tipo conjunto, por lo que para cada $S\subseteq\CPOTENCIA{\omega}$, al decir que $S$ es una $\omega$-estructura nos referiremos en realidad a la única $\omega$-estructura $\mathcal{M}$ tal que $M_{C} = S$.
 \end{definition}
@@ -194,11 +200,11 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \comment{Falta de contenido}{Falta agregar conceptos de sintaxis y semántica, como valuaciones, interpretación, implicación lógica, equivalencia lógica y deducción lógica}
 
 \begin{definition}[Valuación de variables]
-	Sea $\mathcal{M}$ una $\ARITMETICA$-estructura. Una \emph{valuación de variables} de $\ARITMETICA$ es una función $s:\VARIABLES\to M$ tal que para cada $n\in\VARIABLES[N]$ se tiene que $s\bra*{n}\in M_{N}$ y para cada $X\in\VARIABLES[C]$ se tiene que $s\bra*{X}\in M_{C}$.
+	Sea $\mathcal{M}$ una estructura. Una \emph{valuación de variables} de $\ARITMETICA$ es una función $s:\VARIABLES\to M$ tal que para cada $n\in\VARIABLES[N]$ se tiene que $s\bra*{n}\in M_{N}$ y para cada $X\in\VARIABLES[C]$ se tiene que $s\bra*{X}\in M_{C}$.
 \end{definition}
 
 \begin{definition}[Interpretación de términos]
-	Sean $\mathcal{M}$ una $\ARITMETICA$-estructura y $s:\VARIABLES\to M$ una valuación de variables. La \emph{interpretación} de $\TERMINOS$ en $\mathcal{M}$ dada $s$ es la función $s^{*}:\TERMINOS\to M$ definida como sigue:
+	Sean $\mathcal{M}$ una estructura y $s:\VARIABLES\to M$ una valuación de variables. La \emph{interpretación} de $\TERMINOS$ en $\mathcal{M}$ dada $s$ es la función $s^{*}:\TERMINOS\to M$ definida como sigue:
 
 	\begin{enumerate}
 		\item Para cada $c\in\set*{0, 1}$, $s^{*}\bra*{c} = c^{\mathcal{M}}$.
@@ -212,26 +218,28 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \end{notation}
 
 \begin{notation}
-	Sean $A, B$ conjuntos no vacíos, $f: A\to B$, $a\in A$ y $b\in B$. denotamos por $f\bra*{a\rightsquigarrow b}$ a la función $g: A\to B$ dada como sigue:
+	Sean $A, B$ conjuntos no vacíos, $n\in\omega$, $f: A\to B$, $a_{1},\dotsc, a_{0}\in A$ y $b_{0},\dotsc, b_{n}\in B$. denotamos por $f\bra*{a_{0}\leadsto b_{0},\dotsc, a_{n}\leadsto b_{n}}$ a la función $g: A\to B$ dada como sigue:
 	\[
 		g\pa*{x} =
 		\begin{cases}
-			f(x), & x\neq a\\
-			b, & x = a
+			b_{0}, & x = a_{0},\\
+			\vdots &\\
+			b_{n}, & x = a_{n}\\
+			f\pa*{x}, &\text{ en otro caso}
 		\end{cases}
 	\]
 \end{notation}
 
 \begin{definition}[Interpretación de fórmulas]
-	Sean $\mathcal{M}$ una $\ARITMETICA$-estructura y $s:\VARIABLES\to M$ una valuación de variables. Para cada $\varphi\in\FORMULAS$, decimos que $\varphi$ es \emph{verdadera} en $\mathcal{M}$ (o que $\mathcal{M}$ \emph{modela} a $\varphi$) con la valuación $s$, denotado por $\pa*{\mathcal{M}, s}\models\varphi$, si se satisface una de las siguientes condiciones:
+	Sean $\mathcal{M}$ una estructura y $s:\VARIABLES\to M$ una valuación de variables. Para cada $\varphi\in\FORMULAS$, decimos que $\varphi$ es \emph{verdadera} en $\mathcal{M}$ (o que $\mathcal{M}$ \emph{modela} a $\varphi$) con la valuación $s$, denotado por $\pa*{\mathcal{M}, s}\models\varphi$, si se satisface una de las siguientes condiciones:
 
 	\begin{enumerate}
 		\item Si $\varphi$ está dada por $\pa*{t_{1} R t_{2}}$ con $t_{1}, t_{2}\in\TERMINOS$ y $R\in\set*{<, =}$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si $R^{\mathcal{M}}\pa*{s^{*}\bra*{t_{1}}, s^{*}\bra*{t_{2}}}$.
 		\item Si $\varphi$ está dada por $\pa*{t\in X}$ con $t\in\TERMINOS$ y $X\in\VARIABLES[C]$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si $\in^{\mathcal{M}}\pa*{s^{*}\bra*{t}, s\bra*{X}}$.
 		\item Si $\varphi$ está dada por $\neg\psi$ con $\psi\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si no es cierto que $\pa*{\mathcal{M}, s}\models\psi$.
 		\item Si $\varphi$ está dada por $\pa*{\psi_{1}\land\psi_{2}}$ con $\psi_{1},\psi_{2}\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si $\pa*{\mathcal{M}, s}\models\psi_{1}$ y $\pa*{\mathcal{M}, s}\models\psi_{2}$.
-		\item Si $\varphi$ está dada por $\exists x\psi$ con $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si para algún elemento $a\in M$ ($a\in M_{N}$ si $x\in\VARIABLES[N]$, y $a\in M_{C}$ si $x\in\VARIABLES[C]$) se satisface que $\pa*{\mathcal{M}, s\bra*{x\rightsquigarrow a}}\models\psi$.
-		\item Si $\varphi$ está dada por $\forall x\psi$ con $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si para cualquier elemento $a\in M_{N}$ si $x\in\VARIABLES[N]$ y $a\in M_{C}$ si $x\in\VARIABLES[C]$, se satisface que $\pa*{\mathcal{M}, s\bra*{x\rightsquigarrow a}}\models\psi$.
+		\item Si $\varphi$ está dada por $\exists x\psi$ con $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si para algún elemento $a\in M$ ($a\in M_{N}$ si $x\in\VARIABLES[N]$, y $a\in M_{C}$ si $x\in\VARIABLES[C]$) se satisface que $\pa*{\mathcal{M}, s\bra*{x\leadsto a}}\models\psi$.
+		\item Si $\varphi$ está dada por $\forall x\psi$ con $x\in\VARIABLES$ y $\psi\in\FORMULAS$, entonces $\pa*{\mathcal{M}, s}\models\varphi$ si y solo si para cualquier elemento $a\in M_{N}$ si $x\in\VARIABLES[N]$ y $a\in M_{C}$ si $x\in\VARIABLES[C]$, se satisface que $\pa*{\mathcal{M}, s\bra*{x\leadsto a}}\models\psi$.
 	\end{enumerate}
 \end{definition}
 
@@ -239,17 +247,17 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 	Sea $\varphi\in\FORMULAS$.
 
 	\begin{enumerate}
-		\item Si $\mathcal{M}$ es una $\ARITMETICA$-estructura, se denotará $\mathcal{M}\models\varphi$ si $\pa*{\mathcal{M}, s}\models\varphi$ para cualquier valuación de variables $s$.
-		\item Se denotará $\models\varphi$ si $\pa*{\mathcal{M}, s}\models\varphi$ para cualquier $\ARITMETICA$-estructura $\mathcal{M}$ y cualquier valuación de variables $s$.
+		\item Si $\mathcal{M}$ es una estructura, se denotará $\mathcal{M}\models\varphi$ si $\pa*{\mathcal{M}, s}\models\varphi$ para cualquier valuación de variables $s$.
+		\item Se denotará $\models\varphi$ si $\pa*{\mathcal{M}, s}\models\varphi$ para cualquier estructura $\mathcal{M}$ y cualquier valuación de variables $s$.
 	\end{enumerate}
 \end{notation}
 
 \begin{definition}[Definibilidad]
-	Sean $\mathcal{M}$ una $\ARITMETICA$-estructura, $X\in M_{C}$ y $x_{1},\dotsc, x_{m}\in M$ para algún $m\in\omega$. $X$ se dice \emph{definible} en $\ARITMETICA$ con parámetros $x_{1},\dotsc, x_{m}$ si existe $\varphi\pa*{n,\bar{x}_{1},\dotsc,\bar{x}_{m}}\in\FORMULAS$ con $n\in\LIBRESDE{\varphi}$ tal que para cada valuación de variables $s$:
+	Sean $\mathcal{M}$ una estructura, $X\in M_{C}$ y $x_{1},\dotsc, x_{m}\in M$ para algún $m\in\omega$. $X$ se dice \emph{definible} en $\ARITMETICA$ con parámetros $x_{1},\dotsc, x_{m}$ si existe $\varphi\pa*{n,\bar{x}_{1},\dotsc,\bar{x}_{m}}\in\FORMULAS$ con $n\in\LIBRESDE{\varphi}$ y $n\neq\bar{x}_{j}$ para cada $j\in\set*{1,\dotsc, n}$ tal que para cada valuación de variables $s$:
 	\[
-		X =\set*{k\in M_{N}:\pa*{\mathcal{M}, s_{0}\bra*{n\rightsquigarrow k}}\models\varphi\pa*{n,\bar{x}_{1},\dotsc,\bar{x}_{m}}}
+		X =\set*{k\in M_{N}:\pa*{\mathcal{M}, s_{0}\bra*{n\leadsto k}}\models\varphi\pa*{n,\bar{x}_{1},\dotsc,\bar{x}_{m}}}
 	\]
-	donde $\bar{x}_{1},\dotsc,\bar{x}_{m}\in\VARIABLES$ y $s_{0}: V\to M$ es tal que $s_{0} = s\bra*{\bar{x}_{1}\rightsquigarrow x_{1},\dotsc,\bar{x}_{m}\rightsquigarrow x_{m}}$.
+	donde $\bar{x}_{1},\dotsc,\bar{x}_{m}\in\VARIABLES$ y $s_{0}: V\to M$ es tal que $s_{0} = s\bra*{\bar{x}_{1}\leadsto x_{1},\dotsc,\bar{x}_{m}\leadsto x_{m}}$.
 \end{definition}
 
 \begin{definition}[Equivalencia lógica]
@@ -259,7 +267,7 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 \end{definition}
 
 \begin{definition}[Implicación semántica]
-	Sean $\Gamma\subseteq\FORMULAS$ y $\varphi\in\FORMULAS$. Decimos que $\varphi$ se \emph{implica semánticamente} de $\Gamma$ si para cada $\ARITMETICA$-estructura $\mathcal{M}$ y valuación de variables $s$ tales que $\pa*{\mathcal{M}, s}\models\psi$ para cada $\psi\in\Gamma$ se sigue que $\pa*{\mathcal{M}, s}\models\varphi$.
+	Sean $\Gamma\subseteq\FORMULAS$ y $\varphi\in\FORMULAS$. Decimos que $\varphi$ se \emph{implica semánticamente} de $\Gamma$ si para cada estructura $\mathcal{M}$ y valuación de variables $s$ tales que $\pa*{\mathcal{M}, s}\models\psi$ para cada $\psi\in\Gamma$ se sigue que $\pa*{\mathcal{M}, s}\models\varphi$.
 
 	En tal caso se denotará por $\Gamma\models\varphi$.
 \end{definition}

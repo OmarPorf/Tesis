@@ -1,5 +1,21 @@
 \chapter{Teoría de la computabilidad}
 
+La idea de \emph{computar} acompaña a las matemáticas desde mucho antes de que existiera una teoría que la estudiara formalmente. Cuando utilizamos el algoritmo de Euclides, cuando dividimos dos números o cuando resolvemos un sistema de ecuaciones por Gauss-Jordan, estamos siguiendo un procedimiento que puede ejecutarse mecánicamente, es decir, cada paso queda determinado por el anterior, no exige ingenio ni elección alguna, y termina después de una cantidad finita de pasos. Esa noción informal de algoritmo fue suficiente durante siglos, porque en la práctica era suficiente \emph{exhibir} un procedimiento y convencerse de que funciona. No es necesario tener definición precisa de algoritmo para mostrar uno concreto.
+
+La situación cambia cuando la pregunta se invierte y se quiere demostrar que cierto problema \emph{no} puede resolverse mediante ningún algoritmo. Una afirmación así aborda la totalidad de los procedimientos mecánicos posibles, y por lo tanto ya no puede sostenerse con una noción intuitiva; se vuelve necesario saber con exactitud sobre qué objetos estamos hablando específicamente. Es aquí donde el concepto de algoritmo deja de ser una herramienta y se convierte en un objeto de estudio, y donde aparece el problema central de este capítulo: dar una definición matemática precisa de lo que significa computar.
+
+El problema es delicado porque se trata de formalizar una idea previa a la formalización misma. Cualquier definición que propongamos es una posibilidad, y nada garantiza de antemano que realmente capture la noción intuitiva de cómputo. Podríamos definir demasiado poco y dejar fuera procedimientos que cualquiera reconocería como algoritmos, o definir de más y admitir cosas que ningún ser humano ni máquina podría ejecutar. Frente a esta dificultad, la estrategia que se siguió históricamente fue la de atacar el problema desde varias direcciones independientes. Durante la década de 1930 surgieron propuestas muy distintas entre sí, como las funciones recursivas de Gödel, Herbrand y Kleene, el cálculo lambda de Church y las máquinas de Turing. Lo impresionante es que todas estas propuestas resultaron describir exactamente la misma clase de funciones. Esa convergencia, obtenida por caminos que no tenían nada en común, es la que sostiene la llamada \emph{tesis de Church-Turing}: la afirmación de que esta clase de funciones es precisamente la de las que pueden calcularse mediante un algoritmo en el sentido intuitivo. Conviene subrayar que no se trata de un teorema, pues no es una proposición que pueda definirse formalmente en un sistema axiomático, sino de una hipótesis respaldada por la evidencia acumulada de que todo intento razonable de formalizar el cómputo conduce al mismo lugar.
+
+En este texto mostraremos dos de estas propuestas de formalizar la computabilidad, las cuales partes desde dos puntos de vista independientes. El primero es el \emph{enfoque inductivo}, que describe lo computable de manera estructural: se parte de unas cuantas funciones básicas y se cierra bajo operaciones que permiten combinarlas, de modo que un algoritmo deja de ser una lista de instrucciones y se vuelve una combinación de algoritmos más simples. El segundo es el \emph{enfoque mecánico}, que recupera la imagen usual de un algoritmo como una secuencia finita de instrucciones ejecutadas por una máquina, para lo cual usaremos el modelo de las máquinas sin límite de registros (URM), que opera directamente sobre números naturales.
+
+La ventaja de mantener ambos enfoques es que responden a necesidades distintas. El inductivo vuelve casi inmediata la verificación de que una función es computable, pues basta ver que se obtiene de otras que ya lo son mediante operaciones admisibles, sin necesidad de exhibir jamás un procedimiento explícito. El mecánico, en cambio, permite razonar sobre el cómputo mismo: cuántos pasos lleva, en qué estado se encuentra la máquina en cada momento y, sobre todo, tratar a las máquinas como datos que pueden codificarse mediante números naturales. Esa posibilidad es la que abre la puerta a los resultados más profundos de esta teoría, y es un tipo de argumento que el enfoque inductivo simplemente no ofrece. El teorema de la forma normal de Kleene cierra el círculo al demostrar que ambos enfoques describen la misma clase de funciones, lo que nos permitirá usar libremente el que resulte más conveniente en cada caso y hablar, sin más, de funciones \emph{computables}.
+
+Con la noción ya establecida, el capítulo la emplea para encontrar sus propios límites. La codificación de máquinas permite construir una máquina universal, capaz de simular a cualquier otra a partir de su código, y de ella se obtiene, mediante el teorema de Turing, la existencia de conjuntos que no son computables, siendo el conjunto de detención el ejemplo clásico. Esto obliga a refinar la pregunta inicial, pues resulta que ``no computable'' es una etiqueta demasiado extensa: entre los conjuntos que quedan fuera del alcance de un algoritmo hay unos más accesibles que otros, y la distinción entre conjuntos computables, computablemente enumerables y co-computablemente enumerables es la primera manifestación de ese fenómeno.
+
+La respuesta a esa necesidad de graduación es la generalización motiva a la última parte del capítulo. En lugar de preguntar qué puede computarse, preguntamos qué podría computarse si tuviéramos a nuestra disposición una base de datos que contiene información no computable; formalmente, si a nuestras máquinas les permitimos consultar la pertenencia de elementos a un conjunto dado, al que llamaremos \emph{oráculo}. Esta pregunta, planteada por Turing y desarrollada por Post, transforma la computabilidad de una propiedad absoluta en una relación entre conjuntos: la reducibilidad de Turing, que compara dos conjuntos según la información que uno aporta sobre el otro, y el salto de Turing, que a partir de cualquier conjunto produce otro estrictamente más complejo. Lo esencial es que toda la teoría previa se relativiza sin cambios significativos, pues los resultados de las secciones anteriores siguen siendo válidos al sustituir ``computable'' por ``relativamente computable''. Lo que se obtiene ya no es una dicotomía entre lo que es computable y lo que no lo es, sino una jerarquía de grados de complejidad computacional.
+
+Es precisamente esa jerarquía la razón por la que un trabajo sobre fundamentos comienza con un capítulo de computabilidad. El programa de las \emph{matemáticas en reversa}, que es el objeto principal de este texto, invierte la dirección usual del trabajo matemático: en lugar de fijar un sistema axiomático y preguntar qué teoremas se derivan de él, se fija un teorema y se pregunta qué axiomas se necesitan verdaderamente para demostrarlo. Los sistemas que compararemos, $\RCA$, $\WKL$ y $\ACA$, se distinguen entre sí esencialmente por qué conjuntos de números naturales permiten afirmar que existen, y la manera de graduar esas afirmaciones es justamente la complejidad computacional de los conjuntos involucrados: $\RCA$ admitirá los conjuntos computables a partir de los que ya se tengan, y $\ACA$ admitirá además el salto de Turing y sus iteraciones. Sin la teoría desarrollada en este capítulo, y en particular sin su versión relativizada, los axiomas de los sistemas que estudiaremos serían fórmulas sin interpretación clara; con ella, cada uno podrá leerse como una afirmación sobre qué tan difícil es calcular un objeto computacionalmente.
+
 \section{Computabilidad: Enfoque inductivo}
 
 En esta sección abordaremos el enfoque inductivo de la computabilidad. Este se caracteriza por la construcción de lo computable por medio de ciertas funciones básicas y operaciones que permiten combinarlas. Frente al enfoque mecánico, el cual concibe un algoritmo como una secuencia de pasos ejecutados en el tiempo, este enfoque nos describe lo computable de una manera estructural: un algoritmo deja de ser una lista finita de instrucciones y, en cambio, se vuelve una combinación de otros algoritmos más simples. Este enfoque tiene como ventaja el poder justificar la computabilidad de una función por medio de la verificación de propiedades de cerradura; en lugar de exhibir una lista de pasos explícitos para cada función, solamente es necesario verificar que la función puede derivarse de otras que ya conozcamos como computables y que se obtengan mediante operaciones admisibles.
@@ -160,7 +176,7 @@ De la demostración anterior puede apreciarse que usar recursión es equivalente
 	\end{algorithmic}
 \end{algorithm}
 
-En cuanto al producto $xy$ se trataría de un algoritmo el cual utiliza un ciclo \emph{for} que va sumando repetidamente el valor $x$ un número $y$ de veces. De manera similar para el caso de la exponenciación, el cual utilizaría un ciclo *for* para ir multiplicando el valor $x$ un número $y$ de veces.
+En cuanto al producto $xy$ se trataría de un algoritmo el cual utiliza un ciclo \emph{for} que va sumando repetidamente el valor $x$ un número $y$ de veces. De manera similar para el caso de la exponenciación, el cual utilizaría un ciclo \emph{for} para ir multiplicando el valor $x$ un número $y$ de veces.
 
 \begin{algorithm}[h!]
 	\caption{Producto}
@@ -1096,7 +1112,7 @@ Con todo esto se define cómo es que se determina la sucesión de las cintas dad
 			\]
 		\end{enumerate}
 
-		\item Para cada $k > 0$, si $f_{k}\pa*{0} > u$, entonces $f_{k + 1} = f_{k}$.
+		\item Para cada $k\in\omega$, si $f_{k}\pa*{0} > u$, entonces $f_{k + 1} = f_{k}$.
 	\end{enumerate}
 
 	Decimos que la máquina $M$ \emph{termina su ejecución} dada la entrada $x$ si existe $k\in\omega$ tal que $f_{k}\pa*{0} > u$.
@@ -1156,9 +1172,9 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 \begin{proof}
 	Probemos por inducción sobre el conjunto de funciones parcial-recursivas. Mostremos primero que las funciones básicas son URM-computables. Sean $n, k\in\omega^{+}$ con $k\leq n$ y definamos las máquinas $M_{1} =\pa*{\pa*{0, 1}}$, $M_{2} =\pa*{\pa*{1, 1}}$ y $M_{3} =\pa*{\pa*{2, k, 1}}$, entonces se sigue directamente que $\CERO =\PHI{M_{1}}[n]$, $\SUCESOR =\PHI{M_{2}}$ y $\PROYECCION{n}{k} =\PHI{M_{3}}[n]$.
 
-	Considérese ahora el caso de la \emph{\textbf{composición}}. Sean $n, k\in\omega$, $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{k}\to\omega^{\DIVERGE}$  funciones parcial-recursivas, y supongamos que existen máquinas URM $G_{1}$, ..., $G_{k}$ y $H$ tales que $h =\PHI{H}[k]$ y para cada $j\leq n$, $g_{j} =\PHI{G_{j}}[n]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida por $f = h\pa*{g_{1},\dotsc, g_{k}}$ es URM-computable.
+	Considérese ahora el caso de la \emph{\textbf{composición}}. Sean $n, k\in\omega$, $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{k}\to\omega^{\DIVERGE}$  funciones parcial-recursivas, y supongamos que existen máquinas URM $G_{1}$, ..., $G_{k}$ y $H$ tales que $h =\PHI{H}[k]$ y para cada $j\leq k$, $g_{j} =\PHI{G_{j}}[n]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida por $f = h\pa*{g_{1},\dotsc, g_{k}}$ es URM-computable.
 
-	Para ello, describiremos cual será el proceso que debe realizar la máquina URM $F$ que computa a $f$. Para cada $j\leq k$ denotemos por $M_{j}\in\omega^{+}$ al registro máximo al cual hace referencia la máquina $G_{j}$ y por $M_{0}$ al registro máximo al cual hace referencia la máquina $H$. Defínase entonces $M =\max\set*{M_{0},\dotsc, M_{k}, n, k}$. El valor $M$ nos servirá como un parámetro auxiliar para poder definir de manera adecuada la máquina $F$. La idea es que la máquina $F$ primero computará los valores de $g_{1},\dotsc, g_{k}$ y los almacenará en los registros $R_{1},\dotsc, R_{k}$, para luego computar el valor de $h$ con esos valores como entrada.
+	Para ello, describiremos cual será el proceso que debe realizar la máquina URM $F$ que computa a $f$. Para cada $j\leq k$ denotemos por $M_{j}\in\omega^{+}$ al registro máximo al cual hace referencia la máquina $G_{j}$ y por $M_{0}$ al registro máximo al cual hace referencia la máquina $H$. Defínase entonces $M =\max\set*{M_{0},\dotsc, M_{k}, n, k}$. El valor $M$ nos servirá como un parámetro auxiliar para poder definir de manera adecuada la máquina $F$. La idea es que la máquina $F$ primero computará los valores de $g_{1},\dotsc, g_{k}$ y al final los escribirá en los registros $R_{1},\dotsc, R_{k}$, para luego computar el valor de $h$ con esos valores como entrada.
 
 	Dada la entrada $x\in\omega^{n}$, el primer paso es tranferir sus valores en los registros desde $R_{M + k + 1}$ en adelante. La razón es guardar los datos de entrada en estos registros que funcionan como memoria auxiliar, ya que es necesario conocerlos para computar cada una de las funciones $g_{j}$ ($j\leq k$). Además, cada uno de los registros $R_{M + 1},\dotsc, R_{M + k}$ se utilizarán para almacenar los resultados de cada una de las funciones $g_{j}$, y finalmente se computará la función $h$ con estos valores como entrada.
 
@@ -1346,7 +1362,7 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 		\label{fig:cinta_recursion_primitiva}
 	\end{figure}
 
-	Finalicemos con el caso de la \emph{\textbf{minimización no acotada}}. Sean $n\in\omega$ y $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ una función parcial-computable, y supongamos que existe una máquina URM $G$ la cual satisface que $g =\PHI{G}[n + 1]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ es URM-computable:
+	Finalicemos con el caso de la \emph{\textbf{minimización no acotada}}. Sean $n\in\omega$ y $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ una función parcial-recursiva, y supongamos que existe una máquina URM $G$ la cual satisface que $g =\PHI{G}[n + 1]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ es URM-computable:
 	\[
 		f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}
 	\]
@@ -1766,7 +1782,7 @@ Estas codificaciones de las funciones $f_{k}$ como listas finitas se denominan \
 	\]
 \end{definition}
 
-Lo que sigue es determinar cómo es que verificamos que el paso de una configuración a otra realmente está determinada por la máquina URM codificada. La idea es construir una relación primitivo-recursiva $\operatorname{Computo}\subseteq\omega^{3}$ para la cual una terna $\pa*{e, c, d}\in\omega^{3}$ pertenece $\operatorname{Computo}$ si la configuración $d$ surge de la configuración $c$ cuando se ejecuta la máquina URM codificada por $e$, o, más formalmente, si existe $k\in\omega$ tal que $c$ codifica a $f_{k}$ y $d$ codifica a $f_{k + 1}$.
+Lo que sigue es determinar cómo es que verificamos que el paso de una configuración a otra realmente está determinada por la máquina URM codificada. La idea es construir una relación primitivo-recursiva $\EJECUCION\subseteq\omega^{3}$ para la cual una terna $\pa*{e, c, d}\in\omega^{3}$ pertenece $\EJECUCION$ si la configuración $d$ surge de la configuración $c$ cuando se ejecuta la máquina URM codificada por $e$, o, más formalmente, si existe $k\in\omega$ tal que $c$ codifica a $f_{k}$ y $d$ codifica a $f_{k + 1}$.
 
 Primero debemos asegurar que los números $c$ y $d$ son configuraciones válidas. Lo anterior se traduce al hecho que $c, d\in\operatorname{Config}$, $\LONGITUD\pa*{c}=\LONGITUD\pa*{d}$ y $\LONGITUD\pa*{c},\LONGITUD\pa*{d} >\MAXREGISTRO\pa*{e}$. Después debemos traducir la definición \ref{def:ejecucion_urm} a este contexto para asegurar que $c$ genera a $d$ según las instrucciones de la máquina URM codificada por $e$.
 
@@ -1777,9 +1793,9 @@ Primero debemos asegurar que los números $c$ y $d$ son configuraciones válidas
 	\]
 \end{notation}
 
-\begin{definition}[Cómputo]
+\begin{definition}[Relación de ejecución]
 	\label{def: computo_urm}
-	Definimos la relación de \emph{cómputo} $\operatorname{Computo}\subseteq\omega^{3}$ de modo que para cada terna $\pa*{e, c, d}\in\omega^{3}$ se satisfaga $\operatorname{Computo}\pa*{e, c, d}$ si y solo si:
+	Definimos la relación de \emph{ejecución} $\EJECUCION\subseteq\omega^{3}$ de modo que para cada terna $\pa*{e, c, d}\in\omega^{3}$ se satisfaga $\EJECUCION\pa*{e, c, d}$ si y solo si:
 
 	\begin{enumerate}
 		\item $\URMCODIGO\pa*{e}$,
@@ -1791,11 +1807,11 @@ Primero debemos asegurar que los números $c$ y $d$ son configuraciones válidas
 \end{definition}
 
 \begin{theorem}
-	La relación $\operatorname{Computo}\subseteq\omega^{3}$ es primitivo-recursiva.
+	La relación $\EJECUCION\subseteq\omega^{3}$ es primitivo-recursiva.
 \end{theorem}
 
 \begin{proof}
-	Para demostrar que $\operatorname{Computo}$ es primitivo-recursiva, probaremos que esta se puede definir por una fórmula primitivo-recursiva.
+	Para demostrar que $\EJECUCION$ es primitivo-recursiva, probaremos que esta se puede definir por una fórmula primitivo-recursiva.
 
 	Sea $\pa*{e, c, d}\in\omega^{3}$, entonces se debe satisfacer lo siguiente:
 	\[
@@ -1831,7 +1847,7 @@ Primero debemos asegurar que los números $c$ y $d$ son configuraciones válidas
 		&\left.\land\pa*{\forall k <\LONGITUD\pa*{c}}\pa*{k > 0\to d\bra*{k} = c\bra*{k}}\right)
 	\end{align*}
 
-	Por lo tanto, una terna $\pa*{e, c, d}\in\omega^{3}$ satisface $\operatorname{Computo}\pa*{e, c, d}$ si y solo si satisface la conjunción de todas las fórmulas anteriores, y luego es primitivo-recursiva.
+	Por lo tanto, una terna $\pa*{e, c, d}\in\omega^{3}$ satisface $\EJECUCION\pa*{e, c, d}$ si y solo si satisface la conjunción de todas las fórmulas anteriores, y luego es primitivo-recursiva.
 \end{proof}
 
 Con esta relación ya tenemos todas las herramientas necesarias para codificar cuando una máquina URM se detiene. Consideremos una máquina URM codificada por $e\in\omega$, una entrada codificada por $z\in\omega$ y una lista de configuraciones codificada por $p\in\omega$. Recordemos que una máquina URM acaba cuando existe una ejecución que sobrepasa el número de instrucciones que se pueden ejecutar. El trabajo del número $p$ es codificar esa situación. El valor $p$ es una lista de configuraciones que representa esa sucesión de funciones que formalizan la ejecución de la máquina.
@@ -1840,11 +1856,11 @@ En primer lugar, como $p$ codifica todas las configuraciones de la ejecución de
 
 En segundo lugar, la primera configuración corresponde a ingresar los datos de entrada a la cinta; la lista $z$. Para que tengamos espacio suficiente para registrar todos los datos de $z$ en la cinta inicial, la longitud de la cinta debe ser al menos la longitud de $z$ (más uno para guardar la instrucción a ejecutar). Por lo tanto, debe satisfacerse que $\LONGITUD\pa*{p\bra*{0}} >\LONGITUD\pa*{z}$, para cada $k <\LONGITUD\pa*{z}$ se cumple $p\bra*{0}\bra*{k + 1} = z\bra*{k}$ y para cada $k <\LONGITUD\pa*{p\bra*{0}}$, si $k >\LONGITUD\pa*{z}$, entonces $p\bra*{0}\bra*{k} = 0$. Además, como la primera instrucción a ejecutar siempre debe ser la primera, se debe cumplir también que $p\bra*{0}\bra*{0} = 1$.
 
-En tercer lugar, cada una de las configuraciones debe codificar una ejecución válida de la máquina codificada por $e$. Por lo tanto, debe satisfacerse para cada $k <\LONGITUD\pa*{p} - 1$ que $\operatorname{Computar}\pa*{e, p\bra*{k}, p\bra*{k + 1}}$.
+En tercer lugar, cada una de las configuraciones debe codificar una ejecución válida de la máquina codificada por $e$. Por lo tanto, debe satisfacerse para cada $k <\LONGITUD\pa*{p} - 1$ que $\EJECUCION\pa*{e, p\bra*{k}, p\bra*{k + 1}}$.
 
 Finalmente, para que $p$ codifique una ejecución que termina, recordemos que eventualmente una de las ejecuciones deba indicar que se realizará una instrucción inexistente. En este caso, la última configuración de $p$ debe indicar que se ejecutará una instrucción cuya posición supera a $\NUMINSTRUCCIONES\pa*{e}$, es decir, $p\bra*{\LONGITUD\pa*{p} - 1}\bra*{0} >\NUMINSTRUCCIONES\pa*{e}$.
 
-La relación que se define como la conjunción de todas estas condiciones que describen cuando una ejecución de una máquina URM termina se denomina T-predicado de Kleene, y será la pieza fundamental para demostrar que las funciones URM-computables son parcial-computables.
+La relación que se define como la conjunción de todas estas condiciones que describen cuando una ejecución de una máquina URM termina se denomina T-predicado de Kleene, y será la pieza fundamental para demostrar que las funciones URM-computables son parcial-recursivas.
 
 \begin{definition}[T-predicado de Kleene]
 	\label{def: t_predicado_de_kleene}
@@ -1857,7 +1873,7 @@ La relación que se define como la conjunción de todas estas condiciones que de
 		\item $\LONGITUD\pa*{p\bra*{0}} >\LONGITUD\pa*{z}$,
 		\item para cada $k <\LONGITUD\pa*{z}$ se satisface $p\bra*{0}\bra*{k + 1} = z\bra*{k}$,
 		\item para cada $k <\LONGITUD\pa*{p\bra*{0}}$, si $k >\LONGITUD\pa*{z}$, entonces se satisface $p\bra*{0}\bra*{k} = 0$,
-		\item para cada $k <\LONGITUD\pa*{p} - 1$ se satisface $\operatorname{Computar}\pa*{e, p\bra*{k}, p\bra*{k + 1}}$, y
+		\item para cada $k <\LONGITUD\pa*{p} - 1$ se satisface $\EJECUCION\pa*{e, p\bra*{k}, p\bra*{k + 1}}$, y
 		\item $p\bra*{\LONGITUD\pa*{p} - 1}\bra*{0} >\NUMINSTRUCCIONES\pa*{e}$.
 	\end{enumerate}
 \end{definition}
@@ -1892,7 +1908,7 @@ Ahora, recordemos que el valor de la función URM-computable que genera una máq
 \begin{proof}
 	Sean $n\in\omega^{+}$, $x\in\omega^{n}$ y $p\in\SECUENCIAS$ para los cuales solamente se satisfagan los primeros siete puntos de la definición \ref{def: t_predicado_de_kleene}, y sea $\set*{f_{k}}_{k\in\omega}$ la ejecución de la máquina $M$ con entrada $x$.
 
-	Por definición de $p$ sabemos que es de la forma $p =\inner*{c_{0},\dotsc, c_{t}}$ de modo que $t =\LONGITUD\pa*{p} - 1$ y para cada $k <\LONGITUD\pa*{p}$, $\CONFIGURACIONES\pa*{c_{k}}$. Además, notemos que para cada $k <\LONGITUD\pa*{p} - 1$ se satisface que $\operatorname{Computo}\pa*{e, c_{k}, c_{k + 1}}$, por lo que debido a la definición de $\operatorname{Computo}$ y de $p$ sabemos que $\LONGITUD\pa*{c_{0}} =\LONGITUD\pa*{c_{1}} =\dotsb =\LONGITUD\pa*{c_{t}} >\LONGITUD\pa*{z},\MAXREGISTRO\pa*{e}$. Sea entonces $N\coloneqq\LONGITUD\pa*{c_{0}}$.
+	Por definición de $p$ sabemos que es de la forma $p =\inner*{c_{0},\dotsc, c_{t}}$ de modo que $t =\LONGITUD\pa*{p} - 1$ y para cada $k <\LONGITUD\pa*{p}$, $\CONFIGURACIONES\pa*{c_{k}}$. Además, notemos que para cada $k <\LONGITUD\pa*{p} - 1$ se satisface que $\EJECUCION\pa*{e, c_{k}, c_{k + 1}}$, por lo que debido a la definición de $\EJECUCION$ y de $p$ sabemos que $\LONGITUD\pa*{c_{0}} =\LONGITUD\pa*{c_{1}} =\dotsb =\LONGITUD\pa*{c_{t}} >\LONGITUD\pa*{z},\MAXREGISTRO\pa*{e}$. Sea entonces $N\coloneqq\LONGITUD\pa*{c_{0}}$.
 
 	Por definición de $p$ sabemos que:
 	\[
@@ -1915,7 +1931,7 @@ Ahora, recordemos que el valor de la función URM-computable que genera una máq
 Este teorema es la pieza clave que nos faltaba para demostrar la equivalencia entre los enfoques, pues este nos da explícitamente la forma en la que se traduce una función URM-computable en una función parcial-recursiva.
 
 \begin{coll}
-	Toda función URM-computable es parcial-computable.
+	Toda función URM-computable es parcial-recursiva.
 \end{coll}
 
 \begin{proof}
@@ -1930,11 +1946,7 @@ Este teorema es la pieza clave que nos faltaba para demostrar la equivalencia en
 	Una función es parcial-recursiva si y solo si es URM-computable, o equivalentemente, $\PARCIAL =\URMCOMPUTABLE$.
 \end{coll}
 
-Otro resultado interesante que se deriva del teorema de la forma normal de Kleene, y que se basa en nuestra interpretación de ver las funciones primitivo-recursivas como aquellos algoritmos que solamente utilizan ciclos \emph{for} y las funciones parcial-recursivas que utilizan minimización no acotada como aquellos algoritmos que utilizan ciclos \emph{while}, es el hecho que en la forma normal de Kleene de una función URM-computable solamente utilizamos una única vez el operador minimización, pues el T-predicado de Kleene y la función $U$ son primitivo recursivas, lo cual puede interpretarse como que todo algoritmo puede reescribirse utilizando a lo más una vez un ciclo \emph{while}.
-
-\begin{coll}
-	Todo algoritmo puede reescribirse para utilizar a lo más una vez un ciclo \emph{while}.
-\end{coll}
+Otro resultado interesante se deriva del teorema de la forma normal de Kleene, y se basa en nuestra interpretación de ver las funciones primitivo-recursivas como aquellos algoritmos que solamente utilizan ciclos \emph{for} y las funciones parcial-recursivas que utilizan minimización no acotada como aquellos algoritmos que utilizan ciclos \emph{while}. Tal resultado es el hecho que en la forma normal de Kleene de una función URM-computable solamente utilizamos una única vez el operador minimización, pues el T-predicado de Kleene y la función $U$ son primitivo recursivas, lo cual puede interpretarse como que todo algoritmo puede reescribirse utilizando a lo más una vez un ciclo \emph{while}.
 
 Por último, un resultado importante dentro de la teoría, el cual utilizaremos en la aritmética de segundo orden, es cómo podemos describir explícitamente a las funciones total-recursivas. Puesto que las funciones totales son aquellas que siempre convergen para cualquier entrada, y el comportamiento no deseado de la minimización no acotada es el que permite a las funciones parcial-recursivas ser parciales, entonces se puede inferir que si aseguramos la convergencia de la minimización no acotada para ciertas funciones, toda función construida mediante ellas sería total-recursiva. Esa idea es la que motiva la siguiente definición.
 
@@ -2015,7 +2027,7 @@ Debido a eso, de ahora en adelante en este texto, un objeto que pueda ser comput
 	\begin{enumerate}
 		\item Sean $n\in\omega^{+}$ y $f:\omega^{n}\to\omega^{\DIVERGE}$, entonces $f$ se denomina \emph{computable} si es parcial-recursiva o URM-computable.
 		\item Sean $n\in\omega^{+}$ y $f:\omega^{n}\to\omega^{\DIVERGE}$, entonces $f$ se denomina \emph{total-computable} si es computable y $\DOMINIO{f} =\omega^{n}$.
-		\item Sean $n\in\omega^{+}$ y $A\subseteq\omega^{+}$, entonces $A$ se denomina \emph{computable} si su función característica $\CARACTERISTICA{A}:\omega^{n}\to\omega^{\DIVERGE}$ es total-computable.
+		\item Sean $n\in\omega^{+}$ y $A\subseteq\omega^{n}$, entonces $A$ se denomina \emph{computable} si su función característica $\CARACTERISTICA{A}:\omega^{n}\to\omega^{\DIVERGE}$ es total-computable.
 		\item Sean $n\in\omega^{+}$ y $\varphi(x_{1},\dotsc, x_{n})$ una fórmula con variables libres $x_{1},\dotsc, x_{n}$, entonces $\varphi$ se denomina \emph{computable} si el conjunto $\set*{\pa*{x_{1},\dotsc, x_{n}}\in\omega^{n}:\varphi\pa*{x_{1},\dotsc, x_{n}}}$ es computable.
 	\end{enumerate}
 \end{definition}
@@ -2029,7 +2041,7 @@ Una consecuencia importante del teorema de la forma normal de Kleene es la exist
 		\PHI{N}[2]\pa*{e, z} =
 		\begin{cases}
 			\PHI{M}[n]\pa*{x}, &\text{ $e$ codifica a $M\in\URM$ y $z =\inner*{x}$ para algunos $n\in\omega^{+}$ y $x\in\omega^{n}$}\\
-			0, &\text{ en otro caso}
+			0, &\text{en otro caso}
 		\end{cases}
 	\]
 \end{theorem}
@@ -2040,7 +2052,7 @@ Una consecuencia importante del teorema de la forma normal de Kleene es la exist
 		\varphi\pa*{e, z} =
 		\begin{cases}
 			U\pa*{\mu p T\pa*{e, z, p}}, & e\in\URMCODIGO, z\in\SECUENCIAS,\LONGITUD\pa*{z} > 0\\
-			0, &\text{ en otro caso}
+			0, &\text{en otro caso}
 		\end{cases}
 	\]
 
@@ -2050,13 +2062,13 @@ Una consecuencia importante del teorema de la forma normal de Kleene es la exist
 		&=
 		\begin{cases}
 			U\pa*{\mu p T\pa*{e, z, p}}, & e\in\URMCODIGO, z\in\SECUENCIAS,\LONGITUD\pa*{z} > 0\\
-			0, &\text{ en otro caso}
+			0, &\text{en otro caso}
 		\end{cases}
 		\\
 		&=
 		\begin{cases}
 			\PHI{M}[n]\pa*{x}, &\text{ $e$ codifica a $M\in\URM$ y $z =\inner*{x}$ para algunos $n\in\omega^{+}$ y $x\in\omega^{n}$}\\
-			0, &\text{ en otro caso}
+			0, &\text{en otro caso}
 		\end{cases}
 	\end{align*}
 \end{proof}
@@ -2067,7 +2079,7 @@ Una consecuencia importante del teorema de la forma normal de Kleene es la exist
 
 La existencia de la máquina universal nos permite desvincularnos de las máquinas URM cuando hablamos de códigos. Puesto que existe al menos una máquina universal, y esta puede simular cualquier otra máquina teniendo su codificación, mas no la máquina que codifica explícitamente, entonces los algoritmos se corresponden directamente con números naturales. Además, la codificación de algoritmos que construimos mediante máquinas URM no es la única que existe. Existen, por ejemplo, maneras de codificar algoritmos mediante funciones parcial-recursivas, máquinas de Turing, o algún otro modelo de computabilidad, que nos permiten construir el T-predicado de Kleene también; y luego demostrar la existencia de la máquina universal. Más aún, todas estas codificaciones pueden corresponderse de manera biyectiva mediante funciones computables. Por lo tanto, de ahora en adelante los algoritmos se representarán únicamente por números naturales.
 
-Ahora, debido a la definición de las máquinas URM (o de las funciones parcial-recursivas) sabemos que el conjunto de funciones computables es numerable debido a la numeración de estas mismas. Puesto que el conjunto de todas las posibles funciones parciales no es numerable ya que $\pa*{\omega^{\DIVERGE}}^{\omega}\approx\aleph_{1}$, se sigue que existe una función parcial que no es computable. Aunque este argumento es suficiente para demostrar la existencia de funciones no computables, no nos exhibe un ejemplo explícito de una función que no lo sea.
+Ahora, debido a la definición de las máquinas URM (o de las funciones parcial-recursivas) sabemos que el conjunto de funciones computables es numerable debido a la numeración de estas mismas. Puesto que el conjunto de todas las posibles funciones parciales no es numerable, se sigue que existe una función parcial que no es computable. Aunque este argumento es suficiente para demostrar la existencia de funciones no computables, no nos exhibe un ejemplo explícito de una función que no lo sea.
 
 De esta manera, para verificar la existencia de funciones no computables, abordaremos la idea de Turing sobre otro problema equivalente: la existencia de conjuntos no computables. Recordemos la interpretación de las funciones computables como algoritmos los cuales pueden ser ejecutados mediante operaciones básicas y ciclos \emph{for} y \emph{while}. Además, recordemos que trabajamos con funciones parciales debido al comportamiento indeseado de los ciclos \emph{while}: la función puede nunca devolver un valor concreto, o la ejecución puede nunca terminar. Por lo tanto, una pregunta natural a realizarse es: ¿existe un proceso algorítmico que nos permita determinar si un algoritmo termina dada una entrada específica?
 
@@ -2173,7 +2185,7 @@ Ya que mencionamos que esta definición es una propiedad más débil a la de los
 		y + 1 =\mu w\pa*{A\pa*{w}\land w > z} =\mu w\pa*{A\pa*{w}\land w > f\pa*{x}} = f\pa*{x + 1}
 	\]
 
-	Por lo tanto, por inducción se muestró que $A\subseteq\RANGO{f}$, y luego $\RANGO{f} = A$.
+	Por lo tanto, por inducción se mostró que $A\subseteq\RANGO{f}$, y luego $\RANGO{f} = A$.
 \end{proof}
 
 \begin{coll}
@@ -2185,15 +2197,15 @@ Ya que mencionamos que esta definición es una propiedad más débil a la de los
 
 	Por definición de los conjuntos c.e. se sigue que si $A =\varnothing$, entonces $A$ es c.e. Si $A$ es infinito, entonces por el teorema anterior se sigue que $A$ es rango de una función total-computable, y luego es c.e.
 
-	Ahora, si $A$ es finito, entonces podemos definir la misma función $f:\omega\to\omega$ de la siguiente manera para cada $x\in\omega$:
+	Ahora, si $A$ es finito y no vacío, entonces existe $M =\max A$. Por lo tanto, defínase la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$:
 	\[
-		\begin{NiceArray}{c}
-			f\pa*{0} =\mu z A\pa*{z}\\
-			f\pa*{x + 1} =\mu z\pa*{A\pa*{z}\land z > f\pa*{x}}
-		\end{NiceArray}
+		f\pa*{x} =
+		\begin{cases}
+			x, & x\leq M\land A\pa*{x}\\
+			M, &\text{en otro caso}
+		\end{cases}
 	\]
-
-	Usando los mismos argumentos que el teorema anterior se tiene que $A\subseteq\RANGO{f}$. Notemos por la definición de $f$ que si $x\in\omega$ es tal que $f\pa*{x}\ACABA$, entonces $f\pa*{x}\in A$. Por lo tanto se satisface que $z\in A$ si y solo si existe $x\in\omega$ tal que $f\pa*{x} = z$, es decir, $A$ es c.e.
+	la cual es computable ya que $A$ es computable. Notemos que, por su definición, exactamente $\RANGO{f} = A$. Por lo tanto, $A$ es c.e.
 \end{proof}
 
 Una propiedad que será de mucha ayuda es una caracterización de los conjuntos c.e., pues resulta que un conjunto es c.e. no solamente si es rango de una función computable, sino que también si es su dominio.
@@ -2232,21 +2244,19 @@ Una propiedad que será de mucha ayuda es una caracterización de los conjuntos 
 	\end{align*}
 	Por lo tanto, $A =\DOMINIO{f}$.
 
-	Consideremos ahora que $A =\DOMINIO{g}$ para alguna función computable $g:\omega\to\omega^{\DIVERGE}$ y mostremos que $A$ es c.e. Si $A =\varnothing$, se sigue directamente que $A$ es c.e. Supongamos entonces que $A\neq\varnothing$ y sea $e\in\omega$ tal que para cada $z\in\omega$, $g\pa*{z}\ACABA$ si y solo si existe $p\in\omega$ tal que $T\pa*{e, z, p}$. Definamos entonces la siguiente función $h:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$:
+	Consideremos ahora que $A =\DOMINIO{g}$ para alguna función computable $g:\omega\to\omega^{\DIVERGE}$ y mostremos que $A$ es c.e. Si $A =\varnothing$, se sigue directamente que $A$ es c.e. Supongamos entonces que $A\neq\varnothing$ y sea $e\in\omega$ tal que para cada $z\in\omega$, $g\pa*{z}\ACABA$ si y solo si existe $p\in\omega$ tal que $T\pa*{e, z, p}$. Definamos entonces la siguiente función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$:
 	\[
-		h\pa*{z} =\mu\inner*{x, p}\pa*{T\pa*{e, x, p}\land U\pa*{p} = z}
+		f\pa*{z} =
+		\begin{cases}
+			z\bra*{0}, & T\pa*{e, z\bra*{0}, z\bra*{1}}\\
+			\mu p\pa*{1 = 0}, &\text{en otro caso}
+		\end{cases}
 	\]
-	o equivalentemente:
-	\[
-		h\pa*{z}\coloneqq\mu w\pa*{T\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = z}
-	\]
-
-	Como $T$, $U$ y el acceso son primitivo-recursivos, se sigue que $h$ es computable. Definamos la función $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$, $f\pa*{x} = h\pa*{z}\bra*{0}$, la cual es computable ya que $f$ es computable. Entonces se satisface lo siguiente para cada $x\in\omega$:
+	Entonces se satisface lo siguiente para cada $x\in\omega$:
 	\begin{align*}
-		\exists z\pa*{f\pa*{z} = x} &\iff\exists z\pa*{h\pa*{z}\bra*{0} = x}\\
-		&\iff\exists z\exists w\pa*{T\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = z\land w\bra*{0} = x}\\
-		&\iff\exists z\exists p\pa*{T\pa*{e, x, p}\land U\pa*{p} = z}\\
-		&\iff\exists z\pa*{g\pa*{x} = z}\\
+		\exists z\pa*{f\pa*{z} = x} &\iff\exists z\pa*{T\pa*{e, z\bra*{0}, z\bra*{1}}}\land z\bra*{0} = x\\
+		&\iff\exists p T\pa*{e, x, p}\\
+		&\iff g\pa*{x}\ACABA\\
 		&\iff x\in A
 	\end{align*}
 	Por lo tanto, $A$ es c.e.
@@ -2295,13 +2305,13 @@ Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e
 			f'\pa*{z} =
 			\begin{cases}
 				f\pa*{z\bra*{0}} + 1, & z\in\SECUENCIAS\land\LONGITUD\pa*{z} = 2\land T\pa*{e_{0}, z\bra*{0}, z\bra*{1}}\\
-				0, &\text{ en otro caso}
+				0, &\text{en otro caso}
 			\end{cases}
 			\\
 			g'\pa*{z} =
 			\begin{cases}
 				g\pa*{z\bra*{0}} + 1, & z\in\SECUENCIAS\land\LONGITUD\pa*{z} = 2\land T\pa*{e_{1}, z\bra*{0}, z\bra*{1}}\\
-				0, &\text{ en otro caso}
+				0, &\text{en otro caso}
 			\end{cases}
 		\end{NiceArray}
 	\]
@@ -2353,3 +2363,4 @@ Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e
 \section{Computabilidad relativa}
 
 El resultado clave de la sección anterior es la existencia de conjuntos que no son computables, justificado por el teorema de Turing. Esa existencia motivó la siguiente pregunta a Alan Turing, y que desarrolló Emil Post: ¿qué se podría computar si tuviéramos acceso a los elementos de conjuntos no computables?
+

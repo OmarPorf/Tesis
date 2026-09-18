@@ -1114,7 +1114,9 @@ Finalmente podemos demostrar igualmente que podemos encajar $\ZZ$ en $\QQ$ media
 
 \subsection{Los números reales}
 
-Con los racionales a nuestra disposición, el siguiente paso es definir qué significa ser un número real. Aquí aparece una primera dificultad: los reales no pueden formar un conjunto de $\RCA$, pues cualquier construcción de $\RR$ produce un conjunto incontable y, por lo tanto, imposible de codificar como subconjunto de $\NN$. Aun cuando existan modelos incontables de $\RCA$, su estructura interna es \emph{contable}, así que no hay manera de representar a $\RR$ como un conjunto dentro del sistema. Lo que haremos, entonces, será definir qué es \emph{un} número real: cada real individual sí podrá codificarse, aunque la totalidad de ellos no.
+Con los racionales a nuestra disposición, el siguiente paso es definir qué significa ser un número real. Aquí aparece una primera dificultad, de naturaleza puramente sintáctica. El lenguaje $\ARITMETICA$ tiene únicamente dos tipos de variables: las numéricas, que recorren elementos de $\NN$, y las de conjunto, que recorren subconjuntos de $\NN$. Un número es un objeto finito, determinado por una cantidad finita de información, mientras que un número real requiere infinita información para quedar determinado: no existe ningún dato finito que distinga a un real de todos los demás\footnote{Fuera de $\RCA$, esto es simplemente la incontabilidad de $\RR$: si cada real pudiera codificarse mediante un número natural, tendríamos una inyección de $\RR$ en $\NN$.}. Por lo tanto, cualquier codificación de los reales en $\ARITMETICA$, sea cual sea, debe representar a cada real mediante un conjunto y no mediante un número. En consecuencia, una colección de números reales sería un conjunto cuyos elementos son conjuntos, un objeto de tercer orden que no podemos expresar dentro de $\ARITMETICA$. Notemos que este obstáculo no depende de la codificación que se elija: cualquier representación de los reales se encontraría con la misma limitación del lenguaje.
+
+Lo que haremos, entonces, será definir qué es \emph{un} número real. Cada real individual sí podrá codificarse como un conjunto, pero ``$x$ es un número real'' no será la pertenencia a un conjunto $\RR$, sino la abreviatura de una fórmula de $\ARITMETICA$ que $x$ satisface. Lo mismo ocurrirá con las relaciones entre reales, como la igualdad y el orden: al ser relaciones entre conjuntos y no entre números, no existen como conjuntos en $\RCA$, sino como fórmulas. Escribiremos $x\in\RR$ por comodidad, entendiendo siempre $\RR$ como una \emph{clase} definida por una fórmula y no como un conjunto del sistema.
 
 La construcción que seguiremos es la de Cauchy. Para motivarla, recordemos (fuera de $\RCA$) que $\QQ$, con la métrica inducida por el valor absoluto, no es un espacio métrico completo: existen sucesiones de Cauchy de racionales que no convergen en $\QQ$. Por ejemplo, la sucesión $\set*{x_{n}}_{n\in\omega}$ definida por $x_{0} = 1$ y $x_{n + 1} = x_{n} / 2 + 1 / x_{n}$ es, a partir de su segundo término, decreciente y acotada inferiormente por $\sqrt{2}$, y por lo tanto convergente en $\RR$. Como toda sucesión convergente en $\RR$ es de Cauchy, se trata de una sucesión de Cauchy de números racionales; sin embargo, $\lim_{n\to\infty}x_{n} =\sqrt{2}\notin\QQ$.
 
@@ -1122,18 +1124,18 @@ La idea es entonces construir $\RR$ \emph{completando} a $\QQ$: consideramos tod
 
 Esta definición, sin embargo, tiene un costo: vista como fórmula es $\Pi_{2}^{0}$, y trabajar en $\RCA$ con una noción de igualdad tan compleja resulta poco conveniente, por lo que nos interesa simplificarla. Observemos qué dice realmente la definición: la resta se ``acerca'' al cero tanto como queramos (el papel de $\varepsilon$) a partir de cierto índice (el papel de $N$), de modo que $N$ es, implícitamente, una función $N\pa*{\varepsilon}$. Una primera simplificación es no usar un $\varepsilon$ arbitrario, sino una sucesión concreta de valores que decaiga a cero; una buena propuesta son los números $2^{1 - n}$ con $n\in\omega$, que decaen rápidamente a $0$ conforme $n$ crece. Con esto, $N$ pasa a ser una función de $n$. Aun así, la función $N\pa*{n}$ puede comportarse de manera errática: puede ser mayor que $n$ para algunos valores y menor para otros, de modo que determinarla puede ser complicado y variar de una pareja de sucesiones a otra. La segunda simplificación es entonces eliminar por completo la búsqueda de $N$ imponiendo $N\pa*{n} = n$.
 
-Llegamos así a la siguiente definición: dos sucesiones $\set*{x_{n}}_{n\in\omega},\set*{y_{n}}_{n\in\omega}\subseteq\QQ$ son equivalentes si para cada $n\in\omega$ se satisface que $\abs*{x_{n} - y_{n}} < 2^{1 - n}$. Ahora bien, esta condición obliga a que la sucesión resta decaiga a un ritmo exponencial, y no toda sucesión de Cauchy decae tan rápido. Para que la noción de equivalencia sea coherente, basta restringirnos desde el inicio a sucesiones de Cauchy que decaigan a ese mismo ritmo: pedimos que para cada $k, n, m\in\omega$, si $n, m\geq k$, entonces $\abs*{x_{n} - x_{m}} < 2^{-k}$. Esta condición se simplifica tomando $n = k$ y escribiendo $m = k + p$ con $p\in\omega$: trabajaremos entonces con las sucesiones $\set*{x_{n}}_{n\in\omega}\subseteq\QQ$ tales que para cada $k, p\in\omega$, $\abs*{x_{k} - x_{k + p}} < 2^{-k}$. Con todo esto podemos definir qué significa ser un número real en $\RCA$.
+Llegamos así a la siguiente definición: dos sucesiones $\set*{x_{n}}_{n\in\omega},\set*{y_{n}}_{n\in\omega}\subseteq\QQ$ son equivalentes si para cada $n\in\omega$ se satisface que $\abs*{x_{n} - y_{n}} < 2^{1 - n}$. Ahora bien, esta condición obliga a que la sucesión resta decaiga a un ritmo exponencial, y no toda sucesión de Cauchy decae tan rápido. Para que la noción de equivalencia sea coherente, basta restringirnos desde el inicio a sucesiones de Cauchy que decaigan a ese mismo ritmo: pedimos que para cada $k, n, m\in\omega$, si $n, m\geq k$, entonces $\abs*{x_{n} - x_{m}} < 2^{-k}$. Esta condición se simplifica tomando $n = k$ y escribiendo $m = k + p$ con $p\in\omega$: trabajaremos entonces con las sucesiones $\set*{x_{n}}_{n\in\omega}\subseteq\QQ$ tales que para cada $k, p\in\omega$, $\abs*{x_{k} - x_{k + p}} < 2^{-k}$. Con todo esto podemos definir qué significa ser un número real en $\RCA$, con el intercambio de ``menor que'' por ``menor o igual'' por cuestiones técnicas que mantienen coherentes las definiciones.
 
 \begin{definition}[Sucesiones]
 	Una \emph{sucesión de números racionales} es una función $f:\NN\to\QQ$. Se denotará a la sucesión $f$ por $\set*{x_{k}}_{k\in\NN}$ si para cada $k\in\NN$, $f\pa*{k} = x_{k}$.
 \end{definition}
 
 \begin{definition}[Números reales]
-	Un \emph{número real} es cualquier sucesión de racionales $\set*{x_{k}}_{k\in\NN}$ tal que para cada $k, p\in\NN$, $\abs*{x_{k} - x_{k + p}} < 2^{-k}$.
+	Un \emph{número real} es cualquier sucesión de racionales $\set*{x_{k}}_{k\in\NN}$ tal que para cada $k, p\in\NN$, $\abs*{x_{k} - x_{k + p}}\leq 2^{-k}$.
 \end{definition}
 
 \begin{definition}[Igualdad entre números reales]
-	Sean $x =\set*{x_{k}}_{k\in\NN}$ y $y =\set*{y_{k}}_{k\in\NN}$ números reales. Decimos que $x$ y $y$ son \emph{iguales}, denotado por $x =_{\RR} y$, si para cada $k$ se satisface que $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$.
+	Sean $x =\set*{x_{k}}_{k\in\NN}$ y $y =\set*{y_{k}}_{k\in\NN}$ números reales. Decimos que $x$ y $y$ son \emph{iguales}, denotado por $x =_{\RR} y$, si para cada $k$ se satisface que $\abs*{x_{k} - y_{k}}\leq 2^{-k + 1}$.
 \end{definition}
 
 Aunque esta relación $=_{\RR}$ no es un conjunto que exista en $\RCA$, ya que es una relación entre conjuntos y no entre números, sí podemos verificar que satisface las propiedades de una relación de equivalencia.
@@ -1154,48 +1156,54 @@ Aunque esta relación $=_{\RR}$ no es un conjunto que exista en $\RCA$, ya que e
 	\begin{enumerate}
 		\item Se satisface claramente para cada $k$ que:
 		\[
-			\abs*{x_{k} - x_{k}} = 0 < 2^{-k + 1}
+			\abs*{x_{k} - x_{k}} = 0\leq 2^{-k + 1}
 		\]
 		Por lo que $x =_{\RR} x$.
-		\item Si $x =_{\RR} y$, entonces sabemos que para cada $k$ se satisface que $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$. Directamente se sigue que para cada $k$, $\abs*{y_{k} - x_{k}} < 2^{-k + 1}$, es decir, $y =_{\RR} x$.
-		\item Si $x =_{\RR} y$ y $y =_{\RR} z$, entonces por definición para cada $k$, $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$ y $\abs*{y_{k} - z_{k}} < 2^{-k + 1}$. Consideremos un valor fijo $p > 1$, entonces por la desigualdad del triángulo y al ser $x$, $y$ y $z$ números reales se sigue que para cada $k$:
+
+		\item Si $x =_{\RR} y$, entonces sabemos que para cada $k$ se satisface que $\abs*{x_{k} - y_{k}}\leq 2^{-k + 1}$. Directamente se sigue que para cada $k$, $\abs*{y_{k} - x_{k}}\leq 2^{-k + 1}$, es decir, $y =_{\RR} x$.
+		
+		\item Si $x =_{\RR} y$ y $y =_{\RR} z$, entonces por definición para cada $k$, $\abs*{x_{k} - y_{k}}\leq 2^{-k + 1}$ y $\abs*{y_{k} - z_{k}}\leq 2^{-k + 1}$. Sea $p$ arbitrario, entonces por la desigualdad del triángulo y al ser $x$, $y$ y $z$ números reales se sigue que para cada $k$:
 		\begin{align*}
-			\abs*{x_{k} - z_{k}} &\leq\abs*{x_{k} - x_{k + p}} +\abs*{x_{k + p} - y_{k + p}} +\abs*{y_{k} - y_{k + p}} +\abs*{y_{k} - z_{k}}\\
-			&< 2^{-k} + 2^{- k - p + 1} + 2^{-k} - 2^{-k + 1}\\
-			&= 2^{- k + 1}\pa*{2^{-1} + 2^{-p} + 2^{-1} + 1}\\
-			&= 2^{-k + 1} 2^{-p + 1}\\
-			&< 2^{-k + 1}
+			\abs*{x_{k} - z_{k}} &\leq\abs*{x_{k} - x_{k + p}} +\abs*{x_{k + p} - y_{k + p}} +\abs*{y_{k + p} - z_{k + p}} +\abs*{z_{k + p} - z_{k}}\\
+			&\leq 2^{-k} + 2^{- k - p + 1} + 2^{-k - p + 1} + 2^{-k}\\
+			&= 2^{-k + 1} + 2^{-k - p + 2}
 		\end{align*}
+
+		Supongamos en cambio que existe $k$ tal que $\abs*{x_{k} - z_{k}} > 2^{-k + 1}$, o equivalentemente $\abs*{x_{k} - z_{k}} - 2^{-k + 1} > 0$. Por la propiedad arquimediana se satisface que existe $p$ tal que $2^{- k - p + 2} < \abs*{x_{k} - z_{k}} - 2^{-k + 1}$, de lo cual se sigue que:
+		\[
+			\abs*{x_{k} - z_{k}}\leq 2^{-k + 1} + 2^{-k - p + 2} < 2^{-k + 1} +\abs*{x_{k} - z_{k}} - 2^{-k + 1} = \abs*{x_{k} - z_{k}}
+		\]
+		es decir, $\abs*{x_{k} - z_{k}} <\abs*{x_{k} - z_{k}}$, lo cual es una contradicción. Por lo tanto, se debe satisfacer que para cada $k$ se satisface que $\abs*{x_{k} - z_{k}}\leq 2^{-k + 1}$, es decir, $x =_{\RR} z$
 	\end{enumerate}
 \end{proof}
 
 Ahora definamos el orden dentro de los reales. Fuera de $\RCA$, pensemos en dos números reales $\set*{x_{n}}_{n\in\omega}$ y $\set*{y_{k}}_{k\in\omega}$. Consideremos que $x =\lim_{n\to\infty}x_{n}$ y $y =\lim_{n\to\infty}y_{n}$ son tales que $x\leq y$. Por la propuesta de definición que tenemos de convergencia en $\RCA$ sabemos que para cada $n, p\in\omega$:
 \[
 	\begin{NiceArray}{c}
-		\abs*{x_{n} - x_{n + p}} < 2^{-n}\\
-		\abs*{y_{n} - y_{n + p}} < 2^{-n}
+		\abs*{x_{n} - x_{n + p}}\leq 2^{-n}\\
+		\abs*{y_{n} - y_{n + p}}\leq 2^{-n}
 	\end{NiceArray}
 \]
 
 Tomando el límite cuando $p\to\infty$ notemos que se tiene lo siguiente para cada $n\in\omega$:
 \[
 	\begin{NiceArray}{c}
-		\abs*{x_{n} - x} < 2^{-n}\\
-		\abs*{y_{n} - y} < 2^{-n}
+		\abs*{x_{n} - x}\leq< 2^{-n}\\
+		\abs*{y_{n} - y}\leq 2^{-n}
 	\end{NiceArray}
 \]
-de lo cual se sigue que $x_{n} - 2^{-n} < x$ y $y < y_{n} + 2^{n}$. Puesto que $x\leq y$ se tiene que para cada $n\in\omega$, $x_{n} - 2^{-n} < x\leq y < y_{n} + 2^{-n}$, o equivalentemente se satisface que $x_{n} < y_{n} + 2^{-n + 1}$. Además, notemos que tomando el límite cuando $n\to\infty$ obtenemos que:
+de lo cual se sigue que $x_{n} - 2^{-n}\leq x$ y $y\leq y_{n} + 2^{-n}$. Puesto que $x\leq y$ se tiene que para cada $n\in\omega$, $x_{n} - 2^{-n}\leq x\leq y\leq y_{n} + 2^{-n}$, o equivalentemente se satisface que $x_{n}\leq y_{n} + 2^{-n + 1}$. Además, notemos que tomando el límite cuando $n\to\infty$ obtenemos que:
 \[
 	\lim_{n\to\infty} x_{n}\leq\lim_{n\to\infty}\pa*{y_{n} + 2^{-n + 1}}\implies x\leq y
 \]
 
-Por lo tanto, podemos concluir que $x\leq y$ si y solo si para cada $n\in\omega$ se satisface que $x_{n} < y_{n} + 2^{-n + 1}$. De esta forma podemos definir la relación de orden de los reales en $\RCA$.
+Por lo tanto, podemos concluir que $x\leq y$ si y solo si para cada $n\in\omega$ se satisface que $x_{n}\leq y_{n} + 2^{-n + 1}$. De esta forma podemos definir la relación de orden de los reales en $\RCA$.
 
 \begin{definition}[Orden en $\RR$]
 	Sean $x =\set*{x_{k}}_{k\in\NN}$ y $y =\set*{y_{k}}_{k\in\NN}$ números reales.
 
 	\begin{itemize}
-		\item Denotaremos por $x\leq_{\RR} y$ si para cada $k$ se satisface que $x_{k} < y_{k} + 2^{-k + 1}$.
+		\item Denotaremos por $x\leq_{\RR} y$ si para cada $k$ se satisface que $x_{k}\leq y_{k} + 2^{-k + 1}$.
 
 		\item Denotaremos por $x <_{\RR} y$ si no se satisface que $y\leq_{\RR}x$.
 	\end{itemize}
@@ -1218,19 +1226,22 @@ Mostremos que de esta definición de orden se puede demostrar que se satisfacen 
 	Consideremos a los números reales $x =\set*{x_{k}}_{k\in\NN}$, $y =\set*{y_{k}}_{k\in\NN}$ y $z =\set*{z_{k}}_{k\in\NN}$.
 
 	\begin{enumerate}
-		\item Puesto que para cada $k$ se satisface que $2^{-k + 1} > 0$ se sigue que $x_{k} < x_{k} + 2^{-k + 1}$, es decir, $x\leq_{\RR} x$.
-		\item Si $x\leq_{\RR} y$ y $y\leq_{\RR} z$, entonces sabemos que para cada $k$, $x_{k} < y_{k} + 2^{-k + 1}$ y $y_{k} < z_{k} + 2^{-k + 1}$. Consideremos un valor fijo $p > 1$, entonces para cada $k$ se sigue lo siguiente:
+		\item Se sigue directamente para cada $k$ que $x_{k}\leq x_{k} + 2^{-k + 1}$, es decir, $x\leq_{\RR} x$.
+		
+		\item Si $x\leq_{\RR} y$ y $y\leq_{\RR} z$, entonces sabemos que para cada $k$, $x_{k}\leq y_{k} + 2^{-k + 1}$ y $y_{k}\leq z_{k} + 2^{-k + 1}$. Sea $p$ arbitrario, entonces para cada $k$ se sigue lo siguiente:
 		\begin{align*}
-			x_{k} &< y_{k} + 2^{-k + 1}\\
-			&< y_{k} - y_{k + p} + y_{k + p} + 2^{-k + 1}\\
-			&< 2^{-k} + y_{k + p} + 2^{-k + 1}\\
-			&< 2^{-k} + z_{k + p} + 2^{-k - p + 1} + 2^{-k + 1}\\
-			&< z_{k + p} - z_{k} + z_{k} + 2^{-k} + 2^{-k + 1} + 2^{-k - p + 1}\\
-			&< 2^{-k} + z_{k} + 2^{-k} + 2^{-k + 1} + 2^{-k - p + 1}\\
-			&= z_{k} + 2^{-k + 1}2^{-p + 1}\\
-			&< z_{k} + 2^{-k + 1}
+			x_{k} &\leq x_{k + p} + 2^{-k}\\
+			&\leq y_{k + p} + 2^{-k - p + 1} + 2^{-k}\\
+			&\leq z_{k + p} + 2^{-k - p + 1} + 2^{-k - p + 1} + 2^{-k}\\
+			&\leq z_{k} + 2^{-k} + 2^{-k - p + 2} + 2^{-k}\\
+			&= z_{k} + 2^{-k + 1} + 2^{-k - p + 2}
 		\end{align*}
-		Por lo tanto, $x\leq_{\RR} z$.
-		\item Si $x\leq_{\RR} y$ y $y\leq_{\RR} x$, entonces para cada $k$, $x_{k} < y_{k} + 2^{-k + 1}$ y $y_{k} < x_{k} + 2^{-k + 1}$. De la segunda desigualdad obtenemos que $y_{k} - 2^{-k + 1} < x_{k}$, por lo que $y_{k} - 2^{k + 1} < x_{k} < y_{k} + 2^{-k + 1}$, es decir, $\abs*{x_{k} - y_{k}} < 2^{-k + 1}$ para cada $k$. Por lo tanto, $x =_{\RR} y$.
+		donde utilizamos el hecho que $x$ y $z$ son reales, y luego se satisface que $x_{k} - x_{k + p}\leq 2^{-k}$ y $z_{k + p} - z_{k}\leq 2^{-k}$. Ahora, supongamos que por el contrario existe $k$ tal que $x_{k} > z_{k} + 2^{-k + 1}$, o equivalentemente, $x_{k} - z_{k} - 2^{-k + 1} > 0$. Por lo tanto, debido a la propiedad arquimediana sabemos que existe $p$ tal que $2^{-k - p + 2} < x_{k} - z_{k} - 2^{-k + 1}$, y luego:
+		\[
+			x_{k}\leq z_{k} + 2^{-k + 1} + 2^{-k - p + 2} < z_{k} + 2^{-k + 1} + x_{k} - z_{k} - 2^{-k + 1} = x_{k}
+		\] 
+		es decir, $x_{k} < x_{k}$, lo cual es una contradicción. Por lo tanto, se satisface que para cada $k$, $x_{k}\leq z_{k} + 2^{-k + 1}$, es decir, $x\leq_{\RR} z$.
+
+		\item Si $x\leq_{\RR} y$ y $y\leq_{\RR} x$, entonces para cada $k$, $x_{k}\leq y_{k} + 2^{-k + 1}$ y $y_{k}\leq x_{k} + 2^{-k + 1}$. De la segunda desigualdad obtenemos que $y_{k} - 2^{-k + 1}\leq x_{k}$, por lo que $y_{k} - 2^{k + 1}\leq x_{k}\leq y_{k} + 2^{-k + 1}$, es decir, $\abs*{x_{k} - y_{k}}\leq 2^{-k + 1}$ para cada $k$. Por lo tanto, $x =_{\RR} y$.
 	\end{enumerate}
 \end{proof}
