@@ -14,7 +14,7 @@
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\RR}{\mathbb{R}}
 
-\newcommand{\PRIMITIVO}[1][]{\mathrm{Prim}_{#1}}
+\newcommand{\PRIMITIVO}{\mathrm{Prim}}
 \newcommand{\CERO}{\operatorname{Z}}
 \newcommand{\PROYECCION}[2]{\pi_{#2}^{#1}}
 \newcommand{\SUCESOR}{\operatorname{S}}
@@ -24,8 +24,8 @@
 \newcommand{\ACABA}{\downarrow}
 \newcommand{\DOMINIO}[1]{\operatorname{dom}\pa*{#1}}
 \newcommand{\RANGO}[1]{\operatorname{ran}\pa*{#1}}
-\newcommand{\PARCIAL}[1][]{\mathrm{Parcial}_{#1}}
-\newcommand{\TOTAL}[1][]{\mathrm{Total}_{#1}}
+\newcommand{\PARCIAL}{\mathrm{Parcial}}
+\newcommand{\TOTAL}{\mathrm{Total}}
 \newcommand{\INSTRUCCIONES}{\mathrm{Instr}}
 \newcommand{\INSTRUCCIONESCOD}{\mathrm{InstrCod}}
 \newcommand{\URM}{\mathrm{URM}}
@@ -35,7 +35,7 @@
 \newcommand{\MAXREGISTRO}{\mathrm{MaxReg}}
 \newcommand{\NUMINSTRUCCIONES}{\mathrm{NumInstr}}
 \newcommand{\CONFIGURACIONES}{\mathrm{Config}}
-\newcommand{\ARITMETICA}{\mathrm{L}_{2}}
+\newcommand{\ARITMETICA}[1][2]{\mathcal{L}_{#1}}
 \newcommand{\VARIABLES}[1][]{\mathrm{V}_{#1}}
 \newcommand{\MIN}[1]{\min\pa*{#1}}
 \newcommand{\SECUENCIAS}{\mathrm{Seq}}
@@ -46,6 +46,13 @@
 \newcommand{\ATOMICAS}{\mathrm{Atom}}
 \newcommand{\FORMULAS}{\mathrm{Form}}
 \newcommand{\ENUNCIADOS}{\mathrm{Sent}}
+\newcommand{\KLEENE}[1][]{\mathrm{T}^{#1}}
+
+\newcommand{\RECURSIVO}{\mathrm{Rec}}
+\newcommand{\COMPOSICION}{\mathrm{Comp}}
+\newcommand{\RECURSION}{\mathrm{RP}}
+\newcommand{\MINIMIZACION}{\mathrm{Min}}
+\newcommand{\ARIDAD}{\mathrm{Ar}}
 
 \newcommand{\INDUCCION}[1]{#1\text{-}\mathrm{IND}}
 \newcommand{\COMPRENSION}[1]{#1\text{-}\mathrm{COM}}
@@ -55,6 +62,10 @@
 \newcommand{\WKL}{\mathrm{WKL}_{0}}
 \newcommand{\VARIABLESDE}[1]{\mathrm{Var}\bra*{#1}}
 \newcommand{\LIBRESDE}[1]{\mathrm{Free}\bra*{#1}}
+
+\newcommand{\DELTA}[2][0]{\Delta_{#2}^{#1}}
+\newcommand{\SIGMA}[2][0]{\Sigma_{#2}^{#1}}
+\newcommand{\PI}[2][0]{\Pi_{#2}^{#1}}
 
 \NewDocumentCommand{\PHI}{m o}{% "m" es argumento obligatorio (mandatory), "o" es opcional
 	\IfNoValueTF{#2}%

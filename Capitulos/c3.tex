@@ -1,4 +1,13 @@
-  \chapter{El subsistema $\RCA$}
+\chapter{El subsistema $\RCA$}
+
+El programa de las matemáticas en reversa exige, antes que nada, fijar un sistema de referencia, es decir, un sistema tan débil que casi cualquier matemático lo aceptaría sin objeción, y contra el cual comparar la fuerza de los teoremas que después queramos clasificar. Ese sistema es $\RCA$, y su nombre (\emph{Axiomas de Comprensión Recursiva} por sus siglas en inglés) describe exactamente su función.
+
+En la teoría de conjuntos ordinaria damos por hecho que toda propiedad bien definida determina un conjunto; en $\ARITMETICA$ esa suposición deja de ser gratuita y se convierte en un esquema axiomático que hay que elegir deliberadamente. $\RCA$ opta por la elección más conservadora posible: solo garantiza la existencia de los conjuntos definibles por una fórmula $\DELTA{1}$, de lo cual demostraremos que define exactamente los conjuntos computables (en los $\omega$-modelos) a partir de los parámetros que ya se tengan disponibles. En otras palabras, $\RCA$ formaliza la afirmación ``existen los conjuntos computables'' y nada más, lo cual convierte a $\RCA$ en la versión axiomática de la parte de las matemáticas que puede construirse de manera \emph{efectiva}.
+
+A esto se añade una segunda restricción, independiente de la primera: la inducción se permite únicamente para fórmulas $\SIGMA{1}$, en vez de para cualquier fórmula del lenguaje. Este tipo de inducción es lo mínimo necesario para poder demostrar, a groso modo, la existencia de las funciones total-computables dentro de este marco. Comprensión e inducción son, en principio, dos ejes de fuerza distintos, y $\RCA$ toma la opción más débil razonable en ambos simultáneamente, dejando abierta la posibilidad de estudiar por separado qué ocurre si se fortalece uno sin tocar el otro.
+
+Esta intuición se confirmará con toda precisión hasta el cierre del capítulo, donde demostraremos que un modelo de $\RCA$ no es más ni menos que una colección de conjuntos cerrada bajo la operación de yunta y bajo reducibilidad de Turing, es decir, un \emph{ideal de Turing}. Antes de llegar ahí, sin embargo, conviene poner a prueba la fuerza lógica de $\RCA$ de la manera más concreta posible: reconstruyendo dentro de él los teoremas clásicos de la teoría de números, las funciones total-computables, los sistemas numéricos usuales (enteros, racionales y reales) y finalmente el Teorema del Valor Intermedio del análisis real, verificando en cada paso que ninguna construcción exige más existencia de conjuntos de la que $\RCA$ está dispuesto a conceder.
+
 
 \begin{definition}[$\RCA$]
 	Se define al subsistema de $\ARITMETICA$ de \emph{axiomas de comprensión recursiva}, o $\RCA$, como el conjunto de axiomas:
@@ -394,7 +403,7 @@ De ahora en adelante, todos los siguientes teoremas serán demostrados dentro de
 
 \section{Sistemas numéricos}
 \subsection{Los números enteros}
-En esta sección desarrollaremos la construcción de los números enteros, racionales y reales que son necesarios para poder abordar el estudio de los teoremas del Análisis Real que analizaremos en cada uno de los subsistemas.
+En esta sección desarrollaremos la construcción de los números enteros, racionales y reales que son necesarios para poder abordar el estudio de los teoremas del análisis real que analizaremos en cada uno de los subsistemas.
 
 Fuera de $\RCA$, recordemos que la característica más importante de los números enteros es que existe la resta, y que para cada número entero $m$ existen dos números naturales $n, k$ tales que $m = n - k$. Con esta propiedad podemos codificar cada número entero con tal par de números naturales que se interpretan de la forma anterior. Por ejemplo, si tenemos el par $\pa*{1, 2}$, entonces lo interpretamos como el número entero $1 - 2 = -1$. Sin embargo, notemos que existen varios pares que nos darían el mismo número entero en ese sentido. Para el caso del $-1$ se tiene que los pares $\pa*{1, 2}$, $\pa*{2, 3}$, $\pa*{3, 4}$ y $\pa*{4, 5}$ se interpretarían de la misma forma. En ese caso, decimos que todos estos pares son \emph{equivalentes} para representar al número $-1$. En general, para cada par de pares $\pa*{n, m}$ y $\pa*{p, q}$, estos son equivalentes si se interpretan como el mismo número entero, es decir, si $n - m = p - q$, o equivalentemente $n + q = p + m$. Con esta condición podemos luego definir una relación de equivalencia que nos codifique la \emph{igualdad} entre números enteros en $\RCA$.
 
@@ -814,7 +823,7 @@ Con esto hemos mostrado que al trabajar con los enteros, también podemos hacer 
 
 \subsection{Los números racionales}
 
-Ya que hemos construido los números enteros, ya directamente podemos definir lo que son los números racionales, lo cuales son los más fundamentales para el estudio del Análisis Real que realizaremos.
+Ya que hemos construido los números enteros, ya directamente podemos definir lo que son los números racionales, lo cuales son los más fundamentales para el estudio del análisis real que realizaremos.
 
 Fuera de $\RCA$, los números racionales se caracterizan por tener \emph{división}, y en general cualquier número racional $q$ puede expresarse como un cociente entre números enteros $q = n / m$, donde $m > 0$. De manera similar podemos codificar un número racional como un par de números enteros interpretados de la forma anterior. Por ejemplo, el número $2/3$ sería el par $(2, 3)$. Sin embargo, el par no es único, pues $2/3$ también puede representarse con los pares $(4, 6)$, $(6, 9)$, $(8, 12)$, etc. Entonces todos estos pares se deberían considerar \emph{equivalentes} al interpretarse como el mismo racional. En general, para cada par de pares $(p, q)$ y $(r, s)$ que representan a los racionales $p/q$ y $r/s$, estos son equivalentes si y solo si $p/q = r/s$, o equivalentemente $ps = rq$. De esta manera podemos definir la relación de equivalencia entre pares de enteros en $\RCA$ que codifica la igualdad entre racionales.
 
@@ -1188,7 +1197,7 @@ Ahora definamos el orden dentro de los reales. Fuera de $\RCA$, pensemos en dos 
 Tomando el límite cuando $p\to\infty$ notemos que se tiene lo siguiente para cada $n\in\omega$:
 \[
 	\begin{NiceArray}{c}
-		\abs*{x_{n} - x}\leq< 2^{-n}\\
+		\abs*{x_{n} - x}\leq 2^{-n}\\
 		\abs*{y_{n} - y}\leq 2^{-n}
 	\end{NiceArray}
 \]
