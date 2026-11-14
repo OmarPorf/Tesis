@@ -18,7 +18,7 @@ El puente que permite conectar este lenguaje (que podemos ver como un enfoque me
 
 De ahí surgen los subsistemas que estudiaremos a lo largo de este texto. Si a los axiomas básicos de la aritmética añadimos como axioma la afirmación que existen los conjuntos computables, obtenemos el primer nivel de la jerarquía lógica que es $\RCA$; la cual podemos interpretar como la formalización de la parte de la matemática que es computable. Si en cambio, agregamos la afirmación que existen los conjuntos c.e., obtenemos el segundo nivel que es $\ACA$. Entre ambos sistemas se sitúa el tercer nivel que desarrollaremos el cual es $\WKL$, que trata de un principio combinatorio, y cuya posición intermedia es un de los fenómenos más interesantes de la teoría.
 
-Finalmente, conviene señalar que esta teoría no solamente reproduce la computabilidad, sino que la desborda en al menos tres sentidos. El primero es de alcance: estudiar $\ACA$ implica abordar la existencia de indefinidos saltos de Turing, es decir, estudiar conjuntos no computables altamente complejos; además de poder considerar sistemas axiomáticos más fuertes aún, los cuales aumentan más la complejidad computacional de los conjuntos que permiten definir. El segundo es que, al tratarse de sistemas axiomáticos, no estamos restringidos a interpretarlos únicamente dentro de los números naturales; pueden existir modelos de esta teoría que utilicen objetos más complejos y abstractos como "números" (denominados modelos no estándar), y es en ellos donde descansan resultados que la computabilidad por sí sola no puede detectar. El tercero es que el lenguaje permite separar dos clases de fuerza que en el estudio de la computabilidad parecen interdependientes: los principios de comprensión y de inducción, permitiéndonos graduar cada una por separado.
+Finalmente, conviene señalar que esta teoría no solamente reproduce la computabilidad, sino que la desborda en al menos tres sentidos. El primero es de alcance: estudiar $\ACA$ implica abordar la existencia de indefinidos saltos de Turing, es decir, estudiar conjuntos no computables altamente complejos; además de poder considerar sistemas axiomáticos más fuertes aún, los cuales aumentan más la complejidad computacional de los conjuntos que permiten definir. El segundo es que, al tratarse de sistemas axiomáticos, no estamos restringidos a interpretarlos únicamente dentro de los números naturales; pueden existir modelos de esta teoría que utilicen objetos más complejos y abstractos como ``números'' (denominados modelos no estándar), y es en ellos donde descansan resultados que la computabilidad por sí sola no puede detectar. El tercero es que el lenguaje permite separar dos clases de fuerza que en el estudio de la computabilidad parecen interdependientes: los principios de comprensión y de inducción, permitiéndonos graduar cada una por separado.
 
 El presente capítulo está dedicado a construir con cuidado este lenguaje. Desarrollaremos su sintaxis, semántica y cómo formalmente pueden demostrarse resultados dentro de este marco, así como los esquemas axiomáticos y resultados importantes que se utilizarán al desarrollar los sistemas $\RCA$, $\ACA$ y $\WKL$.
 
@@ -59,13 +59,15 @@ Por medio de estos símbolos es que se formaremos las expresiones o \emph{palabr
 	Sean $A$ un conjunto no vacío y $n\in\omega$. Una \emph{palabra} de longitud $n$ con símbolos en $A$ es un elemento de $A^{n}$. Además, dados $a_{0},\dotsc, a_{n}\in A$, denotaremos por $a_{0}a_{1}\cdots a_{n}$ a la palabra $\pa*{a_{0},\dotsc, a_{n}}\in A^{n + 1}$.
 \end{definition}
 
-Ejemplos de palabras de $\ARITMETICA$ son $\pa*{0, =, 1, +, x}$, $\pa*{0, \cdot, 1,\in, X}$ y $\pa*{x,\cdot, (, 1, +, x, ), <, 0}$, las cuales se simplifican en notación a ``$0 = 1 + x$'', ``$0\cdot 1\in X$'' y ``$x\cdot\pa*{1 + x} < 0$''; así como también $\pa*{), =, 1, +, X}$ y $\pa*{X, +, 1, 0, (}$, las cuales se simplifican a ``$) = 1 + X$'' y ``$X + 10($''. Es importante notar que ser una palabra de $\ARITMETICA$ no necesariamente implica que esta ``tenga sentido'', es decir, no necesariamente sabemos cómo interpretar a lo que hace referencia la expresión. Con los ejemplo anteriores, con nuestra experiencia en matemáticas, y particularmente con los números naturales, la palabra ``$0 = 1 + x$'' puede interpretarse como la ecuación donde se busca un número natural (representado por $x$) tal que su sucesor es cero; sin embargo, para el caso de la palabra ``$X + 10($'' no se tiene una interpretación concreta de lo que se refiere. 
+Ejemplos de palabras de $\ARITMETICA$ son $\pa*{0, =, 1, +, x}$, $\pa*{0, \cdot, 1,\in, X}$ y $\pa*{x,\cdot, (, 1, +, x, ), <, 0}$, las cuales se simplifican en notación a ``$0 = 1 + x$'', ``$0\cdot 1\in X$'' y ``$x\cdot\pa*{1 + x} < 0$''; así como también $\pa*{), =, 1, +, X}$ y $\pa*{X, +, 1, 0, (}$, las cuales se simplifican a ``$) = 1 + X$'' y ``$X + 10($''. Es importante notar que ser una palabra de $\ARITMETICA$ no necesariamente implica que esta ``tenga sentido'', es decir, no necesariamente sabemos cómo interpretar a lo que hace referencia la expresión. Con los ejemplo anteriores, nuestra experiencia en matemáticas, y particularmente nuestro conocimiento con los números naturales, la palabra ``$0 = 1 + x$'' puede interpretarse como la ecuación donde se busca un número natural (representado por $x$) tal que su sucesor es cero; sin embargo, para el caso de la palabra ``$X + 10($'' no se tiene una interpretación concreta de lo que significa. 
 
-Por lo tanto, necesitamos definir cuáles son las palabras que realmente podamos interpretar mediante ciertas reglas que nos permitan expresar las proposiciones que nos interese analizar, además de estar libre de ambigüedad en su interpretación. A este tipo de palabras se les denomina \emph{fórmulas}, y serán el objeto de estudio de este capítulo.
+Por lo tanto, necesitamos definir cuáles son las palabras que realmente podemos interpretar mediante ciertas reglas, las cuales nos permiten expresar las proposiciones que nos interese analizar; además de estar libres de ambigüedad en su interpretación. A este tipo de palabras se les denomina \emph{fórmulas}, y serán el objeto de estudio de este capítulo.
 
+Los objetos más básicos que podemos expresar en este sistema son los \emph{términos}. Los términos son palabras que representan a los \emph{elementos del sistema de los números naturales}, es decir, los \emph{números}. De nuestra experiencia en diversas áreas de las matemáticas, y particularmente de la aritmética, los elementos de un sistema no solamente se pueden expresar por un único símbolo (como el $0$, $1$, $2$, etc.), sino que también como resultado de ciertas operaciones. Por ejemplo, el número $2$ puede ser expresado como el resultado de la expresión $1 + 1$, pero también de las expresiones $2\cdot 1$ o $0 +\pa*{1 + 1}\cdot\pa*{1 + 0}$. 
 
+Además, un elemento también puede ser representado con una variable si es que no sabemos exactamente qué valor toma. Por ejemplo, puede existir un número el cual satisfaga la expresión $2\cdot x + 1 = 7$. Aunque no sepamos su valor, la expresión $2\cdot x + 1$ sigue representando un elemento específico del sistema. Luego, un número puede ser representado como una combinación de valores constantes, variables y sus operaciones mediante ciertas funciones.
 
-Dentro de este lenguaje es que podemos definir los \emph{términos}, los cuales son palabras que se interpretarán como \emph{elementos de los números naturales}, o simplemente \emph{números}. La construcción de los términos se basa en el hecho de que podemos generar nuevos números utilizando como base los números que ya conocemos (0 y 1), además de variables de tipo número, con las cuales podremos expresar propiedades generales de los números más adelante.
+Con lo anterior en mente, la construcción de los términos se basa en generar nuevos números utilizando como base los números que ya conocemos (0 y 1), además de variables de tipo número, que podemos unir mediante los símbolos de función: la suma y el producto.
 
 \begin{definition}[Términos]
 	Se define el conjunto de \emph{términos} de $\ARITMETICA$ como el mínimo conjunto $\TERMINOS$ que satisface los siguientes puntos:
@@ -81,16 +83,20 @@ Ejemplos de términos de $\ARITMETICA$ son los siguientes:
 \[
 	\begin{array}{cccc}
 		1 & 0 & n & m_{2}\\
-		\pa*{1 + 0} &\pa*{n\cdot m} &\pa*{1\cdot\pa*{n_{1} + m_{2}}} &\pa*{\pa*{1 + n}\cdot\pa*{0\cdot m_{1}}}
+		\pa*{1 + 1} &\pa*{n\cdot m} &\pa*{1\cdot\pa*{n_{1} + m_{2}}} &\pa*{\pa*{1 + n}\cdot\pa*{0\cdot m_{1}}}
 	\end{array}
 \]
 
-Las \emph{fórmulas atómicas} son aquellas palabras las cuales hablan sobre las relaciones directas entre los términos. Estas son las que pueden expresar las propiedades más básicas sobre los elementos de los naturales, como lo es si dos términos o elementos son iguales o uno menor que otro; y debido a que podemos hablar de objetos de tipo conjunto, también sobre si un término pertenece o no a cierto subconjunto de los naturales.
+Notemos de la definición que toda operación entre términos está encerrada por paréntesis. Esto tiene como motivación evitar la ambigüedad cuando interpretemos tales palabras. Por ejemplo, si tenemos la palabra $1 + 2\cdot 3$, y puesto que las operaciones son binarias, entonces podemos tener dos interpretaciones posibles: $1 +\pa*{2\cdot 3}$ o $\pa*{1 + 2}\cdot 3$, las cuales dan como resultado $7$ y $9$ respectivamente, por lo que no son expresiones indistinguibles. 
 
-Estas fórmulas son con las que podemos hablar, por ejemplo, de ecuaciones e inecuaciones.
+Aunque en la práctica conocemos la jerarquía de operaciones que nos permite interpretar correctamente este tipo de expresiones, no es algo intrínseco del lenguaje, además de ser muy complicado para nuestros objetivos. Luego, necesitamos una manera explícita de escribir estas expresiones de la forma más sencilla posible, y ese es el papel que los paréntesis.
+
+Ahora, para poder realizar matemáticas, no solamente necesitamos expresar a los elementos con los cuales trabajaremos, sino que también necesitamos realizar afirmaciones entre ellos para estudiar sus propiedades. Los objetos que nos permiten expresar proposiciones entre los términos son los símbolos de relación. Por ejemplo, si solamente tenemos las palabras $\pa*{1 + 1}$ y $\pa*{1 +\pa*{1 + 1}}$, únicamente podemos interpretarlo como que existen tales elementos; pero, si las unimos mediante la relación $<$ para formar $\pa*{1 + 1}<\pa*{1 +\pa*{1 + 1}}$, entonces ya tenemos una afirmación la cual podemos verificar o refutar. 
+
+Ese tipo de afirmaciones más elementales se denominan \emph{fórmulas atómicas}. Notemos que en ese sentido podemos realizar tres tipos de afirmaciones: la igualdad u orden entre dos términos, pero además la pertenencia de un término a un conjunto. Lo último es lo que nos permite trabajar finalmente con los conjuntos como objetos concretos, y de esa manera también poder expresar las propiedades que pueden satisfacer.
 
 \begin{definition}[Fórmulas atómicas]
-	Se define el conjunto de fórmulas atómicas de $\ARITMETICA$ como el conjunto $\ATOMICAS\subseteq\ARITMETICA^{*}$ que satisface los siguientes puntos:
+	Se define el conjunto de \emph{fórmulas atómicas} de $\ARITMETICA$ como el conjunto $\ATOMICAS\subseteq\ARITMETICA^{*}$ que satisface los siguientes puntos:
 
 	\begin{enumerate}
 		\item para cada $t_{1}$ y $t_{2}$ en $\TERMINOS$ se cumple que las palabras $\pa*{t_{1} = t_{2}}$ y $\pa*{t_{1} < t_{2}}$ pertenecen a $\ATOMICAS$
@@ -107,7 +113,7 @@ Ejemplos de fórmulas atómicas de $\ARITMETICA$ son las siguientes:
 	\end{array}
 \]
 
-Ahora, las \emph{fórmulas} son las afirmaciones o proposiciones que nos permiten la mayor expresividad. Con estas ahora podemos hablar sobre las relaciones entre las fórmulas atómicas, e incluso con otras fórmulas más complejas. Lo importante sobre estas fórmulas es que además de tener conectores lógicos, también disponemos del uso de los cuantificadores. Con los cuantificadores ahora podemos hablar sobre propiedades generales de los números y subconjuntos de números naturales.
+Teniendo ya las fórmulas atómicas, podemos combinar estas afirmaciones básicas entre sí para generar afirmaciones más complejas, las cuales se denominan \emph{fórmulas}. Aquí entran en juego los conectores lógicos para modificar o unir una o más fórmulas atómicas, pero también podemos utilizar los cuantificadores. Los cuantificadores son los que toman un papel fundamental en las matemáticas en reversa, pues son las que le agregan la complejidad lógica a las proposiciones como veremos en próximos capítulos.
 
 \begin{definition}[Fórmulas]
 	Se define el conjunto de fórmulas de $\ARITMETICA$ como el mínimo conjunto $\FORMULAS$ que satisface los siguientes puntos:
@@ -138,6 +144,217 @@ Ejemplos de fórmulas de $\ARITMETICA$ son las siguientes:
 		\pa*{\pa*{0 < n}\to\exists m\pa*{\pa*{m + 1} = n}} &\forall X\exists n\pa*{\pa*{n\cdot n}\in X}
 	\end{array}
 \]
+
+Sin embargo, debemos demostrar que esta forma en la que definimos lo términos y las fórmulas realmente está libre de ambigüedades. Para ello, definiremos ciertos objetos y conceptos que nos permitirán demostrar rigurosamente esa falta de ambigüedad.
+
+\begin{definition}
+	Sea $A$ un conjunto no vacío. Entonces se tiene lo siguiente:
+	\begin{enumerate}
+		\item para cada par de palabras $x = x_{0}\cdots x_{n}$  y $w = w_{0}\cdots w_{m}$ con símbolos en $A$, para algunos $n, m\in\omega$ definimos su \emph{concatenación} como la nueva palabra $xw\coloneq x_{0}\cdots x_{n} w_{0}\cdots w_{m}$.
+		\item se define la \emph{palabra vacía} como el símbolo $\lambda\notin A$ el cual satisface que para cada palabra $w\in A^{n}$ con $n\in\omega$, $\lambda w = w\lambda = w$.
+		\item para cada par de palabras $x, w$ de $A$ decimos que:
+		\begin{itemize}
+			\item $x$ es un \emph{prefijo} de $w$ si existe una palabra $z$ de $A$ tal que $w = xz$.
+			\item $x$ es un \emph{sufijo} de $w$ si existe una palabra $z$ de $A$ tal que $w = zx$.
+			\item $x$ es un \emph{segmento} de $w$ si existen palabras $z_{1}, z_{2}$ de $A$ tal que $w = z_{1}xz_{2}$.
+			\item $x$ es un \emph{segmento propio} de $w$ si $x$ es un segmento de $w$, y además $x\neq\lambda$ y $x\neq w$.
+		\end{itemize}
+		\item para cada palabra $w$ de $A$ se define su \emph{longitud} de la siguiente manera:
+		\[
+			\LONGITUD\bra*{w}\coloneqq
+			\begin{cases}
+				0, & w =\lambda\\
+				n, & w\in A^{n}\text{ para algún $n\in\omega^{+}$}
+			\end{cases}
+		\]
+		\item si $\set*{), (}\subseteq A$, entonces para cada palabra $w$ de $A$ denotamos por $\ABIERTO\bra*{w}$ al número de paréntesis de apertura que aparecen dentro de $w$, y por $\CERRADO\bra*{w}$ al número de paréntesis de cerradura que aparecen en $w$
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+	\label{theo: parentesis_balanceados_terminos}
+	Para cada $t\in\TERMINOS$ se satisface que $\ABIERTO\bra*{t} =\CERRADO\bra*{t}$.
+\end{theorem}
+
+\begin{proof}
+	Mostremos por inducción sobre el conjunto de términos.
+	\begin{itemize}
+		\item (Base) Para el caso base si $t\in\VARIABLES[N]\cup\set*{0, 1}$, entonces notemos que se satisface que $\ABIERTO\bra*{t} = 0 =\CERRADO\bra*{t}$.
+		\item (Paso inductivo) Sea $t$ de la forma $(t_{1}\alpha t_{2})$ para algunos $t_{1}, t_{2}\in\TERMINOS$ y $\alpha\in\set*{\cdot, +}$, y supongamos que $\ABIERTO\bra*{t_{1}} = \CERRADO\bra*{t_{1}}$ y $\ABIERTO\bra*{t_{2}} =\CERRADO\bra*{t_{2}}$. Luego, se tiene lo siguiente:
+		\begin{align*}
+			\ABIERTO\bra*{t} &=\ABIERTO\bra*{\pa*{t_{1}\alpha t_{2}}}\\
+			&=\ABIERTO\bra*{(} + \ABIERTO\bra*{t_{1}} +\ABIERTO\bra*{\alpha} +\ABIERTO\bra*{t_{2}} +\ABIERTO\bra*{)}\\
+			&= 1 +\ABIERTO\bra*{t_{1}} + 0 +\ABIERTO\bra*{t_{2}} + 0\\
+			&= 1 +\ABIERTO\bra*{t_{1}} +\ABIERTO\bra*{t_{2}}\\
+			&= 1 +\CERRADO\bra*{t_{1}} +\CERRADO\bra*{t_{2}}\\
+			&= 0 +\CERRADO\bra*{t_{1}} + 0 +\CERRADO\bra*{t_{2}} + 1\\
+			&=\CERRADO\bra*{(} +\CERRADO\bra*{t_{1}} +\CERRADO\bra*{\alpha} +\CERRADO\bra*{t_{2}} +\CERRADO\bra*{)}\\
+			&=\CERRADO\bra*{\pa*{t_{1}\alpha t_{2}}}\\
+			&=\CERRADO\bra*{t}
+		\end{align*}
+	\end{itemize}
+
+	Por lo tanto, para cada $t\in\TERMINOS$ se satisface que $\ABIERTO\bra*{t} =\CERRADO\bra*{t}$.
+\end{proof}
+
+Puesto que las palabras más simples que tenemos son los términos, entonces mostremos que estos están libres de ambigüedad. El primer teorema que debemos demostrar es determinar cierta propiedad de que deben satisfacer los paréntesis: para un término, si tomamos un prefijo, entonces el número de paréntesis se desbalancea. Notemos que si tomamos un prefijo propio, entonces como mínimo un paréntesis de cierre se pierde, y luego el número de paréntesis de apertura es mayor al número de cierre para el prefijo.
+\[
+	\underbrace{((1 + x)\cdot(0 + }_{\text{prefijo}}y))
+\]
+
+\begin{theorem}
+	\label{theo: prefijos_terminos} % [Claude, 2026-11-06] etiqueta agregada
+	Para cada par de palabras $x, w$ de $\ARITMETICA$, si $x\in\TERMINOS$ y $w$ es un prefijo propio de $x$, entonces $\ABIERTO\bra*{w} >\CERRADO\bra*{w}$.
+\end{theorem}
+
+\begin{proof}
+	Mostremos por inducción sobre el conjunto de términos. 
+	\begin{itemize}
+		\item (Base) Para el caso cuando $x\in\VARIABLES[N]\cup\set*{0, 1}$, notemos que $x$ no tiene prefijos propios. Por lo tanto, satisface la proposición por vacuidad.
+		\item (Paso inductivo) Sea ahora $x\in\TERMINOS$ de la forma $\pa*{t_{1}\alpha t_{2}}$ para algunos $t_{1}, t_{2}\in\TERMINOS$ y $\alpha\in\set*{\cdot, +}$, y supongamos que todo prefijo propio de $t_{1}$ y $t_{2}$ satisface la proposición. Sea entonces $w$ prefijo propio de $x$, entonces tenemos cuatro casos:
+		\begin{itemize}
+			\item Si $w$ es únicamente el caracter ``$($'', entonces se satisface que $\ABIERTO\bra*{w} =\ABIERTO\bra*{(} = 1 > 0 =\CERRADO\bra*{)} =\CERRADO\bra*{w}$.
+			\item Si $w$ tiene la forma ``$(w_{1}$'' donde $w_{1}$ es un prefijo propio de $t_{1}$, entonces por hipótesis de inducción se satisface lo siguiente:
+			\[
+				\ABIERTO\bra*{w} =\ABIERTO\bra*{(w_{1}} = 1 +\ABIERTO\bra*{w_{1}} >\ABIERTO\bra*{w_{1}} >\CERRADO\bra*{w_{1}} =\CERRADO\bra*{(w_{1}} =\CERRADO\bra*{w}
+			\]
+			\item Si $w$ tiene la forma ``$(t_{1}\alpha$'', entonces se satisface que:
+			\[
+				\ABIERTO\bra*{w} =\ABIERTO\bra*{(t_{1}\alpha} = 1 +\ABIERTO\bra*{t_{1}\alpha} = 1 +\ABIERTO\bra*{t_{1}} = 1 +\CERRADO\bra*{t_{1}} >\CERRADO\bra*{t_{1}} =\CERRADO\bra*{(t_{1}\alpha} =\CERRADO\bra*{w}
+			\]
+			\item Si $w$ tiene la forma ``$(t_{1}\alpha w_{2}$'' donde $w_{2}$ es un prefijo propio de $t_{2}$, entonces por hipótesis de inducción se satisface lo siguiente:
+			\begin{align*}
+				\ABIERTO\bra*{w} &=\ABIERTO\bra*{(t_{1}\alpha w_{2}}\\
+				&= 1 +\ABIERTO\bra*{t_{1}} +\ABIERTO\bra*{w_{2}}\\
+				&>\ABIERTO\bra*{t_{1}} +\ABIERTO\bra*{w_{2}}\\
+				&=\CERRADO\bra*{t_{1}} +\ABIERTO\bra*{w_{2}}\\
+				&>\CERRADO\bra*{t_{1}} +\CERRADO\bra*{w_{2}}\\
+				&=\CERRADO\bra*{(t_{1}\alpha w_{2}}\\
+				&=\CERRADO\bra*{t}
+			\end{align*}
+		\end{itemize}
+		En cualquier caso se satisface que $\ABIERTO\bra*{w} >\CERRADO\bra*{w}$.
+	\end{itemize}
+	Por lo tanto, para cada $t\in\TERMINOS$ y cada $w$ prefijo propio de $t$ se satisface que $\ABIERTO\bra*{w} >\CERRADO\bra*{w}$.
+\end{proof}
+
+\begin{coll}
+	Todo prefijo propio de un término no es un término.
+\end{coll}
+
+\begin{proof}
+	Sean $t\in\TERMINOS$ y $w$ un prefijo propio de $t$, entonces por el teorema anterior se satisface que $\ABIERTO\bra*{w} >\CERRADO\bra*{w}$, y particularmente $\ABIERTO\bra*{w}\neq\CERRADO\bra*{w}$. Entonces, por contrapositiva del teorema \ref{theo: parentesis_balanceados_terminos} se sigue que $w\notin\TERMINOS$.
+\end{proof}
+
+\begin{theorem}[Teorema de la lectura única para términos]
+	Para cada $t\in\TERMINOS$ se satisface una y solo una de las siguientes afirmaciones:
+	\begin{enumerate}
+		\item $t\in\VARIABLES[N]\cup\set*{0, 1}$.
+		\item existen únicos $t_{1}, t_{2}\in\TERMINOS$ y $\alpha\in\set*{\cdot, +}$ tales que $t =\pa*{t_{1}\alpha t_{2}}$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	La existencia se satisface directamente por la definición inductiva de términos. Lo único que resta es demostrar la unicidad del segundo punto. Sean $t_{1}, t_{2}, u_{1}, u_{2}\in\TERMINOS$ y $\alpha,\beta\in\set*{\cdot, +}$ tales que $t =\pa*{t_{1}\alpha t_{2}} =\pa*{u_{1}\beta u_{2}}$. Mostremos entonces que $t_{1} = u_{1}$, $t_{2} = u_{2}$ y $\alpha =\beta$.
+
+	Puesto que $\pa*{t_{1}\alpha t_{2}} =\pa*{u_{1}\beta u_{2}}$, entonces $t_{1}\alpha t_{2}) = u_{1}\beta u_{2})$. Si $t_{1}\neq u_{1}$, entonces podemos suponer, sin pérdida de generalidad, que $\LONGITUD\bra*{t_{1}} <\LONGITUD\bra*{u_{1}}$, por lo que necesariamente $t_{1}$ es un prefijo propio de $u_{1}$ (pues no puede ser la palabra vacía al ser un término). Sin embargo, al ser $t_{1}$ un prefijo propio de un término, se sigue por el corolario anterior que $t_{1}\notin\TERMINOS$, lo cual es una contradicción. Por lo tanto, $t_{1} = u_{1}$.
+
+	Ahora, se sigue entonces que $\alpha t_{2}) =\beta u_{2})$. Puesto que $\LONGITUD\bra*{\alpha} =\LONGITUD\bra*{\beta} = 1$, necesariamente se satisface que $\alpha =\beta$. Por consiguiente tenemos que $t_{2}) = u_{2})$, y con un argumento análogo al del párrafo anterior se cumple necesariamente que $t_{2} = u_{2}$; probando así la unicidad.
+\end{proof}
+
+\begin{agregado}[paréntesis en fórmulas]
+Realizamos algo similar para el caso de las fórmulas, y así probar que también hay un teorema de la lectura única para fórmulas.
+
+\begin{theorem}
+	\label{theo: parentesis_balanceados_formulas}
+	Para cada $\varphi\in\FORMULAS$ se satisface que $\ABIERTO\bra*{\varphi} =\CERRADO\bra*{\varphi}$.
+\end{theorem}
+
+\begin{proof}
+	Mostremos por inducción sobre el conjunto de fórmulas.
+	\begin{itemize}
+		\item (Base) Si $\varphi\in\ATOMICAS$, entonces tenemos dos casos:
+		\begin{enumerate}
+			\item existen $t_{1}, t_{2}\in\TERMINOS$ y $\alpha\in\set*{=, <}$ tales que $\varphi$ es de la forma $\pa*{t_{1}\alpha t_{2}}$. Por el teorema \ref{theo: parentesis_balanceados_terminos} se satisface que:
+			\begin{align*}
+				\ABIERTO\bra*{\varphi} &=\ABIERTO\bra*{\pa*{t_{1}\alpha t_{2}}}\\
+				&=\ABIERTO\bra*{(} +\ABIERTO\bra*{t_{1}} +\ABIERTO\bra*{\alpha} +\ABIERTO\bra*{t_{2}} +\ABIERTO\bra*{)}\\
+				&= 1 +\ABIERTO\bra*{t_{1}} +\ABIERTO\bra*{t_{2}}\\
+				&= 1 +\CERRADO\bra*{t_{1}} +\CERRADO\bra*{t_{2}}\\
+				&=\CERRADO\bra*{t_{1}} +\CERRADO\bra*{t_{2}} + 1\\
+				&=\CERRADO\bra*{(} +\CERRADO\bra*{t_{1}} +\CERRADO\bra*{\alpha} +\CERRADO\bra*{t_{2}} +\CERRADO\bra*{)}\\
+				&=\CERRADO\bra*{\pa*{t_{1}\alpha t_{2}}}\\
+				&=\CERRADO\bra*{\varphi}
+			\end{align*}
+			\item existen $t\in\TERMINOS$ y $X\in\VARIABLES[C]$ tales que $\varphi$ es de la forma $\pa*{t\in X}$. Luego, por el mismo teorema \ref{theo: parentesis_balanceados_terminos}:
+			\begin{align*}
+				\ABIERTO\bra*{\varphi} &=\ABIERTO\bra*{\pa*{t\in X}}\\
+				&=\ABIERTO\bra*{(} +\ABIERTO\bra*{t} +\ABIERTO\bra*{\in} +\ABIERTO\bra*{X} +\ABIERTO\bra*{)}\\
+				&= 1 +\ABIERTO\bra*{t}\\
+				&= 1 +\CERRADO\bra*{t}\\
+				&=\CERRADO\bra*{t} + 1\\
+				&=\CERRADO\bra*{(} +\CERRADO\bra*{t} +\CERRADO\bra*{\in} +\CERRADO\bra*{X} +\CERRADO\bra*{)}\\
+				&=\CERRADO\bra*{\pa*{t\in X}}\\
+				&=\CERRADO\bra*{\varphi}
+			\end{align*}
+		\end{enumerate}
+		En cualquier caso \replaced[id=Corr]{se}{es} satisface que $\ABIERTO\bra*{\varphi} =\CERRADO\bra*{\varphi}$.
+		\item (Paso inductivo) \replaced[id=Corr]{Supongamos}{Supogamos} ahora que $\varphi,\psi\in\FORMULAS$ son tales que $\ABIERTO\bra*{\varphi} =\CERRADO\bra*{\varphi}$ y $\ABIERTO\bra*{\psi} =\CERRADO\bra*{\psi}$. Entonces mostremos que \replaced[id=Corr]{se}{es} satisface de igual forma para $\neg\varphi$ y $\pa*{\varphi\land\psi}$. Para $\neg\varphi$ se sigue que:
+		\[
+			\ABIERTO\bra*{\neg\varphi} =\ABIERTO\bra*{\neg} +\ABIERTO\bra*{\varphi} =\ABIERTO\bra*{\varphi} =\CERRADO\bra*{\varphi} =\CERRADO\bra*{\neg} +\CERRADO\bra*{\varphi} =\CERRADO\bra*{\neg\varphi}
+		\]
+		y para el caso de $\pa*{\varphi\land\psi}$ se sigue que:
+		\begin{align*}
+			\ABIERTO\bra*{\pa*{\varphi\land\psi}} &=\ABIERTO\bra*{(} +\ABIERTO\bra*{\varphi} +\ABIERTO\bra*{\land} +\ABIERTO\bra*{\psi} +\ABIERTO\bra*{)}\\
+			&= 1 +\ABIERTO\bra*{\varphi} +\ABIERTO\bra*{\psi}\\
+			&= 1 +\CERRADO\bra*{\varphi} +\CERRADO\bra*{\psi}\\
+			&=\CERRADO\bra*{\varphi} +\CERRADO\bra*{\psi} + 1\\
+			&=\CERRADO\bra*{(} +\CERRADO\bra*{\varphi} +\CERRADO\bra*{\land} +\CERRADO\bra*{\psi} +\CERRADO\bra*{)}\\
+			&=\CERRADO\bra*{\pa*{\varphi\land\psi}}
+		\end{align*}
+		\added[id=Corr]{Finalmente, sean $x\in\VARIABLES$ y $Q\in\set*{\forall,\exists}$. Como ni el cuantificador $Q$ ni la variable $x$ son paréntesis, se tiene que $\ABIERTO\bra*{Qx\varphi} =\ABIERTO\bra*{\varphi} =\CERRADO\bra*{\varphi} =\CERRADO\bra*{Qx\varphi}$.}
+	\end{itemize}
+	Probando así que para cada $\varphi\in\FORMULAS$ se satisface que $\ABIERTO\bra*{\varphi} =\CERRADO\bra*{\varphi}$.
+\end{proof}
+
+\begin{theorem}
+	\label{theo: prefijos_formulas}
+	Para cada par de palabras $\varphi, w$ de $\ARITMETICA$ se satisface que si $\varphi\in\FORMULAS$ y $w$ es un prefijo propio de \replaced[id=Corr]{$\varphi$}{$x$}, entonces $\ABIERTO\bra*{w} >\CERRADO\bra*{w}$.
+\end{theorem}
+
+\comment[id=Corr]{Así enunciado, el teorema es falso para las fórmulas que empiezan con $\neg$ o con un cuantificador: $w = \neg$ es prefijo propio de $\neg\pa*{0 < 1}$ y $\ABIERTO\bra*{w} = \CERRADO\bra*{w} = 0$; lo mismo pasa con $w = \forall n$ en $\forall n\pa*{0 < n}$. Hace falta restringirlo (por ejemplo, a las fórmulas que empiezan con un paréntesis) o probar directamente que ningún prefijo propio de una fórmula es una fórmula. La demostración además está incompleta: falta el caso $\pa*{t\in X}$ de la base y el paso inductivo.}
+
+\begin{proof}
+	Probemos por inducción sobre el conjunto de fórmulas.
+	\begin{itemize}
+		\item (Base) Si $\varphi\in\ATOMICAS$, entonces tenemos dos casos:
+		\begin{enumerate}
+			\item existen $t_{1}, t_{2}\in\TERMINOS$ y $\alpha\in\set*{=, <}$ tales que $\varphi$ es de la forma $\pa*{t_{1}\alpha t_{2}}$. Si $w$ es un prefijo propio de $\varphi$, entonces se tienen además cinco casos: $w = ($, $w = (u$ para algún prefijo propio $u$ de $t_{1}$, $w = (t_{1}\alpha$, $w = (t_{1}\alpha u$ para algún prefijo propio $u$ de $t_{2}$, y $w = (t_{1}\alpha t_{2}$.
+
+			Para los casos primero, tercero y quinto se sigue por el teorema \ref{theo: parentesis_balanceados_terminos}. Para el segundo caso cuando $w = (u$ para algún prefijo propio $u$ de $t_{1}$, por el teorema \ref{theo: prefijos_terminos} se satisface lo siguiente:
+			\[
+				\ABIERTO\bra*{w} =\ABIERTO\bra*{(u} =\ABIERTO\bra*{(} +\ABIERTO\bra*{u} = 1 +\ABIERTO\bra*{u} >\ABIERTO\bra*{u} >\CERRADO\bra*{u} =\CERRADO\bra*{(u} =\CERRADO\bra*{w}
+			\]
+
+			Para el cuarto caso cuando $w = (t_{1}\alpha u$ para algún prefijo propio $u$ de $t_{2}$, se sigue por los teoremas \ref{theo: parentesis_balanceados_terminos} y \ref{theo: prefijos_terminos} que:
+			\begin{align*}
+				\ABIERTO\bra*{w} &=\ABIERTO\bra*{(t_{1}\alpha u}\\
+				&=\ABIERTO\bra*{(} +\ABIERTO\bra*{t_{1}} +\ABIERTO\bra*{\alpha} +\ABIERTO\bra*{u}\\
+				&= 1 +\ABIERTO\bra*{t_{1}} +\ABIERTO\bra*{u}\\
+				&= 1 +\CERRADO\bra*{t_{1}} +\ABIERTO\bra*{u}\\
+				&>\CERRADO\bra*{t_{1}} +\ABIERTO\bra*{u}\\
+				&>\CERRADO\bra*{t_{1}} +\CERRADO\bra*{u}\\
+				&=\CERRADO\bra*{(t_{1}\alpha u}\\
+				&=\CERRADO\bra*{w}
+			\end{align*}
+
+			en cualquier caso se satisface que $\ABIERTO\bra*{w} >\CERRADO\bra*{w}$.
+		\end{enumerate}
+
+		Supongamos ahora que $\varphi,\psi\in\FORMULAS$ son tales que para cada prefijos propios $w, u$ de $\varphi,\psi$ \replaced[id=Corr]{respectivamente}{repectivamente} se satisface que $\ABIERTO\bra*{w} >\CERRADO\bra*{w}$ y $\ABIERTO\bra*{u} >\CERRADO\bra*{u}$. Probemos que se cumple lo mismo para $\neg\varphi$ y $\pa*{\varphi\land\psi}$.
+	\end{itemize}
+\end{proof}
+\end{agregado}
 
 \begin{definition}[Conjunto de variables]
 	Sea $\varphi\in\TERMINOS\cup\FORMULAS$. Se define el \emph{conjunto de variables} de $\varphi$ de la siguiente forma inductiva:

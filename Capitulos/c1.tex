@@ -53,6 +53,7 @@ La característica principal de las funciones primitivo-recursivas es que se obt
 Ejemplo de cómo es que estas funciones modelan una parte de la computabilidad es el siguiente teorema.
 
 \begin{theorem}
+	\label{theo: suma_producto_primitivas} % [Claude, 2026-11-06] etiqueta agregada
 	La suma, producto, exponenciación y las funciones constantes son funciones primitivo-recursivas.
 \end{theorem}
 
@@ -247,6 +248,7 @@ Para poder demostrar que otras funciones comunes (y particularmente las unarias)
 Con este teorema podemos entonces demostrar que las funciones factorial, predecesor y resta son primitivo-recursivas.
 
 \begin{theorem}
+	\label{theo: funciones_primitivas_basicas} % [Claude, 2026-11-06] etiqueta agregada
 	Las siguientes funciones son primitivo-recursivas.
 
 	\begin{enumerate}
@@ -470,6 +472,7 @@ Cuando hablamos de computación, una herramienta fundamental en la práctica es 
 Donde las expresiones $R_1,\dotsc, R_m$ son las condiciones (disjuntas) que nos permiten discernir entre los diferentes escenarios y las cuales se evalúan para determinar si alguna se satisface para entonces ejecutar el código descrito por $g_k$ para algún $k\leq m + 1$. Como hemos descrito anteriormente, una condición o propiedad se corresponde con el conjunto que define; por lo que las condiciones pueden verse como relaciones primitivo-recursivas disjuntas. Para el caso de los códigos de cada rama, estos pueden ser representados como funciones primitivo-recursivas (nuestra forma de modelar un algoritmo hasta ahora). Por lo tanto, una expresión \emph{if-then-else} puede modelarse dentro de este marco como una función primitivo-recursiva definida a trozos.
 
 \begin{theorem}
+	\label{theo: definicion_por_casos} % [Claude, 2026-11-06] etiqueta agregada
 	Sean $n, m\in\omega^{+}$, funciones primitivo-recursivas $g_{1},\dotsc, g_{m}, g_{m + 1}:\omega^{n}\to\omega$ y relaciones primitivo-recursivas $R_{1},\dotsc, R_{m}\subseteq\omega^{n}$ disjuntas a pares, entonces la función $f:\omega^{n}\to\omega$ tal que para cada $x\in\omega^{n}$:
 	\[
 		f\pa*{x} =
@@ -532,6 +535,7 @@ Consideremos una relación $R\pa*{x, y}$ y $p\in\omega$. Para poder demostrar qu
 Estas propiedades de las funciones primitivo-recursivas nos permiten mostrar que el conjunto de números primos es primitivo-recursivo, así como también la función que regresa el $\pa*{n + 1}$-ésimo primo. Esto es importante pues nos permitirá demostrar la enumeración de los algoritmos más adelante.
 
 \begin{theorem}
+	\label{theo: primos_primitivos} % [Claude, 2026-11-06] etiqueta agregada
 	La relación ``divide a'', el conjunto de números primos y la función que devuelve el $\pa*{n + 1}$-ésimo número primo para cada $n\in\omega$ son primitivo-recursivas.
 \end{theorem}
 
@@ -1164,13 +1168,20 @@ Con esto podemos apreciar que la misma máquina URM puede darnos diferentes func
 Como mencionamos antes, el objetivo de esta sección será demostrar que ambos enfoques de la computabilidad son equivalentes, o más formalmente, demostrar que se tiene la igualdad de conjuntos $\PARCIAL =\URMCOMPUTABLE$. La contención más sencilla de demostrar es que toda función parcial-recursiva es URM-computable.
 
 \begin{theorem}
+	\label{theo: parcial_implica_urm} % [Claude, 2026-10-30] etiqueta agregada
 	Toda función parcial-recursiva es URM-computable.
 \end{theorem}
 
 \begin{proof}
-	Probemos por inducción sobre el conjunto de funciones parcial-recursivas. Mostremos primero que las funciones básicas son URM-computables. Sean $n, k\in\omega^{+}$ con $k\leq n$ y definamos las máquinas $M_{1} =\pa*{\pa*{0, 1}}$, $M_{2} =\pa*{\pa*{1, 1}}$ y $M_{3} =\pa*{\pa*{2, k, 1}}$, entonces se sigue directamente que $\CERO =\PHI{M_{1}}[n]$, $\SUCESOR =\PHI{M_{2}}$ y $\PROYECCION{n}{k} =\PHI{M_{3}}[n]$.
+	Probemos por inducción sobre el conjunto de funciones parcial-recursivas.
 
-	Considérese ahora el caso de la \emph{\textbf{composición}}. Sean $n, k\in\omega$, $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{k}\to\omega^{\DIVERGE}$  funciones parcial-recursivas, y supongamos que existen máquinas URM $G_{1}$, ..., $G_{k}$ y $H$ tales que $h =\PHI{H}[k]$ y para cada $j\leq k$, $g_{j} =\PHI{G_{j}}[n]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida por $f = h\pa*{g_{1},\dotsc, g_{k}}$ es URM-computable.
+	\begin{itemize}
+		\item (Base) Mostremos primero que las funciones básicas son URM-computables. Sean $n, k\in\omega^{+}$ con $k\leq n$ y definamos las máquinas $M_{1} =\pa*{\pa*{0, 1}}$, $M_{2} =\pa*{\pa*{1, 1}}$ y $M_{3} =\pa*{\pa*{2, k, 1}}$, entonces se sigue directamente que $\CERO =\PHI{M_{1}}[n]$, $\SUCESOR =\PHI{M_{2}}$ y $\PROYECCION{n}{k} =\PHI{M_{3}}[n]$.
+
+		\item (Paso inductivo) Tenemos tres casos:
+
+		\begin{itemize}
+			\item (Composición) Sean $n, k\in\omega$, $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{k}\to\omega^{\DIVERGE}$  funciones parcial-recursivas, y supongamos que existen máquinas URM \replace{$G_{1},\dotsc, G_{k}$}{$G_{1}$, ..., $G_{k}$} y $H$ tales que $h =\PHI{H}[k]$ y para cada $j\leq k$, $g_{j} =\PHI{G_{j}}[n]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida por $f = h\pa*{g_{1},\dotsc, g_{k}}$ es URM-computable.
 
 	Para ello, describiremos cual será el proceso que debe realizar la máquina URM $F$ que computa a $f$. Para cada $j\leq k$ denotemos por $M_{j}\in\omega^{+}$ al registro máximo al cual hace referencia la máquina $G_{j}$ y por $M_{0}$ al registro máximo al cual hace referencia la máquina $H$. Defínase entonces $M =\max\set*{M_{0},\dotsc, M_{k}, n, k}$. El valor $M$ nos servirá como un parámetro auxiliar para poder definir de manera adecuada la máquina $F$. La idea es que la máquina $F$ primero computará los valores de $g_{1},\dotsc, g_{k}$ y al final los escribirá en los registros $R_{1},\dotsc, R_{k}$, para luego computar el valor de $h$ con esos valores como entrada.
 
@@ -1252,7 +1263,7 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 		\label{fig:cinta_composicion}
 	\end{figure}
 
-	Continuemos con el caso de la \emph{\textbf{recursión primitiva}}. Sean $n\in\omega$, $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ funciones parcial-recursivas, y supongamos que existen máquinas URM $G$ y $H$ tales que $g =\PHI{G}[n]$ y $h =\PHI{H}[n + 2]$. Mostremos entonces que la función $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ y $y\in\omega$ es URM-computable:
+			\item (Recursión primitiva) Sean $n\in\omega$, $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ funciones parcial-recursivas, y supongamos que existen máquinas URM $G$ y $H$ tales que $g =\PHI{G}[n]$ y $h =\PHI{H}[n + 2]$. Mostremos entonces que la función $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ y $y\in\omega$ es URM-computable:
 	\[
 		\begin{NiceArray}{c}
 			f\pa*{x, 0} = g\pa*{x}\\
@@ -1360,7 +1371,7 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 		\label{fig:cinta_recursion_primitiva}
 	\end{figure}
 
-	Finalicemos con el caso de la \emph{\textbf{minimización no acotada}}. Sean $n\in\omega$ y $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ una función parcial-recursiva, y supongamos que existe una máquina URM $G$ la cual satisface que $g =\PHI{G}[n + 1]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ es URM-computable:
+			\item (Minimización no acotada) Sean $n\in\omega$ y $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ una función parcial-recursiva, y supongamos que existe una máquina URM $G$ la cual satisface que $g =\PHI{G}[n + 1]$. Mostremos entonces que la función $f:\omega^{n}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$ es URM-computable:
 	\[
 		f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}
 	\]
@@ -1441,6 +1452,9 @@ Como mencionamos antes, el objetivo de esta sección será demostrar que ambos e
 		\label{fig:cinta_minimizacion}
 	\end{figure}
 
+		\end{itemize}
+	\end{itemize}
+
 	Por lo tanto, por inducción sobre el conjunto de funciones parcial-recursivas, se satisface que para toda función $f:\omega^{n}\to\omega^{\DIVERGE}$, para algún $n\in\omega$, parcial-recursiva existe una máquina URM $F$ la cual satisface que $f =\PHI{F}[n]$.
 \end{proof}
 
@@ -1455,6 +1469,7 @@ Aunque existen varias formas de poder codificar listas de naturales, la forma m�
 Sin embargo, un problema de esta codificación es cuando tenemos listas con ceros, como por ejemplo las listas $\pa*{1, 2, 0, 0}$ y $\pa*{1, 2}$. Notemos en este caso que ambas listas serían mapeadas al número $2^{1}3^{2}$ justamente porque existen ceros al final de la primera lista. Una forma para poder arreglar esto es sumar $1$ a cada exponente en el mapeo. En este caso, dadas las listas anteriores, podríamos mapear $\pa*{1, 2, 0, 0}$ a $2^{1 + 1}3^{2 + 1}5^{0 + 1}7^{0 + 1}$ y mapear $\pa*{1, 2}$ a $2^{1 + 1}3^{2 + 1}$, donde las listas ahora están mapeadas a diferentes números naturales. Esta forma de mapear listas ya asegura una inyección debido a que ya no tendríamos potencias nulas al trabajar con listas que contengan ceros como elementos.
 
 \begin{theorem}
+	\label{theo: codificacion_inyectiva} % [Claude, 2026-11-06] etiqueta agregada
 	Sea la función $f:\omega^{<\omega}\to\omega$ tal que para cada $n\in\omega$ y $x =\pa*{x_{1},\dotsc, x_{n}}\in\omega^{n}$ definida por:
 	\[
 		f\pa*{x} =\prod_{k = 1}^{n}p_{k}^{x_{k} + 1}
@@ -1483,6 +1498,7 @@ Sin embargo, un problema de esta codificación es cuando tenemos listas con cero
 \end{definition}
 
 \begin{theorem}
+	\label{theo: codificacion_primitiva} % [Claude, 2026-11-06] etiqueta agregada
 	Las funciones de codificación son primitivo-recursivas.
 \end{theorem}
 
@@ -1550,6 +1566,7 @@ El objetivo ahora entonces es verificar que ciertas operaciones que podemos real
 \end{definition}
 
 \begin{theorem}
+	\label{theo: acceso_longitud_primitivas} % [Claude, 2026-11-06] etiqueta agregada
 	Las funciones máxima potencia, acceso y longitud son primitivo-recursivas.
 \end{theorem}
 
@@ -1663,6 +1680,7 @@ En este caso se obtiene ahora que $e\bra*{1} =\inner*{3, 2, 3, 5}$ es el código
 Se define entonces lo siguiente.
 
 \begin{definition}[Codificación de instrucciones y máquinas URM]
+	\label{def: codificacion_urm} % [Claude, 2026-10-30] etiqueta agregada
 	Se definen los siguientes conjuntos de codificaciones de instrucciones y máquinas URM
 
 	\begin{align*}
@@ -1676,6 +1694,7 @@ Se define entonces lo siguiente.
 \end{definition}
 
 \begin{theorem}
+	\label{theo: instrcod_urmcod_primitivos} % [Claude, 2026-10-30] etiqueta agregada
 	Los conjuntos $\INSTRUCCIONESCOD$ y $\URMCODIGO$ son primitivos recursivos.
 \end{theorem}
 
@@ -1702,6 +1721,7 @@ Se define entonces lo siguiente.
 Demostramos ahora las siguientes funciones que nos serán de utilidad para codificar la ejecución de las máquinas URM.
 
 \begin{theorem}
+	\label{theo: numinstr_maxreg_primitivas} % [Claude, 2026-10-30] etiqueta agregada
 	Las siguientes funciones son primitivo-recursivas:
 
 	\begin{enumerate}
@@ -1805,6 +1825,7 @@ Primero debemos asegurar que los números $c$ y $d$ son configuraciones válidas
 \end{definition}
 
 \begin{theorem}
+	\label{theo: ejec_primitiva} % [Claude, 2026-10-30] etiqueta agregada
 	La relación $\EJECUCION\subseteq\omega^{3}$ es primitivo-recursiva.
 \end{theorem}
 
@@ -1897,6 +1918,7 @@ Notemos que se sigue lo siguiente por definición.
 Ahora, recordemos que el valor de la función URM-computable que genera una máquina URM no se calcula técnicamente con cualquier ejecución que indique que el cómputo ya terminó, sino con la mínima de ellas. Por lo tanto, el valor de tal función sería el valor de $U$ de la mínima ejecución $p$ para la cual la máquina $e$ con entrada $z$ termina, es decir, $U\pa*{\mu p \KLEENE\pa*{e, z, p}}$. A esta función que calcula de manera alternativa una función URM-computable se denomina \emph{Forma Normal de Kleene}.
 
 \begin{theorem}[Teorema de la Forma Normal de Kleene]
+	\label{theo: forma_normal_kleene} % [Claude, 2026-10-30] etiqueta agregada
 	Sean $M$ una máquina URM con codificación $e\in\URMCODIGO$ y $n\in\omega^{+}$, entonces para cada $x\in\omega^{n}$, con $z =\inner*{x}$, se satisface lo siguiente:
 	\[
 		\PHI{M}[n]\pa*{x} = U\pa*{\mu p \KLEENE\pa*{e, z, p}}
@@ -1912,7 +1934,12 @@ Ahora, recordemos que el valor de la función URM-computable que genera una máq
 	\[
 		c_{0} =\langle 1, z\bra*{0},\dotsc, z\bra*{\LONGITUD\pa*{z} - 1},\underbrace{0,\dotsc, 0}_{N -\LONGITUD\pa*{z} - 1}\rangle
 	\]
-	Por lo que se satisface que $f_{0}\upharpoonright N = c_{0}$. Mostremos por inducción que para cada $k\leq t$ se satisface que $f_{k}\upharpoonright N = c_{k}$. El caso base ya lo mostramos, entonces sea $k < t$ tal que $f_{k}\upharpoonright N = c_{k}$. Por la definición \ref{def: computo_urm}, si $f_{k}\upharpoonright N = c_{k}$, entonces $f_{k + 1}\upharpoonright N = c_{k + 1}$.
+	Por lo que se satisface que $f_{0}\upharpoonright N = c_{0}$. Mostremos por inducción que para cada $k\leq t$ se satisface que $f_{k}\upharpoonright N = c_{k}$.
+
+	\begin{itemize}
+		\item (Base) Ya se mostró que $f_{0}\upharpoonright N = c_{0}$.
+		\item (Paso inductivo) Sea $k < t$ tal que $f_{k}\upharpoonright N = c_{k}$. Por la definición \ref{def: computo_urm}, si $f_{k}\upharpoonright N = c_{k}$, entonces $f_{k + 1}\upharpoonright N = c_{k + 1}$.
+	\end{itemize}
 
 	Ahora, si $p$ satisface el punto (8) de la definición \ref{def: t_predicado_de_kleene}, entonces se tiene que $c_{t}\bra*{0} >\NUMINSTRUCCIONES\pa*{e}$, de lo cual se implica que $f_{t}\pa*{0} >\NUMINSTRUCCIONES\pa*{e}$, es decir, $\PHI{M}[n]\pa*{x}\ACABA$. Por lo tanto, si $\KLEENE\pa*{e, z, p}$, entonces $\PHI{M}[n]\pa*{x}\ACABA$.
 
@@ -1985,20 +2012,33 @@ Este tipo de funciones son las que nos permiten eliminar la divergencia de las f
 \end{theorem}
 
 \begin{proof}
-	Consideremos primero el converso probando por inducción sobre el conjunto $F$ de funciones generadas por los cuatro puntos. Claramente las funciones básicas son total-recursivas, probando así el caso base.
+	Consideremos primero el converso probando por inducción sobre el conjunto $F$ de funciones generadas por los cuatro puntos.
 
-	Para la composición, sean $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ parcial-recursivas para algunos $n, m\in\omega$, y supongamos que son totales. Por definición de composición, se sigue directamente que $h\pa*{g_{1},\dotsc, g_{m}}$ es total-recursiva.
+	\begin{itemize}
+		\item (Base) Claramente las funciones básicas son total-recursivas.
 
-	Para la recursión primitiva, sean $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ parcial-recursivas para algún $n\in\omega$, y supongamos que son totales. Sea $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$ y cada $y\in\omega$:
-	\[
-		\begin{NiceArray}{c}
-			f\pa*{x, 0} = g\pa*{x}\\
-			f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
-		\end{NiceArray}
-	\]
-	Mostremos por inducción sobre $y$ que $f\pa*{x, y}\ACABA$. Debido a que $g$ es total por hipótesis de inducción, se sigue que $f\pa*{x, 0} = g\pa*{x}\ACABA$. Ahora, sea $y\in\omega$ tal que $f\pa*{x, y}\ACABA$. Puesto que $h$ es total por hipótesis de inducción, se sigue que $f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}\ACABA$. Por lo tanto, para cada $y\in\omega$ se satisface que $f\pa*{x, y}\ACABA$. Puesto que $x\in\omega^{n}$ fue arbitrario, se sigue que $f$ es total.
+		\item (Paso inductivo) Tenemos tres casos:
 
-	Para el caso de la minimización restringida, sea $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ parcial-recursiva regular para algún $n\in\omega$, y supongamos que es total-recursiva. Sea $f:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}$. Puesto que $g$ es regular, sabemos que para cada $x\in\omega^{n}$ existe $y\in\omega$ tal que $g\pa*{x, y} = 0$, y debido a que $g$ es total, sabemos que existe un natural $z\in\omega$ el cual satisface que $g\pa*{x, z} = 0$ y para cada $y < z$, $g\pa*{x, y}\ACABA\neq 0$, es decir, $z =\mu y\pa*{g\pa*{x, y} = 0} = f\pa*{x}$. Por lo tanto, $f$ es total.
+		\begin{itemize}
+			\item (Composición) Sean $g_{1},\dotsc, g_{m}:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{m}\to\omega^{\DIVERGE}$ parcial-recursivas para algunos $n, m\in\omega$, y supongamos que son totales. Por definición de composición, se sigue directamente que $h\pa*{g_{1},\dotsc, g_{m}}$ es total-recursiva.
+
+			\item (Recursión primitiva) Sean $g:\omega^{n}\to\omega^{\DIVERGE}$ y $h:\omega^{n + 2}\to\omega^{\DIVERGE}$ parcial-recursivas para algún $n\in\omega$, y supongamos que son totales. Sea $f:\omega^{n + 1}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$ y cada $y\in\omega$:
+			\[
+				\begin{NiceArray}{c}
+					f\pa*{x, 0} = g\pa*{x}\\
+					f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
+				\end{NiceArray}
+			\]
+			Mostremos por inducción sobre $y$ que $f\pa*{x, y}\ACABA$.
+			\begin{itemize}
+				\item (Base) Debido a que $g$ es total por hipótesis de inducción, se sigue que $f\pa*{x, 0} = g\pa*{x}\ACABA$.
+				\item (Paso inductivo) Sea $y\in\omega$ tal que $f\pa*{x, y}\ACABA$. Puesto que $h$ es total por hipótesis de inducción, se sigue que $f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}\ACABA$.
+			\end{itemize}
+			Por lo tanto, para cada $y\in\omega$ se satisface que $f\pa*{x, y}\ACABA$. Puesto que $x\in\omega^{n}$ fue arbitrario, se sigue que $f$ es total.
+
+			\item (Minimización restringida) Sea $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ parcial-recursiva regular para algún $n\in\omega$, y supongamos que es total-recursiva. Sea $f:\omega^{n}\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega^{n}$, $f\pa*{x} =\mu y\pa*{g\pa*{x, y} = 0}$. Puesto que $g$ es regular, sabemos que para cada $x\in\omega^{n}$ existe $y\in\omega$ tal que $g\pa*{x, y} = 0$, y debido a que $g$ es total, sabemos que existe un natural $z\in\omega$ el cual satisface que $g\pa*{x, z} = 0$ y para cada $y < z$, $g\pa*{x, y}\ACABA\neq 0$, es decir, $z =\mu y\pa*{g\pa*{x, y} = 0} = f\pa*{x}$. Por lo tanto, $f$ es total.
+		\end{itemize}
+	\end{itemize}
 
 	Por lo tanto, el conjunto $F$ de las funciones generadas por los cuatro puntos satisface que cada uno de sus elementos es total-recursivo.
 
@@ -2159,6 +2199,7 @@ Este tipo de conjuntos que son rango de funciones computables se denominan \emph
 Ya que mencionamos que esta definición es una propiedad más débil a la de los conjuntos computables, entonces es de esperarse que los conjuntos computables sean c.e. Esa afirmación se prueba con ayuda del siguiente teorema.
 
 \begin{theorem}
+	\label{theo: infinito_computable_creciente} % [Claude, 2026-11-04] etiqueta agregada
 	Sea $A\subseteq\omega$ un conjunto infinito y computable, entonces existe una función total-computable y estrictamente creciente $f:\omega\to\omega$ tal que $\RANGO{f} = A$.
 \end{theorem}
 
@@ -2172,21 +2213,40 @@ Ya que mencionamos que esta definición es una propiedad más débil a la de los
 	\]
 	Verífiquemos que $f$ satisface la proposición. Puesto que $A$ es computable, y $f$ se genera mediante recursión primitiva y minimización no acotada, se sigue que $f$ es parcial-computable.
 
-	Mostremos por inducción que $f$ es total. Ya que $A$ es infinito, en particular no es vacío, y luego existe $z\in\omega$ tal que $z\in A$; lo cual implica que $f\pa*{0} =\mu z A\pa*{z}\ACABA$. Sea ahora $x\in\omega$ el cual satisface que $f\pa*{x}\ACABA$. Puesto que $A$ es infinito, se tiene que el conjunto $X =\set*{z\in\omega: A\pa*{z}\land z > f\pa*{x}}$ es no vacío y por tanto $f\pa*{x + 1} =\mu z\pa*{A\pa*{z}\land z > f\pa*{x}} =\mu z X\pa*{z}\ACABA$. Por consiguiente, $f$ es total.
+	Mostremos por inducción que $f$ es total.
 
-	Por la definición de $f$ se sigue directamente que para cada $x\in\omega$, $f\pa*{x} < f\pa*{x + 1}$. Mostremos por inducción sobre $y$ que para cada $x, y\in\omega$, $f\pa*{x} < f\pa*{x + y + 1}$. Para $y = 0$ se sigue directamente por lo antes dicho. Sea ahora $y\in\omega$ tal que $f\pa*{x} < f\pa*{x + y + 1}$, entonces por el mismo argumento tenemos que $f\pa*{x + y + 1} < f\pa*{x + y + 2}$, y por transitividad se tiene que $f\pa*{x} < f\pa*{x + y + 2}$. Por lo tanto, para cada $x < y\in\omega$ se satisface que $f\pa*{x} < f\pa*{y}$, es decir, $f$ es estrictamente creciente.
+	\begin{itemize}
+		\item (Base) Ya que $A$ es infinito, en particular no es vacío, y luego existe $z\in\omega$ tal que $z\in A$; lo cual implica que $f\pa*{0} =\mu z A\pa*{z}\ACABA$.
+		\item (Paso inductivo) Sea $x\in\omega$ el cual satisface que $f\pa*{x}\ACABA$. Puesto que $A$ es infinito, se tiene que el conjunto $X =\set*{z\in\omega: A\pa*{z}\land z > f\pa*{x}}$ es no vacío y por tanto $f\pa*{x + 1} =\mu z\pa*{A\pa*{z}\land z > f\pa*{x}} =\mu z X\pa*{z}\ACABA$.
+	\end{itemize}
 
-	Finalmente, mostremos que $\RANGO{f} = A$. Por la definición de $f$ se sigue directamente que $\RANGO{f}\subseteq A$. Probemos entonces que $A\subseteq\RANGO{f}$, y para ello mostremos equivalentemente por inducción fuerte que para cada $y\in\omega$ y cada $z\leq y$, si $z\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$. Para el caso base $y = 0$ tenemos dos casos: $y\notin A$ o $y\in A$. Si $y\notin A$, se satisface la proposición por vacuidad. Si $y\in A$, entonces se tiene que $y = 0 =\mu z A\pa*{z} = f\pa*{0}$, y tomemos por testigo $x = 0$ por consiguiente.
+	Por consiguiente, $f$ es total.
 
-	Sea ahora $y\in\omega$ tal que para cada $z\leq y$, si $z\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$. Mostremos que se satisface para $y + 1$. Tenemos tres casos: $y + 1\notin A$, $y + 1\in A$ y no existe $z < y + 1$ tal que $z\in A$, o $y + 1\in A$ y existe $z < y + 1$ tal que $z\in A$. En el primer caso, se satisface la afirmación por vacuidad. En el segundo se tendría entonces que $y + 1 =\mu z A\pa*{z} = f\pa*{0}$. En el tercer caso, tomemos al valor $z < y + 1$ máximo tal que $z\in A$. Ya que $z\leq y$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$. Puesto que $z$ es el máximo, se tiene que:
-	\[
-		y + 1 =\mu w\pa*{A\pa*{w}\land w > z} =\mu w\pa*{A\pa*{w}\land w > f\pa*{x}} = f\pa*{x + 1}
-	\]
+	Por la definición de $f$ se sigue directamente que para cada $x\in\omega$, $f\pa*{x} < f\pa*{x + 1}$. Mostremos por inducción sobre $y$ que para cada $x, y\in\omega$, $f\pa*{x} < f\pa*{x + y + 1}$.
+
+	\begin{itemize}
+		\item (Base) Para $y = 0$ se sigue directamente por lo antes dicho.
+		\item (Paso inductivo) Sea $y\in\omega$ tal que $f\pa*{x} < f\pa*{x + y + 1}$, entonces por el mismo argumento tenemos que $f\pa*{x + y + 1} < f\pa*{x + y + 2}$, y por transitividad se tiene que $f\pa*{x} < f\pa*{x + y + 2}$.
+	\end{itemize}
+
+	Por lo tanto, para cada $x < y\in\omega$ se satisface que $f\pa*{x} < f\pa*{y}$, es decir, $f$ es estrictamente creciente.
+
+	Finalmente, mostremos que $\RANGO{f} = A$. Por la definición de $f$ se sigue directamente que $\RANGO{f}\subseteq A$. Probemos entonces que $A\subseteq\RANGO{f}$, y para ello mostremos equivalentemente por inducción fuerte que para cada $y\in\omega$ y cada $z\leq y$, si $z\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$.
+
+	\begin{itemize}
+		\item (Base) Para $y = 0$ tenemos dos casos: $y\notin A$ o $y\in A$. Si $y\notin A$, se satisface la proposición por vacuidad. Si $y\in A$, entonces se tiene que $y = 0 =\mu z A\pa*{z} = f\pa*{0}$, y tomemos por testigo $x = 0$ por consiguiente.
+
+		\item (Paso inductivo) Sea $y\in\omega$ tal que para cada $z\leq y$, si $z\in A$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$. Mostremos que se satisface para $y + 1$. Tenemos tres casos: $y + 1\notin A$, $y + 1\in A$ y no existe $z < y + 1$ tal que $z\in A$, o $y + 1\in A$ y existe $z < y + 1$ tal que $z\in A$. En el primer caso, se satisface la afirmación por vacuidad. En el segundo se tendría entonces que $y + 1 =\mu z A\pa*{z} = f\pa*{0}$. En el tercer caso, tomemos al valor $z < y + 1$ máximo tal que $z\in A$. Ya que $z\leq y$, entonces existe $x\in\omega$ tal que $f\pa*{x} = z$. Puesto que $z$ es el máximo, se tiene que:
+		\[
+			y + 1 =\mu w\pa*{A\pa*{w}\land w > z} =\mu w\pa*{A\pa*{w}\land w > f\pa*{x}} = f\pa*{x + 1}
+		\]
+	\end{itemize}
 
 	Por lo tanto, por inducción se mostró que $A\subseteq\RANGO{f}$, y luego $\RANGO{f} = A$.
 \end{proof}
 
 \begin{coll}
+	\label{coll: computable_es_ce} % [Claude, 2026-11-04] etiqueta agregada
 	Todo subconjunto computable de $\omega$ es c.e.
 \end{coll}
 
@@ -2209,6 +2269,7 @@ Ya que mencionamos que esta definición es una propiedad más débil a la de los
 Una propiedad que será de mucha ayuda es una caracterización de los conjuntos c.e., pues resulta que un conjunto es c.e. no solamente si es rango de una función computable, sino que también si es su dominio.
 
 \begin{theorem}[Caracterización de los conjuntos c.e.]
+	\label{theo: caracterizacion_ce} % [Claude, 2026-11-04] etiqueta agregada
 	Sea $A\subseteq\omega$, entonces se satisface que $A$ es c.e. si y solo si existe una función computable $f:\omega\to\omega^{\DIVERGE}$ tal que $A =\DOMINIO{f}$.
 \end{theorem}
 
@@ -2289,6 +2350,7 @@ Para complementar la definición de c.e. se define lo siguiente.
 Otro resultado importante de la teoría es cómo se relacionan los conjuntos c.e. con los conjuntos computables. Aunque ya sabemos que los conjuntos computables son c.e., no hemos dicho si existe una característica que deban satisfacer los conjuntos c.e. para ser computables. Resulta que un conjunto c.e. es computable si y solo si es también co-c.e. Una manera de entender por qué es recurriendo a la interpretación que tenemos de los conjuntos c.e. Si el conjunto es c.e. y co-c.e, entonces podemos ``imprimir'' los elementos del conjunto (y de su complemento) de manera computable. Para determinar si un elemento pertenece a él, podemos ejecutar ambas impresiones de manera paralela: si el elemento pertenece, eventualmente será impreso por ser c.e.; y si no, entonces eventualmente será impreso por ser co-c.e. Este proceso es computable y total, por lo que podemos caracterizar de manera computable la función característica del conjunto, y luego sería computable.
 
 \begin{theorem}[Caracterización de los conjuntos computables]
+	\label{theo: caracterizacion_computables} % [Claude, 2026-11-04] etiqueta agregada
 	Sea $A\subseteq\omega$, entonces $A$ es computable si y solo si es c.e. y co-c.e.
 \end{theorem}
 
@@ -2407,7 +2469,7 @@ Ejemplos de cómo ayuda el oráculo son los dos problemas que enfrentamos con lo
 
 Si realmente tuviéramos acceso a $K$, entonces $f$ sería directamente computable. Por tanto, esta función de diagonalización $f$ se dice ser $K$-computable. 
 
-El otro ejemplo era determinar si un elemento pertenece a un conjunto $A\subseteq\omega$ c.e. dada una función computable $f:\omega\to\omega$ que tiene a $A$ como rango. Dado un valor $x\in\omega$, estrategia era ir recorriendo cada natural y evaluándolo en $f$ para determinar si era imagen de alguna entrada, y por consiguiente $x$ pertenecía a $A$. El problema era si existía una entrada $n\in\omega$ para la cual $f\pa*{n}\DIVERGE$ antes de encontrar a $x$. Si tenemos acceso al conjunto de detención $K'$, entonces podemos determinar la pertenencia a $A$ evitando ese comportamiento indeseado de la divergencia por medio de la siguiente función computable $h:\omega\to\omega$ tal que para cada $x\in\omega$:
+El otro ejemplo era determinar si un elemento pertenece a un conjunto $A\subseteq\omega$ c.e. dada una función computable $f:\omega\to\omega$ que tiene a $A$ como rango. Dado un valor $x\in\omega$, la estrategia era ir recorriendo cada natural y evaluándolo en $f$ para determinar si era imagen de alguna entrada, y por consiguiente $x$ pertenecía a $A$. El problema era si existía una entrada $n\in\omega$ para la cual $f\pa*{n}\DIVERGE$ antes de encontrar a $x$. Si tenemos acceso al conjunto de detención $K'$, entonces podemos determinar la pertenencia a $A$ evitando ese comportamiento indeseado de la divergencia por medio de la siguiente función computable $h:\omega\to\omega$ tal que para cada $x\in\omega$:
 \[
 	h\pa*{x} = \mu w\pa*{\KLEENE\pa*{e, w\bra*{0}, w\bra*{1}}\land U\pa*{w\bra*{1}} = x}
 \]
@@ -2421,7 +2483,11 @@ donde $e\in\omega$ es el código de $f$. Recordemos que esta función nos permit
 \]
 Por lo tanto, todo conjunto c.e. sería $K'$-computable.
 
-Formalicemos entonces lo que significa ser computable dado un oráculo para mostrar que no solamente podemos computar funciones que antes no lo eran, sino que también existen otras funciones y conjuntos que siguen sin serlo aún con el oráculo. Aunque antes de ello, debemos aclarar que la siguiente definición difiere un poco de la manera en la que definimos las funciones recursivas, ya que las trata primero como secuencias de símbolos que después interpretaremos para un oráculo específico. Esta manera de definirlas nos será muy útil para mostrar propiedades universales de las funciones recursivas con oráculo independientemente del oráculo específico.
+\begin{agregado}[subsección]
+\subsection{Funciones recursivas con oráculo}
+\end{agregado}
+
+Formalicemos entonces lo que significa ser computable dado un oráculo para mostrar que no solamente podemos computar funciones que antes no lo eran, sino que también existen otras funciones y conjuntos que siguen sin serlo, aún con el oráculo. Aunque antes de ello, debemos aclarar que la siguiente definición difiere un poco de la manera en la que definimos las funciones recursivas, ya que las trata primero como secuencias de símbolos que después interpretaremos para un oráculo específico. Esta manera de definirlas nos será muy útil para mostrar propiedades universales de las funciones recursivas con oráculo independientemente del oráculo específico. 
 
 \begin{definition}[Esquemas recursivos]
 	Se definen al conjunto de \emph{esquemas recursivos} como el conjunto de símbolos $\RECURSIVO$ junto con la \emph{función de aridad} $\ARIDAD:\RECURSIVO\to\omega^{+}$ que se genera de la siguiente manera inductiva:
@@ -2487,64 +2553,78 @@ Dada la interpretación del oráculo como base de datos, tiene sentido que usar 
 \begin{proof}
 	\begin{enumerate}
 		\item Supongamos primero que $f$ es primitivo-recursiva, y mostremos entonces que existe un esquema $f_{0}\in\PRIMITIVO$ tal que $f_{0}^{\varnothing} = f$. Usemos inducción sobre el conjunto de funciones primitivo-recursivas.
-		
-		Para el caso de las funciones básicas cero, sucesor y proyección, estas tienen directamente su respectivo esquema, el cual ya vimos que es independiente del oráculo. Luego las funciones básicas son $\varnothing$-primitivas.
 
-		Supongamos ahora que $f = h\pa*{g_{1},\dotsc, g_{k}}$ es primitivo-recursiva para algunos $n, k\in\omega$, $h:\omega^{k}\to\omega$ y $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega$ tales que existen $h_{0}, g_{0, 1},\dotsc, g_{0, k}\in\PRIMITIVO$ para las cuales $h_{0}^{\varnothing} = h$ y $g_{0, j}^{\varnothing} = g_{j}$ para cada $j\leq k$. Definamos $f_{0} =\COMPOSICION\bra*{h_{0}; g_{0, 1},\dotsc, g_{0, k}}$, entonces se sigue que para cada $x\in\omega^{n}$:
-		\begin{align*}
-			f_{0}^{\varnothing}\pa*{x} &=\COMPOSICION^{\varnothing}\bra*{h_{0}; g_{0, 1},\dotsc, g_{0, k}}\\
-			&= h_{0}^{\varnothing}\pa*{g_{0, 1}^{\varnothing}\pa*{x},\dotsc, g_{0, k}^{\varnothing}\pa*{x}}\\
-			&= h\pa*{g_{1}\pa*{x},\dotsc, g_{k}\pa*{x}}\\
-			&= f\pa*{x}
-		\end{align*}
-		Luego, $f_{0}^{\varnothing} = f$.
+		\begin{itemize}
+			\item (Base) Para el caso de las funciones básicas cero, sucesor y proyección, estas tienen directamente su respectivo esquema, el cual ya vimos que es independiente del oráculo. Luego las funciones básicas son $\varnothing$-primitivas.
 
-		Supongamos en cambio que $f:\omega^{n + 1}\to\omega$ es primitivo-recursiva y tal que para cada $x\in\omega^{n}$ y cada $y\in\omega$ se satisface que:
-		\[
-			\begin{NiceArray}{c}
-				f\pa*{x, 0} = g\pa*{x}\\
-				f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
-			\end{NiceArray}
-		\]
-		para algunos $n\in\omega$, $h:\omega^{n + 2}\to\omega$ y $g:\omega^{n}\to\omega$ tales que existen $h_{0}, g_{0}\in\PRIMITIVO$ para los cuales $h_{0}^{\varnothing} = h$ y $g_{0}^{\varnothing} = g$. Definamos $f_{0} =\RECURSION\bra*{h_{0}, g_{0}}$ y mostremos por inducción sobre $y$ que para cada $x\in\omega^{n}$ y cada $y\in\omega$ se satisface que $f_{0}^{\varnothing}\pa*{x, y} = f\pa*{x, y}$. 
+			\item (Paso inductivo) Tenemos dos casos:
 
-		Para el caso base $y = 0$ se satisface que:
-		\[
-			f_{0}^{\varnothing}\pa*{x, 0} =\RECURSION^{\varnothing}\bra*{h_{0}, g_{0}}\pa*{x, 0} = g_{0}^{\varnothing}\pa*{x} = g\pa*{x} = f\pa*{x, 0}
-		\]
-		Sea ahora $y\in\omega$ tal que $f_{0}^{\varnothing}\pa*{x, y} = f\pa*{x, y}$. Se tiene entonces que:
-		\begin{align*}
-			f_{0}^{\varnothing}\pa*{x, y + 1} &=\RECURSION^{\varnothing}\bra*{h_{0}, g_{0}}\pa*{x, y + 1}\\
-			&= h_{0}^{\varnothing}\pa*{x, y, f_{0}^{\varnothing}\pa*{x, y}}\\
-			&= h\pa*{x, y, f\pa*{x, y}}\\
-			&= f\pa*{x, y + 1}
-		\end{align*}
-		Por lo tanto, se concluye que $f_{0}^{\varnothing} = f$.
+			\begin{itemize}
+				\item (Composición) Supongamos ahora que $f = h\pa*{g_{1},\dotsc, g_{k}}$ es primitivo-recursiva para algunos $n, k\in\omega$, $h:\omega^{k}\to\omega$ y $g_{1},\dotsc, g_{k}:\omega^{n}\to\omega$ tales que existen $h_{0}, g_{0, 1},\dotsc, g_{0, k}\in\PRIMITIVO$ para las cuales $h_{0}^{\varnothing} = h$ y $g_{0, j}^{\varnothing} = g_{j}$ para cada $j\leq k$. Definamos $f_{0} =\COMPOSICION\bra*{h_{0}; g_{0, 1},\dotsc, g_{0, k}}$, entonces se sigue que para cada $x\in\omega^{n}$:
+				\begin{align*}
+					f_{0}^{\varnothing}\pa*{x} &=\COMPOSICION^{\varnothing}\bra*{h_{0}; g_{0, 1},\dotsc, g_{0, k}}\\
+					&= h_{0}^{\varnothing}\pa*{g_{0, 1}^{\varnothing}\pa*{x},\dotsc, g_{0, k}^{\varnothing}\pa*{x}}\\
+					&= h\pa*{g_{1}\pa*{x},\dotsc, g_{k}\pa*{x}}\\
+					&= f\pa*{x}
+				\end{align*}
+				Luego, $f_{0}^{\varnothing} = f$.
+
+				\item (Recursión primitiva) Supongamos en cambio que $f:\omega^{n + 1}\to\omega$ es primitivo-recursiva y tal que para cada $x\in\omega^{n}$ y cada $y\in\omega$ se satisface que:
+				\[
+					\begin{NiceArray}{c}
+						f\pa*{x, 0} = g\pa*{x}\\
+						f\pa*{x, y + 1} = h\pa*{x, y, f\pa*{x, y}}
+					\end{NiceArray}
+				\]
+				para algunos $n\in\omega$, $h:\omega^{n + 2}\to\omega$ y $g:\omega^{n}\to\omega$ tales que existen $h_{0}, g_{0}\in\PRIMITIVO$ para los cuales $h_{0}^{\varnothing} = h$ y $g_{0}^{\varnothing} = g$. Definamos $f_{0} =\RECURSION\bra*{h_{0}, g_{0}}$ y mostremos por inducción sobre $y$ que para cada $x\in\omega^{n}$ y cada $y\in\omega$ se satisface que $f_{0}^{\varnothing}\pa*{x, y} = f\pa*{x, y}$.
+
+				\begin{itemize}
+					\item (Base) Se satisface que:
+					\[
+						f_{0}^{\varnothing}\pa*{x, 0} =\RECURSION^{\varnothing}\bra*{h_{0}, g_{0}}\pa*{x, 0} = g_{0}^{\varnothing}\pa*{x} = g\pa*{x} = f\pa*{x, 0}
+					\]
+					\item (Paso inductivo) Sea $y\in\omega$ tal que $f_{0}^{\varnothing}\pa*{x, y} = f\pa*{x, y}$. Se tiene entonces que:
+					\begin{align*}
+						f_{0}^{\varnothing}\pa*{x, y + 1} &=\RECURSION^{\varnothing}\bra*{h_{0}, g_{0}}\pa*{x, y + 1}\\
+						&= h_{0}^{\varnothing}\pa*{x, y, f_{0}^{\varnothing}\pa*{x, y}}\\
+						&= h\pa*{x, y, f\pa*{x, y}}\\
+						&= f\pa*{x, y + 1}
+					\end{align*}
+				\end{itemize}
+				Por lo tanto, se concluye que $f_{0}^{\varnothing} = f$.
+			\end{itemize}
+		\end{itemize}
 
 		Se sigue entonces que toda función primitivo-recursiva es $\varnothing$-primitiva.
 
-		Supongamos ahora que $f\in\PRIMITIVO\pa*{\varnothing}$, entonces se muestra similarmente por inducción sobre $\PRIMITIVO$ que todo esquema con oráculo $\varnothing$ es primitivo-recursivo. 
-		
-		Para las funciones básicas cero, sucesor y proyección se tiene directamente que son primitivo-recursivas para cualquier oráculo; particularmente para $\varnothing$. Para el caso de $\CARACTERISTICA{\varnothing}$ se tiene que $\CARACTERISTICA{\varnothing} =\CERO$, y luego es primitivo-recursiva.
+		Supongamos ahora que $f\in\PRIMITIVO\pa*{\varnothing}$, entonces se muestra similarmente por inducción sobre $\PRIMITIVO$ que todo esquema con oráculo $\varnothing$ es primitivo-recursivo.
 
-		Sea ahora $f\in\PRIMITIVO$ tal que $f =\COMPOSICION\bra*{h; g_{1},\dotsc, g_{k}}$ para algunos $h, g_{1},\dotsc, g_{k}$ y algún $k\in\omega$ tales que $h^{\varnothing}, g_{1}^{\varnothing},\dotsc, g_{k}^{\varnothing}$ son primitivo-recursivas. Notemos que puesto que $f^{\varnothing} =\COMPOSICION^{\varnothing}\bra*{h; g_{1},\dotsc, g_{k}} = h^{\varnothing}\pa*{g_{1}^{\varnothing},\dotsc, g_{k}^{\varnothing}}$, se sigue que $f^{\varnothing}$ es primitivo-recursiva al ser composición de funciones primitivo-recursivas.
+		\begin{itemize}
+			\item (Base) Para las funciones básicas cero, sucesor y proyección se tiene directamente que son primitivo-recursivas para cualquier oráculo; particularmente para $\varnothing$. Para el caso de $\CARACTERISTICA{\varnothing}$ se tiene que $\CARACTERISTICA{\varnothing} =\CERO$, y luego es primitivo-recursiva.
 
-		Sea ahora $f\in\PRIMITIVO$ tal que $f =\RECURSION\bra*{h, g}$ para algunos $h, g\in\PRIMITIVO$ para los cuales $h^{\varnothing}$ y $g^{\varnothing}$ son primitivo-recursivas. Si $\ARIDAD\pa*{h} = n + 2$ y $\ARIDAD\pa*{g} = n$ para algún $n\in\omega$, entonces se tiene para cada $x\in\omega^{n}$ y cada $y\in\omega$ que:
-		\[
-			\begin{NiceArray}{c}
-				f^{\varnothing}\pa*{x, 0} = g^{\varnothing}\pa*{x}\\
-				f^{\varnothing}\pa*{x, y + 1} = h^{\varnothing}\pa*{x, y, f^{\varnothing}\pa*{x, y}}
-			\end{NiceArray}
-		\]
-		Puesto que $f^{\varnothing}$ es generada por recursión primitiva de funciones primitivo-recursivas, se sigue que $f^{\varnothing}$ es primitivo-recursiva.
+			\item (Paso inductivo) Tenemos dos casos:
+
+			\begin{itemize}
+				\item (Composición) Sea ahora $f\in\PRIMITIVO$ tal que $f =\COMPOSICION\bra*{h; g_{1},\dotsc, g_{k}}$ para algunos $h, g_{1},\dotsc, g_{k}$ y algún $k\in\omega$ tales que $h^{\varnothing}, g_{1}^{\varnothing},\dotsc, g_{k}^{\varnothing}$ son primitivo-recursivas. Notemos que puesto que $f^{\varnothing} =\COMPOSICION^{\varnothing}\bra*{h; g_{1},\dotsc, g_{k}} = h^{\varnothing}\pa*{g_{1}^{\varnothing},\dotsc, g_{k}^{\varnothing}}$, se sigue que $f^{\varnothing}$ es primitivo-recursiva al ser composición de funciones primitivo-recursivas.
+
+				\item (Recursión primitiva) Sea ahora $f\in\PRIMITIVO$ tal que $f =\RECURSION\bra*{h, g}$ para algunos $h, g\in\PRIMITIVO$ para los cuales $h^{\varnothing}$ y $g^{\varnothing}$ son primitivo-recursivas. Si $\ARIDAD\pa*{h} = n + 2$ y $\ARIDAD\pa*{g} = n$ para algún $n\in\omega$, entonces se tiene para cada $x\in\omega^{n}$ y cada $y\in\omega$ que:
+				\[
+					\begin{NiceArray}{c}
+						f^{\varnothing}\pa*{x, 0} = g^{\varnothing}\pa*{x}\\
+						f^{\varnothing}\pa*{x, y + 1} = h^{\varnothing}\pa*{x, y, f^{\varnothing}\pa*{x, y}}
+					\end{NiceArray}
+				\]
+				Puesto que $f^{\varnothing}$ es generada por recursión primitiva de funciones primitivo-recursivas, se sigue que $f^{\varnothing}$ es primitivo-recursiva.
+			\end{itemize}
+		\end{itemize}
 
 		Por lo tanto, se concluye que toda función de $\varnothing$-primitiva es primitivo-recursiva.
 
 		\item El caso para las funciones parcial-recursivas y $\varnothing$-recursivas es análogo al punto anterior reemplazando primitivo-recursivo por parcial-recursivo, $\varnothing$-primitivo por $\varnothing$-recursivo y $\PRIMITIVO$ por $\RECURSIVO$. Sin embargo, solo falta mostrar el caso de la minimización no acotada en ambas inducciones.
 		
-		Si $f:\omega^{n}\to\omega^{\DIVERGE}$ es parcial-computable tal que para cada $x\in\omega^{n}$, $f\pa*{x} =\mu z\pa*{g\pa*{x, z} = 0}$ para alguna función $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ parcial-recursiva, y para la cual existe $g_{0}\in\RECURSIVO$ tal que $g_{0}^{\varnothing} = g$. Defínase $f_{0} = \MINIMIZACION\bra*{g_{0}}$, entonces para cada $x\in\omega^{n}$ se satisface que:
+		Supongamos que $f:\omega^{n}\to\omega^{\DIVERGE}$ es parcial-computable tal que para cada $x\in\omega^{n}$, $f\pa*{x} =\mu z\pa*{g\pa*{x, z} = 0}$ para alguna función $g:\omega^{n + 1}\to\omega^{\DIVERGE}$ parcial-recursiva, y para la cual existe $g_{0}\in\RECURSIVO$ tal que $g_{0}^{\varnothing} = g$. Defínase $f_{0} = \MINIMIZACION\bra*{g_{0}}$, entonces para cada $x\in\omega^{n}$ se satisface que:
 		\[
-			f_{0}^{\varnothing}\pa*{x} =\MINIMIZACION^{\varnothing}\bra*{f}\pa*{x} =\mu z\pa*{g_{0}^{\varnothing}\pa*{x, z} = 0} =\mu z\pa*{g\pa*{x, z} = 0} = f\pa*{x}
+			f_{0}^{\varnothing}\pa*{x} =\MINIMIZACION^{\varnothing}\bra*{g_{0}}\pa*{x} =\mu z\pa*{g_{0}^{\varnothing}\pa*{x, z} = 0} =\mu z\pa*{g\pa*{x, z} = 0} = f\pa*{x}
 		\]
 		Luego $f^{\varnothing}_{0} = f$, y por tanto, toda función parcial-recursiva es $\varnothing$-recursiva.
 
@@ -2555,6 +2635,17 @@ Dada la interpretación del oráculo como base de datos, tiene sentido que usar 
 		Puesto que $f^{\varnothing}$ es generada por una minimización no acotada de una función parcial-recursiva, se sigue que $f^{\varnothing}$ es parcial-recursiva. Por lo tanto, toda función $\varnothing$-recursiva es parcial-recursiva.
 	\end{enumerate}
 \end{proof}
+
+\begin{agregado}[teorema]
+\begin{theorem}
+	\label{theo: prim_en_prim_a} % [Claude, 2026-11-04] etiqueta agregada
+	Para cada conjunto $A\subseteq\omega$ se satisface que toda función primitivo-recursiva es $A$-primitiva y toda función parcial-recursiva es $A$-recursiva.
+\end{theorem}
+
+\begin{proof}
+	La demostración es análoga a la del teorema anterior, solo que ahora se reemplaza $\varnothing$ por $A$ en cada paso de la inducción, pues las funciones básicas cero, sucesor y proyección no dependen del oráculo.
+\end{proof}
+\end{agregado}
 
 Dada la definición de recursividad con oráculo, podemos extender varias definiciones y teoremas que de las funciones parcial-recursivas sin ningún problema. Lo anterior es porque en ningún argumento es relevante la existencia del oráculo, ya que la función característica, al tomar el papel de función básica, directamente satisface cualquier propiedad correspondiente de cerradura.
 
@@ -2612,17 +2703,19 @@ Dada la definición de recursividad con oráculo, podemos extender varias defini
 Para mostrar la indiferencia del oráculo en estos puntos del teorema mostraremos únicamente el primer punto del teorema para el caso de las funciones $A$-recursivas. La estrategia es solamente traducir cada función parcial-recursiva (primitivo-recursiva) a un esquema que lo represente.
 
 \begin{proof}
-	Primero mostremos que las funciones constantes son $A$-recursivas para cualquier aridad. Denotemos por $f_{a}^{n}$ al esquema de aridad $n$ tal que $\pa*{f_{a}^{n}}^{A}\pa*{x} = a$ para cada $a, x\in\omega$ y cada $n\in\omega^{+}$ por inducción sobre $a$. 
+	Primero mostremos que las funciones constantes son $A$-recursivas para cualquier aridad. Denotemos por $f_{a}^{n}$ al esquema de aridad $n$ tal que $\pa*{f_{a}^{n}}^{A}\pa*{x} = a$ para cada $a, x\in\omega$ y cada $n\in\omega^{+}$ por inducción sobre $a$.
 
-	Para el caso base notemos que si $f_{0}^{n} =\COMPOSICION\bra*{\CERO;\PROYECCION{n}{1}}$, entonces para cada $x\in\omega^{n}$:
-	\[
-		\pa*{f^{n}_{0}}^{A}\pa*{x} =\COMPOSICION^{A}\bra*{\CERO;\PROYECCION{n}{1}}\pa*{x} =\CERO\pa*{\PROYECCION{n}{1}\pa*{x}} = 0
-	\]
+	\begin{itemize}
+		\item (Base) Notemos que si $f_{0}^{n} =\COMPOSICION\bra*{\CERO;\PROYECCION{n}{1}}$, entonces para cada $x\in\omega^{n}$:
+		\[
+			\pa*{f^{n}_{0}}^{A}\pa*{x} =\COMPOSICION^{A}\bra*{\CERO;\PROYECCION{n}{1}}\pa*{x} =\CERO\pa*{\PROYECCION{n}{1}\pa*{x}} = 0
+		\]
 
-	Sea ahora $a\in\omega$ tal que $\pa*{f^{n}_{a}}^{A}$ es $A$-recursiva, entonces mostremos que $\pa*{f^{n}_{a + 1}}^{A}$ es $A$-recursiva. Si asignamos $f^{n}_{a} =\COMPOSICION\bra*{\SUCESOR; f^{n}_{a}}$, entonces para cada $x\in\omega^{n}$:
-	\[
-		\pa*{f^{n}_{a}}^{A}\pa*{x} =\COMPOSICION^{A}\bra*{\SUCESOR; f^{n}_{a}} =\SUCESOR\pa*{\pa*{f^{n}_{a}}^{A}\pa*{x}} =\SUCESOR\pa*{a} = a + 1
-	\]
+		\item (Paso inductivo) Sea $a\in\omega$ tal que $\pa*{f^{n}_{a}}^{A}$ es $A$-recursiva, entonces mostremos que $\pa*{f^{n}_{a + 1}}^{A}$ es $A$-recursiva. Si asignamos $f^{n}_{a} =\COMPOSICION\bra*{\SUCESOR; f^{n}_{a}}$, entonces para cada $x\in\omega^{n}$:
+		\[
+			\pa*{f^{n}_{a}}^{A}\pa*{x} =\COMPOSICION^{A}\bra*{\SUCESOR; f^{n}_{a}} =\SUCESOR\pa*{\pa*{f^{n}_{a}}^{A}\pa*{x}} =\SUCESOR\pa*{a} = a + 1
+		\]
+	\end{itemize}
 
 	Por lo tanto, para cada $n\in\omega^{+}$ y cada $a\in\omega$ se satisface que $\pa*{f^{n}_{a}}^{A}$ es $A$-computable.
 
@@ -2655,3 +2748,1001 @@ Para mostrar la indiferencia del oráculo en estos puntos del teorema mostraremo
 
 	Por lo tanto, se cumple que $f = \COMPOSICION^{A}\bra*{h;\CERO,\PROYECCION{1}{1}}$, la cual es $A$-recursiva ya que $h\in\RECURSIVO$.
 \end{proof}
+
+\begin{agregado}[subsección Máquinas URMO]
+\subsection{Máquinas URMO}
+
+Ya que formalizamos el caso de las funciones parcial-recursivas al agregar el concepto del oráculo, podemos extender de manera similar el concepto de las máquinas URM con los oráculos. Al igual que en el caso de las funciones, la idea es que la máquina tenga la capacidad de consultar al oráculo para obtener información que no puede computar por sí misma. En este caso, la solución es agregar un nuevo tipo de instrucción a la máquina URM, la cual será la instrucción de ``consulta al oráculo''. Esta instrucción se basa en preguntar al oráculo si el contenido de un registro de la cinta pertenece a él o no, registrando el valor de su función característica en ese registro.
+
+\begin{definition}[Máquinas URMO]
+	\label{def: maquinas_urmo}
+	\begin{enumerate}
+		\item Se define al conjunto de instrucciones de las \emph{máquinas URM con oráculo} o \emph{URMO} como el siguiente conjunto de tuplas:
+		\[
+			\INSTRUCCIONESO\coloneqq\INSTRUCCIONES\cup\set*{\pa*{4, n}: n\in\mbox{\replaced[id=Corr]{$\omega^{+}$}{$\omega$}}}
+		\]
+		\item Una \emph{máquina URMO} es una tupla no vacía de $\INSTRUCCIONESO^{<\omega}$.
+		\item Sean $M =\pa*{I_{1},\dotsc, I_{u}}$ una máquina URMO, $A\subseteq\omega$ y $x\in\omega^{n}$ para algunos $n, u\in\omega$. Se define la ejecución de la máquina $M$ con oráculo $A$ y entrada $x$ como la sucesión de funciones $\set*{f_{k}}_{k\in\omega}$ que satisface los mismos puntos que la definición \ref{def:ejecucion_urm} (ejecución de una máquina URM) agregando además el siguiente punto:
+		\begin{itemize}
+			\item para cada $k\in\omega$, si $f_{k}\pa*{0}\leq$ \replaced[id=Corr]{$u$}{$m$} e $I_{f_{k}\pa*{0}} =\pa*{4, i}$ para algún $i\in\omega$, entonces para cada $m\in\omega$ se satisface que:
+			\[
+				f_{k + 1}\pa*{m} =
+				\begin{cases}
+					f_{k}\pa*{m} + 1, & m = 0\\
+					\CARACTERISTICA{A}\pa*{f_{k}\pa*{i}}, & m = i\\
+					f_{k}\pa*{m}, &\text{en otro caso}
+				\end{cases}
+			\]
+		\end{itemize}
+		\item Sean $M$ una URMO de $u\in\omega^{+}$ instrucciones y $A\subseteq\omega$, entonces la función generada por $M$, con oráculo $A$ y de aridad $n\in\omega$ es la función parcial $\varphi_{M}^{A, (n)}:\omega^{n}\to\omega^{\DIVERGE}$ definida como sigue para cada $x\in\omega^{n}$:
+		\[
+			\varphi_{M}^{A, (n)}\pa*{x} =
+			\begin{cases}
+				f_{k}\pa*{\mbox{\replaced[id=Corr]{$1$}{$0$}}}, &\pa*{\exists m\in\omega}\pa*{f_{m}\pa*{0} > u}\land\pa*{k =\min\set*{m\in\omega: f_{m}\pa*{0} > u}}\\
+				\DIVERGE, &\text{en otro caso}
+			\end{cases}
+		\]
+		\item Sea $A\subseteq\omega$, entonces se dice que una función parcial $f:\omega^{n}\to\omega^{\DIVERGE}$ para algún $n\in\omega$ es \emph{URMO-computable con oráculo $A$} si existe una máquina URMO $M$ tal que $f =\varphi_{M}^{A, (n)}$. Entonces, para cada $A\subseteq\omega$ se denotará por $\URMO\pa*{A}$ al conjunto de funciones URMO-computables con oráculo $A$.
+	\end{enumerate}
+\end{definition}
+
+\begin{notation}
+	Si no hay riesgo de ambigüedad, denotaremos por $\varphi_{M}^{A}$ a $\varphi_{M}^{A, (n)}$ para algún $n\in\omega$.
+\end{notation}
+
+Notemos que las máquinas URMO son las mismas máquinas URM solo agregando esa instrucción extra, la cual además necesita del oráculo \replaced[id=Corr]{específico}{especifico} para ser ejecutada. Sin embargo, notemos que una máquina URMO no necesita del oráculo para ser definida, por lo que una misma URMO puede computar diferentes funciones dependiendo no solo de la aridad, sino también del oráculo que se le dote como base de datos.
+
+Así como con las máquinas URM y las funciones parcial-recursivas, las máquinas URMO y las funciones recursivas con oráculo generan la misma clase de funciones. La contención $\RECURSIVO\pa*{A}\subseteq\URMO\pa*{A}$ es casi inmediata de demostrar justamente porque la función característica del oráculo puede ser computada con la nueva instrucción de consulta al oráculo de las URMO.
+
+La contención $\URMO\pa*{A}\subseteq\RECURSIVO\pa*{A}$ es un poco más complicada de demostrar ya que debemos extender varias definiciones y herramientas sobre la codificación de máquinas URM a las máquinas URMO, y así poder demostrar el teorema de la forma normal de Kleene para las máquinas URMO. Sin embargo, todo ese proceso es análogo al que ya realizamos para las máquinas URM, por lo que no será gran dificultad demostrarlo.
+
+\begin{theorem}
+	\label{theo: rec_contenido_urmo}
+	Para cada $A\subseteq\omega$ se satisface que $\RECURSIVO\pa*{A}\subseteq\URMO\pa*{A}$
+\end{theorem}
+
+\begin{proof}
+	La demostración es la misma que la del teorema \ref{theo: parcial_implica_urm} cambiando URM-computable por URMO-computable. Lo único que falta es mostrar que la función característica $\CARACTERISTICA{A}$ es URMO-computable.
+
+	Directamente podemos apreciar que la máquina URMO $M =\pa*{\pa*{4, 1}}$ satisface que $\varphi_{M}^{A, (1)} =\CARACTERISTICA{A}$. Por lo tanto, $\CARACTERISTICA{A}$ es URMO-computable, y por el teorema \ref{theo: parcial_implica_urm} se concluye que $\RECURSIVO\pa*{A}\subseteq\URMO\pa*{A}$.
+\end{proof}
+
+\begin{definition}[Codificación de instrucciones y máquinas URMO]
+	\label{def: codificacion_urmo}
+	Extendiendo la definición \ref{def: codificacion_urm}, se definen los conjuntos de codificaciones de \replaced[id=Corr]{instrucciones}{instruciones} y máquinas URMO como sigue:
+	\[
+		\begin{NiceArray}{c}
+			\INSTRUCCIONESOCOD\coloneqq\INSTRUCCIONESCOD\cup\set*{\inner*{4, n}: n\in\omega^{+}}\\
+			\URMOCODIGO\coloneqq\set*{\inner*{0, x_{1},\dotsc, x_{n}}: n\in\omega^{+}, x_{1},\dotsc, x_{n}\in\INSTRUCCIONESOCOD}
+		\end{NiceArray}
+	\]
+\end{definition}
+
+\begin{theorem}
+	\label{theo: instrocod_urmocod_primitivos}
+	$\INSTRUCCIONESOCOD$ y $\URMOCODIGO$ son conjuntos primitivo-recursivos.
+\end{theorem}
+
+\begin{proof}
+	Extendiendo la demostración del teorema \ref{theo: instrcod_urmcod_primitivos} definimos al conjunto $A_{5} =\set*{\inner*{4, n}: n\in\omega^{+}}$ el cual también puede definirse de la siguiente manera:
+	\[
+		A_{5}\pa*{e}\iff\pa*{\SECUENCIAS\pa*{e}\land\LONGITUD\pa*{e} = 2\land e\bra*{0} = 4\land e\bra*{1} > 0}
+	\]
+	la cual es una fórmula primitivo-recursiva, y por tanto $\INSTRUCCIONESOCOD$ es primitivo-recursivo.
+
+	Para el caso de $\URMOCODIGO$, este se puede definir de la siguiente manera:
+	\begin{align*}
+		\URMOCODIGO\pa*{e}\iff&\left(\SECUENCIAS\pa*{e}\land\LONGITUD\pa*{e} > 1\land e\bra*{0} = 0\right.\\
+		&\left.\mathbin{\mbox{\added[id=Corr]{$\land$}}}\pa*{\forall k <\LONGITUD\pa*{e}}\pa*{k > 0\to\INSTRUCCIONESOCOD\pa*{e\bra*{k}}}\right)
+	\end{align*}
+	y luego $\URMOCODIGO$ es primitivo-recursivo al ser $\INSTRUCCIONESOCOD$ primitivo-recursivo.
+\end{proof}
+
+\begin{theorem}
+	\label{theo: numinstr_maxreg_urmo}
+	Las siguientes funciones son primitivo-recursivas:
+
+	\begin{enumerate}
+		\item La función \emph{número de \replaced[id=Corr]{instrucciones}{isntrucciones}} $\NUMINSTRUCCIONES:\omega\to\omega$ que devuelve el número de instrucciones de una máquina URMO.
+		\item La función \emph{número de registro máximo} $\MAXREGISTRO:\omega\to\omega$ que devuelve el registro más grande utilizado por la máquina URMO.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Al igual que la demostración del teorema \ref{theo: numinstr_maxreg_primitivas} se tiene que $\NUMINSTRUCCIONES$ es primitivo-recursiva ya que para cada $e\in\omega$:
+	\[
+		\NUMINSTRUCCIONES\pa*{e} =\CARACTERISTICA{\URMOCODIGO}\pa*{e}\pa*{\LONGITUD\pa*{e} - 1}
+	\]
+
+	Para el caso de $\MAXREGISTRO$ definimos de manera similar al teorema \ref{theo: numinstr_maxreg_primitivas} las funciones $g, f:\omega^{2}\to\omega$ de la siguiente manera:
+	\[
+		\begin{NiceArray}{c}
+			g\pa*{e, x} =
+			\begin{cases}
+				\operatorname{Max}\pa*{\inner*{x, e\bra*{1}}}, & e\bra*{0} = 0\lor e\bra*{0} = 1\lor e\bra*{0} = 4\\
+				\operatorname{Max}\pa*{\inner*{x, e\bra*{1}, e\bra*{2}}}, & e\bra*{0} = 2\lor e\bra*{0} = 3
+			\end{cases}\\
+			f\pa*{e, 0} = 0\\
+			f\pa*{e, n + 1} = g\pa*{e\bra*{n + 1}, f\pa*{e, n}}
+		\end{NiceArray}
+	\]
+	las cuales son primitivo-recursivas. Entonces, se tiene que para cada $e\in\omega$:
+	\[
+		\MAXREGISTRO\pa*{e} =\CARACTERISTICA{\URMOCODIGO}\pa*{e}f\pa*{e,\LONGITUD\pa*{e} - 1}
+	\]
+	y por tanto $\MAXREGISTRO$ es primitivo-recursiva.
+
+	\added[id=Corr]{Notemos que $g$ trata a la instrucción de consulta al oráculo ($e\bra*{0} = 4$) como una instrucción de un solo registro, de modo que $\MAXREGISTRO\pa*{e}$ también acota al registro consultado por cada instrucción $\inner*{4, i}$ de $e$. Esto garantiza que, en una configuración $c$ con $\LONGITUD\pa*{c} >\MAXREGISTRO\pa*{e}$, el registro consultado siempre está en $c$.}
+\end{proof}
+
+Para llegar al teorema de la forma normal, ajustamos las definiciones de las relaciones ejecución y T-predicado de Kleene.
+
+\begin{definition}[Relación de ejecución relativizada]
+	\label{def: ejecucion_relativizada}
+	Sea $A\subseteq\omega$, entonces definimos la relación de \emph{ejecución} $\EJECUCION^{A}\subseteq\omega^{3}$ con oráculo $A$ de modo que para cada terna $\pa*{e, c, d}\in\omega^{3}$ se satisfaga $\EJECUCION^{A}\pa*{e, c, d}$ si y solo si:
+
+	\begin{enumerate}
+		\item $\URMOCODIGO\pa*{e}$,
+		\item $\CONFIGURACIONES\pa*{c}$ y $\CONFIGURACIONES\pa*{d}$,
+		\item $\LONGITUD\pa*{c} =\LONGITUD\pa*{d}$,
+		\item $\LONGITUD\pa*{c} >\MAXREGISTRO\pa*{e}$, y
+		\item dada la ejecución $\set*{f_{k}}_{k\in\omega}$ de la máquina codificada por $e$ y oráculo $A$, si existe $k\in\omega$ tal que $c = f_{k}\upharpoonright\LONGITUD\pa*{c}$, entonces $d = f_{\mbox{\replaced[id=Corr]{$\scriptstyle k + 1$}{$\scriptstyle k$}}}\upharpoonright\LONGITUD\pa*{d}$.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[T-predicado de Kleene relativizado]
+	\label{def: t_predicado_relativizado}
+	Sea $A\subseteq\omega$. Se define el \emph{T-predicado de Kleene relativizado} con oráculo $A$ como la relación $\KLEENE[A]\subseteq\omega^{3}$ la cual satisface que para cada terna $\pa*{e, z, p}\in\omega^{3}$ pertenece a $\KLEENE[A]$ si y solo si:
+
+	\begin{enumerate}
+		\item $\URMOCODIGO\pa*{e}$, $\SECUENCIAS\pa*{z}$, $\SECUENCIAS\pa*{p}$,
+		\item $\LONGITUD\pa*{p} > 0$, $p\bra*{0}\bra*{0} = 1$,
+		\item para cada $k <\LONGITUD\pa*{p}$ se satisface que $\CONFIGURACIONES\pa*{p\bra*{k}}$,
+		\item $\LONGITUD\pa*{p\bra*{0}} >\LONGITUD\pa*{z}$,
+		\item para cada $k <\LONGITUD\pa*{z}$ se satisface $p\bra*{0}\bra*{k + 1} = z\bra*{k}$,
+		\item para cada $k <\LONGITUD\pa*{p\bra*{0}}$, si $k >\LONGITUD\pa*{z}$, entonces se satisface que $p\bra*{0}\bra*{k} = 0$,
+		\item para cada $k <\LONGITUD\pa*{p} - 1$ se satisface que $\EJECUCION^{A}\pa*{e, p\bra*{k}, p\bra*{k + 1}}$, y
+		\item $p\bra*{\LONGITUD\pa*{p} - 1}\bra*{0} >\NUMINSTRUCCIONES\pa*{e}$.
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+	\label{theo: ejec_t_relativizados_primitivos}
+	Dado $A\subseteq\omega$, las relaciones $\EJECUCION^{A}$ y $\KLEENE[A]$ son $A$-primitivas.
+\end{theorem}
+
+\begin{proof}
+	Para el caso de la relación de ejecución relativizada, \replaced[id=Corr]{simplemente}{simplemento} complementamos la demostración del teorema \ref{theo: ejec_primitiva} conjuntando la siguiente fórmula para el caso de la instrucción de consulta al oráculo:
+	\begin{align*}
+		\pa*{c\bra*{0}\leq\NUMINSTRUCCIONES\pa*{e}\land e\bra*{c\bra*{0}}\bra*{0} =\mbox{\replaced[id=Corr]{$4$}{$0$}}}\to&\left(d\bra*{e\bra*{c\bra*{0}}\bra*{1}} =\CARACTERISTICA{A}\pa*{c\bra*{e\bra*{c\bra*{0}}\bra*{1}}}\land d\bra*{0} = c\bra*{0} + 1\right.\\
+		&\left.\land\pa*{\forall k <\LONGITUD\pa*{c}}\pa*{\pa*{k > 0\land k\neq e\bra*{c\bra*{0}}\bra*{1}}\to d\bra*{k} = c\bra*{k}}\right)
+	\end{align*}
+	y puesto que se hace uso del oráculo, se sigue que $\EJECUCION^{A}$ es $A$-primitiva.
+
+	Ya que $\EJECUCION^{A}$ es $A$-primitiva, por la misma definición de $\KLEENE[A]$, se sigue que $\KLEENE[A]$ es $A$-primitiva.
+\end{proof}
+
+\begin{theorem}[Teorema de la Forma Normal de Kleene relativizada]
+	\label{theo: forma_normal_kleene_relativizada}
+	Sean $A\subseteq\omega$, $M$ una máquina URMO con codificación $e\in\URMOCODIGO$ y $n\in\omega^{+}$, entonces para cada $x\in\omega^{n}$, con $z =\inner*{x}$, se satisface lo siguiente:
+	\[
+		\varphi_{M}^{A, (n)}\pa*{x} = U\pa*{\mu p\KLEENE[A]\pa*{e, z, p}}
+	\]
+\end{theorem}
+
+\begin{proof}
+	Es casi exactamente la misma demostración que la del teorema \ref{theo: forma_normal_kleene}, únicamente cambiando $\EJECUCION$ por $\EJECUCION^{A}$ y $\KLEENE$ por $\KLEENE[A]$, además de utilizar las definiciones \ref{def: maquinas_urmo}, \ref{def: ejecucion_relativizada} y \ref{def: t_predicado_relativizado}.
+\end{proof}
+
+\begin{coll}
+	\label{coll: rec_igual_urmo}
+	Se satisface que para cada $A\subseteq\omega$, $\RECURSIVO\pa*{A} =\URMO\pa*{A}$.
+\end{coll}
+
+\begin{proof}
+	Por el teorema \ref{theo: rec_contenido_urmo} solo falta demostrar que toda función URMO-computable con oráculo $A$ es $A$-recursiva. Sea $f\in\URMO\pa*{A}$, entonces existen $M$ una máquina URMO y $n\in\omega$ tales que $f =\varphi_{M}^{A, (n)}$. Sea $e\in\URMOCODIGO$ la codificación de $M$, entonces por el teorema de la forma normal de Kleene relativizada sabemos que para cada $x\in\omega^{n}$, $f\pa*{x} =\varphi_{M}^{A, (n)}\pa*{x} = U\pa*{\mu p\KLEENE[A]\pa*{e,\inner*{x}, p}}$. Puesto que $\KLEENE[A]$ es $A$-\replaced[id=Corr]{primitivo}{primitiva}, se sigue que $f$ es $A$-recursiva, y luego $f\in\RECURSIVO\pa*{A}$.
+\end{proof}
+\end{agregado}
+
+\begin{agregado}[computabilidad relativa, máquina universal y salto]
+De igual manera que con la equivalencia entre las funciones parcial-recursivas y las máquinas URM, esta equivalencia nos permite trabajar con cualquiera de estos dos enfoques de la computabilidad, pero ahora con oráculos. Por ello, ya no utilizaremos los términos de $A$-recursividad o URMO-computabilidad, sino que simplemente nos referiremos a estas funciones y relaciones como \emph{$A$-computables}, \emph{computables con oráculo $A$} o \emph{computables relativas a $A$}.
+
+\begin{definition}[Computabilidad relativa]
+	\label{def: computabilidad_relativa}
+	Sea $A\subseteq\omega$.
+	\begin{enumerate}
+		\item Sean $n\in\omega^{+}$ y $f:\omega^{n}\to\omega^{\DIVERGE}$, entonces $f$ se denomina \emph{computable con oráculo $A$}, \emph{computable relativa a $A$} o \emph{$A$-computable} si es $A$-recursiva o URMO-computable con oráculo $A$.
+		\item Sean $n\in\omega^{+}$ y $f:\omega^{n}\to\omega^{\DIVERGE}$, entonces $f$ se denomina \emph{\replace{total-computable}{total computable} con oráculo $A$} o \emph{$A$-total} si es $A$-computable y $\DOMINIO{f} =\omega^{n}$.
+		\item Sean $n\in\omega^{+}$ y $R\subseteq\omega^{n}$, entonces $R$ se denomina \emph{computable con oráculo $A$} o \emph{$A$-computable} si su función característica $\CARACTERISTICA{\mbox{\replaced[id=Corr]{$\scriptstyle R$}{$\scriptstyle A$}}}:\omega^{n}\to\omega^{\DIVERGE}$ es $A$-total.
+		\item Sean $n\in\omega^{+}$ y $\varphi(x_{1},\dotsc, x_{n})$ una fórmula con variables libres $x_{1},\dotsc, x_{n}$, entonces $\varphi$ se denomina \emph{computable con oráculo $A$} o \emph{$A$-computable} si el conjunto $\set*{\pa*{x_{1},\dotsc, x_{n}}\in\omega^{n}:\varphi\pa*{x_{1},\dotsc, x_{n}}}$ es $A$-computable.
+	\end{enumerate}
+\end{definition}
+
+También de la misma manera, se tiene la existencia de la máquina universal con oráculo, la cual nos permite utilizar de manera indistinta lo que es una máquina URMO y el número natural que la codifica. Sin embargo, aquí se tiene una diferencia sutil, y es el hecho que el número natural que codifica la máquina con oráculo es independiente del propio oráculo, es decir, que la máquina universal con oráculo puede simular cualquier máquina URMO sin necesidad de conocer el oráculo que se le dote a la máquina que se desea simular. Por eso mismo, la máquina universal ya no es simplemente una función computable, sino un \emph{funcional}.
+
+\begin{theorem}[Máquina universal relativizada]
+	\label{theo: maquina_universal_relativizada}
+	\replaced[id=Corr]{Existe una máquina URMO $N$ la cual satisface lo siguiente para cada $A\subseteq\omega$ y}{Para cada $A\subseteq\omega$ existe una máquina URMO $N$ la cual satisface lo siguiente para} cada $e, z\in\omega$:
+	\[
+		\varphi_{N}^{A, (2)}\pa*{e, z} =
+		\begin{cases}
+			\varphi_{M}^{A, (n)}\pa*{x}, &\text{ $e$ codifica a $M\in\URMO$ y $z =\inner*{x}$ para algunos $n\in\omega^{+}$ y $x\in\omega^{n}$}\\
+			0, &\text{en otro caso}
+		\end{cases}
+	\]
+\end{theorem}
+
+\begin{proof}
+	Defínase la función $\varphi:\omega^{2}\to\omega^{\DIVERGE}$ tal que para cada $e, z\in\omega$:
+	\[
+		\varphi\pa*{e, z} =
+		\begin{cases}
+			U\pa*{\mu p\KLEENE[A]\pa*{e, z, p}}, & e\in\URMOCODIGO, z\in\SECUENCIAS,\LONGITUD\pa*{z} > 0\\
+			0, &\text{en otro caso}
+		\end{cases}
+	\]
+	Notemos que $\varphi$ es $A$-computable ya que $\KLEENE[A]$ es $A$-primitiva, y por el teorema \ref{theo: rec_contenido_urmo} existe \replaced[id=Corr]{una máquina URMO $N$}{$N\in\URMOCODIGO$} tal que $\varphi =\varphi_{N}^{A, (2)}$. \added[id=Corr]{Esta máquina $N$ no depende de $A$: la definición de $\varphi$ es la misma para todo oráculo, pues $\KLEENE[A]$ es la interpretación en $A$ de un mismo esquema de $\PRIMITIVO$, y la construcción de la demostración del teorema \ref{theo: rec_contenido_urmo} asigna a cada esquema una máquina URMO que tampoco depende del oráculo (el símbolo $\chi$ se traduce siempre en la máquina $\pa*{\pa*{4, 1}}$).} Entonces, por el teorema de la forma normal de Kleene \added[id=Corr]{relativizada (teorema \ref{theo: forma_normal_kleene_relativizada})} se satisface que:
+	\begin{align*}
+		\varphi_{N}^{A, (2)}\mbox{\added[id=Corr]{$\pa*{e, z}$}} &=\varphi\pa*{e, z}\\
+		&=
+		\begin{cases}
+			U\pa*{\mu p\KLEENE[A]\pa*{e, z, p}}, & e\in\URMOCODIGO, z\in\SECUENCIAS,\LONGITUD\pa*{z} > 0\\
+			0, &\text{en otro caso}
+		\end{cases}
+		\\
+		&=
+		\begin{cases}
+			\varphi_{M}^{A, (n)}\pa*{x}, &\text{ $e$ codifica a $M\in\URMO$ y $z =\inner*{x}$ para algunos $n\in\omega^{+}$ y $x\in\omega^{n}$}\\
+			0, &\text{en otro caso}
+		\end{cases}
+	\end{align*}
+\end{proof}
+
+\begin{notation}
+	Sean $A\subseteq\omega$ y $N\in\URMO$ la máquina universal con oráculo $A$, entonces denotaremos por \replaced[id=Corr]{$\Phi_{e}^{A}\pa*{x}$ a $\varphi_{N}^{A, (2)}\pa*{e,\inner*{x}}$ para cada $e, x\in\omega$, de modo que $\Phi_{e}^{A}:\omega\to\omega^{\DIVERGE}$}{$\Phi_{e}^{A}\pa*{z}$ a $\varphi_{N}^{A, (2)}\pa*{e,\inner*{z}}$ para cada $e\in\omega$, $n\in\omega^{+}$ y $z\in\omega^{n}$}.
+
+	\add{Además, para cada $e\in\omega$ denotaremos por $W_{e}^{A}$ al conjunto $\DOMINIO{\Phi_{e}^{A}}$.} \added[id=Corr]{Así, $W_{e}^{A}\subseteq\omega$ para cada $e\in\omega$.}
+\end{notation}
+
+\begin{correccion}[funcional de Turing con un solo argumento]
+Si $e$ codifica a una máquina URMO $M$, entonces por el teorema \ref{theo: maquina_universal_relativizada} con $z =\inner*{x}$ se tiene que $\Phi_{e}^{A}\pa*{x} =\varphi_{M}^{A, (1)}\pa*{x}$ para cada $x\in\omega$. Por lo tanto, para cada función $A$-computable $f:\omega\to\omega^{\DIVERGE}$ existe $e\in\omega$ tal que $f =\Phi_{e}^{A}$, a saber, el código de una máquina URMO que la calcule. Junto con el teorema \ref{theo: ce_relativos}, esto implica que un conjunto $X\subseteq\omega$ es c.e. en $A$ si y solo si $X = W_{e}^{A}$ para algún $e\in\omega$. Para funciones de varias variables seguiremos usando directamente a la máquina universal, es decir, a $\varphi_{N}^{A, (2)}\pa*{e,\inner*{z}}$ con $z\in\omega^{n}$.
+\end{correccion}
+
+En general se dice que $\Phi:\CPOTENCIA{\omega}\times\omega\to\pa*{\omega^{\DIVERGE}}^{\mbox{\replaced[id=Corr]{$\scriptstyle\omega$}{$\scriptstyle\omega^{<\omega}$}}}$ tal que $\pa*{A, e}\mapsto\Phi_{e}^{A}$ es un \emph{funcional de Turing}, el cual no implica más que la máquina universal con oráculo tiene dos grados de libertad, el primero es el oráculo que se le dote a la máquina y el segundo es el número natural que codifica a la máquina que se desea simular. En ese sentido se tiene que el funcional de Turing es un objeto más general que la máquina universal, pues se puede tener una función computable completamente diferente si es que cambiamos el oráculo o el código de la máquina que se desea simular.
+
+Notemos que mencionamos que $\Phi$ es \emph{un} funcional de Turing, y no \emph{el} funcional de Turing. La razón es porque existen diferentes maneras de codificar no solo las máquinas URMO, sino cualquier modelo de la computabilidad que elijamos. Por ello, podemos tener diferentes funcionales de Turing dependiendo del modelo de la computabilidad y su codificación. Sin embargo, todos estos funcionales de Turing son equivalentes en el sentido que pueden simularse entre sí, y entonces podemos referirnos a cada uno de ellos como \emph{el} funcional de Turing.
+
+Otro concepto que podemos extender a las funciones computables con oráculo es el de los conjuntos computablemente enumerables. La idea sigue siendo la misma, y es relajar la definición de computable a simplemente ser la imagen de \replaced[id=Corr]{una función computable}{un conjunto computable}, pero ahora con un oráculo.
+
+\begin{definition}[Conjuntos computablemente enumerables con oráculo]
+	\label{def: ce_relativos}
+	Sea $A\subseteq\omega$. Para cada conjunto $X\subseteq\omega$ se dice que $X$ es \emph{computablemente enumerable con oráculo $A$} o \emph{c.e. en $A$} si $X =\varnothing$ o existe una función $A$-computable $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $x\in\omega$, $x\in X$ si y solo si existe $z\in\omega$ tal que $f\pa*{z} = x$.
+
+	Un conjunto se denomina \emph{co-computablemente enumerable con oráculo $A$} o \emph{co-c.e. en $A$} si su complemento es c.e. en $A$.
+\end{definition}
+
+De igual manera, todos los resultados de los conjuntos c.e. se extienden naturalmente a su versión con oráculo únicamente reemplazando \emph{computable} por \emph{$A$-computable} y \emph{c.e.} por \emph{c.e. en $A$}, por lo que no daremos su demostración al ser casi la misma que la de los teoremas \ref{theo: infinito_computable_creciente}, \ref{coll: computable_es_ce}, \ref{theo: caracterizacion_ce} y \ref{theo: caracterizacion_computables}.
+
+\begin{theorem}
+	\label{theo: ce_relativos}
+	Sea $A\subseteq\omega$, entonces se satisface lo siguiente:
+	\begin{enumerate}
+		\item Para todo conjunto $X\subseteq\omega$ infinito y $A$-computable existe una función $A$-total y estrictamente creciente $f:\omega\to\omega$ tal que $\RANGO{f} =\mbox{\replaced[id=Corr]{$X$}{$A$}}$.
+		\item Todo subconjunto $A$-computable de $\omega$ es c.e. en $A$.
+		\item Todo subconjunto $X\subseteq\omega$ es c.e. en $A$ si y solo si existe una función $A$-computable $f:\omega\to\omega^{\DIVERGE}$ tal que $X =\DOMINIO{f}$.
+		\item Todo subconjunto de $\omega$ es $A$-computable si y solo si es c.e. en $A$ y co-c.e en $A$.
+	\end{enumerate}
+\end{theorem}
+
+Ahora, la existencia de conjuntos c.e. en $A$ que no sean $A$-computables es un resultado que se demuestra extendiendo al cómputo con oráculos el problema de la detención.
+
+\begin{definition}[Conjuntos de detención relativizados]
+	\label{def: detencion_relativizados}
+	Sea $A\subseteq\omega$, entonces se define su \emph{conjunto de detención} como el conjunto:
+	\[
+		K_{A}\coloneqq\set*{e\in\omega:\Phi_{e}^{A}\pa*{e}\ACABA}
+	\]
+	y su conjunto de detención general como:
+	\[
+		K'_{A}\coloneqq\set*{\inner*{e, x}\in\omega:\Phi_{e}^{A}\pa*{x}\ACABA}
+	\]
+\end{definition}
+
+\begin{theorem}[Teorema de Turing relativizado]
+	\label{theo: turing_relativizado}
+	Para cada $A\subseteq\omega$ se satisface que su conjunto de detención $K_{A}$ no es $A$-computable, pero sí c.e. en $A$.
+\end{theorem}
+
+\begin{proof}
+	Definamos la función de diagonalización $f:\omega\to\omega^{\DIVERGE}$ tal que para cada $e\in\omega$:
+	\[
+		f\pa*{e} =
+		\begin{cases}
+			\Phi_{e}^{A}\pa*{e} + 1, & e\in K_{A}\\
+			0, &\text{en otro caso}
+		\end{cases}
+	\]
+
+	Si suponemos que $K_{A}$ es $A$-computable, entonces $f$ sería $A$-computable, y por la existencia de la máquina universal con oráculo $A$ existiría $z\in\omega$ tal que $f =\Phi_{z}^{A}$. Tenemos dos casos: $z\in K_{A}$ o $z\notin K_{A}$.
+
+	Si $z\in K_{A}$, entonces se satisface que:
+	\[
+		\Phi_{z}^{A}\pa*{z} = f\pa*{z} =\Phi_{z}^{A}\pa*{z} + 1
+	\]
+	lo cual es una contradicción. Por otro lado, si $z\notin K_{A}$, entonces se satisface que:
+	\[
+		0 = f\pa*{z} =\Phi_{z}^{A}\pa*{z}\DIVERGE
+	\]
+	lo cual también es una contradicción.
+
+	Puesto que en cualquier caso llegamos a una contradicción, se sigue que necesariamente $K_{A}$ no es $A$-computable.
+
+	Ahora, notemos que si definimos $g:\omega\to\omega^{\DIVERGE}$ tal que para cada $e\in\omega$, $g\pa*{e} =\Phi_{e}^{A}\pa*{e}$, entonces $g$ es claramente $A$-computable, y además $K_{A} =\set*{e\in\omega:\Phi_{e}^{A}\pa*{e}\ACABA} =\set*{e\in\omega: g\pa*{e}\ACABA} =\DOMINIO{g}$. Luego, por el teorema anterior, se sigue que $K_{A}$ es c.e. en $A$.
+\end{proof}
+
+\begin{coll}
+	\label{coll: detencion_relativizados}
+	Para cada $A\subseteq\omega$ se satisface que $K'_{A}$ no es \replaced[id=Corr]{$A$-computable}{computable} y $K_{A}$ no es co-c.e.\added[id=Corr]{ en $A$}
+\end{coll}
+
+\begin{proof}
+	Si $K'_{A}$ fuera $A$-computable, entonces se tendría que su función característica $\CARACTERISTICA{K'_{A}}$ sería $A$-computable, y luego para cada $e\in\omega$:
+	\[
+		e\in K_{A}\iff\Phi_{e}^{A}\pa*{e}\ACABA\iff\inner*{e, e}\in K'_{A}\iff\CARACTERISTICA{K'_{A}}\pa*{\inner*{e, e}} = 1
+	\]
+	es decir, para cada $e\in\omega$, $\CARACTERISTICA{K_{A}}\pa*{e} =\CARACTERISTICA{K'_{A}}\pa*{\inner*{e, e}}$ la cual sería \replaced[id=Corr]{$A$-computable}{computable}. Por el teorema de Turing relativizado se tendría una contradicción. Por lo tanto, $K'_{A}$ no es $A$-computable.
+
+	Ahora, si $K_{A}$ fuera co-c.e. en $A$, y al ser c.e. en $A$ por el teorema de Turing relativizado, se seguiría que $K_{A}$ sería $A$-computable por el teorema \ref{theo: ce_relativos}. Por lo tanto, $K_{A}$ no es co-c.e.\added[id=Corr]{ en $A$}
+\end{proof}
+
+\begin{notation}
+	Para simplificar la notación, y por la importancia del conjunto de detención de un oráculo, para cada oráculo $A\subseteq\omega$ denotaremos a $K_{A}$ por $A'$ y lo denominaremos el \emph{salto de Turing de $A$}. Notemos que se pueden iterar los saltos, es decir, $A'''$ es el salto de $A''$, el cual a su vez es el salto de $A'$. Luego, para cada $n\in\omega$, se denotará por $A^{(n)}$ al $n$-ésimo salto de Turing de $A$, con la convención de que $A^{(0)}\coloneqq A$.
+
+	Notemos además que el salto de Turing del conjunto vacío es simplemente el conjunto de detención clásico, es decir, $\varnothing' = K$. Por ello, cuando hablemos del conjunto de detención clásico, siempre lo denotaremos por $\varnothing'$.
+
+	Para cada oráculo $A\subseteq\omega$ denotaremos al conjunto de detención general de $A$ por $H_{A}$ en vez de $K'_{A}$ para no generar confusión con el salto de Turing.
+\end{notation}
+\end{agregado}
+
+\subsection{Turing-reducibilidad}
+
+Lo que sigue es cómo comparar los oráculos entre sí. Como mencionamos anteriormente, nos interesa determinar que tipo de funciones y conjuntos pueden ser computados dado un oráculo específico, pero eso implica también que diferentes oráculos pueden computar el \replace{mismo}{mism} tipo de funciones que otros, o incluso pueden computar varios más. Si un oráculo puede computar la misma familia de funciones que otro, entonces ese primer oráculo tiene al menos la misma cantidad de información que el segundo, y luego decimos que el primero es al menos igual de complejo que el segundo.
+
+\replace{Cómo}{Como} compararemos ese orden de complejidad será por medio de lo que denominamos \emph{Turing-reducibilidad}, la cual se trata de una relación de preorden. Analizaremos que propiedades satisface esta relación y cómo codifica cierta jerarquía de complejidad computacional.
+
+\begin{definition}[Turing-reducibilidad]
+	Se define la relación de \emph{Turing-reducibilidad} como la relación $\leq_{T}\subseteq\pa*{\CPOTENCIA{\omega}}^{2}$ tal que para cada $A, B\subseteq\omega$, $A\leq_{T} B$ si y solo si $A$ es $B$-\replace{computable}{recursivo}. Denotamos además $A <_{T} B$ si $A\leq_{T} B$ pero no \add{se satisface} $B\leq_{T} A$.
+
+	Si $A\leq_{T} B$, entonces decimos que $A$ es \emph{Turing-reducible} a $B$.
+\end{definition}
+
+\begin{theorem}
+	La Turing-reducibilidad es un preorden, es decir, es una relación reflexiva y transitiva.
+\end{theorem}
+
+\begin{proof}
+	Para la reflexividad consideremos un conjunto $A\subseteq\omega$, y notemos que $A$ es $A$-\replace{computable}{recursiva} pues su función característica es $A$-\replace{computable}{recursiva} por definición. Luego, $A\leq_{T} A$.
+
+	Ahora, sean $A, B, C\subseteq\omega$ y supongamos que $A\leq_{T} B$ y $B\leq_{T} C$. Mostremos que $A\leq_{T} C$. Puesto que $B$ es $C$-\replace{computable}{recursivo}, entonces existe un esquema $f\in\RECURSIVO$ tal que $f^{C} =\CARACTERISTICA{B}$. Ya que $A$ es $B$-\replace{computable}{recursivo}, existe un esquema $g\in\RECURSIVO$ tal que $g^{B} =\CARACTERISTICA{A}$. Si reemplazamos toda aparición de $\CARACTERISTICA{B}$ por $f$ en $g$, obtenemos otro esquema $h\in\RECURSIVO$ tal que $h^{C} = g^{B} =\CARACTERISTICA{A}$, por lo que $A$ sería $C$-\replace{computable}{recursivo}, es decir, $A\leq_{T} C$.
+\end{proof}
+
+El siguiente teorema justiifca el porqué la Turing-reducibilidad no es un orden, pues no satisface la antisimetría.
+
+\begin{theorem}
+	Para cada conjunto $A\subseteq\omega$ se satisface que $\varnothing\leq_{T} A$.
+\end{theorem}
+
+\begin{proof}
+	Notemos que $\CARACTERISTICA{\varnothing} = Z\in\RECURSIVO$ para cualquier oráculo $A\subseteq\omega$. Por lo tanto, $\varnothing$ es $A$-computable para cualquier oráculo, es decir, $\varnothing\leq_{T} A$ para cada $A\subseteq\omega$.
+\end{proof}
+
+\begin{coll}
+	Para cada par de conjuntos computables $A, B\subseteq\omega$ se satisface que $A\leq_{T} B$ y $B\leq_{T} A$.
+\end{coll}
+
+\begin{proof}
+	Puesto que $A, B$ son computables, se tiene que son $\varnothing$-\replace{computables}{recursivos}, o equivalentemente, $A, B\leq_{T}\varnothing$. Además, por el teorema anterior sabemos que $\varnothing\leq_{T} A, B$. Por lo tanto, ya que la Turing-reducibilidad es transitiva, se sigue que:
+	\[
+		\begin{NiceArray}{c}
+			A\leq_{T}\varnothing\land\varnothing\leq_{T} B\implies A\leq_{T} B\\
+			B\leq_{T} \varnothing\land\varnothing\leq_{T} A\implies B\leq_{T} A
+		\end{NiceArray}
+	\]
+\end{proof}
+
+\begin{coll}
+	La Turing-reducibilidad no es antisimétrica.
+\end{coll}
+
+\begin{proof}
+	Notemos que el conjunto de números pares $A =\set*{n\in\omega:\pa*{\exists k\leq n}\pa*{2k = n}}$ es primitivo-recursivo, por lo que es computable. Luego, se satisface $A\leq_{T}\varnothing$ y, por el teorema anterior, también $\varnothing\leq_{T} A$. Puesto que $0\in A$, entonces $A\neq\varnothing$, y se concluye que $A\leq_{T}\varnothing$ y $\varnothing\leq_{T} A$, pero $A\neq\varnothing$.
+\end{proof}
+
+\begin{agregado}[Turing-equivalencia y grados de Turing]
+Aunque la Turing-reducibilidad no es antisimétrica, que dos conjuntos $A, B\subseteq\omega$ satisfagan $A\leq_{T} B$ y $B\leq_{T} A$ implica que en cuanto a complejidad estos dos son indistinguibles. Lo anterior es porque si $A$ y $B$ son Turing-reducibles mutuamente, entonces toda función y conjunto que pueda computar $A$ también lo puede computar $B$, y viceversa. No existe ninguna función que permita distinguir la información computacional de ninguno de estos conjuntos. Por ello, decimos que ambos conjuntos contienen la misma complejidad de información computacional, y luego diremos que son conjuntos \emph{equivalentes según Turing}.
+
+\begin{definition}[Turing-equivalencia]
+	\label{def: turing_equivalencia}
+	Definimos la relación de \emph{Turing-equivalencia} $\equiv_{T}\subseteq\pa*{\CPOTENCIA{\omega}}^{2}$ de modo que para cada par de conjuntos $A, B\subseteq\omega$:
+	\[
+		A\equiv_{T} B\iff A\leq_{T} B\land B\leq_{T} A
+	\]
+
+	Si se satisface que $A\equiv_{T} B$, entonces decimos que $A$ y $B$ son \emph{Turing-equivalentes}.
+\end{definition}
+
+\begin{theorem}
+	La relación de Turing-equivalencia es una relación de equivalencia.
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Reflexividad
+
+		Para cada conjunto $A\subseteq\omega$ sabemos que $A\leq_{T} A$, por lo que trivialmente $A\equiv_{T} A$.
+
+		\item Simetría
+
+		Sean $A, B\subseteq\omega$ tales que $A\equiv_{T} B$, entonces $A\leq_{T} B$ y $B\leq_{T} A$. Por la conmutatividad de la conjunción se sigue que $B\leq_{T} A$ y $A\leq_{T} B$, es decir, $B\equiv_{T} A$.
+
+		\item Transitividad
+
+		Sean $A, B, C\subseteq\omega$ tales que $A\equiv_{T} B$ y $B\equiv_{T} C$, entonces se satisface que $A\leq_{T} B$, $B\leq_{T} A$, $B\leq_{T} C$ y $C\leq_{T} B$. Por la transitividad de la Turing-reducibilidad se sigue que $A\leq_{T} C$ y $C\leq_{T} A$, es decir, $A\equiv_{T} C$.
+	\end{enumerate}
+\end{proof}
+
+\begin{agregado}[teorema]
+\begin{theorem}
+	\label{theo: grados_bien_definidos}
+	Para cada $A, B, C, D\subseteq\omega$ se satisface que si $A\equiv_{T} C$, $B\equiv_{T} D$ y $A\leq_{T} B$, entonces $C\leq_{T} D$.
+\end{theorem}
+
+\begin{proof}
+	Puesto que $A\equiv_{T} C$ y $B\equiv_{T} D$, entonces tenemos que $C\leq_{T} A$ y $B\leq_{T} D$. Ya que $A\leq_{T} B$, por transitividad de la Turing-reducibilidad, se sigue que $C\leq_{T} D$.
+\end{proof}
+\end{agregado}
+
+\begin{definition}[Grados de Turing]
+	\label{def: grados_de_turing}
+	Se define al conjunto de \emph{grados de Turing} como el conjunto cociente $\GRADOS\coloneqq\CPOTENCIA{\omega}/\equiv_{T}$, y para cada conjunto $A\subseteq\omega$ se define su \emph{grado de Turing} como su clase de equivalencia:
+	\[
+		\GRADO{A}\coloneqq\bra*{A}_{\equiv_{T}} =\set*{B\subseteq\omega: A\equiv_{T} B}
+	\]
+
+	Más aún, se define el orden sobre $\GRADOS$ de la siguiente manera para cada $A, B\subseteq\omega$:
+	\[
+		\GRADO{A}\leq\GRADO{B}\iff A\leq_{T} B
+	\]
+	\begin{correccion}
+	De manera análoga se define el orden estricto sobre $\GRADOS$ para cada $A, B\subseteq\omega$:
+	\[
+		\GRADO{A} <\GRADO{B}\iff A <_{T} B
+	\]
+	\end{correccion}
+\end{definition}
+
+\begin{theorem}
+	El par $\pa*{\GRADOS,\leq}$ es un orden parcial.
+\end{theorem}
+
+\begin{proof}
+	Por la reflexividad y transitividad de la Turing-reducibilidad se heredan ambas para esta relación $\leq$. Solo falta demostrar la antisimetría.
+
+	Sean $A, B\subseteq\omega$ tales que $\GRADO{A}\leq\GRADO{B}$ y $\GRADO{B}\leq\GRADO{A}$. Por definición del orden se tiene que $A\leq_{T} B$ y $B\leq_{T} A$, es decir, $A\equiv_{T} B$ y por tanto $\GRADO{A} =\GRADO{B}$.
+\end{proof}
+
+Con estas definiciones podemos apreciar ahora que $\GRADO{\varnothing}$ es exactamente el conjunto de todos los conjuntos computables. Esto lo podemos interpretar como que tener acceso a información de una base de datos que ya es computable no nos da ninguna ventaja real para poder computar conjuntos más complejos. En ese sentido, todo conjunto computable es indistinguible del vacío al hablar de complejidad en su información, es decir, todo conjunto computable es prescindible si lo usamos como oráculo.
+
+Más aún, se tiene que $\GRADO{\varnothing}$ es el elemento mínimo de todos los grados, mostrando que justamente se perdía demasiada riqueza al solo catalogar a los conjuntos entre computables y no computables, pues mostraremos que no solamente existen grados superiores a $\GRADO{\varnothing}$, sino que existen infinitos grados diferentes entre sí ordenados en una torre de complejidad computacional que no podríamos haber apreciado sin la adición del concepto de oráculo.
+\end{agregado}
+
+\begin{agregado}[el salto es estrictamente más complejo]
+\begin{theorem}
+	\label{theo: salto_estricto}
+	Para cada conjunto $A\subseteq\omega$, se tiene que $A <_{T} A'$.
+\end{theorem}
+
+\begin{proof}
+	Por el teorema de Turing relativizado sabemos que $A'$ no es $A$-computable. Luego, mostremos únicamente que $A$ es $A'$-computable.
+
+	Para ello definiremos una función $e:\omega\to\omega$ tal que para cada $x\in\omega$, $e\pa*{x}$ sea el código de una máquina URMO que satisface:
+	\[
+		\forall y\pa*{\Phi_{e\pa*{x}}^{A}\pa*{y}\ACABA\iff x\in A}
+	\]
+
+	Definamos entonces para cada $x\in\omega$ el valor:
+	\[
+		e\pa*{x} =\inner*{0,\inner*{0, 1},\underbrace{\inner*{1, 1},\dotsc,\inner*{1, 1}}_{x\text{ veces}},\inner*{4, 1},\inner*{0, 2},\inner*{3, 1, 2, x + 4}}
+	\]
+
+	La forma de interpretar este código de máquina URMO es la siguiente: primero se borra la entrada del primer registro, luego sumamos $1$ al primer registro $x$ veces justamente para tener almacenado el valor $x$. Luego, se consulta al oráculo para saber si $x\in A$, inicializamos en $0$ el segundo registro y se realiza el salto condicional: si el primer registro es $1$, es decir, si $x\in A$, entonces se detiene la máquina; si el primer registro es $0$, es decir, si $x\notin A$, entonces se entra a un bucle infinito, y luego la máquina no se detiene. Por lo tanto, para cada $x, y\in\omega$, $\Phi_{e\pa*{x}}^{A}\pa*{y}\ACABA$ si y solo si $x\in A$.
+
+	Afirmamos que $e$ es una función primitivo-recursiva, pues si definimos la función auxiliar $g:\omega\to\omega$ tal que para cada $x\in\omega$:
+	\begin{align*}
+		g\pa*{0} &=\inner*{0,\inner*{0, 1}}\\
+		g\pa*{x + 1} &= g\pa*{x}p_{x + 3}^{\inner*{1, 1} + 1}
+	\end{align*}
+	la cual es primitivo-recursiva considerando que $p_{k}$ es el $k$-ésimo número primo\replace{, se}{. Se} tiene entonces que para cada $x\in\omega$,
+	\[
+		e\pa*{x} = g\pa*{x}p_{x + 3}^{\inner*{4, 1} + 1}p_{x + 4}^{\inner*{0, 2} + 1}p_{x + 5}^{\inner*{3, 1, 2, x + 4} + 1}
+	\]
+
+	Ahora, por lo que mencionamos anteriormente, se tiene que para cada $x\in\omega$:
+	\[
+		x\in A\iff\Phi_{e\pa*{x}}^{A}\pa*{e\pa*{x}}\ACABA\iff e\pa*{x}\in A'
+	\]
+	por lo que se sigue que $\CARACTERISTICA{A} =\CARACTERISTICA{A'}\circ e$. Puesto que $e$ es primitivo-recursiva, por teorema \ref{theo: prim_en_prim_a}, se sigue que $e$ es $A'$-primitiva, y por tanto $\CARACTERISTICA{A}$ es $A'$-recursiva, es decir, $A$ es $A'$-computable.
+
+	Por lo tanto, se concluye que $A <_{T} A'$.
+\end{proof}
+
+\begin{coll}[\replace{Jerarquía de los saltos}{Jerarquía de grados}]
+	\label{coll: jerarquia_saltos}
+	Para cada conjunto $A\subseteq\omega$ se satisface que para cada $n\in\omega$, \replace{$A^{(n)} <_{T} A^{(n + 1)}$}{$\GRADO{A^{(n)}} <\GRADO{A^{(n + 1)}}$}.
+\end{coll}
+
+\begin{correccion}
+\begin{proof}
+	Sea $n\in\omega$. Por definición, $A^{(n + 1)}$ es el salto de Turing de $A^{(n)}$, es decir, $A^{(n + 1)} =\pa*{A^{(n)}}'$. Aplicando el teorema \ref{theo: salto_estricto} al conjunto $A^{(n)}$ se obtiene que $A^{(n)} <_{T} A^{(n + 1)}$.
+\end{proof}
+\end{correccion}
+
+\begin{agregado}[yunta, ideales de Turing, teorema s-m-n y propiedades del salto]
+Otro objeto muy útil es la \emph{yunta} \added[id=Corr]{de} conjuntos. La idea detrás de este concepto es: ¿qué podemos hacer si no solamente queremos tener acceso a un oráculo, sino a dos o más de ellos? Para no modificar la definición que tenemos de computabilidad con oráculo (ya sea para funciones recursivas o URMO) a un número finito de ellos, la estrategia será construir un oráculo que contenga la información mínima necesaria para poder consultar a todos ellos. Enfatizamos el ser de información mínima, pues existen oráculos tan complejos que pueden tener información redundante o no deseada que pueda afectar la computabilidad con los oráculos que sí deseamos consultar.
+
+Formalmente, enfocándonos en el caso de únicamente dos oráculos, si tenemos dos conjuntos $A, B\subseteq\omega$, entonces queremos una manera \emph{computable} de construir un nuevo oráculo $C\subseteq\omega$ tal que $A, B\leq_{T} C$, pero además para cada otro oráculo $D\subseteq\omega$ \added[id=Corr]{con $A, B\leq_{T} D$} se satisfaga $C\leq_{T} D$. La última condición es la que asegura que este nuevo oráculo $C$ no contenga más información de la necesaria para poder tener acceso a la información de $A$ y $B$.
+
+Ya que la Turing-reducibilidad es una relación de preorden, pueden existir diferentes oráculos que satisfagan las condiciones anteriores. Sin embargo, esas mismas condiciones nos aseguran que todos esos oráculos son Turing-equivalentes, y luego, el oráculo que construyamos pertenece al \emph{supremo} de los grados de Turing de $A$ y $B$ bajo el orden de $\GRADOS$.
+
+\begin{theorem}
+	\label{theo: yunta_unica}
+	Sean $A, B\subseteq\omega$. Luego, todo conjunto $C\subseteq\omega$ el cual satisface que $A, B\leq_{T} C$ y para cada $E\subseteq\omega$ se tiene que $A, B\leq_{T} E$ implica $C\leq_{T} E$ es único bajo Turing-equivalencia.
+\end{theorem}
+
+\begin{proof}
+	\deleted[id=Corr]{Supongamos por el contrario que existe otro conjunto $D\subseteq\omega$ tal que $A, B\leq_{T} D$ y para cada $E\subseteq\omega$ se satisface que $A, B\leq_{T} E$ implica $D\leq_{T} E$, pero $D <_{T} C$. Puesto que $C$ satisface las mismas condiciones, por hipótesis se sigue que $A, B\leq_{T} D$ implica $C\leq_{T} D$, lo cual contradice el hecho que $D <_{T} C$.}
+
+	\deleted[id=Corr]{Por lo tanto, se tiene que necesariamente que $D\leq_{T} C$. Ya que $C\leq_{T} D$, entonces obtenemos que $C\equiv_{T} D$}
+
+	\added[id=Corr]{Sea $D\subseteq\omega$ otro conjunto que satisface las mismas dos condiciones que $C$. Como $A, B\leq_{T} D$ y $C$ satisface la segunda condición, se tiene que $C\leq_{T} D$. De la misma manera, como $A, B\leq_{T} C$ y $D$ satisface la segunda condición, se tiene que $D\leq_{T} C$. Por lo tanto, $C\equiv_{T} D$.}
+\end{proof}
+
+Lo más natural es pensar que un representante de ese mínimo grado que supera a $A$ y $B$ es su unión $A\cup B$, pues su unión contiene a los elementos de ambos conjuntos, y luego debería tener la información de ambos. Sin embargo, lo anterior no es cierto, y se puede ver tomando como contraejemplo a los conjuntos $\varnothing'$ y $\omega\setminus\varnothing'$. Ambos conjuntos son no computables, por lo que $\varnothing <_{T}\varnothing'$ y $\varnothing <_{T}\omega\setminus\varnothing'$. Sin embargo, notemos que claramente $\varnothing'\cup\pa*{\omega\setminus\varnothing'} =\omega <_{T}\varnothing'$. Por lo tanto, la unión no necesariamente pertenece al grado del supremo de ambos conjuntos.
+
+Una idea más ingeniosa es no unir tal cual los conjuntos, sino ``intercalarlos''. Si pensamos a los conjuntos $A$ y $B$ como dos cintas que contienen los elementos que pertenecen a cada uno respectivamente, entonces podemos crear una nueva cinta intercalando en las posiciones pares los elementos de $A$ y en las impares los de $B$.
+
+\replaced[id=Corr]{Para determinar si un número $x$ pertenece a $A$ basta consultar si $2x$ pertenece a la nueva cinta, y para determinar si pertenece a $B$ basta consultar si $2x + 1$ pertenece a ella. Recíprocamente, para saber si un número pertenece a la nueva cinta basta ver si es par o impar y consultar a $A$ o a $B$ según el caso.}{Para determinar si un elemento pertenece a $A$ o $B$, primero lo consultamos en esta nueva cinta: si sí pertenece a la cinta, entonces vemos si su posición es par (y luego pertenece a $A$), y si no, entonces pertenece a $B$.}
+
+Esa nueva cinta vista como oráculo se denomina la \emph{yunta} de $A$ y $B$, y mostraremos que esta sí es un representante del supremo de los grados de ambos conjuntos.
+
+\begin{definition}[Yunta]
+	\label{def: yunta}
+	Sean $A, B\subseteq\omega$ conjuntos, entonces se define la \emph{yunta} de $A$ con $B$ como el siguiente conjunto:
+	\[
+		A\oplus B\coloneqq\set*{2x\in\omega: x\in A}\cup\set*{2x + 1\in\omega: x\in B}
+	\]
+\end{definition}
+
+\begin{theorem}
+	\label{theo: yunta_supremo}
+	Para cada par de conjuntos $A, B\subseteq\omega$ se satisface que $A, B\leq_{T} A\oplus B$ y para cada $C\subseteq\omega$ se satisface que $A, B\leq_{T} C$ implica $A\oplus B\leq_{T} C$.
+\end{theorem}
+
+\begin{proof}
+	Por la definición de yunta se sigue que para cada $x\in\omega$:
+	\[
+		\begin{NiceArray}{c}
+			x\in A\iff 2x\in A\oplus B\iff\CARACTERISTICA{A\oplus B}\pa*{2x} = 1\\
+			x\in B\iff 2x + 1\in A\oplus B\iff\CARACTERISTICA{A\oplus B}\pa*{2x + 1} = 1
+		\end{NiceArray}
+	\]
+	Luego se tiene que $\CARACTERISTICA{A}\pa*{x} =\CARACTERISTICA{A\oplus B}\pa*{2x}$ y $\CARACTERISTICA{B}\pa*{x} =\CARACTERISTICA{A\oplus B}\pa*{2x + 1}$ para cada $x\in\omega$. Luego $A$ y $B$ son $A\oplus B$-computables, es decir, $A, B\leq_{T} A\oplus B$.
+
+	Ahora, sea $C\subseteq\omega$ tal que $A, B\leq_{T} C$. Entonces mostremos que $A\oplus B\leq_{T} C$. Primero definamos las funciones auxiliares $p, i, h:\omega\to\omega$ definidas como sigue para cada $x\in\omega$ y tales que son primitivo-recursivas:
+	\[
+		\begin{NiceArray}{c}
+			p\pa*{x} =\pa*{\mu n\leq x}\pa*{2n = x}\\
+			i\pa*{x} =\pa*{\mu n\leq x}\pa*{2n + 1 = x}\\
+			h\pa*{x} =
+			\begin{cases}
+				1, &\pa*{\exists n\leq x}\pa*{2n = x}\\
+				0, &\pa*{\exists n\leq x}\pa*{2n + 1 = x}
+			\end{cases}
+		\end{NiceArray}
+	\]
+	es decir, $p$ e $i$ son las funciones que devuelven el natural que verifica que el argumento sea par o impar respectivamente, y $h$ determina si el argumento es par o impar.
+
+	Puesto que $A\leq_{T} C$ y $B\leq_{T} C$, entonces $\CARACTERISTICA{A}$ y $\CARACTERISTICA{B}$ son $C$-computables. Luego, se tiene que:
+	\begin{align*}
+		x\in A\oplus B&\iff\pa*{x\text{ es par}\land x/2\in A}\lor\pa*{x\text{ es impar}\land\pa*{x - 1}/2\in B}\\
+		&\iff\pa*{h\pa*{x} = 1\land p\pa*{x}\in A}\lor\pa*{h\pa*{x} = 0\land i\pa*{x}\in B}\\
+		&\iff\pa*{h\pa*{x} = 1\land\CARACTERISTICA{A}\pa*{p\pa*{x}} = 1}\lor\pa*{h\pa*{x} = 0\land\CARACTERISTICA{B}\pa*{i\pa*{x}} = 1}\\
+		&\iff h\pa*{x}\CARACTERISTICA{A}\pa*{p\pa*{x}} +\pa*{1 - h\pa*{x}}\CARACTERISTICA{B}\pa*{i\pa*{x}} = 1
+	\end{align*}
+	por lo que $\CARACTERISTICA{A\oplus B} = h\cdot\pa*{\CARACTERISTICA{A}\circ p} +\pa*{1 - h}\cdot\pa*{\CARACTERISTICA{B}\circ i}$. Puesto que $p$, $i$ y $h$ son primitivo-recursivas, entonces \replaced[id=Corr]{son}{es} también $C$-computables\added[id=Corr]{ por el teorema \ref{theo: prim_en_prim_a}}. Se sigue entonces que $A\oplus B$ es $C$-computable, o equivalentemente, $A\oplus B\leq_{T} C$.
+\end{proof}
+
+\begin{coll}
+	\label{coll: yunta_conmutativa}
+	Para cada par de conjuntos $A, B\subseteq\omega$ se satisface que $A\oplus B\equiv_{T} B\oplus A$.
+\end{coll}
+
+\begin{proof}
+	Por el teorema anterior se tiene que $A, B\leq_{T} B\oplus A$, y luego $A\oplus B\leq_{T} B\oplus A$. De la misma manera se tiene que $B\oplus A\leq_{T} A\oplus B$, y entonces $A\oplus B\equiv_{T} B\oplus A$.
+\end{proof}
+
+Podemos extender este concepto de yunta a más conjuntos, pero para ello debemos demostrar que la yunta es asociativa módulo la Turing-equivalencia.
+
+\begin{theorem}
+	\label{theo: yunta_asociativa}
+	Para cada terna de conjuntos $A, B, C\subseteq\omega$ se satisface que $\pa*{A\oplus B}\oplus C\equiv_{T} A\oplus\pa*{B\oplus C}$\added[id=Corr]{.}
+\end{theorem}
+
+\begin{proof}
+	Notemos que por el teorema \replaced[id=Corr]{\ref{theo: yunta_supremo}}{1.61} se satisface que:
+	\[
+		\begin{NiceArray}{c}
+			B\leq_{T} A\oplus B\leq_{T}\pa*{A\oplus B}\oplus C\\
+			C\leq_{T}\pa*{A\oplus B}\oplus C
+		\end{NiceArray}
+	\]
+	por lo que se debe satisfacer que $B\oplus C\leq_{T}\pa*{A\oplus B}\oplus C$. Ya que:
+	\[
+		A\leq_{T} A\oplus B\leq_{T}\pa*{A\oplus B}\oplus C
+	\]
+	se sigue por el mismo teorema que $A\oplus\pa*{B\oplus C}\leq_{T}\pa*{A\oplus B}\oplus C$.
+
+	Similarmente se tiene que $A, B\leq_{T} A\oplus\pa*{B\oplus C}$, por lo que $A\oplus B\leq_{T} A\oplus\pa*{B\oplus C}$. Ya que también $C\leq_{T} A\oplus\pa*{B\oplus C}$, se sigue que $\pa*{A\oplus B}\oplus C\leq_{T} A\oplus\pa*{B\oplus C}$. Por lo tanto, $\pa*{A\oplus B}\oplus C\equiv_{T} A\oplus\pa*{B\oplus C}$.
+\end{proof}
+
+\begin{definition}[Yunta generalizada]
+	\label{def: yunta_generalizada}
+	Para cada $n\in\omega^{+}$ defínase la función $Y_{n}:\pa*{\CPOTENCIA{\omega}}^{n}\to\CPOTENCIA{\omega}$ como sigue de manera inductiva sobre $n$:
+	\[
+		\begin{NiceArray}{c}
+			Y_{1}\pa*{A}\coloneqq A\\
+			Y_{n + 1}\pa*{A_{1},\dotsc, A_{n + 1}}\coloneqq Y_{n}\pa*{A_{1},\dotsc, A_{n}}\oplus A_{n + 1}
+		\end{NiceArray}
+	\]
+
+	Luego, para cada número finito de conjuntos $A_{1},\dotsc, A_{n}\subseteq\omega$ para algún $n\in\omega^{+}$ se define la \emph{yunta (generalizada)} de ellos como:
+	\[
+		\bigoplus_{k = 1}^{n}A_{k} = A_{1}\oplus\dotsb\oplus A_{n}\coloneqq Y_{n}\pa*{A_{1},\dotsc, A_{n}}
+	\]
+
+	Sea $\mathcal{A}\subseteq\CPOTENCIA{\omega}$ finito no vacío, entonces denotamos por $\bigoplus\mathcal{A}$ a la yunta generalizada de sus elementos dado cierto orden.
+\end{definition}
+
+Además, se sigue satisfaciendo que \replaced[id=Corr]{esta}{este esta} definición de yunta es un representante del supremo de los grados de cada uno de los conjuntos que la componen.
+
+\begin{theorem}
+	\label{theo: yunta_generalizada_supremo}
+	Sea $\mathcal{A}\subseteq\CPOTENCIA{\omega}$ finito no vacío, entonces se satisface que para cada $A\in\mathcal{A}$, $A\leq_{T}\bigoplus\mathcal{A}$ y para cada $B\subseteq\omega$ se tiene que si para cada $A\in\mathcal{A}$ se cumple que $A\leq_{T} B$, entonces $\bigoplus\mathcal{A}\leq_{T} B$.
+\end{theorem}
+
+\begin{proof}
+	Supongamos que $\mathcal{A} =\set*{A_{1},\dotsc, A_{n}}$ para algún $n\in\omega^{+}$. Por definición de la yunta generalizada se tiene directamente que para cada $k\leq n$ se satisface que $A_{k}\leq_{T}\bigoplus_{i = 1}^{k}A_{i}$. Por la misma definición se tiene que para cada $k < n$ se cumple que $\bigoplus_{i = 1}^{k}A_{i}\leq_{T}\bigoplus_{i = 1}^{k + 1}A_{i}$. Por la transitividad de la Turing-reducibilidad se sigue que para cada $k\leq n$ se cumple que $\bigoplus_{i = 1}^{k}A_{i}\leq_{T}\bigoplus_{i = 1}^{n}A_{i}$, y luego para cada $k\leq n$, $A_{k}\leq_{T}\bigoplus_{i = 1}^{n}A_{i}$.
+
+	Sea $B\subseteq\omega$ tal que para cada $k\leq n$, $A_{k}\leq_{T} B$, y entonces mostremos que $\bigoplus_{i = 1}^{n}A_{i}\leq_{T} B$ por inducción sobre $n$.
+
+	Para $n = 1$ se sigue por hipótesis que $A_{1}\leq_{T} B$. Supongamos ahora que dado $n\in\omega^{+}$ se satisface que si $A_{k}\leq_{T} B$ para cada $k\leq n$, entonces $\bigoplus_{i = 1}^{n}A_{i}\leq_{T} B$, y probemos lo mismo para $n + 1$. Por definición de yunta generalizada se tiene que:
+	\[
+		\bigoplus_{i = 1}^{n + 1}A_{i} =\pa*{\bigoplus_{i = 1}^{n}A_{i}}\oplus A_{n + 1}
+	\]
+	por la hipótesis inicial y por hipótesis de inducción se tiene que $\bigoplus_{i = 1}^{n}A_{i}, A_{n + 1}\leq_{T} B$, por lo que por el teorema \replaced[id=Corr]{\ref{theo: yunta_supremo}}{1.61} se sigue que:
+	\[
+		\bigoplus_{i = 1}^{n + 1}A_{i} =\pa*{\bigoplus_{i = 1}^{n}A_{i}}\oplus A_{n + 1}\leq_{T} B
+	\]
+\end{proof}
+
+El concepto de yunta es muy importante para la parte de la aritmética de segundo orden, pues nos permitirá \replaced[id=Corr]{obtener de manera compacta información}{traducir de manera compacta obtener información} de diversos conjuntos para verificar que cierta proposición es verdadera. Más específicamente, es importante para definir lo que son los \emph{ideales de Turing}, los cuales son fundamentales para interpretar a los modelos de $\RCA$.
+
+\begin{definition}[Ideales de Turing]
+	\label{def: ideal_turing}
+	Un \emph{ideal de Turing} es una familia de conjuntos $\mathcal{A}\subseteq\CPOTENCIA{\omega}$ no vacía la cual satisface lo siguiente:
+	\begin{enumerate}
+		\item para cada $A, B\in\mathcal{A}$ se satisface que $A\oplus B\in\mathcal{A}$, y
+		\item para cada $A, B\subseteq\omega$ se cumple que si $A\in\mathcal{A}$ y $B\leq_{T} A$, entonces $B\in\mathcal{A}$.
+	\end{enumerate}
+\end{definition}
+
+Podemos interpretar a los ideales de Turing como una generalización de lo que es un rayo inferior bajo la Turing-reducibilidad. Es decir, una generalización de lo que significaría un conjunto de la forma $\bra*{\varnothing, A}\coloneqq\set*{X\subseteq\omega: X\leq_{T} A}$, pues se satisface que este tipo de conjuntos son ideales de Turing, y más aún satisfacen lo siguiente.
+
+\begin{theorem}
+	\label{theo: cono_inferior_ideal}
+	Para cada $A\subseteq\omega$ se satisface que el conjunto $\bra*{\varnothing, A}\coloneqq\set*{X\subseteq\omega: X\leq_{T} A}$ es el mínimo ideal de Turing que contiene a $A$, es decir, si $J\subseteq\CPOTENCIA{\omega}$ es un ideal de Turing tal que $A\in J$, entonces $\bra*{\varnothing, A}\subseteq J$.
+\end{theorem}
+
+\begin{proof}
+	Primero mostremos que $\bra*{\varnothing, A}$ es un ideal de Turing. Claramente es no vacío ya que $\varnothing, A\leq_{T} A$ y luego $\varnothing, A\in\bra*{\varnothing, A}$. Ahora, consideremos dos conjuntos $X, Y\in\bra*{\varnothing, A}$, entonces por definición se tiene que $X, Y\leq_{T} A$, y por el teorema \replaced[id=Corr]{\ref{theo: yunta_supremo}}{1.61}, se implica que $X\oplus Y\leq_{T} A$, es decir, $X\oplus Y\in\bra*{\varnothing, A}$.
+
+	Sean ahora $X, Y\subseteq\omega$ tales que $X\in\bra*{\varnothing, A}$ y $Y\leq_{T} X$. Por definición se tiene que $X\leq_{T} A$, y por la transitividad de la Turing-reducibilidad se sigue que $Y\leq_{T} A$, es decir, $Y\in\bra*{\varnothing, A}$. Por lo tanto, $\bra*{\varnothing, A}$ es un ideal de Turing.
+
+	Consideremos ahora un ideal de Turing $J\subseteq\CPOTENCIA{\omega}$ tal que $A\in J$, y mostremos entonces que $\bra*{\varnothing, A}\subseteq J$. Sea $X\in\bra*{\varnothing, A}$, entonces por definición se satisface que $X\leq_{T} A$. Ya que $J$ es un ideal de Turing, y $A\in J$, entonces se satisface que $X\in J$. Puesto que $X\in\bra*{\varnothing, A}$ fue arbitrario, se tiene entonces que $\bra*{\varnothing, A}\subseteq J$.
+\end{proof}
+
+Lo que sigue es demostrar ciertas propiedades de la Turing-reducibilidad con respecto al salto de Turing. Aunque demostramos que para cada conjunto $A\subseteq\omega$ se satisface que $A <_{T} A'$, existen propiedades más fuertes del salto que nos serán útiles cuando analicemos los modelos de $\ACA$ y $\WKL$. Para ello necesitamos un teorema fundamental que es el \emph{teorema s-m-n}.
+
+La idea detrás de este teorema es muy simple, y habla de qué pasa cuando en una función computable dejamos fija una entrada. En general en el trabajo matemático, y particularmente en la práctica de la programación, cuando tenemos una función de dos o más variables, podemos crear otras funciones dejando uno de los argumentos fijos. Más concretamente, si tenemos una función $f: A^{2}\to B$ para algunos conjuntos $A, B$ con regla de correspondencia $f\pa*{x, y}$, entonces podemos asignar un valor concreto $x = x_{0}$ y crear una nueva función en una sola variable $g\pa*{y} = f\pa*{x_{0}, y}$. Notemos que para cada valor concreto de $x$ se crea su función correspondiente, por lo que lo que estamos generando en realidad es un funcional.
+\begin{align*}
+	F: A&\to B^{A}\\
+	x&\mapsto f\pa*{x,\cdot}
+\end{align*}
+
+Dentro de la computabilidad se tiene algo similar. Si tenemos una función $A$-computable $\varphi_{e}^{A, (2)}$, entonces se puede generar también tal funcional:
+\begin{align*}
+	F_{e}:\omega&\to\pa*{\omega^{\DIVERGE}}^{\omega}\\
+	x&\mapsto\varphi_{e}^{A, (2)}\pa*{x,\cdot}
+\end{align*}
+
+Sin embargo, notemos que la nueva función $\varphi_{e}^{A, (2)}\pa*{x,\cdot}$ también es computable, por lo que debe existir un código $s\pa*{e, x}\in\omega$ tal que $\varphi_{s\pa*{e, x}}^{A} =\varphi_{e}^{A, (2)}\pa*{x,\cdot}$. Luego, esta nueva función $s:\omega^{2}\to\omega$ puede reemplazar al funcional $F_{e}$ ya que toda la información necesaria para calcular la función de salida está contenida en su código.
+
+Con esto podemos preguntarnos: ¿la función $s$ es computable? Pues resulta que la respuesta es afirmativa, y el que sea computable es mucho más importante de lo que parece. Si $s$ no fuera computable, se implicaría que dado el código $e$, se tendría un esquema de infinitos códigos, uno para cada $x\in\omega$ que elijamos, que no podríamos determinar de antemano; solo podríamos determinar $s\pa*{e, x}$ conociendo de antemano cual es el valor de $x$. Es decir, $s$ es una regla computable que nos dice cómo obtener el código; no solamente que tal código existe.
+
+\begin{theorem}[Teorema s-m-n]
+	\label{theo: smn}
+	Sean $m, n\in\omega^{+}$. Entonces existe una función primitivo-recursiva $s:\omega^{m + 1}\to\omega$ tal que para cada $A\subseteq\omega$, cada $e\in\URMOCODIGO$, cada $x\in\omega^{m}$ y cada $y\in\omega^{n}$ se satisface que:
+	\begin{enumerate}
+		\item $s\pa*{e, x}\in\URMOCODIGO$, y
+		\item $\varphi_{M}^{A, (m + n)}\pa*{x, y} =\varphi_{N}^{A, (n)}\pa*{y}$, donde $M$ es la máquina URMO con código $e$ y $N$ es la máquina URMO con código $s\pa*{e, x}$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{correccion}[demostración del teorema s-m-n, redactada por Claude]
+La idea de la demostración es la de una \emph{fábrica de programas}: a partir del código $e$ y de $x$ escribimos un nuevo código $s\pa*{e, x}$ que, con entrada $y$, primero deja la cinta tal como estaría al inicio si al código $e$ le hubiéramos dado la entrada $\pa*{x, y}$, y después se comporta como $e$. Los códigos de instrucciones que forman a $s\pa*{e, x}$ se dividen en tres bloques:
+\begin{enumerate}
+	\item un \emph{bloque de copia}, formado por los códigos $\inner*{2, j, m + j}$, que mueven cada $y_{j}$ del registro $j$ al registro $m + j$, empezando por $j = n$ para no sobrescribir datos que aún no se copian;
+	\item un \emph{bloque de escritura}, formado para cada $i\leq m$ por el código $\inner*{0, i}$ seguido de $x_{i}$ copias del código $\inner*{1, i}$, de modo que $x$ queda escrito en el código;
+	\item un \emph{bloque de simulación}, formado por los códigos de instrucciones $e\bra*{1},\dotsc, e\bra*{u}$ de $e$, donde cada código de salto $\inner*{3, i, j, p}$ se cambia por $\inner*{3, i, j, p + L}$, con $L$ el número de códigos de los dos primeros bloques.
+\end{enumerate}
+Hay que verificar dos cosas: que $s\pa*{e, x}$ calcula lo que debe, lo cual es una inducción sobre los pasos de la ejecución, y que se obtiene a partir de $\pa*{e, x}$ de manera primitivo-recursiva, lo cual es aritmética con la codificación por potencias de primos. Notemos que la construcción nunca consulta al oráculo: la consulta la hace el código $s\pa*{e, x}$ cuando se ejecuta. Por eso la misma función $s$ sirve para todo $A\subseteq\omega$.
+
+\begin{proof}
+	Fijemos $m, n\in\omega^{+}$. A lo largo de la demostración, una igualdad entre expresiones que pueden divergir significa que ambos lados divergen, o que ambos convergen y tienen el mismo valor. Para $x\in\omega^{m}$ escribimos $\abs*{x}\coloneqq x_{1} +\dotsb + x_{m}$.
+
+	Definimos la función $D:\omega^{2}\to\omega$ para cada $c, L\in\omega$ como:
+	\[
+		D\pa*{c, L}\coloneqq
+		\begin{cases}
+			\inner*{3, c\bra*{1}, c\bra*{2}, c\bra*{3} + L}, & c\bra*{0} = 3\\
+			c, &\text{en otro caso}
+		\end{cases}
+	\]
+	es decir, $D\pa*{c, L}$ recorre $L$ lugares el destino de un código de salto y deja igual a cualquier otro código. Notemos que si $c\in\INSTRUCCIONESOCOD$, entonces $D\pa*{c, L}\in\INSTRUCCIONESOCOD$: si $c =\inner*{3, i, j, p}$, entonces $D\pa*{c, L} =\inner*{3, i, j, p + L}$ con $p + L\in\omega^{+}$, y en otro caso $c\bra*{0}\in\set*{0, 1, 2, 4}$ y $D\pa*{c, L} = c$.
+
+	Sean $e\in\URMOCODIGO$, $u =\NUMINSTRUCCIONES\pa*{e}$, $x\in\omega^{m}$ y $L_{x}\coloneqq n + m +\abs*{x}$. Sean $\sigma_{1}\coloneqq n$ y $\sigma_{i + 1}\coloneqq\sigma_{i} + x_{i} + 1$ para cada $1\leq i\leq m$, de modo que $\sigma_{m + 1} = L_{x}$. Definimos para cada $1\leq t\leq L_{x} + u$:
+	\[
+		d_{t}\coloneqq
+		\begin{cases}
+			\inner*{2, n - t + 1, m + n - t + 1}, & 1\leq t\leq n\\
+			\inner*{0, i}, & t =\sigma_{i} + 1\text{ para algún } 1\leq i\leq m\\
+			\inner*{1, i}, &\sigma_{i} + 1 < t\leq\sigma_{i + 1}\text{ para algún } 1\leq i\leq m\\
+			D\pa*{e\bra*{t - L_{x}}, L_{x}}, & L_{x} < t\leq L_{x} + u
+		\end{cases}
+	\]
+	y el \emph{código especializado} $e_{x}'\coloneqq\inner*{0, d_{1},\dotsc, d_{L_{x} + u}}$. Como cada $d_{t}$ pertenece a $\INSTRUCCIONESOCOD$, se tiene que $e_{x}'\in\URMOCODIGO$ y $\NUMINSTRUCCIONES\pa*{e_{x}'} = L_{x} + u$. Los primeros $n$ códigos forman el bloque de copia, los siguientes $m +\abs*{x}$ el bloque de escritura y los últimos $u$ el bloque de simulación.
+
+	Fijemos además $A\subseteq\omega$ y $y\in\omega^{n}$, y escribamos $L = L_{x}$ y $u' = L + u$. Sean $\set*{f_{t}}_{t\in\omega}$ la ejecución de $e$ con oráculo $A$ y entrada $\pa*{x, y}$, y $\set*{g_{t}}_{t\in\omega}$ la ejecución de $e_{x}'$ con oráculo $A$ y entrada $y$. Primero notemos que el contador nunca vale cero: $f_{0}\pa*{0} = 1$, los códigos de tipo $0$, $1$, $2$ y $4$ lo aumentan en uno, un código de salto lo lleva a algún $p\in\omega^{+}$ o lo aumenta en uno, y si la ejecución ya terminó el contador no cambia. Por inducción sobre $t$ se tiene que $f_{t}\pa*{0}\geq 1$ para cada $t\in\omega$.
+
+	Para cada $t\leq L$ se tiene que $g_{t}\pa*{0} = t + 1$, y para cada $r\geq 1$:
+	\[
+		g_{L}\pa*{r} =
+		\begin{cases}
+			x_{r}, & 1\leq r\leq m\\
+			y_{r - m}, & m < r\leq m + n\\
+			0, & r > m + n
+		\end{cases}
+	\]
+	es decir, $g_{L}\pa*{0} = f_{0}\pa*{0} + L$ y $g_{L}\pa*{r} = f_{0}\pa*{r}$ para cada $r\geq 1$.
+
+	La primera parte es por inducción sobre $t$: $g_{0}\pa*{0} = 1$, y si $t < L$ y $g_{t}\pa*{0} = t + 1$, entonces $g_{t}\pa*{0}\leq L\leq u'$, por lo que se ejecuta el código $d_{t + 1}$, el cual es de tipo $0$, $1$ o $2$; en los tres casos $g_{t + 1}\pa*{0} = g_{t}\pa*{0} + 1 = t + 2$.
+
+	Para el bloque de copia probemos que para cada $t\leq n$ y cada $r\geq 1$:
+	\[
+		g_{t}\pa*{r} =
+		\begin{cases}
+			y_{j}, & r = m + j\text{ para algún } j\text{ con } n - t < j\leq n\\
+			g_{0}\pa*{r}, &\text{en otro caso}
+		\end{cases}
+	\]
+	Para $t = 0$ no existe $j$ con $n < j\leq n$ y no hay nada que probar. Supongamos que se cumple para algún $t < n$ y sea $j^{*} = n - t$. En el paso $t + 1$ se ejecuta el código $d_{t + 1} =\inner*{2, j^{*}, m + j^{*}}$. Como $m + j > j^{*}$ para cada $j > j^{*}$, el registro $j^{*}$ no ha sido modificado, y por hipótesis $g_{t}\pa*{j^{*}} = g_{0}\pa*{j^{*}} = y_{j^{*}}$, ya que $j^{*}\leq n$. Luego $g_{t + 1}\pa*{m + j^{*}} = y_{j^{*}}$ y los demás registros distintos de cero no cambian, que es lo que se quería para $t + 1$. Con $t = n$ se obtiene que $g_{n}\pa*{r} = y_{r - m}$ si $m < r\leq m + n$, $g_{n}\pa*{r} = g_{0}\pa*{r}$ si $1\leq r\leq m$, y $g_{n}\pa*{r} = g_{0}\pa*{r} = 0$ si $r > m + n$, pues en tal caso $r > n$.
+
+	Para el bloque de escritura probemos que para cada $1\leq i\leq m + 1$ y cada $r\geq 1$ se tiene que $g_{\sigma_{i}}\pa*{r} = x_{r}$ si $r < i$ y $g_{\sigma_{i}}\pa*{r} = g_{n}\pa*{r}$ si $r\geq i$. Para $i = 1$ es inmediato, pues $\sigma_{1} = n$. Si se cumple para algún $i\leq m$, en el paso $\sigma_{i} + 1$ se ejecuta el código $d_{\sigma_{i} + 1} =\inner*{0, i}$, que pone el registro $i$ en cero, y en los $x_{i}$ pasos siguientes se ejecuta el código $\inner*{1, i}$, que le suma uno cada vez; ninguno de estos códigos modifica otro registro distinto de cero. Luego $g_{\sigma_{i + 1}}\pa*{i} = x_{i}$ y $g_{\sigma_{i + 1}}\pa*{r} = g_{\sigma_{i}}\pa*{r}$ para $r\neq i$, que es lo que se quería para $i + 1$. Con $i = m + 1$, y ya que $\sigma_{m + 1} = L$, se obtiene la fórmula de la afirmación.
+
+	Sea $k\in\omega$ tal que $f_{q}\pa*{0}\leq u$ para cada $q < k$. Entonces $g_{L + k}\pa*{0} = f_{k}\pa*{0} + L$ y $g_{L + k}\pa*{r} = f_{k}\pa*{r}$ para cada $r\geq 1$.
+
+	Por inducción sobre $k$. El caso $k = 0$ es la afirmación 1. Supongamos que se cumple para $k$ y que $f_{q}\pa*{0}\leq u$ para cada $q\leq k$. Sea $c = f_{k}\pa*{0}$, de modo que $1\leq c\leq u$ y en el paso $k + 1$ la ejecución de $e$ usa el código $e\bra*{c}$. Por hipótesis de inducción $g_{L + k}\pa*{0} = L + c\leq u'$, por lo que la ejecución de $e_{x}'$ usa el código $d_{L + c} = D\pa*{e\bra*{c}, L}$.
+	\begin{itemize}
+		\item Si $e\bra*{c}\bra*{0}\in\set*{0, 1, 2, 4}$, entonces $D\pa*{e\bra*{c}, L} = e\bra*{c}$, y ambas ejecuciones aplican el mismo código sobre registros con el mismo contenido y con el mismo oráculo; en el caso $e\bra*{c} =\inner*{4, i}$, ambas escriben $\CARACTERISTICA{A}\pa*{f_{k}\pa*{i}}$ en el registro $i$. Luego $g_{L + k + 1}\pa*{r} = f_{k + 1}\pa*{r}$ para cada $r\geq 1$, y ambos contadores aumentan en uno, es decir, $g_{L + k + 1}\pa*{0} = L + c + 1 = f_{k + 1}\pa*{0} + L$.
+		\item Si $e\bra*{c} =\inner*{3, i, j, p}$, entonces $D\pa*{e\bra*{c}, L} =\inner*{3, i, j, p + L}$, y como $g_{L + k}\pa*{i} = f_{k}\pa*{i}$ y $g_{L + k}\pa*{j} = f_{k}\pa*{j}$, ambas ejecuciones toman la misma decisión: si los registros son iguales, $g_{L + k + 1}\pa*{0} = p + L = f_{k + 1}\pa*{0} + L$, y si no, $g_{L + k + 1}\pa*{0} = L + c + 1 = f_{k + 1}\pa*{0} + L$. En ambos casos los registros distintos de cero no cambian.
+	\end{itemize}
+
+	Existe $k\in\omega$ con $f_{k}\pa*{0} > u$ si y solo si existe $t\in\omega$ con $g_{t}\pa*{0} > u'$, y en tal caso, si $p =\min\set*{k\in\omega: f_{k}\pa*{0} > u}$, entonces $L + p =\min\set*{t\in\omega: g_{t}\pa*{0} > u'}$ y $g_{L + p}\pa*{1} = f_{p}\pa*{1}$.
+
+	Supongamos primero que existe $k$ con $f_{k}\pa*{0} > u$ y sea $p$ el mínimo; notemos que $p\geq 1$, pues $f_{0}\pa*{0} = 1\leq u$. Por la afirmación 2 con $k = p$ se tiene que $g_{L + p}\pa*{0} = f_{p}\pa*{0} + L > u'$ y $g_{L + p}\pa*{1} = f_{p}\pa*{1}$. Además, para cada $t < L + p$ se tiene que $g_{t}\pa*{0}\leq u'$: si $t\leq L$, por la afirmación 1, $g_{t}\pa*{0} = t + 1\leq L + 1\leq u'$ pues $u\geq 1$, y si $t = L + k$ con $0 < k < p$, por la afirmación 2, $g_{t}\pa*{0} = f_{k}\pa*{0} + L\leq u'$. Por lo tanto $L + p =\min\set*{t\in\omega: g_{t}\pa*{0} > u'}$. Si no existe tal $k$, entonces $f_{k}\pa*{0}\leq u$ para cada $k\in\omega$, y por la afirmación 2 se tiene que $g_{L + k}\pa*{0} = f_{k}\pa*{0} + L\leq u'$ para cada $k\in\omega$. Junto con la afirmación 1 se sigue que $g_{t}\pa*{0}\leq u'$ para cada $t\in\omega$.
+
+	Sea $p_{k}$ el $k$-ésimo número primo, de modo que $\inner*{a_{1},\dotsc, a_{l}} =\prod_{k = 1}^{l}p_{k}^{a_{k} + 1}$. Por el teorema \ref{theo: primos_primitivos} la función $k\mapsto p_{k + 1}$ es primitivo-recursiva, y por el teorema \ref{theo: acceso_longitud_primitivas} también lo son $\LONGITUD$ y la función de acceso; de hecho, en su demostración se obtiene que $e\bra*{k} =\CARACTERISTICA{\SECUENCIAS}\pa*{e}\pa*{\MAXPOTENCIA\pa*{p_{k + 1}, e} - 1}$, que es primitivo-recursiva como función de las dos variables $\pa*{e, k}$. Definimos las funciones $\mathrm{Ag}:\omega^{2}\to\omega$, $\mathrm{Rep}:\omega^{3}\to\omega$ y $Q:\omega^{4}\to\omega$ como sigue:
+	\[
+		\begin{NiceArray}{c}
+			\mathrm{Ag}\pa*{a, c}\coloneqq a\cdot p_{\LONGITUD\pa*{a} + 1}^{c + 1}\\
+			\mathrm{Rep}\pa*{a, c, 0}\coloneqq a,\qquad\mathrm{Rep}\pa*{a, c, t + 1}\coloneqq\mathrm{Ag}\pa*{\mathrm{Rep}\pa*{a, c, t}, c}\\
+			Q\pa*{a, e, L, 0}\coloneqq a,\qquad Q\pa*{a, e, L, k + 1}\coloneqq\mathrm{Ag}\pa*{Q\pa*{a, e, L, k}, D\pa*{e\bra*{k + 1}, L}}
+		\end{NiceArray}
+	\]
+	La función $\mathrm{Ag}$ es primitivo-recursiva por composición (teorema \ref{theo: suma_producto_primitivas}); $D$ lo es por el teorema \ref{theo: definicion_por_casos}, pues la relación $c\bra*{0} = 3$ y las funciones de cada caso son primitivo-recursivas (teoremas \ref{theo: codificacion_primitiva} y \ref{theo: acceso_longitud_primitivas}); y $\mathrm{Rep}$ y $Q$ lo son por el esquema de recursión primitiva de la definición \ref{def: funciones_primitivas}, con $h\pa*{a, c, t, w} =\mathrm{Ag}\pa*{w, c}$ y $h\pa*{a, e, L, k, w} =\mathrm{Ag}\pa*{w, D\pa*{e\bra*{k + 1}, L}}$ respectivamente.
+
+	Veamos qué calculan estas funciones. Si $a =\inner*{a_{1},\dotsc, a_{l}}$ con $l\geq 1$, entonces $\LONGITUD\pa*{a} = l$ y
+	\[
+		\mathrm{Ag}\pa*{a, c} =\prod_{k = 1}^{l}p_{k}^{a_{k} + 1}\cdot p_{l + 1}^{c + 1} =\inner*{a_{1},\dotsc, a_{l}, c}
+	\]
+	es decir, $\mathrm{Ag}$ agrega a $c$ al final de la lista codificada por $a$. Por inducción sobre $t$ y sobre $k$ se sigue que $\mathrm{Rep}\pa*{a, c, t} =\inner*{a_{1},\dotsc, a_{l}, c,\dotsc, c}$ con $t$ copias de $c$, y que $Q\pa*{a, e, L, k} =\inner*{a_{1},\dotsc, a_{l}, D\pa*{e\bra*{1}, L},\dotsc, D\pa*{e\bra*{k}, L}}$.
+
+	Ahora codificamos los dos primeros bloques. Sea $c_{m, n}\coloneqq\inner*{0,\inner*{2, n, m + n},\inner*{2, n - 1, m + n - 1},\dotsc,\inner*{2, 1, m + 1}}$, que es un número natural fijo pues solo depende de $m$ y $n$, y para cada $x\in\omega^{m}$ definimos
+	\[
+		\begin{NiceArray}{c}
+			B_{0}\pa*{x}\coloneqq c_{m, n}\\
+			B_{i}\pa*{x}\coloneqq\mathrm{Rep}\pa*{\mathrm{Ag}\pa*{B_{i - 1}\pa*{x},\inner*{0, i}},\inner*{1, i}, x_{i}}\quad\text{para } 1\leq i\leq m
+		\end{NiceArray}
+	\]
+	y $B\pa*{x}\coloneqq B_{m}\pa*{x}$. Como $m$ está fijo, $B$ es una composición de un número finito de funciones primitivo-recursivas, proyecciones y constantes, y por lo tanto es primitivo-recursiva; también lo es $x\mapsto L_{x} = n + m + x_{1} +\dotsb + x_{m}$. Por inducción sobre $i$ se tiene que $B_{i}\pa*{x} =\inner*{0, d_{1},\dotsc, d_{\sigma_{i + 1}}}$, pues $B_{i}$ agrega a $B_{i - 1}$ el código $\inner*{0, i}$ seguido de $x_{i}$ copias del código $\inner*{1, i}$. En particular, $B\pa*{x} =\inner*{0, d_{1},\dotsc, d_{L_{x}}}$.
+
+	Finalmente, sea $z_{0}\coloneqq\inner*{0,\inner*{0, 1}}\in\URMOCODIGO$ y definamos $s:\omega^{m + 1}\to\omega$ para cada $e\in\omega$ y cada $x\in\omega^{m}$ como:
+	\[
+		s\pa*{e, x}\coloneqq
+		\begin{cases}
+			Q\pa*{B\pa*{x}, e, L_{x},\NUMINSTRUCCIONES\pa*{e}}, & e\in\URMOCODIGO\\
+			z_{0}, &\text{en otro caso}
+		\end{cases}
+	\]
+	Como $\URMOCODIGO$ es primitivo-recursivo (teorema \ref{theo: instrocod_urmocod_primitivos}) y $\NUMINSTRUCCIONES$ es primitivo-recursiva (teorema \ref{theo: numinstr_maxreg_urmo}), por el teorema \ref{theo: definicion_por_casos} se tiene que $s$ es primitivo-recursiva. Si $e\in\URMOCODIGO$ y $u =\NUMINSTRUCCIONES\pa*{e}$, entonces
+	\[
+		s\pa*{e, x} =\inner*{0, d_{1},\dotsc, d_{L_{x}}, D\pa*{e\bra*{1}, L_{x}},\dotsc, D\pa*{e\bra*{u}, L_{x}}} = e_{x}'
+	\]
+
+	Sean $A\subseteq\omega$, $e\in\URMOCODIGO$, $x\in\omega^{m}$ y $y\in\omega^{n}$, y sean $M$ y $N$ las máquinas URMO con códigos $e$ y $s\pa*{e, x}$ respectivamente. Por el paso 3, $s\pa*{e, x} = e_{x}'\in\URMOCODIGO$, por lo que las ejecuciones de $M$ con entrada $\pa*{x, y}$ y de $N$ con entrada $y$ son las ejecuciones $\set*{f_{t}}_{t\in\omega}$ y $\set*{g_{t}}_{t\in\omega}$ del paso 2. Por la afirmación 3 y la definición de la función generada por una máquina URMO (definición \ref{def: maquinas_urmo}) se sigue que $\varphi_{M}^{A, (m + n)}\pa*{x, y} =\varphi_{N}^{A, (n)}\pa*{y}$. Puesto que la definición de $s$ no menciona al oráculo, la misma función $s$ sirve para todo $A\subseteq\omega$.
+\end{proof}
+
+Con la notación del funcional de Turing, el caso $n = 1$ del teorema s-m-n se escribe de manera más compacta, y es la forma en que lo usaremos.
+
+\begin{coll}
+	\label{coll: smn_phi}
+	Sean $m\in\omega^{+}$ y $s:\omega^{m + 1}\to\omega$ la función del teorema \ref{theo: smn} para $m$ y $n = 1$. Entonces para cada $A\subseteq\omega$, cada $e\in\URMOCODIGO$, cada $x\in\omega^{m}$ y cada $y\in\omega$ se satisface que:
+	\[
+		\Phi_{s\pa*{e, x}}^{A}\pa*{y} =\varphi_{N}^{A, (2)}\pa*{e,\inner*{x_{1},\dotsc, x_{m}, y}}
+	\]
+	donde $N$ es la máquina universal relativizada. En particular, si $M$ es la máquina URMO con código $e$, entonces $\Phi_{s\pa*{e, x}}^{A}\pa*{y} =\varphi_{M}^{A, (m + 1)}\pa*{x, y}$.
+\end{coll}
+
+\begin{proof}
+	Sean $M$ y $M'$ las máquinas URMO con códigos $e$ y $s\pa*{e, x}$. Por el teorema \ref{theo: maquina_universal_relativizada} con $z =\inner*{y}$ se tiene que $\Phi_{s\pa*{e, x}}^{A}\pa*{y} =\varphi_{N}^{A, (2)}\pa*{s\pa*{e, x},\inner*{y}} =\varphi_{M'}^{A, (1)}\pa*{y}$. Por el teorema \ref{theo: smn} se tiene que $\varphi_{M'}^{A, (1)}\pa*{y} =\varphi_{M}^{A, (m + 1)}\pa*{x, y}$, y por el teorema \ref{theo: maquina_universal_relativizada} con $z =\inner*{x_{1},\dotsc, x_{m}, y}$ se tiene que $\varphi_{M}^{A, (m + 1)}\pa*{x, y} =\varphi_{N}^{A, (2)}\pa*{e,\inner*{x_{1},\dotsc, x_{m}, y}}$.
+\end{proof}
+\end{correccion}
+
+\begin{lemma}[Lema de transferencia]
+	\label{lemma: transferencia}
+	Sean $A, B\subseteq\omega$. Si $A\leq_{T} B$, entonces $\RECURSIVO\pa*{A}\subseteq\RECURSIVO\pa*{B}$ y para cada $X\subseteq\omega$ se satisface que si $X$ es c.e. en $A$, entonces es c.e. en $B$.
+\end{lemma}
+
+\begin{proof}
+	Como $A\leq_{T} B$, entonces $A$ es $B$-computable, y luego existe un esquema $h\in\RECURSIVO$ tal que $\CARACTERISTICA{A} = h^{B}$. Para cada $f\in\RECURSIVO$ existe otro esquema $f_{h}\in\RECURSIVO$ el cual surge de reemplazar cada aparición de $\chi$ por $h$, y notemos entonces que $f_{h}^{B} = f^{A}$. Por lo tanto, toda función $A$-recursiva es $B$-recursiva, es decir, $\RECURSIVO\pa*{A}\subseteq\RECURSIVO\pa*{B}$.
+
+	Sea ahora $X\subseteq\omega$ c.e. en $A$, entonces existe una función $A$-computable $f\in\RECURSIVO\pa*{A}$ tal que $\DOMINIO{f} = X$. Puesto que $\RECURSIVO\pa*{A}\subseteq\RECURSIVO\pa*{B}$, entonces $f\in\RECURSIVO\pa*{B}$, y luego $X$ es el dominio de una función $B$-computable. Por lo tanto, $X$ es c.e. en $B$.
+\end{proof}
+
+\begin{theorem}
+	\label{theo: completitud_salto}
+	Sea $A\subseteq\omega$, entonces todo conjunto c.e. en $A$ es Turing-reducible a $A'$.
+\end{theorem}
+
+\begin{proof}
+	Sea $X\subseteq\omega$ c.e. en $A$. Entonces existe una función $A$-computable $f:\omega\to\omega^{\DIVERGE}$ tal que $\DOMINIO{f} = X$. Definamos entonces la función $g:\omega^{2}\to\mbox{\replaced[id=Corr]{$\omega^{\DIVERGE}$}{$\omega$}}$ tal que para cada $x, y\in\omega$ se satisface que $g\pa*{x, y} = f\pa*{\PROYECCION{2}{1}\pa*{x, y}}$, es decir, $g\pa*{x, y} = f\pa*{x}$ para cada $y\in\omega$. Notemos que $g$ es $A$-computable, por lo que existe una máquina URMO $M$ tal que $\varphi_{M}^{A, (2)} = g$.
+
+	Defínase ahora $h = s\pa*{e,\cdot}$ donde $s$ es la función del teorema s-m-n y $e\in\URMOCODIGO$ el código de $M$. Puesto que $s$ es primitivo-recursiva, se tiene que $h$ es primitivo recursiva y\added[id=Corr]{, por el corolario \ref{coll: smn_phi},} satisface para cada $x, y\in\omega$ que:
+	\[
+		\Phi_{h\pa*{x}}^{A}\pa*{y} =\varphi_{M}^{A, (2)}\pa*{x, y} = f\pa*{x}
+	\]
+
+	Por lo tanto, para cada $x\in\omega$ se satisface que:
+	\[
+		x\in X\iff x\in\DOMINIO{f}\iff f\pa*{x}\ACABA\iff\Phi_{h\pa*{x}}^{A}\pa*{h\pa*{x}}\ACABA\iff h\pa*{x}\in A'
+	\]
+
+	Luego, se sigue que $\CARACTERISTICA{X} =\CARACTERISTICA{A'}\circ h$. Puesto que $h$ es primitivo-recursiva, entonces es $A'$-computable y entonces $\CARACTERISTICA{X}$ es $A'$-computable, es decir, $X\leq_{T} A'$.
+\end{proof}
+
+Un resultado que se esperaba pero que ahora podemos demostrar realmente es el hecho que para cada $A\subseteq\omega$, los conjuntos de detención $A'$ y $H_{A}$ son Turing-equivalentes.
+
+\begin{theorem}
+	\label{theo: salto_equivalente_h}
+	Para cada $A\subseteq\omega$ se satisface que $A'\equiv_{T} H_{A}$.
+\end{theorem}
+
+\begin{proof}
+	Notemos que para cada $e\in\omega$:
+	\[
+		e\in A'\iff\Phi_{e}^{A}\pa*{e}\ACABA\iff\inner*{e, e}\in H_{A}
+	\]
+	Por lo que $\CARACTERISTICA{A'}\pa*{e} =\CARACTERISTICA{H_{A}}\pa*{\inner*{e, e}}$ para cada $e\in\omega$, y luego $A'\leq_{T} H_{A}$.
+
+	Para la reducción $H_{A}\leq_{T} A'$ mostremos que $H_{A}$ es c.e. en $A$. Defínase entonces la función $h:\omega\to\omega^{\DIVERGE}$ tal que para cada $z\in\omega$:
+	\[
+		h\pa*{z} =
+		\begin{cases}
+			\varphi_{N}^{A, (2)}\pa*{z\bra*{0},\mbox{\replaced[id=Corr]{$\inner*{z\bra*{1}}$}{$z\bra*{1}$}}}, &\SECUENCIAS\pa*{z}\land\LONGITUD\pa*{z} = 2\\
+			\mu p\pa*{1 = 0}, &\text{en otro caso}
+		\end{cases}
+	\]
+	donde $N$ es la máquina universal relativizada. Notemos que $h$ es $A$-computable, y además satisface que para cada $e, x\in\omega$:
+	\[
+		h\pa*{\inner*{e, x}}\ACABA\iff\varphi_{N}^{A, (2)}\pa*{e,\mbox{\replaced[id=Corr]{$\inner*{x}$}{$x$}}}\ACABA\iff\Phi_{e}^{A}\pa*{x}\ACABA\iff\inner*{e, x}\in H_{A}
+	\]
+	Entonces se satisface que $H_{A} =\DOMINIO{h}$, y luego $H_{A}$ es c.e. en $A$. Por el teorema anterior concluimos que $H_{A}\leq_{T} A'$, y por lo tanto $A'\equiv_{T} H_{A}$.
+\end{proof}
+
+\begin{theorem}[Monotonía del salto]
+	\label{theo: monotonia_salto}
+	Para cada par de conjuntos $A, B\subseteq\omega$ se satisface que si $A\leq_{T} B$, entonces $A'\leq_{T} B'$.
+\end{theorem}
+
+\begin{proof}
+	Por el teorema de Turing relativizado sabemos que $A'$ es c.e. en $A$, y puesto que $A\leq_{T} B$, por el lema de transferencia, se satisface que $A'$ es c.e. en $B$. Por el teorema \replaced[id=Corr]{\ref{theo: completitud_salto}}{1.68}, como $A'$ es c.e. en $B$, entonces $A'\leq_{T} B'$.
+\end{proof}
+
+\begin{coll}[Teorema de invarianza]
+	\label{coll: invarianza_salto}
+	Para cada $A, B\subseteq\omega$ se satisface que si $A\equiv_{T} B$, entonces $A'\equiv_{T} B'$.
+\end{coll}
+
+\begin{proof}
+	Puesto que $A\equiv_{T} B$, entonces $A\leq_{T} B$ y $B\leq_{T} A$. Por monotonía del salto se tiene que $A'\leq_{T} B'$ y $B'\leq_{T} A'$, es decir, $A'\equiv_{T} B'$.
+\end{proof}
+
+\begin{coll}
+	\label{coll: monotonia_saltos_iterados}
+	Para cada $A, B\subseteq\omega$ y cada $n\in\omega^{+}$ se satisface que si $A\leq_{T} B$, entonces $A^{(n)}\leq_{T} B^{(n)}$.
+\end{coll}
+
+\begin{proof}
+	Por inducción sobre $n$ se satisface que el caso base es la monotonía del salto. Para el paso inductivo, si $n\in\omega^{+}$ es tal que $A^{(n)}\leq_{T} B^{(n)}$, entonces por monotonía del salto se tiene que $A^{(n + 1)} =\pa*{A^{(n)}}'\leq_{T}\pa*{B^{(n)}}' = B^{(n + 1)}$.
+\end{proof}
+
+\begin{coll}
+	\label{coll: invarianza_saltos_iterados}
+	Para cada $A, B\subseteq\omega$ y cada $n\in\omega^{+}$ se satisface que si $A\equiv_{T} B$, entonces $A^{(n)}\equiv_{T} B^{(n)}$.
+\end{coll}
+
+\begin{proof}
+	Como $A\equiv_{T} B$, entonces $A\leq_{T} B$ y $B\leq_{T} A$. Por el corolario anterior sabemos que para cada $n\in\omega^{+}$ se satisface que $A^{(n)}\leq_{T} B^{(n)}$ y $B^{(n)}\leq_{T} A^{(n)}$, es decir, $A^{(n)}\equiv_{T} B^{(n)}$.
+\end{proof}
+
+\begin{coll}
+	\label{coll: grados_saltos_iterados}
+	Para cada $A, B\subseteq\omega$ y cada $n\in\omega^{+}$ se satisface que si $A\equiv_{T} B$, entonces $\GRADO{A^{(n)}} =\GRADO{B^{(n)}}$.
+\end{coll}
+
+\begin{proof}
+	Sea $X\in\GRADO{A^{(n)}}$, entonces por definición se tiene que $X\equiv_{T} A^{(n)}$. Puesto que $A\equiv_{T} B$, por el corolario anterior sabemos que $A^{(n)}\equiv_{T} B^{(n)}$, y por la transitividad de la Turing-equivalencia se sigue que $X\equiv_{T} B^{(n)}$, es decir, $X\in\GRADO{B^{(n)}}$; luego $\GRADO{A^{(n)}}\subseteq\GRADO{B^{(n)}}$. De la misma manera se tiene que $\GRADO{B^{(n)}}\subseteq\GRADO{A^{(n)}}$ y por lo tanto $\GRADO{A^{(n)}} =\GRADO{B^{(n)}}$.
+\end{proof}
+
+\begin{coll}
+	\label{coll: jerarquia_grados}
+	Para cada $A\subseteq\omega$ y cada $n\in\omega^{+}$ se satisface que $\GRADO{\mbox{\replaced[id=Corr]{$A^{(n)}$}{$A^{n}$}}} <\GRADO{\mbox{\replaced[id=Corr]{$A^{(n + 1)}$}{$A^{n + 1}$}}}$.
+\end{coll}
+
+\begin{proof}
+	Por el corolario \ref{coll: jerarquia_saltos} sabemos que $A^{(n)} <_{T} A^{(n + 1)}$, y luego $\GRADO{A^{(n)}}\leq\GRADO{A^{(n + 1)}}$. Puesto que $A^{(n + 1)}$ no es $A^{(n)}$-computable por el teorema de Turing relativizado, se tiene que $A^{(n + 1)}\notin\GRADO{A^{(n)}}$, y por lo tanto $\GRADO{A^{(n)}} <\GRADO{\mbox{\replaced[id=Corr]{$A^{(n + 1)}$}{$A^{n + 1}$}}}$.
+\end{proof}
+\end{agregado}
+
+Esto muestra que existe una jerarquía infinita de grados de Turing, y que cada grado es estrictamente más complejo que el anterior. Por ello, podemos catalogar a los conjuntos de acuerdo a su grado de Turing, y así tener una noción más precisa de la complejidad de la información computacional que contienen.
+
+\begin{notation}
+	Por la importancia que tienen los saltos de Turing, para cada $A\subseteq\omega$ y $n\in\omega$ denotaremos por $\mathbf{A}^{(n)}$ al grado $\GRADO{A^{(n)}}$.
+
+	Particularmente, para el caso del vacío, para cada $n\in\omega$ se denota por $\mathbf{0}^{(n)}$ al grado $\GRADO{\varnothing^{(n)}}$, y se le denomina el \emph{$n$-ésimo grado de Turing}.
+\end{notation}
+\end{agregado}
+
+\begin{agregado}[sección]
+\section{Computabilidad finita}
+\end{agregado}

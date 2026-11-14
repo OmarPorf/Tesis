@@ -54,13 +54,47 @@
 % Paquete para gestión de cambios
 % La opción 'draft' muestra los cambios.
 % La opción 'final' acepta todos los cambios y oculta las marcas (limpia el PDF).
-\usepackage[draft, commentsnumbered, trackchanges]{changes}
+\usepackage[final, commentsnumbered, trackchanges]{changes}
 
 % Personalización de alias para que coincidan con los botones de TeXStudio
 \newcommand{\add}[1]{\added{#1}}
 \newcommand{\remove}[1]{\deleted{#1}}
 \newcommand{\replace}[2]{\replaced{#1}{#2}} % Ojo: \replaced{nuevo}{viejo}
 \newcommand{\alert}[1]{\textbf{\textcolor{red}{#1}}} % Definición manual simple
+
+% [Claude, 2026-10-30] Entorno para marcar los bloques que se pasaron del borrador
+% en Typst al LaTeX. Con la opción 'draft' de changes el bloque sale en azul y
+% enmarcado por avisos de inicio y fin; con 'final' sale como texto normal.
+% (Los cambios dentro de un párrafo usan \add y \replace de arriba.)
+\makeatletter
+\newenvironment{agregado}[1][]{%
+	\par\ifbool{Changes@optiondraft}{%
+		\noindent{\color{blue}\small\textsf{[Inicio de lo agregado desde el borrador en Typst\ifstrempty{#1}{}{: #1}]}}\par
+		\color{blue}\mdfsetup{fontcolor=blue}%
+	}{}%
+}{%
+	\par\ifbool{Changes@optiondraft}{%
+		\noindent{\color{blue}\small\textsf{[Fin de lo agregado]}}\par
+	}{}%
+}
+\makeatother
+
+% [Claude, 2026-11-04] Autor de changes para las correcciones hechas sobre lo
+% agregado: dentro de los bloques azules, una corrección en azul no se notaría.
+% Uso: \added[id=Corr]{...}, \replaced[id=Corr]{nuevo}{viejo} y el entorno correccion.
+\definechangesauthor[name={Correcciones}, color=orange]{Corr}
+\makeatletter
+\newenvironment{correccion}[1][]{%
+	\par\ifbool{Changes@optiondraft}{%
+		\noindent{\color{orange}\small\textsf{[Inicio de la corrección\ifstrempty{#1}{}{: #1}]}}\par
+		\color{orange}\mdfsetup{fontcolor=orange}%
+	}{}%
+}{%
+	\par\ifbool{Changes@optiondraft}{%
+		\noindent{\color{orange}\small\textsf{[Fin de la corrección]}}\par
+	}{}%
+}
+\makeatother
 
 %=====================================
 %

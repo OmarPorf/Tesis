@@ -306,15 +306,56 @@ De ahora en adelante, todos los siguientes teoremas serán demostrados dentro de
 		Se sigue por $\INDUCCION{\Sigma_{1}^{0}}$ que para cada $n, m, p$ se satisface que $n + p = m + p$ implica $n = m$.
 
 		\item $\pa*{p\neq 0\land n < m}\to np < mp$
+		
+		Mostremos por inducción sobre $p$. Para el caso base $p = 0$ se satisface directamente por vacuidad.
+
+		Sea ahora $p$ tal que $p\neq 0$ y $n < m$ implica $np < mp$. Mostremos que se satisface para $p + 1$. Tenemos dos casos: $p = 0$ o $p\neq 0$. Si $p = 0$, entonces se satisface por el noveno y décimo punto que:
+		\[
+			n\pa*{p + 1} = n\cdot 1 = n < m = m\cdot 1 = m\pa*{p + 1}
+		\]
+		Si en cambio $p\neq 0$, entonces por hipótesis de inducción sabemos que $np < mp$. Luego se tiene lo siguiente por el axioma \ref{def_axiomas: producto_es_distributivo} y el undécimo punto:
+		\[
+			n\pa*{p + 1} = np + n < mp + n < mp + m = m\pa*{p +1}
+		\]
+
+		Se sigue por $\INDUCCION{\SIGMA{1}}$ que para cada $n, m, p$ se satisface que $n\neq 0$ y $n < m$ implica $np < mp$.
+
 		\item $\pa*{p\neq 0\land np < mp}\to n < m$
+		
+		Por tricotomía del cuadragésimo punto sabemos que $n < m$, $n = m$ o $m < n$. Probemos que no se satisface $n = m$ ni $m < n$ por contradiccion.
+
+
+		Supongamos primero que $p\neq 0$ y $np < mp$, pero $n = m$. Luego, se satisface que $mp = np$, y entonces $np < mp = np$, lo cual no es posible por el quintigésimo punto. Por lo tanto, $n\neq m$.
+
+		Si ahora suponemos que $p\neq 0$ y $np < mp$ pero $m < n$, se sigue por el punto anterior que $mp < np$ y entonces $np < mp < np$, lo cual por el undécimo punto se sigue que $np < np$; de nuevo llegamos a una contradicción. Por lo tanto, $\neg\pa*{m < n}$.
+
+		Se cumple entonces que necesariamente $n < m$.
+
 		\item $\pa*{p\neq 0\land np = mp}\to n = m$
+		
+		Por tricotomía del quitigésimo punto se satisface que $n < m$, $n = m$ o $m < n$. Mostremos que ni $n < m$ ni $m < n$ se satisfacen por contradicción.
+
+		Supongamos primero que $p\neq 0$, $np = mp$ pero $n < m$. Por el punto anterior se satisface que $np < mp$, pero como $mp = np$, entonces se sigue que $np < np$, lo cual es una contradiccion. Por lo tanto, $\neg\pa*{n < m}$. Análogamente si suponemos $m < n$, se tiene igualmente que $np < np$, por lo que $\neg\pa*{m < n}$.
+		
+		Por lo tanto, necesariamente se satisface que $n = m$.
+
 		\item $n < m\to\pa*{\exists p < m}\pa*{n + p + 1 = m}$
+		
+		Mostremos por inducción sobre $m$. Para el caso base $m = 0$ se satisface directamente por vacuidad debido al axioma \ref{def_axiomas: no_hay_negativos}.
+
+		Sea ahora $m$ tal que $n < m$ implica que existe $p < m$ tal que $n + p + 1 = m$, y mostremos que se satisface para $m + 1$. Si $n < m + 1$, entonces por el axioma \ref{def_axiomas: el_menor_o_igual} se satisface que $n < m$ o $n = m$.
+
+		Supongamos primero que $n = m$, entonces tomando como testigo $p = 0$ se cumple que $p = 0 < m + 1$ (por el trigésimo punto) y $n + p + 1 = n + 0 + 1 = n + 1 = m + 1$.
+
+		Ahora, si se cumple que $n < m$, entonces por hipótesis de inducción se satisface que existe $p < m$ tal que $n + p + 1 = m$. Notemos por el sextagésimo punto que $p + 1 < m + 1$ y además $n +\pa*{p + 1} + 1 = m + 1$. Por lo tanto, el testigo que satisface la proposición es $p + 1$.
+
+		En cualquier caso se satisface que si $n < m + 1$, entonces existe $p < m + 1$ tal que $n + p + 1 = m + 1$. Se sigue por $\INDUCCION{\SIGMA{1}}$ que para cada $n, m,p$ se satisface que $n < m$ implica que existe $p < m$ tal que $n + p + 1 = m$.
+
 		\item $n\neq 0\to\pa*{\exists m < n}\pa*{m + 1 = n}$
+		
+		Puesto que $n\neq 0$, entonces por el trigésimo punto sabemos que $0 < n$. Luego, por el punto anterior existe $m < n$ tal que $m + 0 + 1 = n$, o equivalentemente, $m + 1 = n$.
 	\end{enumerate}
 \end{proof}
-
-\comment{Demostraciones}{Demostrar las propiedades del teorema anterior.}
-
 
 \begin{definition}[Mínimo]
 	Sea $X$ un conjunto. Se dice que $X$ tiene un \emph{elemento mínimo} si se satisface la siguiente fórmula:
